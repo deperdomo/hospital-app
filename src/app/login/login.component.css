@@ -50,7 +50,7 @@ body {
 }
 .doctores{
   position: absolute;
-  bottom: 0;
+  bottom: -5px;
   left: 0;
 }
 .doctores img {
@@ -61,6 +61,7 @@ body {
 /* Right Section */
 .right-section {
   width: 50%;
+  max-width: 710px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,29 +70,39 @@ body {
 }
 .login-form {
   width: 100%;
-  max-width: 400px;
+  max-width: 75%;
 }
 
-.login-form h1 {
-  font-size: 3.5rem;
+.right-header {
+  text-align: center;
   margin-bottom: 70px;
-  color: #333333;
+}
+
+.right-header h1 {
+  font-weight: bold;
+  font-size: 3.5rem;
+  color: #000000;
+}
+
+.right-header p {
+  font-size: 1rem;
+  color: #878787;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
-  color: #555555;
+  margin-bottom: 10px;
+  color: #000000;
 }
 
 .form-group input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #cccccc;
+  padding: 12px;
+  border: 1.2px solid #cccccc;
   border-radius: 5px;
   font-size: 1rem;
 }
@@ -100,7 +111,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .form-options label {
@@ -135,12 +146,16 @@ body {
   color: #777777;
 }
 
+.social-btn-group {
+  display: flex;
+  justify-content: space-between;
+}
 .social-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  padding: 10px;
+  width: 32%;
+  padding: 8px;
   border: 1px solid #cccccc;
   border-radius: 5px;
   background-color: #ffffff;
@@ -153,7 +168,6 @@ body {
 .social-btn img {
   width: 20px;
   height: 20px;
-  margin-right: 10px;
 }
 
 .social-btn:hover {

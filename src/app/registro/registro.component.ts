@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-registro',
   imports: [],
   templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css'
+  styleUrls: ['../login/login.component.css', './registro.component.css']
 })
 export class RegistroComponent {
 
