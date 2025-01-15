@@ -116,6 +116,16 @@ body {
   border-radius: 5px;
   font-size: 1rem;
 }
+.form-group input:hover {
+  box-shadow: 0px 2px 5px rgba(0, 123, 255, 0.3);
+  transition: 0.2s;
+}
+.form-group input:focus {
+  transition: none;
+  border: 1.6px solid #007bff;
+  outline: none;
+}
+
 
 .form-options {
   display: flex;
