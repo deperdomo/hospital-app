@@ -60,6 +60,7 @@ body {
   position: absolute;
   bottom: -5px;
   left: 0;
+  /* overflow: hidden;  */
 }
 
 .doctores img {
@@ -206,6 +207,25 @@ body {
   
   .doctores {
     width: 100%;
+    max-height: 680px;
+  }
+
+  .doctores img {
+    width: 105%;
+    /* clip-path: inset(0 0 163px 0); */
+    clip-path: inset(0 0 20% 0);
+  }
+}
+
+/* Pantallas menores a 1440px */
+@media (max-width: 1440px) {
+  .left-section, .right-section {
+    max-width: 50%; 
+  }
+  
+  .doctores {
+    width: 100%;
+    max-height: 550px;
   }
   .doctores img {
     width: 115%;
