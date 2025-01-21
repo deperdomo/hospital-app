@@ -1,0 +1,117 @@
+.card {
+  background: white;
+  border-radius: 10px;
+  border: solid 1.5px #e1e1e1;
+  width: 400px;
+  padding:22px;
+  box-sizing: border-box;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.card-header img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 23px;
+}
+
+.card-header .info {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header .info h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.card-header .info p {
+  margin: 10px 0;
+  font-size: 15px;
+  color: #666;
+}
+
+.specialization {
+  display: inline-block;
+  width: fit-content;
+  background-color: #ebfffa;
+  color: #209abf;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.details {
+  display: flex;
+  align-items: center;
+  border-top: 1.5px solid #e1e1e1;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
+.details svg {
+  color:#333;
+}
+
+.price, .time {
+  display: flex;
+}
+
+.time-left {
+  margin-right: 5px;
+}
+
+.price-left {
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+.details .time{
+  width: 50%;
+  border-right: solid 1.5px #e1e1e1;
+}
+
+.details .time,
+.details .price {
+  font-size: 14px;
+  color: #7A7D84;
+}
+
+.details .time span,
+.details .price span {
+  display: block;
+  color: #333;
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 7px;
+}
+
+.book-button {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.book-button button {
+  width: 100%;
+  background-color: #3b9ab8;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 300;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.book-button button:hover {
+  background-color: #26738b;
+}

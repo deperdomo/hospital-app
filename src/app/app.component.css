@@ -2,4 +2,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+.cont-info-doctors {
+    display: flex;
+    justify-content: space-between;
 }
