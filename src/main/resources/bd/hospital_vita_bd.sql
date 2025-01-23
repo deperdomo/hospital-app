@@ -16,8 +16,8 @@ CREATE TABLE usuarios (
 CREATE TABLE disponibilidad (
     id INT PRIMARY KEY,
     id_doctor INT,
-    hora_inicio DATE,
-    hora_fin DATE,
+    hora_inicio TIME,
+    hora_fin TIME,
     estado VARCHAR(50),  -- "disponible", "no disponible", "vacaciones"
     comentarios VARCHAR(100),
     FOREIGN KEY (id_doctor) REFERENCES usuarios(id)
@@ -35,7 +35,7 @@ CREATE TABLE historial_medico (
     id_usuario INT,
     diagnostico TEXT,
     tratamiento TEXT,
-    fecha DATETIME,
+    fecha DATE,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
