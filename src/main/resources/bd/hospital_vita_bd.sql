@@ -43,7 +43,7 @@ CREATE TABLE facturas (
     id INT PRIMARY KEY,
     id_usuario INT,
     monto DECIMAL(10,2),
-    fecha DATETIME,
+    fecha DATE,
     estado_pago VARCHAR(50),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
