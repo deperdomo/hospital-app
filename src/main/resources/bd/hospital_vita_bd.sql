@@ -8,6 +8,7 @@ CREATE TABLE usuarios (
     apellidos VARCHAR(100),
     email VARCHAR(100),
     direccion VARCHAR(250),
+    fecha_alta Date,
     password VARCHAR(100),
     rol VARCHAR(50) -- (admin, medico, enfermera, pacientes etc.)
 );
