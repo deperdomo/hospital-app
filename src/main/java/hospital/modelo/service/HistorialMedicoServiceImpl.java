@@ -3,11 +3,13 @@ package hospital.modelo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import hospital.entidades.HistorialMedico;
 import hospital.modelo.repository.HistorialMedicoRepository;
 
-public class HistorialMedicoImpl implements HistorialMedicoService {
+@Service
+public class HistorialMedicoServiceImpl implements HistorialMedicoService {
 
 	@Autowired
 	HistorialMedicoRepository hrepo;

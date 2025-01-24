@@ -3,10 +3,12 @@ package hospital.modelo.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import hospital.entidades.Disponibilidad;
 import hospital.modelo.repository.DisponibilidadRepository;
 
+@Service
 public class DisponibilidadServiceImpl implements DisponibilidadService{
 
 	@Autowired
