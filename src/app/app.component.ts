@@ -4,10 +4,11 @@ import { RegistroComponent } from "./registro/registro.component";
 import { BanerComponent } from "./baner/baner.component";
 import { InfoDoctorComponent } from "./info-doctor/info-doctor.component";
 import { NavBeforeLoginComponent } from "./nav-before-login/nav-before-login.component";
+import { NearbyDoctorsComponent } from "./nearby-doctors/nearby-doctors.component";
 
 @Component({
   selector: 'app-root',
-  imports: [LoginComponent, RegistroComponent, BanerComponent, InfoDoctorComponent, NavBeforeLoginComponent],
+  imports: [LoginComponent, RegistroComponent, BanerComponent, InfoDoctorComponent, NavBeforeLoginComponent, NearbyDoctorsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
