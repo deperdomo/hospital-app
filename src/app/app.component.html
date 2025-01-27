@@ -12,11 +12,14 @@
 
 </div>
 
-<div class="cont-info-doctors">
 
-  <app-nearby-doctors />
-  <app-nearby-doctors />
-  <app-nearby-doctors />
-</div>
+@if (isNerbyDoctorsAvailable) {
+  <div class="cont-info-doctors">
 
-<app-nearby-doctors-disabled />
+    <app-nearby-doctors />
+    <app-nearby-doctors />
+    <app-nearby-doctors />
+  </div>
+} @else {
+  <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" />
+}

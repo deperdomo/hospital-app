@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-nearby-doctors-disabled',
@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './nearby-doctors-disabled.component.css'
 })
 export class NearbyDoctorsDisabledComponent {
+  @Output() habilitarNerbyDoctors = new EventEmitter<void>();
 
+  cambiarEstado() {
+    this.habilitarNerbyDoctors.emit(); // Emitimos al padre
+  }
 }

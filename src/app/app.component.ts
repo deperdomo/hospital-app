@@ -15,4 +15,10 @@ import { NearbyDoctorsDisabledComponent } from "./nearby-doctors-disabled/nearby
 })
 export class AppComponent {
   title = 'hospital-vita';
+
+  isNerbyDoctorsAvailable = false;
+
+  cambiarEstado() {
+    this.isNerbyDoctorsAvailable = true; // Cambiamos la variable a true
+  }
 }
