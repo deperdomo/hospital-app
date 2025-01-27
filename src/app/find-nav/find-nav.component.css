@@ -1,0 +1,82 @@
+/* Estilos para la barra de navegación .find-nav */
+.find-nav {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 60%; /* Ancho general de la barra */
+}
+
+/* Estilos para cada contenedor individual dentro de .find-nav */
+.find-nav div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1; /* Igual distribución de espacio */
+}
+
+.find-nav svg {
+    width: 20px;
+    height: 20px;
+    fill: #5a6f83;
+    transition: fill 0.2s ease;
+}
+
+.find-nav div:hover svg {
+    fill: #1b2838;
+}
+
+/* Estilos para los inputs */
+.find-nav input {
+    flex: 1;
+    padding: 8px 5px;
+    border: none;
+    font-size: 16px;
+    color: #333;
+    background-color: #ffffff00;
+    width: 90px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilos específicos para el botón de búsqueda */
+.find-nav .search-button {
+    background-color: #3B9AB8;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 40px;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+/* Estilos para la barra separadora */
+.find-nav .separator {
+    height: 35px;
+    width: 1px;
+    max-width: 1px;
+    background-color: #d0d0d0;
+    margin: 0 10px; 
+}
+.find-nav .search-button:hover {
+    background-color: #096c8a;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .find-nav {
+        display: none;
+    }
+
+}   
