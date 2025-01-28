@@ -3,6 +3,7 @@ body {
   justify-content: center;
   height: 100vh;
   overflow: hidden;
+  max-height: 100vh;
 }
 
 .container {
@@ -206,7 +207,7 @@ body {
   .doctores img {
     width: 105%;
     /* clip-path: inset(0 0 163px 0); */
-    clip-path: inset(0 0 20% 0);
+    /* clip-path: inset(0 0 20% 0); */
   }
 }
 
