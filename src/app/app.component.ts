@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { LoginComponent } from "./login/login.component";
 import { RegistroComponent } from "./registro/registro.component";
 import { BanerComponent } from "./baner/baner.component";
@@ -9,7 +11,7 @@ import { NearbyDoctorsDisabledComponent } from "./nearby-doctors-disabled/nearby
 
 @Component({
   selector: 'app-root',
-  imports: [LoginComponent, RegistroComponent, BanerComponent, InfoDoctorComponent, NavBeforeLoginComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent],
+  imports: [LoginComponent, RegistroComponent, BanerComponent, InfoDoctorComponent, NavBeforeLoginComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

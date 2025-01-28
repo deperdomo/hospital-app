@@ -1,25 +1,33 @@
 <!-- <app-login />
 <app-registro /> -->
+<router-outlet>
+
+</router-outlet>
 <app-nav-before-login />
-<app-baner />
-<br>
-<br>
-<br>
-<div class="cont-info-doctors">
-  <app-info-doctor />
-  <app-info-doctor />
-  <app-info-doctor />
+
+<div class="contenido">
+  <app-baner />
+  <br>
+  <br>
+  <br>
+  <div class="cont-info-doctors">
+    <app-info-doctor />
+    <app-info-doctor />
+    <app-info-doctor />
+
+  </div>
+  <br>
+  <br>
+  <br>
+
+  @if (isNerbyDoctorsAvailable) {
+    <div class="cont-info-doctors">
+      <app-nearby-doctors />
+      <app-nearby-doctors />
+      <app-nearby-doctors />
+    </div>
+  } @else {
+    <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" />
+  }
 
 </div>
-
-
-@if (isNerbyDoctorsAvailable) {
-  <div class="cont-info-doctors">
-
-    <app-nearby-doctors />
-    <app-nearby-doctors />
-    <app-nearby-doctors />
-  </div>
-} @else {
-  <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" />
-}
