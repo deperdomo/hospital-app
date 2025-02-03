@@ -2,7 +2,8 @@
   background: #fff;
   border: 1.5px solid #e1e1e1;
   border-radius: 12px;
-  width: 270px;
+  width: 100%;
+  max-width: 450px;
   height: 160px;
 }
 .cont-img{
