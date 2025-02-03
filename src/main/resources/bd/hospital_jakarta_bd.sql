@@ -1,5 +1,5 @@
-create database hospital_vita;
-use hospital_vita;
+create database hospital_jakarta;
+use hospital_jakarta;
 
 
 CREATE TABLE usuarios (
@@ -37,6 +37,20 @@ CREATE TABLE historial_medico (
     tratamiento TEXT,
     fecha DATE,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+);
+
+CREATE TABLE recetas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_paciente INT,
+    id_historial_medico INT,
+    nombre_medicamento VARCHAR(100),
+    dosis VARCHAR(50),
+    frecuencia VARCHAR(100),
+    fecha_inicio DATE,
+    fecha_fin DATE,
+    instrucciones TEXT,
+    FOREIGN KEY (id_paciente) REFERENCES usuarios(id),
+    FOREIGN KEY (id_historial_medico) REFERENCES historial_medico(id)
 );
 
 CREATE TABLE facturas (
