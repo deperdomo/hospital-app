@@ -3,8 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { BanerComponent } from "./baner/baner.component";
 import { InfoDoctorComponent } from "./info-doctor/info-doctor.component";
 import { NavBeforeLoginComponent } from "./nav-before-login/nav-before-login.component";
-import { NearbyDoctorsComponent } from "./nearby-doctors/nearby-doctors.component";
-import { NearbyDoctorsDisabledComponent } from "./nearby-doctors-disabled/nearby-doctors-disabled.component";
+import { NearbyDoctorsComponent } from "./nearby-doctors/nearby-doctors/nearby-doctors.component";
+import { NearbyDoctorsDisabledComponent } from "./nearby-doctors/nearby-doctors-disabled/nearby-doctors-disabled.component";
 
 @Component({
   selector: 'app-root',
