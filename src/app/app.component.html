@@ -7,19 +7,21 @@
 
 <div class="contenido">
   <app-baner />
+
   <br>
-  <br>
-  <br>
+  
+  <h3 class="titulos">Doctores Recomendados</h3>
   <div class="cont-info-doctors">
+    
     <app-info-doctor />
     <app-info-doctor />
     <app-info-doctor />
 
   </div>
-  <br>
-  <br>
+  
   <br>
 
+  <h3 class="titulos">Doctores Cercanos a ti</h3>
   @if (isNerbyDoctorsAvailable) {
     <div class="cont-info-doctors">
       <app-nearby-doctors />

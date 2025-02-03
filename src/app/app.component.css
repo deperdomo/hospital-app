@@ -4,6 +4,10 @@
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
+.titulos {
+    font-size: 27px;
+    margin: 25px 0;
+}
 .contenido {
     padding:0 10% ;
 }
