@@ -1,30 +1,25 @@
 @if (!esPaginaDeAutenticacion()) {
   <app-nav-before-login></app-nav-before-login>
-  <div class="contenido">
+  <div class="contenido px-[10%]">
     <app-baner></app-baner>
     <br>
-    <h3 class="titulos">Doctores Recomendados</h3>
-    <div class="cont-info-doctors">
-      <app-info-doctor></app-info-doctor>
-      <app-info-doctor></app-info-doctor>
-      <app-info-doctor></app-info-doctor>
+    <h3 class="titulos text-2xl font-semibold my-6">Doctores Recomendados</h3>
+    <div class="cont-info-doctors flex flex-wrap justify-between">
+      <app-info-doctor class="w-[32%]"></app-info-doctor>
+      <app-info-doctor class="w-[32%]"></app-info-doctor>
+      <app-info-doctor class="w-[32%]"></app-info-doctor>
     </div>
     <br>
-    <h3 class="titulos">Doctores Cercanos a ti</h3>
+    <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
     @if (isNerbyDoctorsAvailable) {
-      <div class="cont-info-doctors">
-        <app-nearby-doctors></app-nearby-doctors>
-        <app-nearby-doctors></app-nearby-doctors>
-        <app-nearby-doctors></app-nearby-doctors>
+      <div class="cont-info-doctors flex flex-wrap justify-between">
+        <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
+        <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
+        <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
       </div>
     } @else {
       <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()"></app-nearby-doctors-disabled>
     }
   </div>
-
 }
 <router-outlet></router-outlet>
-
-
-
-

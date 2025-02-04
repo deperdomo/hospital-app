@@ -1,4 +1,4 @@
-.card {
+/* .card {
   background: white;
   border-radius: 10px;
   border: solid 1.5px #e1e1e1;
@@ -37,7 +37,7 @@
   font-size: 15px;
   color: #666;
 }
-
+*/
 .specialization {
   display: inline-block;
   width: fit-content;
@@ -48,7 +48,7 @@
   font-size: 13px;
   margin-top: 5px;
 }
-
+/*
 .details {
   display: flex;
   align-items: center;
@@ -114,4 +114,4 @@
 
 .book-button button:hover {
   background-color: #26738b;
-}
+} */

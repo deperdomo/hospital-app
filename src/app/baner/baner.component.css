@@ -1,19 +1,19 @@
-.cont-baner {
-    position: relative;
+ .cont-baner {
+    /* position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 370px;
-    margin: 30px 0;
+    margin: 30px 0; */
     background-image: url(../../../public/img/Background_baner.png);
     background-repeat: no-repeat;
     background-size: cover;
-    border-radius: 25px;
+    /* border-radius: 25px;
     gap: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
 }
 
-
+/*
 .rigth {
     flex: 1;
     color: #ffffff;
@@ -102,4 +102,4 @@
     max-width: 100%;
     height: auto;
     border-radius: 10px;
-}
+} */
