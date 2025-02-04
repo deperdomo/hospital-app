@@ -1,18 +1,18 @@
 /* Estilos para la barra de navegación .find-nav */
 .find-nav {
-    position: absolute;
+    /* position: absolute;
     bottom: -30px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%);*/
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 5px;
     background: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 10px;
     padding: 10px 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 60%; /* Ancho general de la barra */
+    min-width: 500px;
 }
 
 /* Estilos para cada contenedor individual dentro de .find-nav */
@@ -65,7 +65,7 @@
     width: 1px;
     max-width: 1px;
     background-color: #d0d0d0;
-    margin: 0 10px; 
+    margin: 0 10px;
 }
 .find-nav .search-button:hover {
     background-color: #096c8a;
@@ -79,4 +79,4 @@
         display: none;
     }
 
-}   
+}
