@@ -1,5 +1,6 @@
 @if (!esPaginaDeAutenticacion()) {
   <app-nav-before-login></app-nav-before-login>
+  <app-secundary-nav></app-secundary-nav>
   <div class="contenido px-[10%]">
     <app-baner></app-baner>
     <br>
@@ -10,7 +11,7 @@
       <app-info-doctor class="w-[32%]"></app-info-doctor>
     </div>
     <br>
-    
+
     <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
     @if (isNerbyDoctorsAvailable) {
       <div class="cont-info-doctors flex flex-wrap justify-between">
@@ -21,9 +22,9 @@
     } @else {
       <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()"></app-nearby-doctors-disabled>
     }
-   
+
   </div>
    <app-footer></app-footer>
- 
+
 }
 <router-outlet></router-outlet>

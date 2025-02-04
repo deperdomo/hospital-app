@@ -7,11 +7,12 @@ import { NavBeforeLoginComponent } from "./navs/nav-before-login/nav-before-logi
 import { NearbyDoctorsComponent } from "./nearby-doctors/nearby-doctors/nearby-doctors.component";
 import { NearbyDoctorsDisabledComponent } from "./nearby-doctors/nearby-doctors-disabled/nearby-doctors-disabled.component";
 import { FooterConmponent } from "./footer/footer.component";
+import { SecundaryNavComponent } from "./navs/secundary-nav/secundary-nav.component";
 
 
 @Component({
   selector: 'app-root',
-  imports: [BanerComponent, InfoDoctorComponent, NavBeforeLoginComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, RouterOutlet, FooterConmponent],
+  imports: [BanerComponent, InfoDoctorComponent, NavBeforeLoginComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, RouterOutlet, FooterConmponent, SecundaryNavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
