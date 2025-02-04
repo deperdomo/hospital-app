@@ -10,6 +10,7 @@
       <app-info-doctor class="w-[32%]"></app-info-doctor>
     </div>
     <br>
+    
     <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
     @if (isNerbyDoctorsAvailable) {
       <div class="cont-info-doctors flex flex-wrap justify-between">
@@ -20,6 +21,9 @@
     } @else {
       <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()"></app-nearby-doctors-disabled>
     }
+   
   </div>
+   <app-footer></app-footer>
+ 
 }
 <router-outlet></router-outlet>

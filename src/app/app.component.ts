@@ -6,11 +6,12 @@ import { InfoDoctorComponent } from "./info-doctor/info-doctor.component";
 import { NavBeforeLoginComponent } from "./navs/nav-before-login/nav-before-login.component";
 import { NearbyDoctorsComponent } from "./nearby-doctors/nearby-doctors/nearby-doctors.component";
 import { NearbyDoctorsDisabledComponent } from "./nearby-doctors/nearby-doctors-disabled/nearby-doctors-disabled.component";
+import { FooterConmponent } from "./footer/footer.component";
 
 
 @Component({
   selector: 'app-root',
-  imports: [BanerComponent, InfoDoctorComponent, NavBeforeLoginComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, RouterOutlet],
+  imports: [BanerComponent, InfoDoctorComponent, NavBeforeLoginComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, RouterOutlet, FooterConmponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
