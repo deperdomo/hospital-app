@@ -1,1 +1,68 @@
-<p>left-nav works!</p>
+<aside class="fixed top-0 left-0 w-64 h-full bg-white dark:bg-gray-900 border-r border-gray-300 dark:border-gray-700 shadow-lg">
+    <div class="flex ml-4">
+        <svg class="logo" width="21" height="37" viewBox="0 0 23 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.65141 5.5695C6.65141 4.30473 7.15384 3.09175 8.04817 2.19742C8.9425 1.30309 10.1555 0.800659 11.4203 0.800659C12.685 0.800659 13.898 1.30309 14.7923 2.19742C15.6867 3.09175 16.1891 4.30473 16.1891 5.5695C16.1891 6.83428 15.6867 8.04726 14.7923 8.94159C13.898 9.83592 12.685 10.3384 11.4203 10.3384C10.1555 10.3384 8.9425 9.83592 8.04817 8.94159C7.15384 8.04726 6.65141 6.83428 6.65141 5.5695ZM2.03912 13.3809C3.00988 12.4594 4.29733 11.9456 5.63584 11.9456C6.97435 11.9456 8.2618 12.4594 9.23256 13.3809L9.25316 13.4015L11.4203 15.5686L13.5894 13.4015L13.61 13.3809C14.5806 12.4606 15.8671 11.9476 17.2047 11.9476C18.5422 11.9476 19.8288 12.4606 20.7993 13.3809C21.2814 13.8381 21.6654 14.3886 21.9281 14.9989C22.1907 15.6092 22.3264 16.2666 22.327 16.931C22.3276 17.5954 22.193 18.253 21.9314 18.8638C21.6699 19.4745 21.2868 20.0257 20.8055 20.4837L12.1371 28.909C11.9449 29.0959 11.6873 29.2004 11.4192 29.2004C11.1511 29.2004 10.8936 29.0959 10.7013 28.909L2.035 20.4837C1.5539 20.0259 1.17094 19.4749 0.909391 18.8644C0.647841 18.2539 0.513165 17.5966 0.513551 16.9325C0.513936 16.2683 0.649374 15.6112 0.911633 15.001C1.17389 14.3908 1.55749 13.8383 2.03912 13.3809Z" fill="#3B9AB8"/>
+        </svg>
+        <h1 class="text-[#3B9AB8] ml-2 mt-1 font-semibold text-2xl">Jakarta</h1>
+    </div>
+
+    <div class="flex flex-col justify-between flex-1 mt-6">
+        <nav>
+            <a class="flex items-center px-4 py-2 mt-5 text-[#7E7E7E] transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-[#3B9AB8] dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-[#FFFFFF]" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#7E7E7E" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.625 2.75a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75M6.625 13.5a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75"/></svg>
+
+                <span class="mx-4 font-medium">Panel de control</span>
+            </a>
+            
+            <!-- El horario solo lo ven los doctores, probablemnte usar if -->
+            <a class="flex items-center px-4 py-2 mt-5 text-[#7E7E7E] transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-[#3B9AB8] dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-[#FFFFFF]" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#7E7E7E" d="M19 4h-2V3a1 1 0 0 0-2 0v1H9V3a1 1 0 0 0-2 0v1H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3m1 15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7h16Zm0-9H4V7a1 1 0 0 1 1-1h2v1a1 1 0 0 0 2 0V6h6v1a1 1 0 0 0 2 0V6h2a1 1 0 0 1 1 1Z"/></svg>
+
+                <span class="mx-4 font-medium">Horario</span>
+            </a>
+
+            <a class="flex items-center px-4 py-2 mt-5 text-[#7E7E7E] transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-[#3B9AB8] dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-[#FFFFFF]" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="#7E7E7E" fill-rule="evenodd" clip-rule="evenodd"><path d="M16 9a4 4 0 1 1-8 0a4 4 0 0 1 8 0m-2 0a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11s11-4.925 11-11S18.075 1 12 1M3 12c0 2.09.713 4.014 1.908 5.542A8.99 8.99 0 0 1 12.065 14a8.98 8.98 0 0 1 7.092 3.458A9 9 0 1 0 3 12m9 9a8.96 8.96 0 0 1-5.672-2.012A6.99 6.99 0 0 1 12.065 16a6.99 6.99 0 0 1 5.689 2.92A8.96 8.96 0 0 1 12 21"/></g></svg>
+
+                <span class="mx-4 font-medium">Perfil</span>
+            </a>
+
+
+            <a class="flex items-center px-4 py-2 mt-5 text-[#7E7E7E] transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-[#3B9AB8] dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-[#FFFFFF]" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#7E7E7E" d="M11.95 18q.525 0 .888-.363t.362-.887t-.362-.888t-.888-.362t-.887.363t-.363.887t.363.888t.887.362m-.9-3.85h1.85q0-.825.188-1.3t1.062-1.3q.65-.65 1.025-1.238T15.55 8.9q0-1.4-1.025-2.15T12.1 6q-1.425 0-2.312.75T8.55 8.55l1.65.65q.125-.45.563-.975T12.1 7.7q.8 0 1.2.438t.4.962q0 .5-.3.938t-.75.812q-1.1.975-1.35 1.475t-.25 1.825M12 22q-2.075 0-3.9-.787t-3.175-2.138T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"/></svg>
+
+                <span class="mx-4 font-medium">Ayuda</span>
+            </a>
+
+            <a class="flex items-center px-4 py-2 mt-5 text-[#7E7E7E] transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-[#3B9AB8] dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-[#FFFFFF]" href="#">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.3246 4.31731C10.751 2.5609 13.249 2.5609 13.6754 4.31731C13.9508 5.45193 15.2507 5.99038 16.2478 5.38285C17.7913 4.44239 19.5576 6.2087 18.6172 7.75218C18.0096 8.74925 18.5481 10.0492 19.6827 10.3246C21.4391 10.751 21.4391 13.249 19.6827 13.6754C18.5481 13.9508 18.0096 15.2507 18.6172 16.2478C19.5576 17.7913 17.7913 19.5576 16.2478 18.6172C15.2507 18.0096 13.9508 18.5481 13.6754 19.6827C13.249 21.4391 10.751 21.4391 10.3246 19.6827C10.0492 18.5481 8.74926 18.0096 7.75219 18.6172C6.2087 19.5576 4.44239 17.7913 5.38285 16.2478C5.99038 15.2507 5.45193 13.9508 4.31731 13.6754C2.5609 13.249 2.5609 10.751 4.31731 10.3246C5.45193 10.0492 5.99037 8.74926 5.38285 7.75218C4.44239 6.2087 6.2087 4.44239 7.75219 5.38285C8.74926 5.99037 10.0492 5.45193 10.3246 4.31731Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="mx-4 font-medium">Ajustes</span>
+            </a>
+
+            <!-- <hr class="my-6 border-gray-200 dark:border-gray-600" /> -->
+
+            <a class="flex items-center px-4 py-2 mt-5 text-[#7E7E7E] transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-[#3B9AB8] dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-[#FFFFFF]" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#7E7E7E" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h6q.425 0 .713.288T12 4t-.288.713T11 5H5v14h6q.425 0 .713.288T12 20t-.288.713T11 21zm12.175-8H10q-.425 0-.712-.288T9 12t.288-.712T10 11h7.175L15.3 9.125q-.275-.275-.275-.675t.275-.7t.7-.313t.725.288L20.3 11.3q.3.3.3.7t-.3.7l-3.575 3.575q-.3.3-.712.288t-.713-.313q-.275-.3-.262-.712t.287-.688z"/></svg>
+
+                <span class="mx-4 font-medium">Logout</span>
+            </a>
+
+            <!-- <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" href="#">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.3246 4.31731C10.751 2.5609 13.249 2.5609 13.6754 4.31731C13.9508 5.45193 15.2507 5.99038 16.2478 5.38285C17.7913 4.44239 19.5576 6.2087 18.6172 7.75218C18.0096 8.74925 18.5481 10.0492 19.6827 10.3246C21.4391 10.751 21.4391 13.249 19.6827 13.6754C18.5481 13.9508 18.0096 15.2507 18.6172 16.2478C19.5576 17.7913 17.7913 19.5576 16.2478 18.6172C15.2507 18.0096 13.9508 18.5481 13.6754 19.6827C13.249 21.4391 10.751 21.4391 10.3246 19.6827C10.0492 18.5481 8.74926 18.0096 7.75219 18.6172C6.2087 19.5576 4.44239 17.7913 5.38285 16.2478C5.99038 15.2507 5.45193 13.9508 4.31731 13.6754C2.5609 13.249 2.5609 10.751 4.31731 10.3246C5.45193 10.0492 5.99037 8.74926 5.38285 7.75218C4.44239 6.2087 6.2087 4.44239 7.75219 5.38285C8.74926 5.99037 10.0492 5.45193 10.3246 4.31731Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+                <span class="mx-4 font-medium">Settings</span>
+            </a> -->
+        </nav>
+
+        <!-- <a href="#" class="flex items-center px-4 -mx-2">
+            <img class="object-cover mx-2 rounded-full h-9 w-9" src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="avatar" />
+            <span class="mx-2 font-medium text-gray-800 dark:text-gray-200">John Doe</span>
+        </a> -->
+    </div>
+</aside>
