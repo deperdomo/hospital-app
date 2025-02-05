@@ -3,7 +3,7 @@ use hospital_jakarta;
 
 
 CREATE TABLE usuarios (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100),
     username VARCHAR(100),
     apellidos VARCHAR(100),
@@ -18,7 +18,7 @@ CREATE TABLE usuarios (
 );
 
 CREATE TABLE disponibilidad (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     id_doctor INT,
     hora_inicio TIME,
     hora_fin TIME,
@@ -28,14 +28,14 @@ CREATE TABLE disponibilidad (
 );
 
 CREATE TABLE especialidades (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     id_doctor INT,
     nombre VARCHAR(100),
     FOREIGN KEY (id_doctor) REFERENCES usuarios(id)
 );
 
 CREATE TABLE historial_medico (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT,
     diagnostico TEXT,
     tratamiento TEXT,
@@ -44,7 +44,7 @@ CREATE TABLE historial_medico (
 );
 
 CREATE TABLE recetas (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     id_paciente INT,
     id_historial_medico INT,
     nombre_medicamento VARCHAR(100),
@@ -58,7 +58,7 @@ CREATE TABLE recetas (
 );
 
 CREATE TABLE facturas (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT,
     monto DECIMAL(10,2),
     fecha DATE,
@@ -67,7 +67,7 @@ CREATE TABLE facturas (
 );
 
 CREATE TABLE citas (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT,
     id_doctor INT,
     fecha DATETIME,
