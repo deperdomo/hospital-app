@@ -76,5 +76,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return urepo.findByRol(rol);
 	}
 
+	@Override
+	public Usuario buscarPorUsername(String username) {
+		return urepo.findByUsername(username);
+	}
+
 	
 }
