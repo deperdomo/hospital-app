@@ -1,0 +1,47 @@
+<div class="body-after-login">
+    <app-left-nav></app-left-nav>
+    <app-secundary-nav></app-secundary-nav>
+
+<!-- CAMBIAR -->
+    <div class="contenido px-[3%] mb-6">
+        <div class="container-top">
+            <div class="container-left-section mr-7">
+                <app-baner></app-baner>
+            <br>
+            <h3 class="titulos text-2xl font-semibold my-4">Doctores Cercanos a ti</h3>
+            @if (isNerbyDoctorsAvailable) {
+            <div class="cont-info-doctors flex flex-wrap justify-between">
+                <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
+                <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
+                <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
+            </div>
+            } @else {
+            <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()"></app-nearby-doctors-disabled>
+            }
+            </div>
+            <div class="container-right-section">
+                <div class="container-header flex items-center justify-between mb-4">
+                    <h3 class="titulos text-2xl font-semibold ">Citas Programadas</h3>
+                    <a href="#" class="enlace text-[#3B9AB8]">Ver Todas ></a>
+                </div>
+                <app-lista-citas></app-lista-citas>
+            </div>
+            
+        </div>
+        <div class="container-bottom mt-4">
+            <div class="container-header flex items-center justify-between mb-4">
+                <h3 class="titulos text-2xl font-semibold mb-4">Doctores Recomendados</h3>
+                <a href="#" class="enlace text-[#3B9AB8]">Ver Todos ></a>
+            </div>
+            <div class="cont-info-doctors flex flex-wrap justify-between">
+                <app-info-doctor class="w-[32%]"></app-info-doctor>
+                <app-info-doctor class="w-[32%]"></app-info-doctor>
+                <app-info-doctor class="w-[32%]"></app-info-doctor>
+            </div>
+        </div>
+    </div>
+
+    <app-footer></app-footer>
+</div>
+
+<!-- TAILWIND -->

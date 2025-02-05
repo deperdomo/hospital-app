@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { FindNavComponent } from "../navs/find-nav/find-nav.component";
 
 @Component({
   selector: 'app-baner',
-  imports: [FindNavComponent],
+  imports: [],
   templateUrl: './baner.component.html',
   styleUrl: './baner.component.css'
 })

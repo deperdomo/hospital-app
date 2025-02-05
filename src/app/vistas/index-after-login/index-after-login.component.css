@@ -1,0 +1,50 @@
+.body-after-login {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 15% 1fr;
+    grid-template-rows: 15% 1fr 30%;
+    grid-template-areas: 
+    "zn     zh"
+    "zn     zs"
+    "zf     zf";
+}
+
+app-secundary-nav {
+    grid-area: zh;
+}
+
+app-left-nav {
+    grid-area: zn;
+}
+
+.contenido {
+    grid-area: zs;
+}
+
+app-footer{
+    grid-area: zf;
+}
+
+.container-top {
+    display: flex;
+}
+
+.container-left-section {
+    width: 65%;
+
+}
+
+.container-right-section {
+    width: 35%;
+    padding: 2%;
+    border-radius: 10px;
+    border: solid 1.5px #e1e1e1;
+    box-sizing: border-box;
+}
+
+.container-bottom {
+    padding: 2%;
+    border-radius: 10px;
+    border: solid 1.5px #e1e1e1;
+    box-sizing: border-box;
+}
