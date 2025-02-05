@@ -4,10 +4,10 @@ use hospital_jakarta;
 
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100),
-    username VARCHAR(100),
-    apellidos VARCHAR(100),
-    email VARCHAR(100),
+    nombre VARCHAR(255),
+    username VARCHAR(255) UNIQUE,
+    apellidos VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
     provincia VARCHAR(100),
     localidad VARCHAR(100),
     direccion VARCHAR(250),
