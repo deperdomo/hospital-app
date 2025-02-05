@@ -1,8 +1,10 @@
-<!-- @if (!esPaginaDeAutenticacion()) { -->
+
+@if (!esPaginaDeAutenticacion()) {
 <app-nav-before-login></app-nav-before-login>
 
 <div class="contenido px-[10%] mb-6">
   <div class="container-baner relative">
+
     <app-baner></app-baner>
     <div class="w-[60%] absolute bottom-[-30px] left-[50%] translate-x-[-50%]">
       <app-find-nav />
@@ -32,6 +34,6 @@
 </div>
 <app-footer></app-footer>
 
-<!-- } -->
+}
 <router-outlet></router-outlet>
-<app-index-after-login></app-index-after-login>
+
