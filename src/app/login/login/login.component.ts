@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -27,17 +28,16 @@ export class LoginComponent {
           console.log('Usuario autenticado:', usuario);
           // Por ejemplo, guardar el usuario en el localStorage o redirigir a otra ruta:
           localStorage.setItem('usuario', JSON.stringify(usuario));
-          // this.router.navigate(['/dashboard']);
+          this.router.navigate(['/']);
         } else {
-          console.log('contraseña incorecta');
+          this.errorMessage = 'Credenciales incorrectas. Por favor, inténtalo de nuevo.';
+          console.log('Contraseña incorrecta');
         }
-        
       },
       error => {
         console.error('Error en el login', error);
-        // Mostrar un mensaje de error al usuario
+        this.errorMessage = 'El usuario no existe. Por favor, regístrate.';
       }
     );
   }
-
 }
