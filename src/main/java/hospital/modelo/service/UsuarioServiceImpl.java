@@ -15,16 +15,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Override
 	public Usuario alta(Usuario entidad) {
-		try {
-			if (urepo.existsById(entidad.getId())) {
-				return null;
-			} else {
-				return urepo.save(entidad);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (urepo.existsById(entidad.getId())) {
 			return null;
+		} else {
+			return urepo.save(entidad);
 		}
+		
 	}
 
 	@Override
