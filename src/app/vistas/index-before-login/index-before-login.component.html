@@ -1,0 +1,37 @@
+
+@if (!esPaginaDeAutenticacion()) {
+  <app-nav-before-login></app-nav-before-login>
+
+  <div class="contenido px-[10%] mb-6">
+    <div class="container-baner relative">
+
+      <app-baner></app-baner>
+      <div class="w-[60%] absolute bottom-[-30px] left-[50%] translate-x-[-50%]">
+        <app-find-nav />
+      </div>
+    </div>
+
+    <br>
+    <h3 class="titulos text-2xl font-semibold my-6">Doctores Recomendados</h3>
+    <div class="cont-info-doctors flex flex-wrap justify-between">
+      <app-info-doctor class="w-[32%]"></app-info-doctor>
+      <app-info-doctor class="w-[32%]"></app-info-doctor>
+      <app-info-doctor class="w-[32%]"></app-info-doctor>
+    </div>
+    <br>
+
+    <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+    @if (isNerbyDoctorsAvailable) {
+    <div class="cont-info-doctors flex flex-wrap justify-between">
+      <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
+      <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
+      <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
+    </div>
+    } @else {
+    <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()"></app-nearby-doctors-disabled>
+    }
+
+  </div>
+  <app-footer></app-footer>
+
+  }
