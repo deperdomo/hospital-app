@@ -8,5 +8,5 @@ import { FindNavComponent } from "../find-nav/find-nav.component";
   styleUrl: './secundary-nav.component.css'
 })
 export class SecundaryNavComponent {
-
+  withFindNav: boolean = false;
 }
