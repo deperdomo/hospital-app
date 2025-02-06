@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-nearby-doctors',
   imports: [],
   templateUrl: './nearby-doctors.component.html',
-  styleUrl: './nearby-doctors.component.css'
 })
 export class NearbyDoctorsComponent {
 

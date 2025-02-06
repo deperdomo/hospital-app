@@ -9,7 +9,6 @@ import { TitleJakartaComponent } from "../../navs/title-jakarta/title-jakarta.co
   selector: 'app-patient-booking',
   imports: [CalendarComponent, SecundaryNavComponent, UserWelcomeNavComponent, UserNavComponent, TitleJakartaComponent],
   templateUrl: './patient-booking.component.html',
-  styleUrl: './patient-booking.component.css'
 })
 export class PatientBookingComponent {
 

@@ -13,7 +13,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'registro', component: RegistroComponent },
     { path: 'index', component: IndexAfterLoginComponent },
-    { path: 'reserva', component: PatientBookingComponent },
+    { path: 'nuevaCita', component: PatientBookingComponent },
     { path: 'citas', component: IndexVistasCitasComponent },
 
 ];
