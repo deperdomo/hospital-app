@@ -1,0 +1,22 @@
+.body-profile {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 15% 1fr;
+    grid-template-rows: 15% 1fr;
+    grid-template-areas: 
+    "zn     zh"
+    "zn     zs";
+}
+
+app-secundary-nav {
+    grid-area: zh;
+}
+
+app-left-nav {
+    grid-area: zn;
+}
+
+.contenido {
+    grid-area: zs;
+    /* background-color: #D0D0D0; */
+}

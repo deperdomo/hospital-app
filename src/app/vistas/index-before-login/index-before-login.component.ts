@@ -10,6 +10,7 @@ import { NearbyDoctorsDisabledComponent } from "../../nearby-doctors/nearby-doct
 import { FooterConmponent } from "../../footer/footer.component";
 
 
+
 @Component({
   selector: 'app-index-before-login',
   imports: [NavBeforeLoginComponent, BanerComponent, FindNavComponent, InfoDoctorComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent],
