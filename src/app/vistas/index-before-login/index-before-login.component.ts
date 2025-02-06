@@ -8,11 +8,12 @@ import { InfoDoctorComponent } from "../../sections/info-doctor/info-doctor.comp
 import { NearbyDoctorsComponent } from "../../nearby-doctors/nearby-doctors/nearby-doctors.component";
 import { NearbyDoctorsDisabledComponent } from "../../nearby-doctors/nearby-doctors-disabled/nearby-doctors-disabled.component";
 import { FooterConmponent } from "../../footer/footer.component";
+import { ProfileComponent } from '../profile/profile.component';
 
 
 @Component({
   selector: 'app-index-before-login',
-  imports: [NavBeforeLoginComponent, BanerComponent, FindNavComponent, InfoDoctorComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent],
+  imports: [NavBeforeLoginComponent, BanerComponent, FindNavComponent, InfoDoctorComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ProfileComponent],
   templateUrl: './index-before-login.component.html',
   styleUrl: './index-before-login.component.css'
 })
