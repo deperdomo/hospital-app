@@ -5,10 +5,10 @@ import { ListaCitasComponent } from "../../sections/lista-citas/lista-citas.comp
 import { NavCitasComponent } from "../../navs/citas-nav/citas-nav.component";
  
 @Component({
-  selector: 'app-index-vistas-citas',
+  selector: 'app-vistas-citas',
   imports: [LeftNavComponent, SecundaryNavComponent, ListaCitasComponent, NavCitasComponent],
-  templateUrl: './index-vistas-citas.component.html',
-  styleUrl: './index-vistas-citas.component.html'
+  templateUrl: './vistas-citas.component.html',
+  styleUrl: './vistas-citas.component.css'
 })
 export class IndexVistasCitasComponent{
 
