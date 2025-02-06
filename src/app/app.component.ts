@@ -10,6 +10,7 @@ import { FindNavComponent } from "./navs/find-nav/find-nav.component";
 import { BanerComponent } from "./sections/baner/baner.component";
 
 
+
 @Component({
   selector: 'app-root',
 
