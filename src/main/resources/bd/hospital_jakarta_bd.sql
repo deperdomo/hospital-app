@@ -13,6 +13,7 @@ CREATE TABLE usuarios (
     direccion VARCHAR(250),
     fecha_nacimiento Date,
     fecha_alta Date,
+    foto_perfil VARCHAR(100),
     password VARCHAR(100),
     rol VARCHAR(50) -- (admin, medico, enfermera, pacientes etc.)
 );
@@ -76,15 +77,18 @@ CREATE TABLE citas (
     FOREIGN KEY (id_doctor) REFERENCES usuarios(id)
 );
 
-INSERT INTO usuarios (id, nombre, username, apellidos, email, provincia, localidad, direccion, fecha_nacimiento, fecha_alta, password, rol)
-VALUES
-(1, 'Juan','Juan', 'Pérez', 'juan.perez@example.com', 'Madrid', 'Centro', 'Calle Falsa 123', '2000-01-01', '2023-01-01', 'password123', 'admin'),
-(2, 'María','maria', 'Gómez', 'maria.gomez@example.com','Madrid', 'Arganzuela', 'Avenida Siempre Viva 456', '2000-01-01', '2023-02-15', 'password456', 'medico'),
-(3, 'Carlos','carlos', 'López', 'carlos.lopez@example.com','Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'password789', 'paciente'),
-(4, 'Ana','ana', 'Martínez', 'ana.martinez@example.com','Madrid', 'Chamberí', 'Calle Sol 321', '2000-01-01', '2023-04-05', 'password321', 'enfermera'),
-(5, 'Sole','sole', 'Moral', 'sole.moral@example.com','Madrid', 'Moncloa-Aravaca', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'sole', 'admin'),
-(6, 'Diego','diego', 'Martinez', 'diego.martinez@example.com','Madrid', 'Retiro', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'diego', 'admin'),
-(7, 'Deivi','deivi', 'Perdomo', 'deivi.lopez@example.com','Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'deivi', 'admin');
+INSERT INTO usuarios (
+    id, nombre, apellidos, username, email, provincia, localidad, direccion, 
+    fecha_nacimiento, fecha_alta, foto_perfil, password, rol
+) 
+VALUES 
+(1, 'Juan', 'Pérez', 'Juan', 'juan.perez@example.com', 'Madrid', 'Centro', 'Calle Falsa 123', '2000-01-01', '2023-01-01', 'doc_02.png', 'password123', 'admin'),
+(2, 'María', 'Gómez', 'maria', 'maria.gomez@example.com', 'Madrid', 'Arganzuela', 'Avenida Siempre Viva 456', '2000-01-01', '2023-02-15', 'doc_05.png', 'password456', 'medico'),
+(3, 'Carlos', 'López', 'carlos', 'carlos.lopez@example.com', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'usu_anonimo.png', 'password789', 'paciente'),
+(4, 'Ana', 'Martínez', 'ana', 'ana.martinez@example.com', 'Madrid', 'Chamberí', 'Calle Sol 321', '2000-01-01', '2023-04-05', 'doc_09.png', 'password321', 'enfermera'),
+(5, 'Sole', 'Moral', 'sole', 'sole.moral@example.com', 'Madrid', 'Moncloa-Aravaca', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'sole', 'admin'),
+(6, 'Diego', 'Martinez', 'diego', 'diego.martinez@example.com', 'Madrid', 'Retiro', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'diego', 'admin'),
+(7, 'Deivi', 'Perdomo', 'deivi', 'deivi.lopez@example.com', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'deivi', 'admin');
 
 INSERT INTO disponibilidad (id, id_doctor, hora_inicio, hora_fin, estado, comentarios)
 VALUES

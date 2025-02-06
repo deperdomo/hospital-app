@@ -42,6 +42,8 @@ public class Usuario implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="fecha_nacimiento")
 	private Date fechaNacimiento;
+	@Column(name="foto_perfil")
+	private String fotoPerfil;
 	private String password;
 	private String rol;
 	
