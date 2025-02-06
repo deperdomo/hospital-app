@@ -9,6 +9,7 @@ export interface Usuario {
     direccion: string;
     fechaAlta: string;
     fechaNacimiento: string;
+    fotoPerfil: string;
     password: string;
     rol: string;
   }

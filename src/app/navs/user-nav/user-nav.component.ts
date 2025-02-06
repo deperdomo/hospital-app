@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class UserNavComponent {
 
+  nombreUsuario: string = '';
+  fotoPerfil: string = '';
+
+  ngOnInit() {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    if (usuarioGuardado) {
+      const usuario = JSON.parse(usuarioGuardado);
+      this.nombreUsuario = usuario.nombre;
+      this.fotoPerfil = usuario.fotoPerfil;
+    }
+  }
+
 }

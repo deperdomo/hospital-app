@@ -28,7 +28,7 @@ export class LoginComponent {
           console.log('Usuario autenticado:', usuario);
           // Por ejemplo, guardar el usuario en el localStorage o redirigir a otra ruta:
           localStorage.setItem('usuario', JSON.stringify(usuario));
-          this.router.navigate(['/']);
+          this.router.navigate(['/index']);
         } else {
           this.errorMessage = 'Credenciales incorrectas. Por favor, inténtalo de nuevo.';
           console.log('Contraseña incorrecta');

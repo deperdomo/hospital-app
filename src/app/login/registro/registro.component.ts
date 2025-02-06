@@ -32,6 +32,7 @@ export class RegistroComponent {
       direccion: 'Calle Falsa 123',
       fechaAlta: '1990-01-01',
       fechaNacimiento: '1990-01-01',
+      fotoPerfil: 'usu_anonimo.png',
       password: 'password123',
       rol: 'paciente'
     };
@@ -43,7 +44,7 @@ export class RegistroComponent {
         console.log('Usuario registrado:', usuario);
         // Guardar el usuario en el localStorage y redirigir a otra ruta:
         localStorage.setItem('usuario', JSON.stringify(usuario));
-        this.router.navigate(['/']);
+        this.router.navigate(['/index']);
       },
       error => {
         console.error('Error en el registro', error);
