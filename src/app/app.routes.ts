@@ -7,6 +7,7 @@ import { IndexBeforeLoginComponent } from './vistas/index-before-login/index-bef
 import { PatientBookingComponent } from './vistas/patient-booking/patient-booking.component';
 import { IndexVistasCitasComponent } from './vistas/vistas-citas/vistas-citas.component';
 import { IndexAfterLoginComponent } from './vistas/index-after-login/index-after-login.component';
+import { ProfileComponent } from './vistas/profile/profile.component';
 
 export const routes: Routes = [
     { path: '', component: IndexBeforeLoginComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
     { path: 'index', component: IndexAfterLoginComponent },
     { path: 'nuevaCita', component: PatientBookingComponent },
     { path: 'citas', component: IndexVistasCitasComponent },
+    { path: 'perfil', component: ProfileComponent },
 
 ];
 

@@ -7,7 +7,7 @@ import { TitleJakartaComponent } from "../../navs/title-jakarta/title-jakarta.co
 
 @Component({
   selector: 'app-patient-booking',
-  imports: [CalendarComponent, SecundaryNavComponent, UserWelcomeNavComponent, UserNavComponent, TitleJakartaComponent],
+  imports: [CalendarComponent, UserNavComponent, TitleJakartaComponent],
   templateUrl: './patient-booking.component.html',
 })
 export class PatientBookingComponent {
