@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Usuario } from '../../models/usuario';
 
 @Component({
   selector: 'app-info-doctor',
@@ -7,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './info-doctor.component.css'
 })
 export class InfoDoctorComponent {
+  @Input() doctor: Usuario | null = null;
 
 }
