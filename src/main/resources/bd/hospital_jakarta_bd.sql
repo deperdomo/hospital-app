@@ -77,28 +77,27 @@ CREATE TABLE citas (
     FOREIGN KEY (id_doctor) REFERENCES usuarios(id)
 );
 
-INSERT INTO usuarios (
-    id, nombre, apellidos, username, email, provincia, localidad, direccion, 
-    fecha_nacimiento, fecha_alta, foto_perfil, password, rol
-) 
+INSERT INTO usuarios (id, nombre, apellidos, username, email, provincia, localidad, direccion, fecha_nacimiento, fecha_alta, foto_perfil, password, rol) 
 VALUES 
-(1, 'Juan', 'Pérez', 'Juan', 'juan.perez@example.com', 'Madrid', 'Centro', 'Calle Falsa 123', '2000-01-01', '2023-01-01', 'doc_02.png', 'password123', 'admin'),
+(1, 'Juan', 'Pérez', 'Juan', 'juan.perez@example.com', 'Madrid', 'Centro', 'Calle Falsa 123', '2000-01-01', '2023-01-01', 'doc_02.png', 'password123', 'medico'),
 (2, 'María', 'Gómez', 'maria', 'maria.gomez@example.com', 'Madrid', 'Arganzuela', 'Avenida Siempre Viva 456', '2000-01-01', '2023-02-15', 'doc_05.png', 'password456', 'medico'),
-(3, 'Carlos', 'López', 'carlos', 'carlos.lopez@example.com', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'usu_anonimo.png', 'password789', 'paciente'),
-(4, 'Ana', 'Martínez', 'ana', 'ana.martinez@example.com', 'Madrid', 'Chamberí', 'Calle Sol 321', '2000-01-01', '2023-04-05', 'doc_09.png', 'password321', 'enfermera'),
+(3, 'Ana', 'Martínez', 'ana', 'ana.martinez@example.com', 'Madrid', 'Chamberí', 'Calle Sol 321', '2000-01-01', '2023-04-05', 'doc_09.png', 'password321', 'medico'),
+(4, 'Carlos', 'López', 'carlos', 'carlos.lopez@example.com', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'usu_anonimo.png', 'password789', 'paciente'),
 (5, 'Sole', 'Moral', 'sole', 'sole.moral@example.com', 'Madrid', 'Moncloa-Aravaca', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'sole', 'admin'),
 (6, 'Diego', 'Martinez', 'diego', 'diego.martinez@example.com', 'Madrid', 'Retiro', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'diego', 'admin'),
 (7, 'Deivi', 'Perdomo', 'deivi', 'deivi.lopez@example.com', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'deivi', 'admin');
 
 INSERT INTO disponibilidad (id, id_doctor, hora_inicio, hora_fin, estado, comentarios)
 VALUES
-(1, 2, '09:00:00', '17:00:00', 'disponible', 'Horario laboral normal'),
-(2, 2, '13:00:00', '14:00:00', 'no disponible', 'Hora de almuerzo');
+(1, 1, '09:00:00', '17:00:00', 'disponible', 'Horario laboral normal'),
+(2, 2, '09:00:00', '17:00:00', 'disponible', 'Horario laboral normal'),
+(3, 3, '13:00:00', '14:00:00', 'no disponible', 'Hora de almuerzo');
 
 INSERT INTO especialidades (id, id_doctor, nombre)
 VALUES
-(1, 2, 'Cardiología'),
-(2, 2, 'Medicina Interna');
+(1, 1, 'Cardiología'),
+(2, 2, 'Pediatra'),
+(3, 3, 'Medicina Interna');
 
 INSERT INTO historial_medico (id, id_usuario, diagnostico, tratamiento, fecha)
 VALUES
