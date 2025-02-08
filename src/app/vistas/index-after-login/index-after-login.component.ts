@@ -12,7 +12,7 @@ import { DoctoresRecomendadosComponent } from "../../sections/doctores-recomenda
 
 @Component({
   selector: 'app-index-after-login',
-  imports: [LeftNavComponent, SecundaryNavComponent, InfoDoctorComponent, BanerComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent, DoctoresRecomendadosComponent],
+  imports: [LeftNavComponent, SecundaryNavComponent, BanerComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent, DoctoresRecomendadosComponent],
   templateUrl: './index-after-login.component.html',
   styleUrl: './index-after-login.component.css'
 })

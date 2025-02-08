@@ -1,10 +1,10 @@
 <div class="card bg-white border rounded-lg border-[#e1e1e1] w-full p-6 box-border">
   <div class="card-header flex items-center mb-4">
-    <img src="img/doctores/{{ doctor?.fotoPerfil }}" alt="Doctor Photo" class="w-20 h-20 rounded-full object-cover mr-6">
+    <img [src]="'img/doctores/' + doctor.fotoPerfil" alt="Doctor Photo" class="w-20 h-20 rounded-full object-cover mr-6">
     <div class="info flex flex-col">
-      <h2 class="m-0 text-xl font-semibold">{{ doctor?.nombre }} {{ doctor?.apellidos }}</h2>
-      <p class="my-2 text-sm text-[#666]">{{ doctor?.experiencia }} años de experiencia</p>
-      <span class="specialization">{{ doctor?.especialidad?.nombre }}</span>
+      <h2 class="m-0 text-xl font-semibold">{{ doctor.nombre }} {{ doctor.apellidos }}</h2>
+      <p class="my-2 text-sm text-[#666]">{{ doctor.experiencia }} años de experiencia</p>
+      <span class="specialization">{{ doctor.especialidad.nombre }}</span>
     </div>
   </div>
 
@@ -28,14 +28,14 @@
         </svg>
       </div>
       <div class="price-rigt">
-        <span class="block text-[#333] font-semibold">{{ doctor?.precioConsulta }}€</span>
+        <span class="block text-[#333] font-semibold">{{ doctor.precioConsulta }}€</span>
         <span class="block text-sm text-[#666]">Desde</span>
       </div>
     </div>
   </div>
 
   <div class="book-button mt-4 text-center">
-    <button onclick="window.location.href='/nuevaCita'" class="w-full bg-[#3b9ab8] text-white border-none py-3 px-5 text-base font-light rounded-lg cursor-pointer transition-colors duration-300 hover:bg-[#26738b]">
+    <button (click)="navigateToNewAppointment(doctor.id)" class="w-full bg-[#3b9ab8] text-white border-none py-3 px-5 text-base font-light rounded-lg cursor-pointer transition-colors duration-300 hover:bg-[#26738b]">
        Pedir cita
     </button>
   </div>

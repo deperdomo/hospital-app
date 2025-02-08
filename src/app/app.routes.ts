@@ -15,7 +15,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'registro', component: RegistroComponent },
     { path: 'index', component: IndexAfterLoginComponent, canActivate: [AuthGuard] },
-    { path: 'nuevaCita', component: PatientBookingComponent, canActivate: [AuthGuard] },
+    { path: 'nuevaCita/:id', component: PatientBookingComponent, canActivate: [AuthGuard] },
     { path: 'citas', component: IndexVistasCitasComponent, canActivate: [AuthGuard] },
     { path: 'perfil', component: ProfileComponent, canActivate: [AuthGuard] },
 

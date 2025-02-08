@@ -12,11 +12,11 @@ import { DoctorService } from '../../services/doctor.service';
   providers: [DoctorService]
 })
 export class DoctoresRecomendadosComponent {
-  doctor1: Doctor | null = null;
-    doctor2: Doctor | null = null;
-    doctor3: Doctor | null = null;
+  doctor1!: Doctor;
+  doctor2!: Doctor;
+  doctor3!: Doctor;
 
-    constructor( private doctorService: DoctorService) {}
+  constructor( private doctorService: DoctorService) {}
 
   ngOnInit() {
     this.doctorService.getXDoctors(3).subscribe(
