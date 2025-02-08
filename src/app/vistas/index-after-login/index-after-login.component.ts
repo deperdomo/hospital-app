@@ -7,11 +7,12 @@ import { NearbyDoctorsDisabledComponent } from "../../nearby-doctors/nearby-doct
 import { FooterConmponent } from "../../footer/footer.component";
 import { ListaCitasComponent } from "../../sections/lista-citas/lista-citas.component";
 import { BanerComponent } from '../../sections/baner/baner.component';
+import { DoctoresRecomendadosComponent } from "../../sections/doctores-recomendados/doctores-recomendados.component";
 
 
 @Component({
   selector: 'app-index-after-login',
-  imports: [LeftNavComponent, SecundaryNavComponent, InfoDoctorComponent, BanerComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent],
+  imports: [LeftNavComponent, SecundaryNavComponent, InfoDoctorComponent, BanerComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent, DoctoresRecomendadosComponent],
   templateUrl: './index-after-login.component.html',
   styleUrl: './index-after-login.component.css'
 })
@@ -22,5 +23,5 @@ export class IndexAfterLoginComponent {
   cambiarEstado() {
     this.isNerbyDoctorsAvailable = true; // Cambiamos la variable a true
   }
-  
+
 }

@@ -11,39 +11,23 @@ import { NearbyDoctorsDisabledComponent } from "../../nearby-doctors/nearby-doct
 import { FooterConmponent } from "../../footer/footer.component";
 
 import { DoctorService } from '../../services/doctor.service';
-import { Doctor } from '../../models/doctor';
+
+import { DoctoresRecomendadosComponent } from "../../sections/doctores-recomendados/doctores-recomendados.component";
 
 
 
 @Component({
   selector: 'app-index-before-login',
-  imports: [NavBeforeLoginComponent, BanerComponent, FindNavComponent, InfoDoctorComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, HttpClientModule],
+  imports: [NavBeforeLoginComponent, BanerComponent, FindNavComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, HttpClientModule, DoctoresRecomendadosComponent],
   templateUrl: './index-before-login.component.html',
   styleUrl: './index-before-login.component.css',
-  providers: [DoctorService]
 })
 export class IndexBeforeLoginComponent {
   isNerbyDoctorsAvailable = false;
-  doctor1: Doctor | null = null;
-  doctor2: Doctor | null = null;
-  doctor3: Doctor | null = null;
 
-  constructor( private router: Router, private doctorService: DoctorService) {}
+  constructor( private router: Router) {}
 
-  ngOnInit() {
-    this.doctorService.getXDoctors(3).subscribe(
-      (doctores: Doctor[]) => {
-        console.log('Doctores recomendados:', doctores);
-        if (doctores.length > 0) {
-          this.doctor1 = doctores[0] || null;
-          this.doctor2 = doctores[1] || null;
-          this.doctor3 = doctores[2] || null;
-        }
-      },
-      error => {
-        console.error('Error al recuperar los usuarios recomendados', error);
-      });
-  }
+
 
   cambiarEstado() {
     this.isNerbyDoctorsAvailable = true; // Cambiamos la variable a true
