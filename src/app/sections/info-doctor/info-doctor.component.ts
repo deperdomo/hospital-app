@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Usuario } from '../../models/usuario';
+import { Doctor } from '../../models/doctor';
 
 @Component({
   selector: 'app-info-doctor',
@@ -8,6 +8,6 @@ import { Usuario } from '../../models/usuario';
   styleUrl: './info-doctor.component.css'
 })
 export class InfoDoctorComponent {
-  @Input() doctor: Usuario | null = null;
+  @Input() doctor: Doctor | null = null;
 
 }

@@ -10,8 +10,8 @@ import { NearbyDoctorsComponent } from "../../nearby-doctors/nearby-doctors/near
 import { NearbyDoctorsDisabledComponent } from "../../nearby-doctors/nearby-doctors-disabled/nearby-doctors-disabled.component";
 import { FooterConmponent } from "../../footer/footer.component";
 
-import { Usuario } from '../../models/usuario';
 import { DoctorService } from '../../services/doctor.service';
+import { Doctor } from '../../models/doctor';
 
 
 
@@ -24,15 +24,15 @@ import { DoctorService } from '../../services/doctor.service';
 })
 export class IndexBeforeLoginComponent {
   isNerbyDoctorsAvailable = false;
-  doctor1: Usuario | null = null;
-  doctor2: Usuario | null = null;
-  doctor3: Usuario | null = null;
+  doctor1: Doctor | null = null;
+  doctor2: Doctor | null = null;
+  doctor3: Doctor | null = null;
 
   constructor( private router: Router, private doctorService: DoctorService) {}
 
   ngOnInit() {
     this.doctorService.getXDoctors(3).subscribe(
-      (doctores: Usuario[]) => {
+      (doctores: Doctor[]) => {
         console.log('Doctores recomendados:', doctores);
         if (doctores.length > 0) {
           this.doctor1 = doctores[0] || null;

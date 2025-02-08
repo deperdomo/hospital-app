@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Usuario } from '../models/usuario';
+import { Doctor } from '../models/doctor';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class DoctorService {
 
   constructor(private http: HttpClient) { }
 
-  getXDoctors(cantidad: number): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${this.apiUrl}/recomendado/${cantidad}`);
+  getXDoctors(cantidad: number): Observable<Doctor[]> {
+    return this.http.get<Doctor[]>(`${this.apiUrl}/recomendado/${cantidad}`);
   }
 
 
