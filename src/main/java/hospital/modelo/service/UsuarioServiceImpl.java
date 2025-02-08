@@ -20,7 +20,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 		} else {
 			return urepo.save(entidad);
 		}
-		
 	}
 
 	@Override

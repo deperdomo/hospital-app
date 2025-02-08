@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hospital.entidades.Usuario;
-import hospital.modelo.service.UsuarioService;
+import hospital.entidades.Doctor;
+import hospital.modelo.service.DoctorService;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -21,13 +21,13 @@ import hospital.modelo.service.UsuarioService;
 public class DoctorRestController {
 	
 	@Autowired
-	private UsuarioService userv;
+	private DoctorService rserv;
 	
 	@GetMapping("recomendado/{cantidad}")
 	public ResponseEntity<?> getMedicos(@PathVariable int cantidad) {
-	    List<Usuario> medicos = userv.buscaPorRol("medico");
+	    List<Doctor> medicos = rserv.buscarTodos();
 	    if (medicos != null && !medicos.isEmpty()) {
-	        List<Usuario> NMedicos = medicos.stream().limit(cantidad).collect(Collectors.toList());
+	        List<Doctor> NMedicos = medicos.stream().limit(cantidad).collect(Collectors.toList());
 	        return new ResponseEntity<>(NMedicos, HttpStatus.OK);
 	    }
 	    return new ResponseEntity<>("No hay medicos", HttpStatus.NOT_FOUND);

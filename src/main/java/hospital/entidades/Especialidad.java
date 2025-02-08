@@ -26,7 +26,4 @@ public class Especialidad implements Serializable {
 	private int id;
 	private String nombre;
 	
-	@ManyToOne
-	@JoinColumn(name="id_doctor")
-	private Usuario doctor;
 }
