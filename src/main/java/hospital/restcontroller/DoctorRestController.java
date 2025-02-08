@@ -21,15 +21,26 @@ import hospital.modelo.service.DoctorService;
 public class DoctorRestController {
 	
 	@Autowired
-	private DoctorService rserv;
+	private DoctorService dserv;
 	
 	@GetMapping("recomendado/{cantidad}")
 	public ResponseEntity<?> getMedicos(@PathVariable int cantidad) {
-	    List<Doctor> medicos = rserv.buscarTodos();
+	    List<Doctor> medicos = dserv.buscarTodos();
 	    if (medicos != null && !medicos.isEmpty()) {
 	        List<Doctor> NMedicos = medicos.stream().limit(cantidad).collect(Collectors.toList());
 	        return new ResponseEntity<>(NMedicos, HttpStatus.OK);
 	    }
 	    return new ResponseEntity<>("No hay medicos", HttpStatus.NOT_FOUND);
 	}
+	
+	@GetMapping("one/{id}")
+	public ResponseEntity<?> getMedicoById(@PathVariable int id) {
+	    if (dserv.buscarPorId(id) != null) {
+	    	return new ResponseEntity<>(dserv.buscarPorId(id), HttpStatus.OK);
+	    }
+	    return new ResponseEntity<>("Ese medico no existe", HttpStatus.NOT_FOUND);
+	}
+	
+	
+	
 }
