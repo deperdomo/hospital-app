@@ -87,6 +87,10 @@ CREATE TABLE citas (
     id_usuario INT,
     id_doctor INT,
     fecha DATETIME,
+    email VARCHAR(255),
+    motivo VARCHAR(100),
+    tarifa int,
+	forma_pago VARCHAR(50),
     estado VARCHAR(50),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
     FOREIGN KEY (id_doctor) REFERENCES doctores(id)
@@ -140,7 +144,8 @@ VALUES
 (2, 3, 75.00, '2023-06-15', 'pendiente');
 
 -- Insertar citas
-INSERT INTO citas (id, id_usuario, id_doctor, fecha, estado)
+INSERT INTO citas (id, id_usuario, id_doctor, fecha, email, motivo, tarifa, forma_pago, estado)
 VALUES
-(1, 3, 2, '2023-05-01 10:00:00', 'completada'),
-(2, 3, 2, '2023-06-10 11:00:00', 'completada');
+(1, 3, 2, '2023-05-01 10:00:00', 'usuario1@example.com', 'Consulta general', 100, 'Tarjeta de crédito', 'completada'),
+(2, 3, 2, '2023-06-10 11:00:00', 'usuario2@example.com', 'Revisión', 150, 'Efectivo', 'completada');
+
