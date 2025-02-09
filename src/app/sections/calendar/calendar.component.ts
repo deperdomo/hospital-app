@@ -49,9 +49,9 @@ export class CalendarComponent {
   generateTimeSlots() {
     this.timeSlots = [];
     const baseDate = new Date();
-    baseDate.setHours(9, 0, 0, 0);
+    baseDate.setHours(10, 0, 0, 0);
 
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 14; i++) {
       const time = new Date(baseDate);
       this.timeSlots.push(time);
       baseDate.setMinutes(baseDate.getMinutes() + 30);

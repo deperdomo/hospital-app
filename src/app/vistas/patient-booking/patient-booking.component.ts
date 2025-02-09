@@ -7,17 +7,20 @@ import { CalendarComponent } from "../../sections/calendar/calendar.component";
 import { UserNavComponent } from "../../navs/user-nav/user-nav.component";
 import { TitleJakartaComponent } from "../../navs/title-jakarta/title-jakarta.component";
 import { Doctor } from '../../models/doctor';
+import { IngresarDetallesCitaComponent } from "./ingresar-detalles-cita/ingresar-detalles-cita.component";
+import { FechaCitaComponent } from "./fecha-cita/fecha-cita.component";
 
 
 @Component({
   selector: 'app-patient-booking',
-  imports: [CalendarComponent, UserNavComponent, TitleJakartaComponent,  HttpClientModule],
+  imports: [CalendarComponent, UserNavComponent, TitleJakartaComponent, HttpClientModule, IngresarDetallesCitaComponent, FechaCitaComponent],
   templateUrl: './patient-booking.component.html',
   providers: [DoctorService]
 })
 export class PatientBookingComponent {
   doctorId: string = '';
   doctor: Doctor | null = null;
+  isStep2: boolean = false;
 
   constructor(private doctorServise: DoctorService, private route: ActivatedRoute) {}
 
@@ -44,7 +47,13 @@ export class PatientBookingComponent {
     );
   }
 
+  step2() {
+    this.isStep2 = true;
+  }
 
+  step2false() {
+    this.isStep2 = false;
+  }
 
 
 }
