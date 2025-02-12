@@ -8,7 +8,7 @@ import { CommonModule } from "@angular/common";
   styleUrl: './calendar.component.css'
 })
 export class CalendarComponent {
-  weekDays: string[] = ["D", "L", "M", "M", "J", "V", "S"];
+  weekDays: string[] = ["L", "M", "M", "J", "V", "S", "D"];
   calendarDays: Date[] = [];
   currentDate: Date = new Date();
   selectedDate: Date | null = null;
@@ -35,8 +35,11 @@ export class CalendarComponent {
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
 
-    const startingDay = firstDay.getDay();
+    let startingDay = firstDay.getDay();
     const totalDays = lastDay.getDate();
+
+    startingDay = startingDay === 0 ? 6 : startingDay - 1; // Ajuste para que la semana empiece en lunes
+
 
     this.calendarDays = [];
 
@@ -58,9 +61,9 @@ export class CalendarComponent {
   generateTimeSlots() {
     this.timeSlots = [];
     const baseDate = new Date();
-    baseDate.setHours(10, 0, 0, 0);
+    baseDate.setHours(10, 30, 0, 0);
 
-    for (let i = 0; i < 14; i++) {
+    for (let i = 0; i < 13; i++) {
       const time = new Date(baseDate);
       this.timeSlots.push(time);
       baseDate.setMinutes(baseDate.getMinutes() + 30);
@@ -78,7 +81,8 @@ export class CalendarComponent {
   }
 
   selectDate(date: Date) {
-    if (date < new Date(new Date().setHours(0, 0, 0, 0))) return;
+    const day = date.getDay();
+    if (date < new Date(new Date().setHours(0, 0, 0, 0)) || day === 0 || day === 6) return;
     this.selectedDate = date;
     this.emitSelectedDateTime();
   }

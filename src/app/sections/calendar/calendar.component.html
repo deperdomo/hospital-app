@@ -1,4 +1,4 @@
-<div class="container mx-auto p-4 bg-white rounded-lg">
+<div class="container mx-auto p-4 bg-white rounded-lg max-w-[900px]">
   <div class="text-[27px] font-semibold mb-8">Selecciona fecha y hora</div>
   <div class="mb-6">
     <div class="flex justify-between items-center mb-4">
@@ -22,6 +22,7 @@
            [class]="'p-2 text-center cursor-pointer transition-all duration-200 rounded-full ' +
                     (isCurrentDate(date) ? 'bg-blue-500 text-white hover:bg-blue-600' :
                      isSelectedDate(date) ? 'bg-blue-100 text-blue-800 hover:bg-blue-200' :
+                     (date.getDay() === 0 || date.getDay() === 6) ? 'text-gray-400 cursor-not-allowed' :
                      'hover:bg-gray-100')"
            (click)="selectDate(date)">
         {{ date.getDate() }}
@@ -35,10 +36,10 @@
   </div>
 
   <div class="relative">
-    <div class="flex overflow-x-auto pb-4 scrollbar-hide">
+    <div class="flex flex-wrap gap-1 overflow-x-auto pb-5 scrollbar-hide">
       <div *ngFor="let time of timeSlots"
-           [class]="'flex-shrink-0 mx-2 px-4 py-2 rounded-lg cursor-pointer transition-all duration-200 ' +
-                    (isSelectedTime(time) ? 'bg-blue-500 text-white' : 'bg-gray-100 hover:bg-gray-200')"
+           [class]="'flex-shrink-0 mx-[1px] px-9 py-2 mt-1 w-[115px] border-2 border-blue-500 rounded-lg cursor-pointer transition-all duration-200 ' +
+                    (isSelectedTime(time) ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-200')"
            (click)="selectTime(time)">
         {{ time | date:'HH:mm' }}
       </div>
