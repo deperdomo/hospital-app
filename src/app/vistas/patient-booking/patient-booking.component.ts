@@ -22,7 +22,14 @@ export class PatientBookingComponent {
   doctor: Doctor | null = null;
   isStep2: boolean = false;
 
+  selectedDateTime: Date | null = null;
+
   constructor(private doctorServise: DoctorService, private route: ActivatedRoute) {}
+
+  // Se ejecuta cuando se selecciona una fecha en el calendario
+  onDateTimeSelected(dateTime: Date) {
+    this.selectedDateTime = dateTime;
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -47,9 +54,14 @@ export class PatientBookingComponent {
     );
   }
 
-  step2() {
-    this.isStep2 = true;
+    step2() {
+    if (this.selectedDateTime) {
+      this.isStep2 = true;
+    } else {
+      alert("Por favor selecciona una fecha antes de continuar.");
+    }
   }
+
 
   step2false() {
     this.isStep2 = false;

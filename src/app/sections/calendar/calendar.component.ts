@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from "@angular/common";
 
 @Component({
@@ -8,13 +8,21 @@ import { CommonModule } from "@angular/common";
   styleUrl: './calendar.component.css'
 })
 export class CalendarComponent {
-  weekDays: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  weekDays: string[] = ["D", "L", "M", "M", "J", "V", "S"];
   calendarDays: Date[] = [];
   currentDate: Date = new Date();
   selectedDate: Date | null = null;
   selectedTime: Date | null = null;
   timeSlots: Date[] = [];
 
+  @Output() dateTimeSelected = new EventEmitter<Date>();
+
+  emitSelectedDateTime() {
+    if (this.selectedDate && this.selectedTime) {
+      const dateTime = this.getSelectedDateTime();
+      this.dateTimeSelected.emit(dateTime);
+    }
+  }
   ngOnInit() {
     this.generateCalendarDays();
     this.generateTimeSlots();
@@ -71,10 +79,12 @@ export class CalendarComponent {
   selectDate(date: Date) {
     if (date < new Date(new Date().setHours(0, 0, 0, 0))) return;
     this.selectedDate = date;
+    this.emitSelectedDateTime();
   }
 
   selectTime(time: Date) {
     this.selectedTime = time;
+    this.emitSelectedDateTime();
   }
 
   isCurrentDate(date: Date): boolean {

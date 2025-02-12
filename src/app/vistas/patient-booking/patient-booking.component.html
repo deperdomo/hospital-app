@@ -37,14 +37,14 @@
           <div class="text-lg text-gray-500 flex items-center">Tarifa: {{ doctor?.precioConsulta }}€</div>
         </div>
         @if (isStep2) {
-          <fecha-cita />
+          <fecha-cita [selectedDateTime]="selectedDateTime"></fecha-cita>
         }
 
       </div>
     </div>
     <div class="w-2/3">
       @if (!isStep2) {
-        <app-calendar/>
+        <app-calendar (dateTimeSelected)="onDateTimeSelected($event)"></app-calendar>
       } @else {
         <ingresar-detalles-cita />
       }
