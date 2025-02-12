@@ -17,4 +17,8 @@ export class UsuarioService {
     console.log('Usuario a dar de alta: ', usuario);
     return this.http.post<Usuario>(`${this.apiUrl}/alta`, usuario);
   }
+
+  getUsuarioById(id: string): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}/one/${id}`);
+  }
 }

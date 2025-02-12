@@ -9,6 +9,7 @@ import { PatientBookingComponent } from './vistas/patient-booking/patient-bookin
 import { IndexVistasCitasComponent } from './vistas/vistas-citas/vistas-citas.component';
 import { IndexAfterLoginComponent } from './vistas/index-after-login/index-after-login.component';
 import { ProfileComponent } from './vistas/profile/profile.component';
+import { PerfilHistorialComponent } from './vistas/perfil-historial/perfil-historial.component';
 
 export const routes: Routes = [
     { path: '', component: IndexBeforeLoginComponent },
@@ -18,6 +19,9 @@ export const routes: Routes = [
     { path: 'nuevaCita/:id', component: PatientBookingComponent, canActivate: [AuthGuard] },
     { path: 'citas', component: IndexVistasCitasComponent, canActivate: [AuthGuard] },
     { path: 'perfil', component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: 'perfilHistorial', component: PerfilHistorialComponent, canActivate: [AuthGuard]  },
+    // { path: 'perfilHistorial/:id', component: PerfilHistorialComponent, canActivate: [AuthGuard]  }
+    // { path: 'verReceta', component: RecetaComponent, canActivate: [AuthGuard]  },
 
 ];
 
