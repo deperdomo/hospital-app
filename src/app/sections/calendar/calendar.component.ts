@@ -23,6 +23,7 @@ export class CalendarComponent {
       this.dateTimeSelected.emit(dateTime);
     }
   }
+
   ngOnInit() {
     this.generateCalendarDays();
     this.generateTimeSlots();
@@ -112,5 +113,46 @@ export class CalendarComponent {
     dateTime.setMinutes(this.selectedTime.getMinutes());
     return dateTime;
   }
+
+  getSelectedDateTimeFormatted(): string {
+    const dateTime = this.getSelectedDateTime();
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    };
+    return dateTime.toLocaleString('es-ES', options);
+  }
+
+  getSelectedDateFormatted(): string {
+    if (!this.selectedDate) return '';
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    };
+    return this.selectedDate.toLocaleString('es-ES', options);
+  }
+
+  getSelectedWeekday(): string {
+    if (!this.selectedDate) return '';
+    const options: Intl.DateTimeFormatOptions = { weekday: 'long' };
+    return this.selectedDate.toLocaleString('es-ES', options);
+  }
+  getCurrentMonthYear(): string {
+    const options: Intl.DateTimeFormatOptions = {
+      month: 'long',
+      year: 'numeric'
+    };
+    const formattedDate = this.currentDate.toLocaleString('es-ES', options);
+    return this.capitalizeFirstLetter(formattedDate);
+  }
+  capitalizeFirstLetter(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
 
 }

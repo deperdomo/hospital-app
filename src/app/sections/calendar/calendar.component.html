@@ -7,7 +7,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
-      <h2 class="text-xl font-semibold text-gray-800">{{ currentDate | date:'MMMM yyyy' }}</h2>
+      <h2 class="text-xl font-semibold text-gray-800">{{ getCurrentMonthYear() }}</h2>
       <button (click)="nextMonth()" class="text-gray-600 hover:text-blue-600 transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -30,9 +30,9 @@
   </div>
 
   <div class="mb-8" *ngIf="selectedDate">
-    <h3 class="text-2xl font-bold text-gray-800 mb-2">{{ selectedDate | date:'EEEE' | titlecase }}</h3>
-    <p class="text-lg text-gray-600">{{ selectedDate | date:'d \'de\' MMMM \'de\' y' }}</p>
-</div>
+    <h3 class="text-2xl font-bold text-gray-800 mb-2">{{ getSelectedWeekday() | titlecase }}</h3>
+    <p class="text-lg text-gray-600">{{ getSelectedDateFormatted() }}</p>
+  </div>
 
   <div class="relative">
     <div class="flex overflow-x-auto pb-4 scrollbar-hide">
@@ -43,10 +43,11 @@
         {{ time | date:'HH:mm' }}
       </div>
     </div>
-</div>
+  </div>
 
   <div *ngIf="selectedTime" class="mt-6 p-4 bg-blue-50 rounded-lg">
     <p class="text-blue-800 font-medium">Fecha y Hora seleccionada:</p>
-    <p class="text-gray-700">{{ getSelectedDateTime() | date:'EEEE, d \'de\' MMMM \'de\' y\',\' HH:mm' }}</p>
+    <p class="text-gray-700">{{ getSelectedDateTimeFormatted() }}</p>
   </div>
+
 </div>
