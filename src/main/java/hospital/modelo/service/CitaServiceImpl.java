@@ -67,4 +67,14 @@ public class CitaServiceImpl implements CitaService{
 		return crepo.findAll();
 	}
 
+	@Override
+	public List<Cita> buscarCitaPorUsuario(int id) {
+		return crepo.findCitaByUsuario(id);
+	}
+
+	@Override
+	public List<Cita> buscarCitaPorDoctor(int id) {
+		return crepo.findCitaByDoctor(id);
+	}
+
 }
