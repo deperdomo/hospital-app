@@ -1,14 +1,10 @@
 <div *ngFor="let cita of citasMostradas"
     class="p-2 rounded-md flex justify-between items-center group hover:bg-[#F6F6F6] border border-[#E9E9E9] ">
-    <!-- Bloque con número y letra (V 14), número estático -->    
     <div
-        class="fecha flex-none bg-[#EEF5DF] px-6 py-2 mr-10 rounded-md border-r border-[#E9E9E9] group-hover:bg-[#FFFFFF]flex-none items-center">
+        class="fecha flex-none bg-[#EEF5DF] px-6 py-2 mr-10 rounded-md border-r border-[#E9E9E9] group-hover:bg-[#FFFFFF] flex-none items-center">
         <p class="font-semibold">V</p>
         <p class="text-[20px] mt-1">14</p>
     </div>
-    <!-- Bloque con la información de la cita, cerca del número -->
-    <!-- LO QUE APARECE EN INDEX-AFTER-LOGIN -->
-    <!--  -->
     <div *ngIf="!isCitasPage" class="flex flex-auto justify-between">
         <div>
             <p class="font-semibold text-gray-800">{{ cita.hora }}</p>
@@ -60,8 +56,5 @@
             </svg>
         </button>
     </div>
-
-    
- 
 
 </div>
