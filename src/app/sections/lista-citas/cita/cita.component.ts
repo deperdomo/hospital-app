@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Cita } from '../../../models/cita';
 
 @Component({
   selector: 'app-cita',
@@ -9,6 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './cita.component.css'
 })
 export class CitaComponent {
+  @Input() cita!: Cita[];
 
   mostrartodas: boolean =false;
 citas = [
