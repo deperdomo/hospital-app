@@ -7,12 +7,18 @@ import { Cita } from "../models/cita";
     providedIn: 'root'
 })
 export class CitaService {
-    
-    private apiUrl = 'http://localhost:8090/cita';
 
-    constructor(private http: HttpClient) {}
+  private apiUrl = 'http://localhost:8090/cita';
 
-    getMisCitas(): Observable<Cita[]> {
-        return this.http.get<Cita[]>(`${this.apiUrl}/misCitas`);
-    }
+  constructor(private http: HttpClient) {}
+
+  altaCita(cita: Cita): Observable<Cita> {
+      return this.http.post<Cita>(`${this.apiUrl}/alta`, cita);
+  }
+
+  getMisCitas(): Observable<Cita[]> {
+      return this.http.get<Cita[]>(`${this.apiUrl}/misCitas`);
+  }
+
+
 }

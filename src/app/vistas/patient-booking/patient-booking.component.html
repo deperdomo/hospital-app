@@ -46,18 +46,15 @@
       @if (!isStep2) {
         <app-calendar (dateTimeSelected)="onDateTimeSelected($event)"></app-calendar>
       } @else {
-        <ingresar-detalles-cita />
+        <ingresar-detalles-cita [fecha]="selectedDateTime!" />
       }
 
       @if (!isStep2) {
         <div class="flex justify-end mt-2">
           <button (click)="step2()" class="bg-[#3B9AB8] text-white px-12 py-3 rounded">Siguiente</button>
         </div>
-      } @else {
-        <div class="flex justify-end mt-2">
-          <button class="bg-[#3B9AB8] text-white px-12 py-3 rounded">Confirmar</button>
-        </div>
       }
+      
     </div>
   </div>
 </div>
