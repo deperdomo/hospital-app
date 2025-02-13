@@ -1,3 +1,5 @@
+import { Especialidad } from "./especialidad";
+
 export interface Doctor {
   id: number;
   nombre: string;
@@ -15,7 +17,4 @@ export interface Doctor {
   especialidad: Especialidad;
 }
 
-export interface Especialidad {
-  id: number;
-  nombre: string;
-}
+

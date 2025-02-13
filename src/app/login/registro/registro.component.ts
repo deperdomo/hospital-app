@@ -27,6 +27,7 @@ export class RegistroComponent {
       username: 'juan123',
       apellidos: 'Pérez',
       email: 'juan@example.com',
+      telefono: '123456789',
       provincia: 'Madrid',
       localidad: 'Centro',
       direccion: 'Calle Falsa 123',

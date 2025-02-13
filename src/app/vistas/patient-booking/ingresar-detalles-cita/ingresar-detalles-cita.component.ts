@@ -7,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrl: './ingresar-detalles-cita.component.css'
 })
 export class IngresarDetallesCitaComponent {
+  email: string = '';
+  fotoPerfil: string = '';
 
+  ngOnInit() {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    if (usuarioGuardado) {
+      const usuario = JSON.parse(usuarioGuardado);
+      this.email = usuario.nombre;
+      this.fotoPerfil = usuario.fotoPerfil;
+    }
+  }
 }
