@@ -21,32 +21,32 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="doctores")
-public class Doctor implements Serializable {
+@Table(name="citas")
+public class Cita implements Serializable{
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private String nombre;
-	private String username;
-	private String apellidos;
-	private String email;
-	private String provincia;
-	private String localidad;
-	private String direccion;
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name="fecha_alta")
-	private Date fechaAlta;
-	@Column(name="foto_perfil")
-	private String fotoPerfil;
-	private String password;
-	private int experiencia;
-	@Column(name="precio_consulta")
-	private int precioConsulta;
+	private Date fecha;
+	private String email;
+	private String motivo;
+	private int tarifa;
+	@Column(name="forma_pago")
+	private String formaPago;
+	private String estado;
 	
 	@ManyToOne
-	@JoinColumn(name="id_especialidad")
-	private Especialidad especialidad;
+	@JoinColumn(name="id_usuario")
+	private Usuario usuario;
+	@ManyToOne
+	@JoinColumn(name="id_doctor")
+	private Doctor doctor;
+	
 }
