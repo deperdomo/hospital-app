@@ -6,16 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import hospital.entidades.Cita;
+
 import hospital.entidades.Doctor;
 import hospital.entidades.Usuario;
+
 import hospital.modelo.service.CitaService;
 import hospital.modelo.service.DoctorService;
 import hospital.modelo.service.UsuarioService;
@@ -28,6 +34,7 @@ public class CitaRestController {
 	@Autowired
 	private CitaService cserv;
 	
+
 	@Autowired
 	private UsuarioService userv;
 	
@@ -56,4 +63,22 @@ public class CitaRestController {
 		}
 		 return new ResponseEntity<>("Ese usuario no tiene reserva", HttpStatus.NOT_FOUND);
 	}
+	//@GetMapping("/misCitas")
+	//public ResponseEntity<?> todasMisCitas() {
+	//	String
+	//	return new ResponseEntity<>(cserv.buscarCitaPorDoctor(),  HttpStatus.OK);
+	//}
+	
+	@PostMapping("/alta")
+	public ResponseEntity<?> alta(@RequestBody Cita cita) {
+	    try {
+	    	Cita nuevaCita = cserv.alta(cita);
+	        return new ResponseEntity<>(nuevaCita, HttpStatus.OK);
+	    } catch (Exception e) {
+	        return new ResponseEntity<>("Error en el registro", HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+
+	}
+	
+	
 }

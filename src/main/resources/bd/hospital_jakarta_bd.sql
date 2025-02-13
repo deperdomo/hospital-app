@@ -7,6 +7,7 @@ CREATE TABLE usuarios (
     username VARCHAR(255) UNIQUE,
     apellidos VARCHAR(255),
     email VARCHAR(255) UNIQUE,
+    telefono VARCHAR(15),
     provincia VARCHAR(100),
     localidad VARCHAR(100),
     direccion VARCHAR(250),
@@ -88,6 +89,7 @@ CREATE TABLE citas (
     id_doctor INT,
     fecha DATETIME,
     email VARCHAR(255),
+    telefono VARCHAR(15),
     motivo VARCHAR(100),
     tarifa int,
 	forma_pago VARCHAR(50),
@@ -97,20 +99,20 @@ CREATE TABLE citas (
 );
 
 -- Insertar usuarios
-INSERT INTO usuarios (id, nombre, apellidos, username, email, provincia, localidad, direccion, fecha_nacimiento, fecha_alta, foto_perfil, password, rol) 
+INSERT INTO usuarios (id, nombre, apellidos, username, email, telefono, provincia, localidad, direccion, fecha_nacimiento, fecha_alta, foto_perfil, password, rol) 
 VALUES 
-(1, 'Carlos', 'López', 'carlos', 'carlos.lopez@example.com', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'usu_anonimo.png', 'password789', 'paciente'),
-(2, 'Sole', 'Moral', 'sole', 'sole.moral@example.com', 'Madrid', 'Moncloa-Aravaca', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'sole', 'admin'),
-(3, 'Diego', 'Martinez', 'diego', 'diego.martinez@example.com', 'Madrid', 'Retiro', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'diego', 'admin'),
-(4, 'Deivi', 'Perdomo', 'deivi', 'deivi.lopez@example.com', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'deivi', 'admin'),
-(5, 'Sandra', 'González', 'sandra', 'sandra.gonzalez@example.com', 'Madrid', 'Moratalaz', 'Calle Alegría 101', '1998-12-15', '2023-06-01', 'usu_anonimo.png', 'password321', 'paciente'),
-(6, 'Raúl', 'Sánchez', 'raul', 'raul.sanchez@example.com', 'Madrid', 'Retiro', 'Calle Sol 500', '1995-07-20', '2023-07-05', 'usu_anonimo.png', 'password654', 'paciente'),
-(7, 'Laura', 'Méndez', 'laura', 'laura.mendez@example.com', 'Madrid', 'Centro', 'Avenida de la Constitución 20', '1997-03-03', '2023-08-10', 'usu_anonimo.png', 'password987', 'paciente'),
-(8, 'Isabel', 'Martínez', 'isabel', 'isabel.martinez@example.com', 'Madrid', 'Moratalaz', 'Calle Mayor 101', '1990-09-30', '2023-08-01', 'usu_anonimo.png', 'password123', 'paciente'),
-(9, 'Javier', 'Díaz', 'javier', 'javier.diaz@example.com', 'Madrid', 'Villaverde', 'Calle Sol 101', '1992-03-10', '2023-09-01', 'usu_anonimo.png', 'password456', 'paciente'),
-(10, 'Ana', 'Ruiz', 'ana', 'ana.ruiz@example.com', 'Madrid', 'Chamartín', 'Avenida de América 123', '1995-01-15', '2023-09-05', 'usu_anonimo.png', 'password789', 'paciente'),
-(11, 'Miguel', 'Hernández', 'miguel', 'miguel.hernandez@example.com', 'Madrid', 'Carabanchel', 'Calle del Sol 88', '1987-06-01', '2023-09-07', 'usu_anonimo.png', 'password321', 'paciente'),
-(12, 'Elena', 'García', 'elena', 'elena.garcia@example.com', 'Madrid', 'Latina', 'Calle Madrid 150', '1998-12-05', '2023-09-10', 'usu_anonimo.png', 'password654', 'paciente');
+(1, 'Carlos', 'López', 'carlos', 'carlos.lopez@example.com', '123456789', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'usu_anonimo.png', 'password789', 'paciente'),
+(2, 'Sole', 'Moral', 'sole', 'sole.moral@example.com', '123456789', 'Madrid', 'Moncloa-Aravaca', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'sole', 'admin'),
+(3, 'Diego', 'Martinez', 'diego', 'diego.martinez@example.com', '123456789', 'Madrid', 'Retiro', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'diego', 'admin'),
+(4, 'Deivi', 'Perdomo', 'deivi', 'deivi.lopez@example.com', '123456789', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'deivi', 'admin'),
+(5, 'Sandra', 'González', 'sandra', 'sandra.gonzalez@example.com', '123456789', 'Madrid', 'Moratalaz', 'Calle Alegría 101', '1998-12-15', '2023-06-01', 'usu_anonimo.png', 'password321', 'paciente'),
+(6, 'Raúl', 'Sánchez', 'raul', 'raul.sanchez@example.com', '123456789', 'Madrid', 'Retiro', 'Calle Sol 500', '1995-07-20', '2023-07-05', 'usu_anonimo.png', 'password654', 'paciente'),
+(7, 'Laura', 'Méndez', 'laura', 'laura.mendez@example.com', '123456789', 'Madrid', 'Centro', 'Avenida de la Constitución 20', '1997-03-03', '2023-08-10', 'usu_anonimo.png', 'password987', 'paciente'),
+(8, 'Isabel', 'Martínez', 'isabel', 'isabel.martinez@example.com', '123456789', 'Madrid', 'Moratalaz', 'Calle Mayor 101', '1990-09-30', '2023-08-01', 'usu_anonimo.png', 'password123', 'paciente'),
+(9, 'Javier', 'Díaz', 'javier', 'javier.diaz@example.com', '123456789', 'Madrid', 'Villaverde', 'Calle Sol 101', '1992-03-10', '2023-09-01', 'usu_anonimo.png', 'password456', 'paciente'),
+(10, 'Ana', 'Ruiz', 'ana', 'ana.ruiz@example.com', 'Madrid', '123456789', 'Chamartín', 'Avenida de América 123', '1995-01-15', '2023-09-05', 'usu_anonimo.png', 'password789', 'paciente'),
+(11, 'Miguel', 'Hernández', 'miguel', 'miguel.hernandez@example.com', '123456789', 'Madrid', 'Carabanchel', 'Calle del Sol 88', '1987-06-01', '2023-09-07', 'usu_anonimo.png', 'password321', 'paciente'),
+(12, 'Elena', 'García', 'elena', 'elena.garcia@example.com', '123456789', 'Madrid', 'Latina', 'Calle Madrid 150', '1998-12-05', '2023-09-10', 'usu_anonimo.png', 'password654', 'paciente');
 
 -- Insertar especialidades
 INSERT INTO especialidades (id, nombre)
@@ -197,18 +199,18 @@ VALUES
 (10, 12, 150.00, '2023-09-06', 'pendiente');
 
 -- Insertar citas
-INSERT INTO citas (id, id_usuario, id_doctor, fecha, email, motivo, tarifa, forma_pago, estado)
+INSERT INTO citas (id, id_usuario, id_doctor, fecha, email, telefono, motivo, tarifa, forma_pago, estado)
 VALUES
-(1, 3, 2, '2023-05-01 10:00:00', 'usuario1@example.com', 'Consulta general', 100, 'Tarjeta de crédito', 'completada'),
-(2, 3, 2, '2023-06-10 11:00:00', 'usuario2@example.com', 'Revisión', 150, 'Efectivo', 'completada'),
-(3, 4, 4, '2023-06-20 10:00:00', 'usuario4@example.com', 'Consulta general', 150, 'Tarjeta de crédito', 'completada'),
-(4, 5, 5, '2023-07-15 12:00:00', 'usuario5@example.com', 'Chequeo general', 120, 'Efectivo', 'completada'),
-(5, 6, 6, '2023-08-18 09:30:00', 'usuario6@example.com', 'Control médico', 90, 'Transferencia', 'pendiente'),
-(6, 5, 4, '2023-07-20 15:00:00', 'usuario4@example.com', 'Revisión de salud', 100, 'Tarjeta de crédito', 'completada'),
-(7, 6, 3, '2023-08-10 14:00:00', 'usuario5@example.com', 'Consulta médica', 110, 'Efectivo', 'completada'),
-(8, 10, 9, '2023-09-06 10:00:00', 'usuario10@example.com', 'Consulta para migraña', 150, 'Efectivo', 'completada'),
-(9, 11, 10, '2023-09-07 15:00:00', 'usuario11@example.com', 'Consulta médica', 100, 'Tarjeta de crédito', 'completada'),
-(10, 12, 11, '2023-09-08 14:30:00', 'usuario12@example.com', 'Consulta de salud general', 120, 'Transferencia', 'pendiente'),
-(11, 9, 8, '2023-09-03 11:00:00', 'usuario9@example.com', 'Chequeo de tobillo', 120, 'Efectivo', 'pendiente'),
-(12, 8, 7, '2023-08-22 09:30:00', 'usuario8@example.com', 'Consulta de insomnio', 100, 'Tarjeta de crédito', 'completada');
+(1, 3, 2, '2023-05-01 10:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'completada'),
+(2, 3, 2, '2023-06-10 11:00:00', 'usuario2@example.com', '123456789', 'Revisión', 150, 'Efectivo', 'completada'),
+(3, 4, 4, '2023-06-20 10:00:00', 'usuario4@example.com', '123456789', 'Consulta general', 150, 'Tarjeta de crédito', 'completada'),
+(4, 5, 5, '2023-07-15 12:00:00', 'usuario5@example.com', '123456789', 'Chequeo general', 120, 'Efectivo', 'completada'),
+(5, 6, 6, '2023-08-18 09:30:00', 'usuario6@example.com', '123456789', 'Control médico', 90, 'Transferencia', 'pendiente'),
+(6, 5, 4, '2023-07-20 15:00:00', 'usuario4@example.com', '123456789', 'Revisión de salud', 100, 'Tarjeta de crédito', 'completada'),
+(7, 6, 3, '2023-08-10 14:00:00', 'usuario5@example.com', '123456789', 'Consulta médica', 110, 'Efectivo', 'completada'),
+(8, 10, 9, '2023-09-06 10:00:00', 'usuario10@example.com', '123456789', 'Consulta para migraña', 150, 'Efectivo', 'completada'),
+(9, 11, 10, '2023-09-07 15:00:00', 'usuario11@example.com', '123456789', 'Consulta médica', 100, 'Tarjeta de crédito', 'completada'),
+(10, 12, 11, '2023-09-08 14:30:00', 'usuario12@example.com', '123456789', 'Consulta de salud general', 120, 'Transferencia', 'pendiente'),
+(11, 9, 8, '2023-09-03 11:00:00', 'usuario9@example.com', '123456789', 'Chequeo de tobillo', 120, 'Efectivo', 'pendiente'),
+(12, 8, 7, '2023-08-22 09:30:00', 'usuario8@example.com', '123456789', 'Consulta de insomnio', 100, 'Tarjeta de crédito', 'completada');
 

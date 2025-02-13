@@ -23,10 +23,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="citas")
 public class Cita implements Serializable{
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -36,6 +32,7 @@ public class Cita implements Serializable{
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fecha;
 	private String email;
+	private String telefono;
 	private String motivo;
 	private int tarifa;
 	@Column(name="forma_pago")
