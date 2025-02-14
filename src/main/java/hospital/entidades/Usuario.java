@@ -47,5 +47,6 @@ public class Usuario implements Serializable {
 	private String fotoPerfil;
 	private String password;
 	private String rol;
+	private String sexo;
 	
 }

@@ -49,4 +49,5 @@ public class Doctor implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_especialidad")
 	private Especialidad especialidad;
+	private String sexo;
 }
