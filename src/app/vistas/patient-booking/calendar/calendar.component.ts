@@ -5,7 +5,6 @@ import { CommonModule } from "@angular/common";
   selector: 'app-calendar',
   imports: [CommonModule],
   templateUrl: './calendar.component.html',
-  styleUrl: './calendar.component.css'
 })
 export class CalendarComponent {
   weekDays: string[] = ["L", "M", "M", "J", "V", "S", "D"];

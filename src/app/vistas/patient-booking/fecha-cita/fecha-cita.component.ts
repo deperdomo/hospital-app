@@ -4,7 +4,6 @@ import { Component, Input } from '@angular/core';
   selector: 'fecha-cita',
   imports: [],
   templateUrl: './fecha-cita.component.html',
-  styleUrl: './fecha-cita.component.css'
 })
 export class FechaCitaComponent {
   @Input() selectedDateTime: Date | null = null;

@@ -3,12 +3,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { DoctorService } from '../../services/doctor.service';
 
-import { CalendarComponent } from "../../sections/calendar/calendar.component";
+import { CalendarComponent } from './calendar/calendar.component';
 import { UserNavComponent } from "../../navs/user-nav/user-nav.component";
 import { TitleJakartaComponent } from "../../navs/title-jakarta/title-jakarta.component";
 import { Doctor } from '../../models/doctor';
 import { IngresarDetallesCitaComponent } from "./ingresar-detalles-cita/ingresar-detalles-cita.component";
 import { FechaCitaComponent } from "./fecha-cita/fecha-cita.component";
+
 
 
 @Component({

@@ -22,8 +22,8 @@ export class CitaService {
       return this.http.get<Cita[]>(`${this.apiUrl}/misCitasUsuario/${id}`);
   }
 
-  getCitasDoctor(id: string): Observable<Cita[]> {
-    return this.http.get<Cita[]>(`${this.apiUrl}/misCitasDoctor/${id}`);
+  getCitasNoVistasPorUsuario(id: number): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/citasNoVistas/${id}`);
 }
 
 }

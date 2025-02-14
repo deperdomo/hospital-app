@@ -20,8 +20,8 @@
     <div class="grid grid-cols-7 gap-1">
       <div *ngFor="let date of calendarDays"
            [class]="'p-2 text-center cursor-pointer transition-all duration-200 rounded-full ' +
-                    (isCurrentDate(date) ? 'bg-blue-500 text-white hover:bg-blue-600' :
-                     isSelectedDate(date) ? 'bg-blue-100 text-blue-800 hover:bg-blue-200' :
+                    (isCurrentDate(date) ? 'bg-blue-100 text-blue-800 hover:bg-blue-200' :
+                     isSelectedDate(date) ? 'bg-blue-500 text-white hover:bg-blue-600' :
                      (date.getDay() === 0 || date.getDay() === 6) ? 'text-gray-400 cursor-not-allowed' :
                      'hover:bg-gray-100')"
            (click)="selectDate(date)">

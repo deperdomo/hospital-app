@@ -8,8 +8,9 @@ export interface Cita {
     telefono: string;
     motivo: string;
     tarifa: number;
-	  formaPago: string;
+	formaPago: string;
     estado: string;
+    visto: number;
     usuario: Usuario;
     doctor: Doctor;
 }
