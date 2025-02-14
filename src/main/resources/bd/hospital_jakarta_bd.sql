@@ -15,6 +15,7 @@ CREATE TABLE usuarios (
     fecha_alta DATE,
     foto_perfil VARCHAR(100),
     password VARCHAR(100),
+    sexo varchar(20), 
     rol VARCHAR(50) -- (admin, enfermera, pacientes etc.)
 );
 
@@ -38,6 +39,7 @@ CREATE TABLE doctores (
     password VARCHAR(100),
     experiencia INT,
     precio_consulta INT,
+    sexo varchar(20), 
     FOREIGN KEY (id_especialidad) REFERENCES especialidades(id)
 );
 
@@ -99,20 +101,23 @@ CREATE TABLE citas (
 );
 
 -- Insertar usuarios
-INSERT INTO usuarios (id, nombre, apellidos, username, email, telefono, provincia, localidad, direccion, fecha_nacimiento, fecha_alta, foto_perfil, password, rol) 
+INSERT INTO usuarios (id, nombre, apellidos, username, email, telefono, provincia, localidad, direccion, fecha_nacimiento, fecha_alta, foto_perfil, password, sexo, rol) 
 VALUES 
-(1, 'Carlos', 'López', 'carlos', 'carlos.lopez@example.com', '123456789', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'usu_anonimo.png', 'password789', 'paciente'),
-(2, 'Sole', 'Moral', 'sole', 'sole.moral@example.com', '123456789', 'Madrid', 'Moncloa-Aravaca', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'sole', 'admin'),
-(3, 'Diego', 'Martinez', 'diego', 'diego.martinez@example.com', '123456789', 'Madrid', 'Retiro', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'diego', 'admin'),
-(4, 'Deivi', 'Perdomo', 'deivi', 'deivi.lopez@example.com', '123456789', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'deivi', 'admin'),
-(5, 'Sandra', 'González', 'sandra', 'sandra.gonzalez@example.com', '123456789', 'Madrid', 'Moratalaz', 'Calle Alegría 101', '1998-12-15', '2023-06-01', 'usu_anonimo.png', 'password321', 'paciente'),
-(6, 'Raúl', 'Sánchez', 'raul', 'raul.sanchez@example.com', '123456789', 'Madrid', 'Retiro', 'Calle Sol 500', '1995-07-20', '2023-07-05', 'usu_anonimo.png', 'password654', 'paciente'),
-(7, 'Laura', 'Méndez', 'laura', 'laura.mendez@example.com', '123456789', 'Madrid', 'Centro', 'Avenida de la Constitución 20', '1997-03-03', '2023-08-10', 'usu_anonimo.png', 'password987', 'paciente'),
-(8, 'Isabel', 'Martínez', 'isabel', 'isabel.martinez@example.com', '123456789', 'Madrid', 'Moratalaz', 'Calle Mayor 101', '1990-09-30', '2023-08-01', 'usu_anonimo.png', 'password123', 'paciente'),
-(9, 'Javier', 'Díaz', 'javier', 'javier.diaz@example.com', '123456789', 'Madrid', 'Villaverde', 'Calle Sol 101', '1992-03-10', '2023-09-01', 'usu_anonimo.png', 'password456', 'paciente'),
-(10, 'Ana', 'Ruiz', 'ana', 'ana.ruiz@example.com', 'Madrid', '123456789', 'Chamartín', 'Avenida de América 123', '1995-01-15', '2023-09-05', 'usu_anonimo.png', 'password789', 'paciente'),
-(11, 'Miguel', 'Hernández', 'miguel', 'miguel.hernandez@example.com', '123456789', 'Madrid', 'Carabanchel', 'Calle del Sol 88', '1987-06-01', '2023-09-07', 'usu_anonimo.png', 'password321', 'paciente'),
-(12, 'Elena', 'García', 'elena', 'elena.garcia@example.com', '123456789', 'Madrid', 'Latina', 'Calle Madrid 150', '1998-12-05', '2023-09-10', 'usu_anonimo.png', 'password654', 'paciente');
+(1, 'Carlos', 'López', 'carlos', 'carlos.lopez@example.com', '123456789', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'usu_anonimo.png', 'password789', 'masculino', 'paciente'),
+(2, 'Sole', 'Moral', 'sole', 'sole.moral@example.com', '123456789', 'Madrid', 'Moncloa-Aravaca', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'sole', 'femenino', 'admin'),
+(3, 'Diego', 'Martinez', 'diego', 'diego.martinez@example.com', '123456789', 'Madrid', 'Retiro', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'diego', 'masculino', 'admin'),
+(4, 'Deivi', 'Perdomo', 'deivi', 'deivi.lopez@example.com', '123456789', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'deivi', 'masculino', 'admin'),
+(5, 'Sandra', 'González', 'sandra', 'sandra.gonzalez@example.com', '123456789', 'Madrid', 'Moratalaz', 'Calle Alegría 101', '1998-12-15', '2023-06-01', 'usu_anonimo.png', 'password321', 'femenino', 'paciente'),
+(6, 'Raúl', 'Sánchez', 'raul', 'raul.sanchez@example.com', '123456789', 'Madrid', 'Retiro', 'Calle Sol 500', '1995-07-20', '2023-07-05', 'usu_anonimo.png', 'password654', 'masculino', 'paciente'),
+(7, 'Laura', 'Méndez', 'laura', 'laura.mendez@example.com', '123456789', 'Madrid', 'Centro', 'Avenida de la Constitución 20', '1997-03-03', '2023-08-10', 'usu_anonimo.png', 'password987', 'femenino','paciente'),
+(8, 'Isabel', 'Martínez', 'isabel', 'isabel.martinez@example.com', '123456789', 'Madrid', 'Moratalaz', 'Calle Mayor 101', '1990-09-30', '2023-08-01', 'usu_anonimo.png', 'password123', 'femenino','paciente'),
+(9, 'Javier', 'Díaz', 'javier', 'javier.diaz@example.com', '123456789', 'Madrid', 'Villaverde', 'Calle Sol 101', '1992-03-10', '2023-09-01', 'usu_anonimo.png', 'password456', 'masculino','paciente'),
+(10, 'Ana', 'Ruiz', 'ana', 'ana.ruiz@example.com', 'Madrid', '123456789', 'Chamartín', 'Avenida de América 123', '1995-01-15', '2023-09-05', 'usu_anonimo.png', 'password789', 'femenino', 'paciente'),
+(11, 'Miguel', 'Hernández', 'miguel', 'miguel.hernandez@example.com', '123456789', 'Madrid', 'Carabanchel', 'Calle del Sol 88', '1987-06-01', '2023-09-07', 'usu_anonimo.png', 'password321', 'masculino', 'paciente'),
+(12, 'Elena', 'García', 'elena', 'elena.garcia@example.com', '123456789', 'Madrid', 'Latina', 'Calle Madrid 150', '1998-12-05', '2023-09-10', 'usu_anonimo.png', 'password654', 'femenino', 'paciente'),
+(13, 'Carlos', 'García', 'carlosg', 'carlos.garcia@example.com', '123456789', 'Madrid', 'Tetuán', 'Calle Juan de la Cierva 15', '1985-04-12', '2023-09-10', 'usu_10.png', 'password555', 'masculino', 'paciente'),
+(14, 'Carmen', 'López', 'carmenl', 'carmen.lopez@example.com', '123456789', 'Madrid', 'Chamartín', 'Calle de Chamartín 25', '1990-02-25', '2023-09-11', 'usu_11.png', 'password666', 'femenino', 'paciente');
+
 
 -- Insertar especialidades
 INSERT INTO especialidades (id, nombre)
@@ -128,19 +133,19 @@ VALUES
 
 
 -- Insertar doctores
-INSERT INTO doctores (id, id_especialidad, nombre, username, apellidos, email, provincia, localidad, direccion, fecha_alta, foto_perfil, password, experiencia, precio_consulta)
+INSERT INTO doctores (id, id_especialidad, nombre, username, apellidos, email, provincia, localidad, direccion, fecha_alta, foto_perfil, password, experiencia, precio_consulta, sexo)
 VALUES
-(1, 1, 'Juan', 'Juan', 'Pérez', 'juan.perez@example.com', 'Madrid', 'Centro', 'Calle Falsa 123', '2023-01-01', 'doc_02.png', 'password123', 5, 20),
-(2, 2, 'María', 'maria', 'Gómez', 'maria.gomez@example.com', 'Madrid', 'Arganzuela', 'Avenida Siempre Viva 456', '2023-02-15', 'doc_05.png', 'password456', 12, 25),
-(3, 3, 'Ana', 'ana', 'Martínez', 'ana.martinez@example.com', 'Madrid', 'Chamberí', 'Calle Sol 321', '2023-04-05', 'doc_09.png', 'password321', 7, 30),
-(4, 4, 'José', 'jose', 'Ramírez', 'jose.ramirez@example.com', 'Madrid', 'Arganzuela', 'Calle Real 45', '2022-05-10', 'doc_03.png', 'password111', 6, 40),
-(5, 5, 'Patricia', 'patricia', 'Rodríguez', 'patricia.rodriguez@example.com', 'Madrid', 'Salamanca', 'Calle Mayor 78', '2023-01-12', 'doc_04.png', 'password222', 10, 45),
-(6, 6, 'Antonio', 'antonio', 'García', 'antonio.garcia@example.com', 'Madrid', 'Tetuán', 'Calle de Goya 23', '2023-04-15', 'doc_06.png', 'password333', 4, 35),
-(7, 1, 'Pedro', 'pedro', 'Serrano', 'pedro.serrano@example.com', 'Madrid', 'Carabanchel', 'Calle San Pedro 101', '2023-06-01', 'doc_07.png', 'password555', 8, 50),
-(8, 2, 'Lucía', 'lucia', 'Fernández', 'lucia.fernandez@example.com', 'Madrid', 'Latina', 'Calle del Río 200', '2023-07-15', 'doc_08.png', 'password666', 5, 55),
-(9, 3, 'Raquel', 'raquel', 'Pérez', 'raquel.perez@example.com', 'Madrid', 'Villaverde', 'Calle de Vallecas 456', '2023-04-20', 'doc_12.png', 'password777', 10, 60),
-(10, 1, 'Carlos', 'carlos', 'Jiménez', 'carlos.jimenez@example.com', 'Madrid', 'Chamartín', 'Calle Asturias 30', '2023-03-01', 'doc_10.png', 'password888', 15, 70),
-(11, 2, 'Nuria', 'nuria', 'Alonso', 'nuria.alonso@example.com', 'Madrid', 'Retiro', 'Calle del Retiro 12', '2023-02-01', 'doc_11.png', 'password999', 4, 45);
+(1, 1, 'Juan', 'Juan', 'Pérez', 'juan.perez@example.com', 'Madrid', 'Centro', 'Calle Falsa 123', '2023-01-01', 'doc_02.png', 'password123', 5, 20, 'masculino'),
+(2, 2, 'Mario', 'mario', 'Gómez', 'mario.gomez@example.com', 'Madrid', 'Arganzuela', 'Avenida Siempre Viva 456', '2023-02-15', 'doc_05.png', 'password456', 12, 25, 'masculino'),
+(3, 3, 'Ana', 'ana', 'Martínez', 'ana.martinez@example.com', 'Madrid', 'Chamberí', 'Calle Sol 321', '2023-04-05', 'doc_09.png', 'password321', 7, 30, 'femenino'),
+(4, 4, 'José', 'jose', 'Ramírez', 'jose.ramirez@example.com', 'Madrid', 'Arganzuela', 'Calle Real 45', '2022-05-10', 'doc_03.png', 'password111', 6, 40, 'masculino'),
+(5, 5, 'Patricia', 'patricia', 'Rodríguez', 'patricia.rodriguez@example.com', 'Madrid', 'Salamanca', 'Calle Mayor 78', '2023-01-12', 'doc_04.png', 'password222', 10, 45, 'femenino'),
+(6, 6, 'Antonio', 'antonio', 'García', 'antonio.garcia@example.com', 'Madrid', 'Tetuán', 'Calle de Goya 23', '2023-04-15', 'doc_06.png', 'password333', 4, 35, 'masculino'),
+(7, 1, 'Pedro', 'pedro', 'Serrano', 'pedro.serrano@example.com', 'Madrid', 'Carabanchel', 'Calle San Pedro 101', '2023-06-01', 'doc_07.png', 'password555', 8, 50, 'masculino'),
+(8, 2, 'Lucía', 'lucia', 'Fernández', 'lucia.fernandez@example.com', 'Madrid', 'Latina', 'Calle del Río 200', '2023-07-15', 'doc_08.png', 'password666', 5, 55, 'femenino'),
+(9, 3, 'Raquel', 'raquel', 'Pérez', 'raquel.perez@example.com', 'Madrid', 'Villaverde', 'Calle de Vallecas 456', '2023-04-20', 'doc_12.png', 'password777', 10, 60, 'femenino'),
+(10, 1, 'Carlos', 'carlos', 'Jiménez', 'carlos.jimenez@example.com', 'Madrid', 'Chamartín', 'Calle Asturias 30', '2023-03-01', 'doc_10.png', 'password888', 15, 70, 'masculino'),
+(11, 2, 'Nuria', 'nuria', 'Alonso', 'nuria.alonso@example.com', 'Madrid', 'Retiro', 'Calle del Retiro 12', '2023-02-01', 'doc_11.png', 'password999', 4, 45, 'femenino');
 
 -- Insertar disponibilidad
 INSERT INTO disponibilidad (id, id_doctor, hora_inicio, hora_fin, estado, comentarios)
