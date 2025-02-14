@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { InfoDoctorComponent } from "../info-doctor/info-doctor.component";
+import { InfoDoctorComponent } from "./info-doctor/info-doctor.component";
 import { Doctor } from '../../models/doctor';
 import { DoctorService } from '../../services/doctor.service';
 

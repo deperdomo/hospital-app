@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavBeforeLoginComponent } from "../../navs/nav-before-login/nav-before-login.component";
 import { BanerComponent } from "../../sections/baner/baner.component";
 import { FindNavComponent } from "../../navs/find-nav/find-nav.component";
-import { InfoDoctorComponent } from "../../sections/info-doctor/info-doctor.component";
+import { InfoDoctorComponent } from "../../sections/doctores-recomendados/info-doctor/info-doctor.component";
 import { NearbyDoctorsComponent } from "../../nearby-doctors/nearby-doctors/nearby-doctors.component";
 import { NearbyDoctorsDisabledComponent } from "../../nearby-doctors/nearby-doctors-disabled/nearby-doctors-disabled.component";
 import { FooterConmponent } from "../../footer/footer.component";

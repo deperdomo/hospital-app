@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Doctor } from '../../models/doctor';
+import { Doctor } from '../../../models/doctor';
 import { CommonModule } from '@angular/common';
 
 

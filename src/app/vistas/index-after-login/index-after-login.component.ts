@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { LeftNavComponent } from "../../navs/left-nav/left-nav.component";
 import { SecundaryNavComponent } from "../../navs/secundary-nav/secundary-nav.component";
-import { InfoDoctorComponent } from "../../sections/info-doctor/info-doctor.component";
 import { NearbyDoctorsComponent } from "../../nearby-doctors/nearby-doctors/nearby-doctors.component";
 import { NearbyDoctorsDisabledComponent } from "../../nearby-doctors/nearby-doctors-disabled/nearby-doctors-disabled.component";
 import { FooterConmponent } from "../../footer/footer.component";
