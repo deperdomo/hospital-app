@@ -18,7 +18,7 @@ export const routes: Routes = [
     { path: 'registro', component: RegistroComponent },
     { path: 'index', component: IndexAfterLoginComponent, canActivate: [AuthGuard] },
     { path: 'nuevaCita/:id', component: PatientBookingComponent, canActivate: [AuthGuard] },
-    { path: 'citas', component: IndexVistasCitasComponent, canActivate: [AuthGuard] },
+    { path: 'misCitasUsuario', component: IndexVistasCitasComponent, canActivate: [AuthGuard] },
     { path: 'perfil', component: ProfileComponent, canActivate: [AuthGuard] },
     { path: 'perfilHistorial', component: PerfilHistorialComponent, canActivate: [AuthGuard]  },
     // { path: 'perfilHistorial/:id', component: PerfilHistorialComponent, canActivate: [AuthGuard]  }
