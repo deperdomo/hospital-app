@@ -3,13 +3,12 @@
     <div
         class="fecha flex-none bg-[#EEF5DF] px-6 py-2 mr-10 rounded-md border-r border-[#E9E9E9] group-hover:bg-[#FFFFFF] flex-none items-center">
         <p class="font-semibold">V</p>
-        <!-- {{ cita.fecha | date: 'dd' }} -->
-        <p class="text-[20px] mt-1">14</p>
+        <p class="text-[20px] mt-1">{{ cita.fecha | date: 'dd' }}</p>
     </div>
     <div *ngIf="!isCitasPage" class="flex flex-auto justify-between">
         <div>
-            <!-- {{ cita.fecha | date: 'shortTime' }} -->
-            <p class="font-semibold text-gray-800">hora</p>
+            <!-- {{ cita.fecha | date: 'shortTime' }} + 2, porque pinta con 2horas de restraso -->
+            <p class="font-semibold text-gray-800">{{ cita.fecha | date: 'shortTime' }}</p>
             <p class="text-sm text-gray-600">Dr. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }}</p>
         </div>
         <button>
