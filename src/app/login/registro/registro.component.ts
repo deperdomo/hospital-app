@@ -35,7 +35,8 @@ export class RegistroComponent {
       fechaNacimiento: '1990-01-01',
       fotoPerfil: 'usu_anonimo.png',
       password: 'password123',
-      rol: 'paciente'
+      rol: 'paciente',
+      sexo: 'hombre'
     };
   }
 

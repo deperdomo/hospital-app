@@ -15,6 +15,5 @@ export interface Doctor {
   experiencia: number;
   precioConsulta: number;
   especialidad: Especialidad;
+  sexo: string;
 }
-
-

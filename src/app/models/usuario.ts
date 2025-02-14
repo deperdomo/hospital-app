@@ -13,4 +13,5 @@ export interface Usuario {
     fotoPerfil: string;
     password: string;
     rol: string;
+    sexo: string;
   }
