@@ -28,9 +28,9 @@ public class Cita implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date fecha;
+	@Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date fecha;
 	private String email;
 	private String telefono;
 	private String motivo;
@@ -38,6 +38,7 @@ public class Cita implements Serializable{
 	@Column(name="forma_pago")
 	private String formaPago;
 	private String estado;
+	private int visto;
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuario")

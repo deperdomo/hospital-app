@@ -14,4 +14,7 @@ public interface CitaRepository extends JpaRepository<Cita, Integer>{
 	
 	@Query("select c from Cita c where c.doctor.id = ?1")
 	List<Cita> findCitaByDoctor (int id);
+	
+	List<Cita> findByVisto(int visto);
+	
 }

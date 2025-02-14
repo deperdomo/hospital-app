@@ -63,11 +63,6 @@ public class CitaRestController {
 		}
 		 return new ResponseEntity<>("Ese usuario no tiene reserva", HttpStatus.NOT_FOUND);
 	}
-	//@GetMapping("/misCitas")
-	//public ResponseEntity<?> todasMisCitas() {
-	//	String
-	//	return new ResponseEntity<>(cserv.buscarCitaPorDoctor(),  HttpStatus.OK);
-	//}
 	
 	@PostMapping("/alta")
 	public ResponseEntity<?> alta(@RequestBody Cita cita) {
@@ -77,8 +72,15 @@ public class CitaRestController {
 	    } catch (Exception e) {
 	        return new ResponseEntity<>("Error en el registro", HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
-
 	}
 	
+	@GetMapping("/citasNoVistas/{id}")
+	public ResponseEntity<?> buscarCitasNoVistas(@PathVariable int id) {
+		Usuario usuario = userv.buscarPorId(id);
+		if (usuario != null) {
+			return new ResponseEntity<>(cserv.buscarCitasNoVistas(id), HttpStatus.OK);
+		}
+		return new ResponseEntity<>("El usuario no tiene notificaciones por ver ", HttpStatus.NOT_FOUND);
+	}
 	
 }

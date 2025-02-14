@@ -1,5 +1,6 @@
 package hospital.modelo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,4 +78,18 @@ public class CitaServiceImpl implements CitaService{
 		return crepo.findCitaByDoctor(id);
 	}
 
+	@Override
+	public List<Cita> buscarCitasNoVistas(int idUsuario) {
+		List<Cita> citasNoVistas = crepo.findByVisto(0);
+		List<Cita> citasNoVistasDelUsuaario = new ArrayList<>();
+		for (Cita cita : citasNoVistas) {
+			if (cita.getUsuario().getId() == idUsuario) {
+				citasNoVistasDelUsuaario.add(cita);
+			}
+		}
+		return citasNoVistasDelUsuaario;
+	}
+
+	
+	
 }
