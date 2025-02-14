@@ -20,5 +20,9 @@ export class CitaService {
       return this.http.get<Cita[]>(`${this.apiUrl}/misCitas`);
   }
 
+  getCitasNoVistasPorUsuario(id: number): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/citasNoVistas/${id}`);
+}
+
 
 }
