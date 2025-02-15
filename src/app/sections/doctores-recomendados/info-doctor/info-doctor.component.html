@@ -16,8 +16,10 @@
         </svg>
       </div>
       <div class="time-rigt">
-        <span class="block text-[#333] font-semibold">Martes, Jueves</span>
-        <span class="block text-sm text-[#666]">10:00-18:00</span>
+        <span class="block text-[#333] font-semibold mb-1">Disponibilidad</span>
+        <span class="block text-sm text-[#666]">
+          {{ obtenerHoraMinutos(disponibilidad.horaInicio) }} - {{ obtenerHoraMinutos(disponibilidad.horaFin) }}
+        </span>
       </div>
     </div>
     <div class="separador"></div>
