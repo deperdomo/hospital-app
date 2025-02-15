@@ -2,14 +2,14 @@
     class="p-2 rounded-md w-[100%] flex justify-between items-center group hover:bg-[#F6F6F6] border border-[#E9E9E9] ">
     <div
         class="fecha flex-none bg-[#EEF5DF] px-6 py-2 mr-10 rounded-md border-r border-[#E9E9E9] group-hover:bg-[#FFFFFF] flex-none items-center">
-        <p class="font-semibold">V</p>
+        <p class="font-semibold">{{ getFirstLetterOfDay(cita.fecha) }}</p>
         <!-- {{ cita.fecha | date: 'dd' }} -->
-        <p class="text-[20px] mt-1">14</p>
+        <p class="text-[20px] mt-1">{{ cita.fecha | date: 'dd' }}</p>
     </div>
     <div *ngIf="!isCitasPage" class="flex flex-auto justify-between">
         <div>
             <!-- {{ cita.fecha | date: 'shortTime' }} -->
-            <p class="font-semibold text-gray-800">hora</p>
+            <p class="font-semibold text-gray-800">{{cita.fecha | date: 'HH:mm':'UTC'}}</p>
             <p class="text-sm text-gray-600">Dr. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }}</p>
         </div>
         <button>
@@ -31,7 +31,7 @@
                         <path d="M11 8v5h5" />
                     </g>
                 </svg>
-                <p class="font-semibold text-gray-800">hora </p>
+                <p class="font-semibold text-gray-800">{{cita.fecha | date: 'HH:mm':'UTC'}} </p>
             </div>
 
             <div class="flex items-center gap-2 w-[200px]">

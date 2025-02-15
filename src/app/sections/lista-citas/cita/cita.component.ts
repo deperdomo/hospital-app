@@ -19,5 +19,10 @@ export class CitaComponent {
   get isCitasPage() {
     return this.router.url === '/misCitasUsuario';
   }
+//idioma 
+getFirstLetterOfDay(date: string): string {
+  const dayName = new Date(date).toLocaleDateString('es-ES', { weekday: 'long' });
+  return dayName.charAt(0).toUpperCase(); 
+}
 
 }
