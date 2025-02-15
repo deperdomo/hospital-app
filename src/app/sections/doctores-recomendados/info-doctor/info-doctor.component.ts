@@ -49,7 +49,6 @@ export class InfoDoctorComponent {
     if (this.doctor) {
       this.dispoService.getDisponibilidadDoctor(this.doctor.id).subscribe(
         (disponibilidad: Disponibilidad) => {
-          console.log('Disponibilidad del doctor:', disponibilidad);
           this.disponibilidad = disponibilidad;
         },
         (error) => {

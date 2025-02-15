@@ -1,10 +1,14 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from "@angular/common";
+import { Doctor } from '../../../models/doctor';
+import { DisponibilidadService } from '../../../services/disponibilidad.service';
+import { Disponibilidad } from '../../../models/disponibilidad';
 
 @Component({
   selector: 'app-calendar',
   imports: [CommonModule],
   templateUrl: './calendar.component.html',
+  providers: [DisponibilidadService]
 })
 export class CalendarComponent {
   weekDays: string[] = ["L", "M", "M", "J", "V", "S", "D"];
@@ -16,16 +20,83 @@ export class CalendarComponent {
 
   @Output() dateTimeSelected = new EventEmitter<Date>();
 
+  @Input() doctor!: Doctor;
+  disponibilidad: Disponibilidad;
+
+  horaInicio: number = 0;
+  minutosInicio: number = 0;
+  horaFin: number = 0;
+  minutosFin: number = 0;
+  intervalo: number = 0;
+
+  constructor(private dispoService: DisponibilidadService) {
+    this.disponibilidad = {
+      id: 1,
+      horaInicio: '00:00:00',
+      horaFin: '00:00:00',
+      estado: 'activo',
+      comentarios: 'N/A',
+      doctor: {
+        id: 1,
+        nombre: 'Dr. Example',
+        username: 'dexample',
+        apellidos: 'Example Apellido',
+        email: 'example@example.com',
+        provincia: 'Madrid',
+        localidad: 'Madrid',
+        direccion: '123 Example St',
+        fechaAlta: '2025-01-01',
+        fotoPerfil: 'url_to_image',
+        password: 'password123',
+        experiencia: 10,
+        precioConsulta: 100,
+        especialidad: { id: 1, nombre: 'Cardiología' },
+        sexo: 'M'
+      }
+    }
+  }
+
+  ngOnInit() {
+    console.log('entrando al ngInit');
+    console.log('Doctor:', this.doctor);
+
+    if (this.doctor) {
+      this.dispoService.getDisponibilidadDoctor(this.doctor.id).subscribe(
+        (disponibilidad: Disponibilidad) => {
+          this.disponibilidad = disponibilidad;
+          this.obtenerHoraDeDisponibilidad(disponibilidad.horaInicio, disponibilidad.horaFin);
+          console.log('Disponibilidad del doctor:', disponibilidad);
+
+          // Generar días del calendario y franjas horarias después de obtener la disponibilidad
+          this.generateCalendarDays();
+          this.generateTimeSlots();
+        },
+        (error) => {
+          console.error('Error al obtener la disponibilidad del doctor', error);
+      });
+    }
+  }
+
+  obtenerHoraDeDisponibilidad(horaInicio: string, horaFin: string) {
+    this.horaInicio = parseInt(horaInicio.substring(0, 2));
+    this.minutosInicio = parseInt(horaInicio.substring(3, 5));
+    this.horaFin = parseInt(horaFin.substring(0, 2));
+    this.minutosFin = parseInt(horaFin.substring(3, 5));
+
+    let minutosFincalculo: number = this.minutosFin == 30 ? 30 : 0;
+    let minutosIniciocalculo: number = this.minutosInicio == 30 ? 30 : 0;
+
+    this.intervalo = ((this.horaFin * 60 + minutosFincalculo) - (this.horaInicio * 60 + minutosIniciocalculo)) / 60;
+    console.log('Intervalo:', this.intervalo);
+
+    console.log('Hora de inicio:', this.horaInicio, this.minutosInicio);
+  }
+
   emitSelectedDateTime() {
     if (this.selectedDate && this.selectedTime) {
       const dateTime = this.getSelectedDateTime();
       this.dateTimeSelected.emit(dateTime);
     }
-  }
-
-  ngOnInit() {
-    this.generateCalendarDays();
-    this.generateTimeSlots();
   }
 
   generateCalendarDays() {
@@ -38,7 +109,6 @@ export class CalendarComponent {
     const totalDays = lastDay.getDate();
 
     startingDay = startingDay === 0 ? 6 : startingDay - 1; // Ajuste para que la semana empiece en lunes
-
 
     this.calendarDays = [];
 
@@ -60,11 +130,13 @@ export class CalendarComponent {
   generateTimeSlots() {
     this.timeSlots = [];
     const baseDate = new Date();
-    baseDate.setHours(10, 30, 0, 0);
+    baseDate.setHours(this.horaInicio, this.minutosInicio, 0, 0);
 
-    for (let i = 0; i < 13; i++) {
+    for (let i = 0; i < this.intervalo * 2 + 1; i++) {
       const time = new Date(baseDate);
       this.timeSlots.push(time);
+      console.log('Franja horaria:', time);
+
       baseDate.setMinutes(baseDate.getMinutes() + 30);
     }
   }
@@ -156,6 +228,4 @@ export class CalendarComponent {
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-
-
 }
