@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hospital.entidades.Disponibilidad;
+import hospital.entidades.Doctor;
 import hospital.modelo.repository.DisponibilidadRepository;
 
 @Service
@@ -70,6 +71,11 @@ public class DisponibilidadServiceImpl implements DisponibilidadService{
 	@Override
 	public List<Disponibilidad> buscarTodos() {
 		return drepo.findAll();
+	}
+
+	@Override
+	public Disponibilidad buscarPorDoctor(Doctor doctor) {
+		return drepo.findByDoctor(doctor);
 	}
 
 }
