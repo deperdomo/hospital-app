@@ -25,5 +25,9 @@ export class CitaService {
   getCitasNoVistasPorUsuario(id: number): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/citasNoVistas/${id}`);
 }
+//cancelar cita
+  cancelarCita(id: number): Observable<Cita[]>{
+    return this.http.put<Cita[]>(`${this.apiUrl}/cancelar/${id}`,{});
+  }
 
 }
