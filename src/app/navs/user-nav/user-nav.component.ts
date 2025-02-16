@@ -42,4 +42,10 @@ export class UserNavComponent {
 
   }
 
+  mostrarModal = false;
+
+  abrirModal() {
+    this.mostrarModal = true;
+  }
+
 }
