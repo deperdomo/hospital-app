@@ -155,31 +155,51 @@ export class CalendarComponent {
 
   generateTimeSlots() {
     this.timeSlots = [];
-    const baseDate = new Date();
-    baseDate.setHours(this.horaInicio, this.minutosInicio, 0, 0);
-    let citasFormateadas: Date[] = [];
-    this.citasDelDoctor.forEach(element => {
-      citasFormateadas.push(new Date(element.fecha));
-    });
+    if (!this.selectedDate) return;
 
-    let totalSlots = (this.horaFin - this.horaInicio) * 2; // Número de franjas de 30 minutos
-    if (this.minutosInicio === 30) {
-      totalSlots--;
-    }
-    if (this.minutosFin === 30) {
-      totalSlots++;
-    }
+    const baseDate = new Date(
+      this.selectedDate.getFullYear(),
+      this.selectedDate.getMonth(),
+      this.selectedDate.getDate(),
+      this.horaInicio,
+      this.minutosInicio
+    );
 
-    for (let i = 0; i < totalSlots; i++) {
-      const time = new Date(baseDate);
-      const isSlotTaken = citasFormateadas.some(element => element.getTime() === time.getTime());
-      if (!isSlotTaken) {
-        this.timeSlots.push(new Date(time)); // Añade una nueva instancia de Date para evitar referencia por valor
+    const endDate = new Date(
+      this.selectedDate.getFullYear(),
+      this.selectedDate.getMonth(),
+      this.selectedDate.getDate(),
+      this.horaFin,
+      this.minutosFin
+    );
+
+    // Añadir 30 minutos a endDate para incluir la última franja
+    const endDatePlusInterval = new Date(endDate.getTime() + 30 * 60000);
+
+    const citasFormateadas = this.fechasCitas
+      .map(cita => new Date(cita).setSeconds(0, 0))
+      .filter(time => {
+        const citaDate = new Date(time);
+        return (
+          citaDate.getDate() === this.selectedDate!.getDate() &&
+          citaDate.getMonth() === this.selectedDate!.getMonth() &&
+          citaDate.getFullYear() === this.selectedDate!.getFullYear()
+        );
+      });
+
+    const now = new Date();
+
+    while (baseDate < endDatePlusInterval) { // Usar endDatePlusInterval
+      const timeSlot = new Date(baseDate);
+      const isPast = this.selectedDate!.toDateString() === now.toDateString() && timeSlot < now;
+      const isSlotTaken = citasFormateadas.includes(timeSlot.getTime());
+
+      if (!isSlotTaken && !isPast) {
+        this.timeSlots.push(new Date(timeSlot));
       }
+
       baseDate.setMinutes(baseDate.getMinutes() + 30);
     }
-    console.log('Franjas horarias:', this.timeSlots);
-
   }
 
   previousMonth() {
