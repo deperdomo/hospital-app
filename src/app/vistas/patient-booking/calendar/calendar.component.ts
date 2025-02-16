@@ -62,14 +62,9 @@ export class CalendarComponent {
   }
 
   ngOnInit() {
-    console.log('entrando al ngInit');
-    console.log('Doctor:', this.doctor);
-
     this.citaService.getCitasDoctor(this.doctor.id.toString()).subscribe(
           (citas: Cita[]) => {
             this.citasDelDoctor = citas;
-            console.log('Citas del doctor:', this.citasDelDoctor);
-            console.log('Este es el formato del la fecha de la cita:', this.citasDelDoctor[0].fecha);
             citas.forEach(cita => {
               this.fechasCitas.push(new Date(cita.fecha));
             });
@@ -79,8 +74,6 @@ export class CalendarComponent {
           }
     );
 
-
-
     if (this.doctor) {
       this.dispoService.getDisponibilidadDoctor(this.doctor.id).subscribe(
         (disponibilidad: Disponibilidad) => {
@@ -89,7 +82,6 @@ export class CalendarComponent {
 
           // Generar días del calendario y franjas horarias
           this.generateCalendarDays();
-
         },
         (error) => {
           console.error('Error al obtener la disponibilidad del doctor', error);
@@ -115,7 +107,7 @@ export class CalendarComponent {
   emitSelectedDateTime() {
     if (this.selectedDate && this.selectedTime) {
       const dateTime = this.getSelectedDateTime();
-      console.log('Fecha y hora seleccionada:', dateTime);
+      //console.log('Fecha y hora seleccionada:', dateTime);
 
       this.dateTimeSelected.emit(dateTime);
     }
@@ -147,9 +139,6 @@ export class CalendarComponent {
     for (let i = 1; i <= remainingDays; i++) {
       this.calendarDays.push(new Date(year, month + 1, i));
     }
-    console.log(' formato Días del calendario:', this.calendarDays[0]);
-    console.log(' formato Fechas Citas:', this.fechasCitas[0]);
-
 
   }
 
@@ -173,11 +162,14 @@ export class CalendarComponent {
       this.minutosFin
     );
 
-    // Añadir 30 minutos a endDate para incluir la última franja
     const endDatePlusInterval = new Date(endDate.getTime() + 30 * 60000);
 
     const citasFormateadas = this.fechasCitas
-      .map(cita => new Date(cita).setSeconds(0, 0))
+      .map(cita => {
+        const citaDate = new Date(cita);
+        citaDate.setSeconds(0, 0);
+        return citaDate.getTime();
+      })
       .filter(time => {
         const citaDate = new Date(time);
         return (
@@ -192,7 +184,10 @@ export class CalendarComponent {
     while (baseDate < endDatePlusInterval) { // Usar endDatePlusInterval
       const timeSlot = new Date(baseDate);
       const isPast = this.selectedDate!.toDateString() === now.toDateString() && timeSlot < now;
-      const isSlotTaken = citasFormateadas.includes(timeSlot.getTime());
+      const isSlotTaken = citasFormateadas.some(cita => {
+        const citaDate = new Date(cita);
+        return citaDate.getTime() - 60 * 60 * 1000 === timeSlot.getTime(); // Resolviendo el famoso problema del adelanto de hora
+      });
 
       if (!isSlotTaken && !isPast) {
         this.timeSlots.push(new Date(timeSlot));
@@ -200,6 +195,7 @@ export class CalendarComponent {
 
       baseDate.setMinutes(baseDate.getMinutes() + 30);
     }
+
   }
 
   previousMonth() {
