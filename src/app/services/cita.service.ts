@@ -18,12 +18,15 @@ export class CitaService {
 
   getCitasUsuario(id: string): Observable<Cita[]> {
     console.log("Entrando al getCitasUsuario");
-
-      return this.http.get<Cita[]>(`${this.apiUrl}/misCitasUsuario/${id}`);
+    return this.http.get<Cita[]>(`${this.apiUrl}/misCitasUsuario/${id}`);
   }
 
   getCitasNoVistasPorUsuario(id: number): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/citasNoVistas/${id}`);
-}
+  }
+
+  getCitasDoctor(id: string): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/misCitasDoctor/${id}`);
+  }
 
 }

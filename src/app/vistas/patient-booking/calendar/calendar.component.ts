@@ -3,12 +3,14 @@ import { CommonModule } from "@angular/common";
 import { Doctor } from '../../../models/doctor';
 import { DisponibilidadService } from '../../../services/disponibilidad.service';
 import { Disponibilidad } from '../../../models/disponibilidad';
+import { CitaService } from '../../../services/cita.service';
+import { Cita } from '../../../models/cita';
 
 @Component({
   selector: 'app-calendar',
   imports: [CommonModule],
   templateUrl: './calendar.component.html',
-  providers: [DisponibilidadService]
+  providers: [DisponibilidadService, CitaService]
 })
 export class CalendarComponent {
   weekDays: string[] = ["L", "M", "M", "J", "V", "S", "D"];
@@ -17,6 +19,7 @@ export class CalendarComponent {
   selectedDate: Date | null = null;
   selectedTime: Date | null = null;
   timeSlots: Date[] = [];
+  fechasCitas: Date[] = [];
 
   @Output() dateTimeSelected = new EventEmitter<Date>();
 
@@ -29,7 +32,9 @@ export class CalendarComponent {
   minutosFin: number = 0;
   intervalo: number = 0;
 
-  constructor(private dispoService: DisponibilidadService) {
+  citasDelDoctor: Cita[] = [];
+
+  constructor(private dispoService: DisponibilidadService, private citaService: CitaService) {
     this.disponibilidad = {
       id: 1,
       horaInicio: '00:00:00',
@@ -60,21 +65,39 @@ export class CalendarComponent {
     console.log('entrando al ngInit');
     console.log('Doctor:', this.doctor);
 
+    this.citaService.getCitasDoctor(this.doctor.id.toString()).subscribe(
+          (citas: Cita[]) => {
+            this.citasDelDoctor = citas;
+            console.log('Citas del doctor:', this.citasDelDoctor);
+            console.log('Este es el formato del la fecha de la cita:', this.citasDelDoctor[0].fecha);
+            citas.forEach(cita => {
+              this.fechasCitas.push(new Date(cita.fecha));
+            });
+          },
+          (error) => {
+            console.error('Error al obtener las citas del doctor', error);
+          }
+    );
+
+
+
     if (this.doctor) {
       this.dispoService.getDisponibilidadDoctor(this.doctor.id).subscribe(
         (disponibilidad: Disponibilidad) => {
           this.disponibilidad = disponibilidad;
           this.obtenerHoraDeDisponibilidad(disponibilidad.horaInicio, disponibilidad.horaFin);
-          console.log('Disponibilidad del doctor:', disponibilidad);
 
-          // Generar días del calendario y franjas horarias después de obtener la disponibilidad
+          // Generar días del calendario y franjas horarias
           this.generateCalendarDays();
-          this.generateTimeSlots();
+
         },
         (error) => {
           console.error('Error al obtener la disponibilidad del doctor', error);
       });
     }
+
+
+
   }
 
   obtenerHoraDeDisponibilidad(horaInicio: string, horaFin: string) {
@@ -87,14 +110,13 @@ export class CalendarComponent {
     let minutosIniciocalculo: number = this.minutosInicio == 30 ? 30 : 0;
 
     this.intervalo = ((this.horaFin * 60 + minutosFincalculo) - (this.horaInicio * 60 + minutosIniciocalculo)) / 60;
-    console.log('Intervalo:', this.intervalo);
-
-    console.log('Hora de inicio:', this.horaInicio, this.minutosInicio);
   }
 
   emitSelectedDateTime() {
     if (this.selectedDate && this.selectedTime) {
       const dateTime = this.getSelectedDateTime();
+      console.log('Fecha y hora seleccionada:', dateTime);
+
       this.dateTimeSelected.emit(dateTime);
     }
   }
@@ -125,20 +147,39 @@ export class CalendarComponent {
     for (let i = 1; i <= remainingDays; i++) {
       this.calendarDays.push(new Date(year, month + 1, i));
     }
+    console.log(' formato Días del calendario:', this.calendarDays[0]);
+    console.log(' formato Fechas Citas:', this.fechasCitas[0]);
+
+
   }
 
   generateTimeSlots() {
     this.timeSlots = [];
     const baseDate = new Date();
     baseDate.setHours(this.horaInicio, this.minutosInicio, 0, 0);
+    let citasFormateadas: Date[] = [];
+    this.citasDelDoctor.forEach(element => {
+      citasFormateadas.push(new Date(element.fecha));
+    });
 
-    for (let i = 0; i < this.intervalo * 2 + 1; i++) {
+    let totalSlots = (this.horaFin - this.horaInicio) * 2; // Número de franjas de 30 minutos
+    if (this.minutosInicio === 30) {
+      totalSlots--;
+    }
+    if (this.minutosFin === 30) {
+      totalSlots++;
+    }
+
+    for (let i = 0; i < totalSlots; i++) {
       const time = new Date(baseDate);
-      this.timeSlots.push(time);
-      console.log('Franja horaria:', time);
-
+      const isSlotTaken = citasFormateadas.some(element => element.getTime() === time.getTime());
+      if (!isSlotTaken) {
+        this.timeSlots.push(new Date(time)); // Añade una nueva instancia de Date para evitar referencia por valor
+      }
       baseDate.setMinutes(baseDate.getMinutes() + 30);
     }
+    console.log('Franjas horarias:', this.timeSlots);
+
   }
 
   previousMonth() {
@@ -155,6 +196,7 @@ export class CalendarComponent {
     const day = date.getDay();
     if (date < new Date(new Date().setHours(0, 0, 0, 0)) || day === 0 || day === 6) return;
     this.selectedDate = date;
+    this.generateTimeSlots();
     this.emitSelectedDateTime();
   }
 
@@ -228,4 +270,6 @@ export class CalendarComponent {
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+
 }
