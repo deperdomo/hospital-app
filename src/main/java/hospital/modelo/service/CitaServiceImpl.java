@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hospital.entidades.Cita;
+import hospital.entidades.Doctor;
 import hospital.modelo.repository.CitaRepository;
 
 @Service
@@ -74,8 +75,8 @@ public class CitaServiceImpl implements CitaService{
 	}
 
 	@Override
-	public List<Cita> buscarCitaPorDoctor(int id) {
-		return crepo.findCitaByDoctor(id);
+	public List<Cita> buscarCitaPorDoctor(Doctor doctor) {
+		return crepo.findByDoctor(doctor);
 	}
 
 	@Override

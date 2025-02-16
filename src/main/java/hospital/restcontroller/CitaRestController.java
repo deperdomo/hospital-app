@@ -43,10 +43,9 @@ public class CitaRestController {
 	public ResponseEntity<?> buscarCitaDoctor(@PathVariable int id) {
 		Doctor doctor = dserv.buscarPorId(id);
 		if (doctor != null) {
-			return new ResponseEntity<>(cserv.buscarCitaPorDoctor(id), HttpStatus.OK);
+			return new ResponseEntity<>(cserv.buscarCitaPorDoctor(dserv.buscarPorId(id)), HttpStatus.OK);
 		}
-		return new ResponseEntity<>("Ese doctor no tiene reservas", HttpStatus.NOT_FOUND);
-		//return new ResponseEntity<>(cserv.buscarCitaPorDoctor(),  HttpStatus.OK);
+		return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 	}
 	
 	//citas del usuario
@@ -59,7 +58,7 @@ public class CitaRestController {
 			
 			return new ResponseEntity<>(cserv.buscarCitaPorUsuario(usuario.getId()), HttpStatus.OK);
 		}
-		 return new ResponseEntity<>("Ese usuario no tiene reserva", HttpStatus.NOT_FOUND);
+		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 	}
 	
 	@PostMapping("/alta")
@@ -78,7 +77,7 @@ public class CitaRestController {
 		if (usuario != null) {
 			return new ResponseEntity<>(cserv.buscarCitasNoVistas(id), HttpStatus.OK);
 		}
-		return new ResponseEntity<>("El usuario no tiene notificaciones por ver ", HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("Ha ocurrido un error ", HttpStatus.NOT_FOUND);
 	}
 	
 }
