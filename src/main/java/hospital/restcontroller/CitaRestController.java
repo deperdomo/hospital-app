@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,5 +79,21 @@ public class CitaRestController {
 		}
 		return new ResponseEntity<>("Ha ocurrido un error ", HttpStatus.NOT_FOUND);
 	}
+	//cancelar cita
+	@PutMapping("/cancelar/{id}")
+	public ResponseEntity<?> cancelarCita(@PathVariable int id){
+		Cita cita = cserv.buscarPorId(id);
+		cita.setEstado("Cancelado");
+		cserv.modificar(cita);
+		return new ResponseEntity<>(cita, HttpStatus.OK);
+		//Usuario usuario= userv.buscarPorId(id);
+		//Cita cita= (Cita) cserv.buscarCitaPorUsuario(usuario.getId());
+		//if (usuario != null) {
+			//cita.setEstado("Cancelado");
+			//return new ResponseEntity<>(cita, HttpStatus.OK);
+		//}
+		//return new ResponseEntity<>("No se pudo cancelar la cita", HttpStatus.NOT_FOUND);
+	}
+
 	
 }
