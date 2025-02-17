@@ -32,5 +32,9 @@ export class CitaService {
     return this.http.put<Cita[]>(`${this.apiUrl}/cancelar/${id}`,{});
   }
 
+  marcarCitaComoVista(id: number): Observable<Cita> {
+    return this.http.put<Cita>(`${this.apiUrl}/marcarComoVista/${id}`, {});
+  }
+
 
 }
