@@ -19,10 +19,13 @@ export class ListaCitasComponent implements OnInit {
   @Input() citas: Cita[] = [];
   mostrartodas: boolean = false;
   usuario: Usuario;
+  currentDate: Date = new Date();
+  cita: Cita;
 
   constructor(private router: Router, private citaService: CitaService) {
     this.mostrartodas = this.router.url.includes('/misCitasUsuario');
     this.usuario = {} as Usuario;
+    this.cita = {} as Cita;
   }
 
   ngOnInit() {
@@ -39,9 +42,25 @@ export class ListaCitasComponent implements OnInit {
   }
 
   get citasMostradas(): Cita[] {
+    const month = this.currentDate.getMonth();
     if (!this.citas || this.citas.length === 0) {
       return [];
     }
-    return this.mostrartodas ? this.citas : this.citas.slice(0, 5);
+    const filtrarCitas = this.citas.filter(cita => {
+      const fechaCita = new Date(cita.fecha);
+      return fechaCita.getMonth() === month;
+    });
+    return this.mostrartodas ? filtrarCitas : filtrarCitas.slice(0, 5);
+  }
+  getCurrentMonthYear(): string {
+    const options: Intl.DateTimeFormatOptions = {
+      month: 'long',
+      year: 'numeric'
+    };
+    const formattedDate = this.currentDate.toLocaleString('es-ES', options);
+    return this.capitalizeFirstLetter(formattedDate);
+  }
+  capitalizeFirstLetter(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }
