@@ -2,12 +2,11 @@ package hospital.modelo.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import hospital.entidades.Cita;
 import hospital.entidades.Doctor;
+import hospital.entidades.Usuario;
 import hospital.modelo.repository.CitaRepository;
 
 @Service
@@ -69,15 +68,10 @@ public class CitaServiceImpl implements CitaService{
 		return crepo.findAll();
 	}
 
-	@Override
+/*	@Override
 	public List<Cita> buscarCitaPorUsuario(int id) {
 		return crepo.findCitaByUsuario(id);
-	}
-
-	@Override
-	public List<Cita> buscarCitaPorDoctor(Doctor doctor) {
-		return crepo.findByDoctor(doctor);
-	}
+	}*/
 
 	@Override
 	public List<Cita> buscarCitasNoVistas(int idUsuario) {
@@ -89,6 +83,22 @@ public class CitaServiceImpl implements CitaService{
 			}
 		}
 		return citasNoVistasDelUsuaario;
+	}
+
+	/*@Override
+	public List<Cita> buscarCitasActivas() {
+		return crepo.findByEstado("pendiente");
+	}*/
+
+	@Override
+	public List<Cita> buscarCitasActivasPorUsuario(Usuario usuario, String estado) {
+		return crepo.findByUsuarioAndEstado(usuario, "pendiente");
+	}
+
+	@Override
+	public List<Cita> buscarCitaPorDoctor(Doctor doctor) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
