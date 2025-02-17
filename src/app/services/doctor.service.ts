@@ -20,5 +20,9 @@ export class DoctorService {
     return this.http.get<Doctor>(`${this.apiUrl}/one/${id}`);
   }
 
+  getTodosDoctores(): Observable<Doctor[]> {
+    return this.http.get<Doctor[]>(`${this.apiUrl}/allDoctors`);
+  }
+
 
 }

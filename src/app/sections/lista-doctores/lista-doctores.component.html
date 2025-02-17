@@ -1,0 +1,5 @@
+<div class="cont-info-doctors flex flex-wrap justify-center">
+    @for (doctor of doctores; track $index) {
+      <app-info-doctor [doctor]="doctor" class="w-[23%] p-4"></app-info-doctor>
+    }
+  </div>
