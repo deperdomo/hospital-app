@@ -94,6 +94,15 @@ public class CitaRestController {
 		//}
 		//return new ResponseEntity<>("No se pudo cancelar la cita", HttpStatus.NOT_FOUND);
 	}
+	
+	@PutMapping("/marcarComoVista/{id}")
+	public ResponseEntity<?> marcarCitaComoVista(@PathVariable int id){
+		Cita cita = cserv.buscarPorId(id);
+		cita.setVisto(1);
+		cserv.modificar(cita);
+		return new ResponseEntity<>(cita, HttpStatus.OK);
+		
+	}
 
 	
 }
