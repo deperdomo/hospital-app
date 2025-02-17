@@ -9,9 +9,7 @@ import { InfoDoctorComponent } from "../../sections/doctores-recomendados/info-d
 import { NearbyDoctorsComponent } from "../../nearby-doctors/nearby-doctors/nearby-doctors.component";
 import { NearbyDoctorsDisabledComponent } from "../../nearby-doctors/nearby-doctors-disabled/nearby-doctors-disabled.component";
 import { FooterConmponent } from "../../footer/footer.component";
-
 import { DoctorService } from '../../services/doctor.service';
-
 import { DoctoresRecomendadosComponent } from "../../sections/doctores-recomendados/doctores-recomendados.component";
 
 
@@ -22,6 +20,7 @@ import { DoctoresRecomendadosComponent } from "../../sections/doctores-recomenda
   templateUrl: './index-before-login.component.html',
   styleUrl: './index-before-login.component.css',
 })
+
 export class IndexBeforeLoginComponent {
   isNerbyDoctorsAvailable = false;
 

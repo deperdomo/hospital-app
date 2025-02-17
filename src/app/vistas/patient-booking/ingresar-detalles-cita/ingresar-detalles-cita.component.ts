@@ -76,7 +76,12 @@ export class IngresarDetallesCitaComponent {
     this.cita.usuario = this.usuario;
     this.cita.estado = 'pendiente';
     this.cita.tarifa = this.doctor.precioConsulta;
-    this.cita.fecha = this.fecha.toISOString();
+
+    // Ajustar la diferencia de huso horario
+    const timeZoneOffset = this.fecha.getTimezoneOffset() * 60000; // en milisegundos
+    const adjustedTime = new Date(this.fecha.getTime() - timeZoneOffset);
+
+    this.cita.fecha = adjustedTime.toISOString();
 
     this.citaService.altaCita(this.cita).subscribe(
       (cita: Cita) => {
@@ -87,7 +92,6 @@ export class IngresarDetallesCitaComponent {
         console.error('Error en el registro', error);
       }
     );
-
   }
 
 

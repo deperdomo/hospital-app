@@ -43,8 +43,8 @@
       </div>
     </div>
     <div class="w-2/3">
-      @if (!isStep2) {
-        <app-calendar (dateTimeSelected)="onDateTimeSelected($event)"></app-calendar>
+      @if (!isStep2 && doctor) {
+        <app-calendar (dateTimeSelected)="onDateTimeSelected($event)" [doctor]="doctor"></app-calendar>
       } @else {
         <ingresar-detalles-cita [fecha]="selectedDateTime!" />
       }
@@ -54,7 +54,7 @@
           <button (click)="step2()" class="bg-[#3B9AB8] text-white px-12 py-3 rounded">Siguiente</button>
         </div>
       }
-      
+
     </div>
   </div>
 </div>

@@ -25,14 +25,14 @@ export class PatientBookingComponent {
 
   selectedDateTime: Date | null = null;
 
-  constructor(private doctorServise: DoctorService, private route: ActivatedRoute) {}
+  constructor(private doctorService: DoctorService, private route: ActivatedRoute) {}
 
   // Se ejecuta cuando se selecciona una fecha en el calendario
   onDateTimeSelected(dateTime: Date) {
     this.selectedDateTime = dateTime;
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
@@ -44,7 +44,7 @@ export class PatientBookingComponent {
       }
     });
 
-    this.doctorServise.getDoctorById(this.doctorId).subscribe(
+    this.doctorService.getDoctorById(this.doctorId).subscribe(
       (doctor: Doctor) => {
         console.log('Doctor encontrado:', doctor);
         this.doctor = doctor;

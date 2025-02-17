@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Cita } from '../../models/cita';
 import { Router } from '@angular/router';
@@ -7,24 +7,22 @@ import { CitaService } from '../../services/cita.service';
 import { Usuario } from '../../models/usuario';
 import { HttpClientModule } from '@angular/common/http';
 
-
-//CitaComponent
 @Component({
   selector: 'app-lista-citas',
+  standalone: true,
   imports: [CommonModule, CitaComponent, HttpClientModule],
   templateUrl: './lista-citas.component.html',
-  styleUrl: './lista-citas.component.css',
+  styleUrls: ['./lista-citas.component.css'],
   providers: [CitaService]
 })
-export class ListaCitasComponent {
-  @Input() citas!: Cita[];
-  mostrartodas: boolean =false;
+export class ListaCitasComponent implements OnInit {
+  @Input() citas: Cita[] = [];
+  mostrartodas: boolean = false;
   usuario: Usuario;
+
   constructor(private router: Router, private citaService: CitaService) {
     this.mostrartodas = this.router.url.includes('/misCitasUsuario');
     this.usuario = {} as Usuario;
-    // this.mostrartodas = this.router.url.includes('/citas');
-    
   }
 
   ngOnInit() {
@@ -36,11 +34,14 @@ export class ListaCitasComponent {
       (citas: Cita[]) => {
         console.log('Citas del usuario:', citas);
         this.citas = citas;
-    });
+      }
+    );
   }
 
-  get citasMostradas(){
+  get citasMostradas(): Cita[] {
+    if (!this.citas || this.citas.length === 0) {
+      return [];
+    }
     return this.mostrartodas ? this.citas : this.citas.slice(0, 5);
   }
-
 }
