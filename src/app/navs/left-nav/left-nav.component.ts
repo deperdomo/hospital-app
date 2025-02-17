@@ -14,6 +14,7 @@ import { DoctorService } from '../../services/doctor.service';
   providers: [UsuarioService, DoctorService]
 })
 export class LeftNavComponent {
+
   usuario: Usuario;
   doctor: Doctor;
   isDoctorOrAdmin: boolean = false;
@@ -33,6 +34,10 @@ export class LeftNavComponent {
     if (this.usuario.rol !== 'paciente' || this.doctor.precioConsulta){
       this.isDoctorOrAdmin = true;
     } 
+  }
+
+  logout() {
+    localStorage.removeItem('usuario');
   }
 
 }
