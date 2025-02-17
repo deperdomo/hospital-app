@@ -143,17 +143,17 @@ VALUES
 -- Insertar doctores
 INSERT INTO doctores (id, id_especialidad, nombre, username, apellidos, email, provincia, localidad, direccion, fecha_alta, foto_perfil, password, experiencia, precio_consulta, sexo)
 VALUES
-(1, 1, 'Juan', 'Juan', 'Pérez', 'juan.perez@example.com', 'Madrid', 'Centro', 'Calle Falsa 123', '2023-01-01', 'doc_02.png', 'password123', 5, 20, 'masculino'),
-(2, 2, 'Mario', 'mario', 'Gómez', 'mario.gomez@example.com', 'Madrid', 'Arganzuela', 'Avenida Siempre Viva 456', '2023-02-15', 'doc_05.png', 'password456', 12, 25, 'masculino'),
-(3, 3, 'Ana', 'ana', 'Martínez', 'ana.martinez@example.com', 'Madrid', 'Chamberí', 'Calle Sol 321', '2023-04-05', 'doc_09.png', 'password321', 7, 30, 'femenino'),
-(4, 4, 'José', 'jose', 'Ramírez', 'jose.ramirez@example.com', 'Madrid', 'Arganzuela', 'Calle Real 45', '2022-05-10', 'doc_03.png', 'password111', 6, 40, 'masculino'),
-(5, 5, 'Patricia', 'patricia', 'Rodríguez', 'patricia.rodriguez@example.com', 'Madrid', 'Salamanca', 'Calle Mayor 78', '2023-01-12', 'doc_04.png', 'password222', 10, 45, 'femenino'),
-(6, 6, 'Antonio', 'antonio', 'García', 'antonio.garcia@example.com', 'Madrid', 'Tetuán', 'Calle de Goya 23', '2023-04-15', 'doc_06.png', 'password333', 4, 35, 'masculino'),
-(7, 1, 'Pedro', 'pedro', 'Serrano', 'pedro.serrano@example.com', 'Madrid', 'Carabanchel', 'Calle San Pedro 101', '2023-06-01', 'doc_02.png', 'password555', 8, 50, 'masculino'),
-(8, 2, 'Lucía', 'lucia', 'Fernández', 'lucia.fernandez@example.com', 'Madrid', 'Latina', 'Calle del Río 200', '2023-07-15', 'doc_08.png', 'password666', 5, 55, 'femenino'),
-(9, 3, 'Raquel', 'raquel', 'Pérez', 'raquel.perez@example.com', 'Madrid', 'Villaverde', 'Calle de Vallecas 456', '2023-04-20', 'doc_12.png', 'password777', 10, 60, 'femenino'),
-(10, 1, 'Carlos', 'carlos', 'Jiménez', 'carlos.jimenez@example.com', 'Madrid', 'Chamartín', 'Calle Asturias 30', '2023-03-01', 'doc_10.png', 'password888', 15, 70, 'masculino'),
-(11, 2, 'Nuria', 'nuria', 'Alonso', 'nuria.alonso@example.com', 'Madrid', 'Retiro', 'Calle del Retiro 12', '2023-02-01', 'doc_11.png', 'password999', 4, 45, 'femenino');
+(1, 1, 'Juan', 'Juan', 'Pérez', 'juan.perez@example.com', 'Madrid', 'Centro', 'Calle Falsa 123', '2023-01-01', 'doc_m_13.png', 'password123', 5, 20, 'masculino'),
+(2, 2, 'Mario', 'mario', 'Gómez', 'mario.gomez@example.com', 'Madrid', 'Arganzuela', 'Avenida Siempre Viva 456', '2023-02-15', 'doc_m_05.png', 'password456', 12, 25, 'masculino'),
+(3, 3, 'Ana', 'ana', 'Martínez', 'ana.martinez@example.com', 'Madrid', 'Chamberí', 'Calle Sol 321', '2023-04-05', 'doc_f_09.png', 'password321', 7, 30, 'femenino'),
+(4, 4, 'José', 'jose', 'Ramírez', 'jose.ramirez@example.com', 'Madrid', 'Arganzuela', 'Calle Real 45', '2022-05-10', 'doc_m_03.png', 'password111', 6, 40, 'masculino'),
+(5, 5, 'Patricia', 'patricia', 'Rodríguez', 'patricia.rodriguez@example.com', 'Madrid', 'Salamanca', 'Calle Mayor 78', '2023-01-12', 'doc_f_01.png', 'password222', 10, 45, 'femenino'),
+(6, 6, 'Antonio', 'antonio', 'García', 'antonio.garcia@example.com', 'Madrid', 'Tetuán', 'Calle de Goya 23', '2023-04-15', 'doc_m_06.png', 'password333', 4, 35, 'masculino'),
+(7, 1, 'Pedro', 'pedro', 'Serrano', 'pedro.serrano@example.com', 'Madrid', 'Carabanchel', 'Calle San Pedro 101', '2023-06-01', 'doc_m_02.png', 'password555', 8, 50, 'masculino'),
+(8, 2, 'Lucía', 'lucia', 'Fernández', 'lucia.fernandez@example.com', 'Madrid', 'Latina', 'Calle del Río 200', '2023-07-15', 'doc_f_10.png', 'password666', 5, 55, 'femenino'),
+(9, 3, 'Raquel', 'raquel', 'Pérez', 'raquel.perez@example.com', 'Madrid', 'Villaverde', 'Calle de Vallecas 456', '2023-04-20', 'doc_f_12.png', 'password777', 10, 60, 'femenino'),
+(10, 1, 'Carlos', 'carlos', 'Jiménez', 'carlos.jimenez@example.com', 'Madrid', 'Chamartín', 'Calle Asturias 30', '2023-03-01', 'doc_m_08.png', 'password888', 15, 70, 'masculino'),
+(11, 2, 'Nuria', 'nuria', 'Alonso', 'nuria.alonso@example.com', 'Madrid', 'Retiro', 'Calle del Retiro 12', '2023-02-01', 'doc_f_11.png', 'password999', 4, 45, 'femenino');
 
 -- Insertar disponibilidad
 INSERT INTO disponibilidad (id, id_doctor, hora_inicio, hora_fin, estado, comentarios)
