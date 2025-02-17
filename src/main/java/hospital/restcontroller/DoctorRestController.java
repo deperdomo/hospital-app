@@ -49,6 +49,11 @@ public class DoctorRestController {
 	}
 	
 	
+	@GetMapping("/porNombreApellidoYLocalidad")
+	public ResponseEntity<?> buscarPorNombreApellidoYLocalidad(@PathVariable String nombre, @PathVariable String apellido, @PathVariable String localidad) {
+		return new ResponseEntity<>(dserv.buscarPorNombreApellidoYLocalidad(nombre, apellido, localidad), HttpStatus.OK);
+	}
+	
 	
 	
 	
