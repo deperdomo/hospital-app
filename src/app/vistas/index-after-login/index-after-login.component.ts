@@ -35,9 +35,7 @@ export class IndexAfterLoginComponent {
     }
     this.citaService.getCitasUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
-        console.log('Citas del usuario:', citas);
-        
-        
+        //console.log('Citas del usuario:', citas); 
     });
   }
 

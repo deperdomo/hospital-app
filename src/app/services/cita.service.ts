@@ -17,7 +17,6 @@ export class CitaService {
   }
 
   getCitasUsuario(id: string): Observable<Cita[]> {
-    console.log("Entrando al getCitasUsuario");
     return this.http.get<Cita[]>(`${this.apiUrl}/misCitasUsuario/${id}`);
   }
 

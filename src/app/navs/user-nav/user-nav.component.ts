@@ -29,7 +29,7 @@ export class UserNavComponent {
     if (this.usuario.id) {
       this.citaService.getCitasNoVistasPorUsuario(this.usuario.id).subscribe(
         (citas: Cita[]) => {
-          console.log('Citas no vistas: ', citas);
+          //console.log('Citas no vistas: ', citas);
           if (citas.length > 0) {
             this.hayCitasNoVistas = true;
           }
