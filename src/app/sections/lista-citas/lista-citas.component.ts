@@ -32,7 +32,7 @@ export class ListaCitasComponent implements OnInit {
     }
     this.citaService.getCitasUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
-        console.log('Citas del usuario:', citas);
+        //console.log('Citas del usuario:', citas);
         this.citas = citas;
       }
     );

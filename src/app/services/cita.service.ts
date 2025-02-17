@@ -17,7 +17,6 @@ export class CitaService {
   }
 
   getCitasUsuario(id: string): Observable<Cita[]> {
-    console.log("Entrando al getCitasUsuario");
     return this.http.get<Cita[]>(`${this.apiUrl}/misCitasUsuario/${id}`);
   }
 
@@ -31,6 +30,10 @@ export class CitaService {
   //cancelar cita
   cancelarCita(id: number): Observable<Cita[]>{
     return this.http.put<Cita[]>(`${this.apiUrl}/cancelar/${id}`,{});
+  }
+
+  marcarCitaComoVista(id: number): Observable<Cita> {
+    return this.http.put<Cita>(`${this.apiUrl}/marcarComoVista/${id}`, {});
   }
 
 

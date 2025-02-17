@@ -1,0 +1,16 @@
+<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white w-[500px] rounded-lg shadow-lg">
+    <div class="p-4 flex justify-between items-center border-b">
+      <h2 class="text-lg font-semibold">Panel de Notificaciones</h2>
+      <button (click)="cerrarModal()"  class="text-gray-500 hover:text-gray-700 text-xl mr-2">
+        &times;
+      </button>
+    </div>
+
+    <div class="p-4 max-h-80 overflow-y-auto">
+      @for (cita of citasNoVistas; track $index) {
+        <app-notificacion [cita]="cita" />
+      }
+    </div>
+  </div>
+</div>

@@ -14,6 +14,7 @@ import { Cita } from '../../models/cita';
 import { CitaService } from '../../services/cita.service';
 
 
+
 @Component({
   selector: 'app-index-after-login',
   imports: [LeftNavComponent, SecundaryNavComponent, BanerComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent, DoctoresRecomendadosComponent],
@@ -35,9 +36,7 @@ export class IndexAfterLoginComponent implements OnInit{
     }
     this.citaService.getCitasUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
-        console.log('Citas del usuario:', citas);
-        
-        
+        //console.log('Citas del usuario:', citas); 
     });
   }
 
