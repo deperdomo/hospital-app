@@ -11,6 +11,7 @@ import { IndexAfterLoginComponent } from './vistas/index-after-login/index-after
 import { ProfileComponent } from './vistas/profile/profile.component';
 import { PerfilHistorialComponent } from './vistas/perfil-historial/perfil-historial.component';
 import { EditProfileComponent } from './vistas/edit-profile/edit-profile.component';
+import { DoctoresComponent } from './vistas/doctores/doctores.component';
 
 export const routes: Routes = [
     { path: '', component: IndexBeforeLoginComponent },
@@ -24,6 +25,7 @@ export const routes: Routes = [
     // { path: 'perfilHistorial/:id', component: PerfilHistorialComponent, canActivate: [AuthGuard]  }
     // { path: 'verReceta', component: RecetaComponent, canActivate: [AuthGuard]  },
     { path: 'editarPerfil', component: EditProfileComponent, canActivate: [AuthGuard]  },
+    { path: 'listaDoctores', component: DoctoresComponent, canActivate: [AuthGuard] },
 
 ];
 

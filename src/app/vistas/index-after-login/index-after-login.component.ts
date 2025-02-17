@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { LeftNavComponent } from "../../navs/left-nav/left-nav.component";
@@ -21,7 +21,7 @@ import { CitaService } from '../../services/cita.service';
   styleUrl: './index-after-login.component.css',
   providers: [CitaService]
 })
-export class IndexAfterLoginComponent {
+export class IndexAfterLoginComponent implements OnInit{
   isNerbyDoctorsAvailable = false;
   usuario: Usuario;
   constructor(private router: Router, private citaService: CitaService) {
