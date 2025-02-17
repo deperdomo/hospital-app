@@ -1,33 +1,41 @@
 
 @if (!esPaginaDeAutenticacion()) {
-  <app-nav-before-login></app-nav-before-login>
+  <app-nav-before-login />
 
   <div class="contenido px-[10%] mb-6">
-    <div class="container-baner relative">
 
-      <app-baner></app-baner>
+    <div class="container-baner relative">
+      <app-baner />
       <div class="w-[60%] absolute bottom-[-30px] left-[50%] translate-x-[-50%]">
-        <app-find-nav />
+        <app-find-nav (doctoresEncontrados)="recibirDoctores($event)" />
       </div>
     </div>
 
     <br>
-    <cont-doctores-recomendados></cont-doctores-recomendados>
+    <cont-doctores-recomendados />
 
     <br>
 
+    @if (isNerbyDoctorsAvailable ) {
     <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
-    @if (isNerbyDoctorsAvailable) {
     <div class="cont-info-doctors flex flex-wrap justify-between">
-      <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
-      <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
-      <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
+      <app-nearby-doctors class="w-[32%]" />
+      <app-nearby-doctors class="w-[32%]" />
+      <app-nearby-doctors class="w-[32%]" />
     </div>
+    } @else if (doctores.length > 0) {
+      <h3 class="titulos text-2xl font-semibold my-6">Resultado de la busqueda</h3>
+      <div class="cont-info-doctors flex flex-wrap justify-between">
+      @for (doctor of doctores; track $index) {
+        <app-nearby-doctors [doctor]="doctor" class="w-[32%]" />
+      }
+      </div>
     } @else {
-    <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()"></app-nearby-doctors-disabled>
+      <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+      <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" />
     }
 
   </div>
-  <app-footer></app-footer>
+  <app-footer/>
 
   }

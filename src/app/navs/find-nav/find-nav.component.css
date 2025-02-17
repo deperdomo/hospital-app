@@ -12,7 +12,8 @@
     border-radius: 10px;
     padding: 10px 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    min-width: 500px;
+    min-width: 650px;
+    max-width: 820px;
 }
 
 /* Estilos para cada contenedor individual dentro de .find-nav */

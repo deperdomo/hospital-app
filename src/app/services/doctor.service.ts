@@ -24,5 +24,8 @@ export class DoctorService {
     return this.http.get<Doctor[]>(`${this.apiUrl}/allDoctors`);
   }
 
+  buscarPorNombreApellidoLocalidadYEspecialidad(nombre: string, apellido: string, localidad: string, especialidad: string): Observable<Doctor[]> {
+    return this.http.get<Doctor[]>(`${this.apiUrl}/porNombreApellidoLocalidadYEspecialidad/${nombre}/${apellido}/${localidad}/${especialidad}`);
+  }
 
 }

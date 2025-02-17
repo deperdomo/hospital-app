@@ -9,6 +9,7 @@ import { NearbyDoctorsComponent } from "../../nearby-doctors/nearby-doctors/near
 import { NearbyDoctorsDisabledComponent } from "../../nearby-doctors/nearby-doctors-disabled/nearby-doctors-disabled.component";
 import { FooterConmponent } from "../../footer/footer.component";
 import { DoctoresRecomendadosComponent } from "../../sections/doctores-recomendados/doctores-recomendados.component";
+import { Doctor } from '../../models/doctor';
 
 
 @Component({
@@ -20,6 +21,7 @@ import { DoctoresRecomendadosComponent } from "../../sections/doctores-recomenda
 
 export class IndexBeforeLoginComponent {
   isNerbyDoctorsAvailable = false;
+  doctores: Doctor[] = []
 
   constructor( private router: Router) {}
 
@@ -32,4 +34,10 @@ export class IndexBeforeLoginComponent {
   esPaginaDeAutenticacion(): boolean {
     return this.router.url.includes('/login') || this.router.url.includes('/registro');
   }
+
+  recibirDoctores(doctores: Doctor[]) {
+    this.doctores = doctores;
+    console.log('Doctores recibidos en index-before-login:', doctores);
+  }
+
 }
