@@ -3,17 +3,21 @@ import { CitaService } from '../../services/cita.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Usuario } from '../../models/usuario';
 import { Cita } from '../../models/cita';
+import { RouterModule } from '@angular/router';
+import { PanelNotificacionesComponent } from './panel-notificaciones/panel-notificaciones.component';
+
 
 
 @Component({
   selector: 'app-user-nav',
-  imports: [ HttpClientModule ],
+  imports: [HttpClientModule, RouterModule, PanelNotificacionesComponent],
   templateUrl: './user-nav.component.html',
   providers: [CitaService]
 })
 export class UserNavComponent {
   usuario: Usuario;
   hayCitasNoVistas: boolean = false;
+  isModalNotificacionesActive: boolean = false;
 
   constructor(private citaService: CitaService) {
     this.usuario = {} as Usuario;
@@ -42,10 +46,12 @@ export class UserNavComponent {
 
   }
 
-  mostrarModal = false;
-
   abrirModal() {
-    this.mostrarModal = true;
+    this.isModalNotificacionesActive = true;
+  }
+
+  cerrarModal(valor: boolean) {
+    this.isModalNotificacionesActive = valor;
   }
 
 }
