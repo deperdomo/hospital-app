@@ -83,7 +83,7 @@ public class CitaRestController {
 	@PutMapping("/cancelar/{id}")
 	public ResponseEntity<?> cancelarCita(@PathVariable int id){
 		Cita cita = cserv.buscarPorId(id);
-		cita.setEstado("Cancelado");
+		cita.setEstado("cancelada");
 		cserv.modificar(cita);
 		return new ResponseEntity<>(cita, HttpStatus.OK);
 		//Usuario usuario= userv.buscarPorId(id);

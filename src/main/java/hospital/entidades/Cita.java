@@ -29,7 +29,7 @@ public class Cita implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	@Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date fecha;
 	private String email;
 	private String telefono;
@@ -38,7 +38,6 @@ public class Cita implements Serializable{
 	@Column(name="forma_pago")
 	private String formaPago;
 	private String estado;
-	private int visto;
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuario")
@@ -46,5 +45,6 @@ public class Cita implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="id_doctor")
 	private Doctor doctor;
+	private int visto;
 	
 }

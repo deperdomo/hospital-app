@@ -2,103 +2,109 @@ CREATE DATABASE hospital_jakarta;
 USE hospital_jakarta;
 
 CREATE TABLE usuarios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255),
-    username VARCHAR(255) UNIQUE,
-    apellidos VARCHAR(255),
-    email VARCHAR(255) UNIQUE,
-    telefono VARCHAR(15),
-    provincia VARCHAR(100),
-    localidad VARCHAR(100),
-    direccion VARCHAR(250),
-    fecha_nacimiento DATE,
-    fecha_alta DATE,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    apellidos VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    telefono VARCHAR(15) NOT NULL,
+    provincia VARCHAR(100) NOT NULL,
+    localidad VARCHAR(100) NOT NULL,
+    direccion VARCHAR(250) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    fecha_alta DATE NOT NULL,
     foto_perfil VARCHAR(100),
-    password VARCHAR(100),
-    sexo varchar(20), 
-    rol VARCHAR(50) -- (admin, enfermera, pacientes etc.)
+    password VARCHAR(100) NOT NULL,
+    sexo varchar(20) NOT NULL, 
+    rol VARCHAR(50) NOT NULL, -- (admin, enfermera, pacientes etc.)
+    check(sexo in ('masculino', 'femenino')),
+	check(rol in ('admin', 'paciente'))
 );
 
 CREATE TABLE especialidades (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) UNIQUE
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE
 );
 
 CREATE TABLE doctores (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_especialidad INT,
-    nombre VARCHAR(255),
-    username VARCHAR(255) UNIQUE,
-    apellidos VARCHAR(255),
-    email VARCHAR(255) UNIQUE,
-    provincia VARCHAR(100),
-    localidad VARCHAR(100),
-    direccion VARCHAR(250),
-    fecha_alta DATE,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_especialidad INT NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    apellidos VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    provincia VARCHAR(100) NOT NULL,
+    localidad VARCHAR(100) NOT NULL,
+    direccion VARCHAR(250) NOT NULL,
+    fecha_alta DATE NOT NULL,
     foto_perfil VARCHAR(100),
-    password VARCHAR(100),
-    experiencia INT,
-    precio_consulta INT,
-    sexo varchar(20), 
-    FOREIGN KEY (id_especialidad) REFERENCES especialidades(id)
+    password VARCHAR(100) NOT NULL,
+    experiencia INT NOT NULL,
+    precio_consulta INT NOT NULL,
+    sexo varchar(20) NOT NULL, 
+    FOREIGN KEY (id_especialidad) REFERENCES especialidades(id),
+	check(sexo in ('masculino', 'femenino'))
 );
 
 CREATE TABLE disponibilidad (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_doctor INT,
-    hora_inicio TIME,
-    hora_fin TIME,
-    estado VARCHAR(50),  -- "disponible", "no disponible", "vacaciones"
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_doctor INT NOT NULL,
+    hora_inicio TIME NOT NULL,
+    hora_fin TIME NOT NULL,
+    estado VARCHAR(50) NOT NULL,  -- "disponible", "no disponible", "vacaciones"
     comentarios VARCHAR(200),
-    FOREIGN KEY (id_doctor) REFERENCES doctores(id)
+    FOREIGN KEY (id_doctor) REFERENCES doctores(id),
+	check(estado in ('disponible', 'no disponible', 'vacaciones'))
 );
 
 CREATE TABLE historial_medico (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT,
-    diagnostico TEXT,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    diagnostico TEXT NOT NULL,
     tratamiento TEXT,
-    fecha DATE,
+    fecha DATE NOT NULL,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
 CREATE TABLE recetas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_paciente INT,
-    id_historial_medico INT,
-    nombre_medicamento VARCHAR(100),
-    dosis VARCHAR(50),
-    frecuencia VARCHAR(100),
-    fecha_inicio DATE,
-    fecha_fin DATE,
-    instrucciones TEXT,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_paciente INT NOT NULL,
+    id_historial_medico INT NOT NULL,
+    nombre_medicamento VARCHAR(100) NOT NULL,
+    dosis VARCHAR(50) NOT NULL,
+    frecuencia VARCHAR(100) NOT NULL,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NOT NULL,
+    instrucciones TEXT NOT NULL,
     FOREIGN KEY (id_paciente) REFERENCES usuarios(id),
     FOREIGN KEY (id_historial_medico) REFERENCES historial_medico(id)
 );
 
 CREATE TABLE facturas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT,
-    monto DECIMAL(10,2),
-    fecha DATE,
-    estado_pago VARCHAR(50),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    monto DECIMAL(10,2) NOT NULL,
+    fecha DATE NOT NULL,
+    estado_pago VARCHAR(50) NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    check(estado_pago in ('pendiente', 'pagado'))
 );
 
 CREATE TABLE citas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT,
-    id_doctor INT,
-    fecha DATETIME,
-    email VARCHAR(255),
-    telefono VARCHAR(15),
-    motivo VARCHAR(100),
-    tarifa int,
-	forma_pago VARCHAR(50),
-    estado VARCHAR(50),
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_doctor INT NOT NULL,
+    fecha DATETIME NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    telefono VARCHAR(15) NOT NULL,
+    motivo VARCHAR(100) NOT NULL,
+    tarifa int NOT NULL,
+	forma_pago VARCHAR(50) NOT NULL,
+    estado VARCHAR(50) NOT NULL,
     visto INT,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    FOREIGN KEY (id_doctor) REFERENCES doctores(id)
+    FOREIGN KEY (id_doctor) REFERENCES doctores(id),
+    check(estado in ('pendiente', 'cancelada', 'terminada'))
 );
 
 -- Insertar usuarios
@@ -143,7 +149,7 @@ VALUES
 (4, 4, 'José', 'jose', 'Ramírez', 'jose.ramirez@example.com', 'Madrid', 'Arganzuela', 'Calle Real 45', '2022-05-10', 'doc_03.png', 'password111', 6, 40, 'masculino'),
 (5, 5, 'Patricia', 'patricia', 'Rodríguez', 'patricia.rodriguez@example.com', 'Madrid', 'Salamanca', 'Calle Mayor 78', '2023-01-12', 'doc_04.png', 'password222', 10, 45, 'femenino'),
 (6, 6, 'Antonio', 'antonio', 'García', 'antonio.garcia@example.com', 'Madrid', 'Tetuán', 'Calle de Goya 23', '2023-04-15', 'doc_06.png', 'password333', 4, 35, 'masculino'),
-(7, 1, 'Pedro', 'pedro', 'Serrano', 'pedro.serrano@example.com', 'Madrid', 'Carabanchel', 'Calle San Pedro 101', '2023-06-01', 'doc_07.png', 'password555', 8, 50, 'masculino'),
+(7, 1, 'Pedro', 'pedro', 'Serrano', 'pedro.serrano@example.com', 'Madrid', 'Carabanchel', 'Calle San Pedro 101', '2023-06-01', 'doc_02.png', 'password555', 8, 50, 'masculino'),
 (8, 2, 'Lucía', 'lucia', 'Fernández', 'lucia.fernandez@example.com', 'Madrid', 'Latina', 'Calle del Río 200', '2023-07-15', 'doc_08.png', 'password666', 5, 55, 'femenino'),
 (9, 3, 'Raquel', 'raquel', 'Pérez', 'raquel.perez@example.com', 'Madrid', 'Villaverde', 'Calle de Vallecas 456', '2023-04-20', 'doc_12.png', 'password777', 10, 60, 'femenino'),
 (10, 1, 'Carlos', 'carlos', 'Jiménez', 'carlos.jimenez@example.com', 'Madrid', 'Chamartín', 'Calle Asturias 30', '2023-03-01', 'doc_10.png', 'password888', 15, 70, 'masculino'),
@@ -208,16 +214,16 @@ VALUES
 -- Insertar citas
 INSERT INTO citas (id, id_usuario, id_doctor, fecha, email, telefono, motivo, tarifa, forma_pago, estado, visto)
 VALUES
-(1, 3, 2, '2023-05-01 10:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'completada', 0),
-(2, 3, 2, '2023-06-10 11:00:00', 'usuario2@example.com', '123456789', 'Revisión', 150, 'Efectivo', 'completada', 0),
-(3, 4, 4, '2023-06-20 10:00:00', 'usuario4@example.com', '123456789', 'Consulta general', 150, 'Tarjeta de crédito', 'completada', 0),
-(4, 5, 5, '2023-07-15 12:00:00', 'usuario5@example.com', '123456789', 'Chequeo general', 120, 'Efectivo', 'completada', 0),
-(5, 6, 6, '2023-08-18 09:30:00', 'usuario6@example.com', '123456789', 'Control médico', 90, 'Transferencia', 'pendiente', 0),
-(6, 5, 4, '2023-07-20 15:00:00', 'usuario4@example.com', '123456789', 'Revisión de salud', 100, 'Tarjeta de crédito', 'completada', 0),
-(7, 6, 3, '2023-08-10 14:00:00', 'usuario5@example.com', '123456789', 'Consulta médica', 110, 'Efectivo', 'completada', 0),
-(8, 10, 9, '2023-09-06 10:00:00', 'usuario10@example.com', '123456789', 'Consulta para migraña', 150, 'Efectivo', 'completada', 0),
-(9, 11, 10, '2023-09-07 15:00:00', 'usuario11@example.com', '123456789', 'Consulta médica', 100, 'Tarjeta de crédito', 'completada', 0),
-(10, 12, 11, '2023-09-08 14:30:00', 'usuario12@example.com', '123456789', 'Consulta de salud general', 120, 'Transferencia', 'pendiente', 0),
-(11, 9, 8, '2023-09-03 11:00:00', 'usuario9@example.com', '123456789', 'Chequeo de tobillo', 120, 'Efectivo', 'pendiente', 0),
-(12, 8, 7, '2023-08-22 09:30:00', 'usuario8@example.com', '123456789', 'Consulta de insomnio', 100, 'Tarjeta de crédito', 'completada', 0);
+(1, 3, 2, '2023-05-01 10:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 0),
+(2, 3, 2, '2023-06-10 11:00:00', 'usuario2@example.com', '123456789', 'Revisión', 150, 'Efectivo', 'terminada', 0),
+(3, 4, 4, '2023-06-20 10:00:00', 'usuario4@example.com', '123456789', 'Consulta general', 150, 'Tarjeta de crédito', 'terminada', 0),
+(4, 5, 5, '2023-07-15 12:00:00', 'usuario5@example.com', '123456789', 'Chequeo general', 120, 'Efectivo', 'terminada', 0),
+(5, 6, 6, '2025-08-18 09:30:00', 'usuario6@example.com', '123456789', 'Control médico', 90, 'Transferencia', 'pendiente', 0),
+(6, 5, 4, '2023-07-20 15:00:00', 'usuario4@example.com', '123456789', 'Revisión de salud', 100, 'Tarjeta de crédito', 'terminada', 0),
+(7, 6, 3, '2023-08-10 14:00:00', 'usuario5@example.com', '123456789', 'Consulta médica', 110, 'Efectivo', 'terminada', 0),
+(8, 10, 9, '2023-09-06 10:00:00', 'usuario10@example.com', '123456789', 'Consulta para migraña', 150, 'Efectivo', 'terminada', 0),
+(9, 11, 10, '2023-09-07 15:00:00', 'usuario11@example.com', '123456789', 'Consulta médica', 100, 'Tarjeta de crédito', 'terminada', 0),
+(10, 12, 11, '2025-09-08 14:30:00', 'usuario12@example.com', '123456789', 'Consulta de salud general', 120, 'Transferencia', 'pendiente', 0),
+(11, 9, 8, '2025-09-03 11:00:00', 'usuario9@example.com', '123456789', 'Chequeo de tobillo', 120, 'Efectivo', 'pendiente', 0),
+(12, 8, 7, '2023-08-22 09:30:00', 'usuario8@example.com', '123456789', 'Consulta de insomnio', 100, 'Tarjeta de crédito', 'terminada', 0);
 
