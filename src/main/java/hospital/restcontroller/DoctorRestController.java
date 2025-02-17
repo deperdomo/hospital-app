@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hospital.entidades.Doctor;
 import hospital.modelo.service.DoctorService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -40,6 +42,13 @@ public class DoctorRestController {
 	    }
 	    return new ResponseEntity<>("Ese medico no existe", HttpStatus.NOT_FOUND);
 	}
+	
+	@GetMapping("/allDoctors")
+	public ResponseEntity<?> todos() {
+		return new ResponseEntity<>(dserv.buscarTodos(), HttpStatus.OK);
+	}
+	
+	
 	
 	
 	
