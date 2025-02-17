@@ -43,18 +43,35 @@ public class DoctorRestController {
 	    return new ResponseEntity<>("Ese medico no existe", HttpStatus.NOT_FOUND);
 	}
 	
-	@GetMapping("/allDoctors")
-	public ResponseEntity<?> todos() {
-		return new ResponseEntity<>(dserv.buscarTodos(), HttpStatus.OK);
+	 @GetMapping("/allDoctors")
+	    public ResponseEntity<?> todos() {
+	        List<Doctor> doctores = dserv.buscarTodos();
+	        if (doctores.isEmpty()) {
+	            return new ResponseEntity<>("No se encontraron doctores.", HttpStatus.NOT_FOUND);
+	        }
+	        return new ResponseEntity<>(doctores, HttpStatus.OK);
+	    }
+	
+	
+	 @GetMapping("/porNombreApellidoLocalidadYEspecialidad/{nombre}/{apellidos}/{localidad}/{especialidad}")
+	    public ResponseEntity<?> buscarPorNombreApellidoLocalidadYEspecialidad(@PathVariable String nombre,
+	                                                                           @PathVariable String apellidos,
+	                                                                           @PathVariable String localidad,
+	                                                                           @PathVariable String especialidad) {
+	        List<Doctor> doctores = dserv.buscarPorNombreApellidoLocalidadYEspecialidad(nombre, apellidos, localidad, especialidad);
+	        if (doctores.isEmpty()) {
+	            return new ResponseEntity<>("No se encontraron doctores", HttpStatus.NOT_FOUND);
+	        }
+	        return new ResponseEntity<>(doctores, HttpStatus.OK);
 	}
 	
-	
-	@GetMapping("/porNombreApellidoYLocalidad")
-	public ResponseEntity<?> buscarPorNombreApellidoYLocalidad(@PathVariable String nombre, @PathVariable String apellido, @PathVariable String localidad) {
-		return new ResponseEntity<>(dserv.buscarPorNombreApellidoYLocalidad(nombre, apellido, localidad), HttpStatus.OK);
-	}
-	
-	
-	
-	
+	 
+	 
+	 
+	 
 }
+	
+	
+	
+	
+

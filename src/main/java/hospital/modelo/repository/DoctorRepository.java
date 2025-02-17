@@ -11,7 +11,16 @@ import hospital.entidades.Doctor;
 public interface DoctorRepository extends JpaRepository<Doctor, Integer>{
 	
 	List<Doctor> findByLocalidadContains(String localidad);
-	@Query("SELECT d FROM Doctor d WHERE (:nombre IS NULL OR d.nombre = :nombre) AND (:apellidos IS NULL OR d.apellidos = :apellidos) AND (:localidad IS NULL OR d.localidad = :localidad)")
-    List<Doctor> findByNombreAndApellidosAndLocalidad(@Param("nombre") String nombre, @Param("apellidos") String apellidos, @Param("localidad") String localidad);
+	@Query("SELECT d FROM Doctor d WHERE " +
+	           "LOWER(d.nombre) LIKE LOWER(CONCAT('%', :nombre, '%')) OR " +
+	           "LOWER(d.apellidos) LIKE LOWER(CONCAT('%', :apellidos, '%')) OR " +
+	           "LOWER(d.localidad) LIKE LOWER(CONCAT('%', :localidad, '%')) OR " +
+	           "LOWER(d.especialidad.nombre) LIKE LOWER(CONCAT('%', :especialidad, '%'))")
+	    List<Doctor> findByNombreOrApellidosOrLocalidadOrEspecialidad(@Param("nombre") String nombre,
+	                                                                  @Param("apellidos") String apellidos,
+	                                                                  @Param("localidad") String localidad,
+	                                                                  @Param("especialidad") String especialidad);
 	
 }
+
+

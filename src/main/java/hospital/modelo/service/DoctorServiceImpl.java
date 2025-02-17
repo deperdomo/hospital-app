@@ -1,5 +1,6 @@
 package hospital.modelo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,12 +69,9 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public List<Doctor> buscarPorNombreApellidoYLocalidad(String nombre, String apellido, String localidad) {
-		return drepo.findByNombreAndApellidosAndLocalidad(nombre, apellido, localidad);
-	}
+	public List<Doctor> buscarPorNombreApellidoLocalidadYEspecialidad(String nombre, String apellidos, String localidad, String especialidad) {
+        return drepo.findByNombreOrApellidosOrLocalidadOrEspecialidad(nombre, apellidos, localidad, especialidad);
+    }
 
-	
-	
-	
 
 }

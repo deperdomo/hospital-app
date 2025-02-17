@@ -6,5 +6,5 @@ import hospital.entidades.Doctor;
 
 public interface DoctorService extends GenericCRUD<Doctor, Integer>{
 
-	List<Doctor> buscarPorNombreApellidoYLocalidad(String nombre, String apellido, String localidad);
+	List<Doctor> buscarPorNombreApellidoLocalidadYEspecialidad(String nombre, String apellido, String localidad, String especialidad);
 }
