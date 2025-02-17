@@ -48,15 +48,13 @@ public class CitaRestController {
 		return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 	}
 	
-	//citas del usuario
+
 	@GetMapping("/misCitasUsuario/{id}")
-	public ResponseEntity<?> buscarCitaUsuario(@PathVariable int id){
+	public ResponseEntity<?> buscarCitasActivasUsuario(@PathVariable int id){
 		Usuario usuario = userv.buscarPorId(id);
 		if (usuario != null) {
-			//quiero una lista de las citas de los usuarios
-			//List citas= ;
 			
-			return new ResponseEntity<>(cserv.buscarCitaPorUsuario(usuario.getId()), HttpStatus.OK);
+			return new ResponseEntity<>(cserv.buscarCitasActivasPorUsuario(userv.buscarPorId(id), "pendiente"), HttpStatus.OK);
 		}
 		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 	}
