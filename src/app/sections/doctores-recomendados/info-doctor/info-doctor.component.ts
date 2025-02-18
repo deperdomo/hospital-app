@@ -21,8 +21,8 @@ export class InfoDoctorComponent {
   constructor(private dispoService: DisponibilidadService, private router: Router) {
     this.disponibilidad = {
       id: 1,
-      horaInicio: '08:00:00', // Ejemplo de cadena HH:mm:ss
-      horaFin: '16:00:00',
+      horaInicio: '00:00:00', // Ejemplo de cadena HH:mm:ss
+      horaFin: '00:00:00',
       estado: 'activo',
       comentarios: 'N/A',
       doctor: {
