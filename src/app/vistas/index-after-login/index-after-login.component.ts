@@ -27,7 +27,8 @@ import { FindNavComponent } from "../../navs/find-nav/find-nav.component";
 export class IndexAfterLoginComponent implements OnInit{
   isNerbyDoctorsAvailable = false;
   usuario: Usuario;
-  doctores: Doctor[] = [];
+  doctoresDeBusqueda: Doctor[] = [];
+  doctoresCercanos: Doctor[] = [];
 
 
 
@@ -44,6 +45,7 @@ export class IndexAfterLoginComponent implements OnInit{
       (citas: Cita[]) => {
         //console.log('Citas del usuario:', citas);
     });
+
   }
 
   cambiarEstado() {
@@ -54,9 +56,13 @@ export class IndexAfterLoginComponent implements OnInit{
       this.router.navigate(['/misCitasUsuario', usuarioId]);
   }
 
-  recibirDoctores(doctores: Doctor[]) {
-    this.doctores = doctores;
-    console.log('Doctores recibidos de nearby:', doctores);
+  recibirDoctoresDeBusqueda(doctores: Doctor[]) {
+    this.doctoresDeBusqueda = doctores;
+    //console.log('Doctores recibidos de find-nav:', doctores);
+  }
+  recibirDoctoresCercanos(doctores: Doctor[]) {
+    this.doctoresCercanos = doctores;
+    //console.log('Doctores recibidos de nearby:', doctores);
   }
 
 }

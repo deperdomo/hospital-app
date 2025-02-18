@@ -21,7 +21,8 @@ import { Doctor } from '../../models/doctor';
 
 export class IndexBeforeLoginComponent {
   isNerbyDoctorsAvailable = false;
-  doctores: Doctor[] = []
+  doctoresDeBusqueda: Doctor[] = [];
+  doctoresCercanos: Doctor[] = [];
 
   constructor( private router: Router) {}
 
@@ -35,9 +36,13 @@ export class IndexBeforeLoginComponent {
     return this.router.url.includes('/login') || this.router.url.includes('/registro');
   }
 
-  recibirDoctores(doctores: Doctor[]) {
-    this.doctores = doctores;
-    console.log('Doctores recibidos en index-before-login:', doctores);
+  recibirDoctoresDeBusqueda(doctores: Doctor[]) {
+    this.doctoresDeBusqueda = doctores;
+    console.log('Doctores recibidos de find-nav:', doctores);
+  }
+  recibirDoctoresCercanos(doctores: Doctor[]) {
+    this.doctoresCercanos = doctores;
+    console.log('Doctores recibidos de nearby:', doctores);
   }
 
 }

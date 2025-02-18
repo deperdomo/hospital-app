@@ -1,33 +1,33 @@
 <div class="body-after-login">
 
-    <app-left-nav [panel]="true"></app-left-nav>
+    <app-left-nav [panel]="true" />
     <app-secundary-nav [titulo]="'Bienvenido'"/>
-    <div class="w-[30%]  absolute top-[25px] left-[52%] translate-x-[-45%]">
-      <app-find-nav (doctoresEncontrados)="recibirDoctores($event)" />
-    </div>
+            <div class="w-[30%]  absolute top-[25px] left-[52%] translate-x-[-45%]">
+            <app-find-nav (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" />
+        </div>
 
     <div class="contenido px-[3%] mb-6">
         <div class="container-top">
             <div class="container-left-section mr-7 mb-[30px]">
                 <app-baner />
             <br>
-            @if (isNerbyDoctorsAvailable ) {
+                @if (isNerbyDoctorsAvailable && doctoresCercanos.length > 0) {
                 <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
                 <div class="cont-info-doctors flex flex-wrap justify-between">
-                  <app-nearby-doctors class="w-[32%]" />
-                  <app-nearby-doctors class="w-[32%]" />
-                  <app-nearby-doctors class="w-[32%]" />
+                  @for (doctor of doctoresCercanos; track $index) {
+                    <app-nearby-doctors [doctor]="doctor" class="w-[32%]" />
+                  }
                 </div>
-                } @else if (doctores.length > 0) {
+                } @else if (doctoresDeBusqueda.length > 0) {
                   <h3 class="titulos text-2xl font-semibold my-6">Resultado de la busqueda</h3>
                   <div class="cont-info-doctors flex flex-wrap justify-between">
-                  @for (doctor of doctores; track $index) {
+                  @for (doctor of doctoresDeBusqueda; track $index) {
                     <app-nearby-doctors [doctor]="doctor" class="w-[32%]" />
                   }
                   </div>
                 } @else {
                   <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
-                  <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" (doctoresCercanos)="doctores"/>
+                  <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" (doctoresCercanos)="recibirDoctoresCercanos($event)"/>
                 }
             </div>
             <div class="container-right-section mb-[30px]">
