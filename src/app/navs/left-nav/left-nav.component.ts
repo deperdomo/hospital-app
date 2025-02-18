@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
 import { Usuario } from '../../models/usuario';
@@ -18,6 +18,11 @@ export class LeftNavComponent {
   usuario: Usuario;
   doctor: Doctor;
   isDoctorOrAdmin: boolean = false;
+  selected: boolean = false;
+  @Input() panel!: boolean;
+  @Input() perfil!: boolean;
+  @Input() citas!: boolean;
+  @Input() horario!: boolean;
 
   constructor () {
     this.usuario = {} as Usuario;
