@@ -42,7 +42,9 @@ public class CitaRestController {
 	@GetMapping("/misCitasDoctor/{id}")
 	public ResponseEntity<?> buscarCitaDoctor(@PathVariable int id) {
 		Doctor doctor = dserv.buscarPorId(id);
+		System.out.println("Este es el dictor"+doctor);
 		if (doctor != null) {
+			System.out.println("Estas son las citas: "+cserv.buscarCitaPorDoctor(dserv.buscarPorId(id)));
 			return new ResponseEntity<>(cserv.buscarCitaPorDoctor(dserv.buscarPorId(id)), HttpStatus.OK);
 		}
 		return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);

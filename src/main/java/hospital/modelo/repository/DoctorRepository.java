@@ -16,10 +16,10 @@ public interface DoctorRepository extends JpaRepository<Doctor, Integer>{
 	           "LOWER(d.apellidos) LIKE LOWER(CONCAT('%', :apellidos, '%')) OR " +
 	           "LOWER(d.localidad) LIKE LOWER(CONCAT('%', :localidad, '%')) OR " +
 	           "LOWER(d.especialidad.nombre) LIKE LOWER(CONCAT('%', :especialidad, '%'))")
-	    List<Doctor> findByNombreOrApellidosOrLocalidadOrEspecialidad(@Param("nombre") String nombre,
-	                                                                  @Param("apellidos") String apellidos,
-	                                                                  @Param("localidad") String localidad,
-	                                                                  @Param("especialidad") String especialidad);
+	List<Doctor> findByNombreOrApellidosOrLocalidadOrEspecialidad(@Param("nombre") String nombre,
+	                                                              @Param("apellidos") String apellidos,
+	                                                              @Param("localidad") String localidad,
+	                                                              @Param("especialidad") String especialidad);
 	
 }
 

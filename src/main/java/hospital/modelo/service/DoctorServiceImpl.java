@@ -73,5 +73,10 @@ public class DoctorServiceImpl implements DoctorService {
         return drepo.findByNombreOrApellidosOrLocalidadOrEspecialidad(nombre, apellidos, localidad, especialidad);
     }
 
+	@Override
+	public List<Doctor> buscarPorLocalidad(String localidad) {
+		return drepo.findByLocalidadContains(localidad);
+	}
+
 
 }
