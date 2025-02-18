@@ -1,33 +1,47 @@
 <div class="body-after-login">
-    <app-left-nav></app-left-nav>
-    <app-secundary-nav></app-secundary-nav>
-
+    <app-left-nav />
+    <div class="nav">
+        <app-secundary-nav/>
+        <div class="w-[30%]  absolute top-[25px] left-[52%] translate-x-[-45%]">
+            <app-find-nav (doctoresEncontrados)="recibirDoctores($event)" />
+        </div>
+        
+    </div>
+    
     <div class="contenido px-[3%] mb-6">
         <div class="container-top">
-            <div class="container-left-section mr-7">
-                <app-baner></app-baner>
+            <div class="container-left-section mr-7 mb-[30px]">
+                <app-baner />
             <br>
-            <h3 class="titulos text-2xl font-semibold my-4">Doctores Cercanos a ti</h3>
-            @if (isNerbyDoctorsAvailable) {
-            <div class="cont-info-doctors flex flex-wrap justify-between">
-                <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
-                <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
-                <app-nearby-doctors class="w-[32%]"></app-nearby-doctors>
+            @if (isNerbyDoctorsAvailable ) {
+                <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+                <div class="cont-info-doctors flex flex-wrap justify-between">
+                  <app-nearby-doctors class="w-[32%]" />
+                  <app-nearby-doctors class="w-[32%]" />
+                  <app-nearby-doctors class="w-[32%]" />
+                </div>
+                } @else if (doctores.length > 0) {
+                  <h3 class="titulos text-2xl font-semibold my-6">Resultado de la busqueda</h3>
+                  <div class="cont-info-doctors flex flex-wrap justify-between">
+                  @for (doctor of doctores; track $index) {
+                    <app-nearby-doctors [doctor]="doctor" class="w-[32%]" />
+                  }
+                  </div>
+                } @else {
+                  <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+                  <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" />
+                }
             </div>
-            } @else {
-            <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()"></app-nearby-doctors-disabled>
-            }
-            </div>
-            <div class="container-right-section">
+            <div class="container-right-section mb-[30px]">
                 <div class="container-header flex items-center justify-between mb-4">
                     <h3 class="titulos text-2xl font-semibold ">Citas Programadas</h3>
                     <a href="/misCitasUsuario" routerLink="/misCitasUsuario" class="enlace text-[#3B9AB8]">Ver Todas ></a>
                 </div>
-                <app-lista-citas></app-lista-citas>
+                <app-lista-citas />
             </div>
 
         </div>
-        <cont-doctores-recomendados></cont-doctores-recomendados>
+        <cont-doctores-recomendados />
     </div>
 
     <app-footer></app-footer>

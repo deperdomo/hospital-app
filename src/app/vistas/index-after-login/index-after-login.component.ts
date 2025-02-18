@@ -12,12 +12,14 @@ import { DoctoresRecomendadosComponent } from "../../sections/doctores-recomenda
 import { Usuario } from '../../models/usuario';
 import { Cita } from '../../models/cita';
 import { CitaService } from '../../services/cita.service';
+import { FindNavComponent } from "../../navs/find-nav/find-nav.component";
+import { Doctor } from '../../models/doctor';
 
 
 
 @Component({
   selector: 'app-index-after-login',
-  imports: [LeftNavComponent, SecundaryNavComponent, BanerComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent, DoctoresRecomendadosComponent],
+  imports: [LeftNavComponent, SecundaryNavComponent, BanerComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent, DoctoresRecomendadosComponent, FindNavComponent],
   templateUrl: './index-after-login.component.html',
   styleUrl: './index-after-login.component.css',
   providers: [CitaService]
@@ -25,6 +27,8 @@ import { CitaService } from '../../services/cita.service';
 export class IndexAfterLoginComponent implements OnInit{
   isNerbyDoctorsAvailable = false;
   usuario: Usuario;
+  doctores: Doctor[] = [];
+
   constructor(private router: Router, private citaService: CitaService) {
     this.usuario = {} as Usuario;
   }
@@ -46,6 +50,11 @@ export class IndexAfterLoginComponent implements OnInit{
 
   navegativeToMisCitas(usuarioId: number) {
       this.router.navigate(['/misCitasUsuario', usuarioId]);
+  }
+
+  recibirDoctores(doctores: Doctor[]) {
+    this.doctores = doctores;
+    console.log('Doctores recibidos en index-before-login:', doctores);
   }
 
 }
