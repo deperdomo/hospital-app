@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Usuario } from '../../models/usuario';
 
 @Component({
   selector: 'app-info-general',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './info-general.component.css'
 })
 export class InfoGeneralComponent {
-
+  
 }

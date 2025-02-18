@@ -12,7 +12,20 @@ import { Doctor } from '../../models/doctor';
   providers: [DoctorService, UsuarioService]
 })
 export class InfoPerfilComponent {
-  @Input() doctor!: Doctor;
-  @Input() usuario!: Usuario;
+  // @Input() doctor!: Doctor;
+  // @Input() usuario!: Usuario;
+  usuario: Usuario;
+
+  constructor() {
+    this.usuario = {} as Usuario;
+  }
+
+  ngOnInit() {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    if (usuarioGuardado) {
+      const usuario = JSON.parse(usuarioGuardado);
+      this.usuario = usuario;
+    }
+  }
 
 }
