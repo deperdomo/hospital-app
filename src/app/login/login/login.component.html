@@ -1,4 +1,4 @@
-<div class="bg-white dark:bg-gray-900">
+<div class="bg-white">
   <div class="flex justify-center h-screen">
       <div class="hidden bg-cover lg:block lg:w-2/3" style="background-image: url(https://images.unsplash.com/photo-1589917030663-849c7fe96c2b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
           <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
@@ -19,13 +19,13 @@
                     <img src="img/logo-login.png" alt="logo">
                   </div>
 
-                  <p class="my-5 text-xl text-gray-500 dark:text-gray-300">Inicia sesión para acceder a tu cuenta</p>
+                  <p class="my-5 text-xl text-gray-500">Inicia sesión para acceder a tu cuenta</p>
               </div>
 
               <div class="mt-8">
                 <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
                   <div>
-                    <label for="username" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">
+                    <label for="username" class="block mb-2 text-sm text-gray-600">
                       Nombre de usuario
                     </label>
                     <input
@@ -35,12 +35,12 @@
                       placeholder="Tu nombre"
                       [(ngModel)]="username"
                       required
-                      class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                      class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                   </div>
 
                   <div class="mt-6">
                     <div class="flex justify-between mb-2">
-                      <label for="password" class="text-sm text-gray-600 dark:text-gray-200">
+                      <label for="password" class="text-sm text-gray-600">
                         Contraseña
                       </label>
                       <a href="#" class="text-sm text-[#3b9ab8] focus:text-blue-500 hover:underline">
@@ -55,7 +55,7 @@
                       placeholder="Tu contraseña"
                       [(ngModel)]="password"
                       required
-                      class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                      class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg  focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                   </div>
 
                   @if (errorMessage) {
@@ -79,7 +79,6 @@
           </div>
       </div>
 
-      <!-- X para cerrar o redirigir a la página principal -->
-      <a href="/" class="absolute top-3 right-6 text-3xl text-gray-700 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">&times;</a>
+      <a href="/" class="absolute top-3 right-6 text-3xl text-gray-700 hover:text-gray-900">&times;</a>
   </div>
 </div>

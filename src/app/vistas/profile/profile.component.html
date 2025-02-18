@@ -1,7 +1,8 @@
 <div class="body-profile">
     
-    <app-left-nav/>
-    <app-secundary-nav [titulo]="'My perfil'"/>
+    <app-left-nav [perfil]="true"></app-left-nav>
+    <app-secundary-nav [titulo]="'My perfil'" ></app-secundary-nav>
+
     <div class="contenido mx-[5%]">
         <app-perfil-nav />
         <app-info-perfil />

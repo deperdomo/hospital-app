@@ -1,4 +1,4 @@
-<div class="bg-white dark:bg-gray-900">
+<div class="bg-white">
   <div class="flex justify-center h-screen">
     <div class="hidden bg-cover lg:block lg:w-2/3"
       style="background-image: url(https://images.unsplash.com/photo-1589917030663-849c7fe96c2b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
@@ -21,70 +21,70 @@
             <img src="img/logo-login.png" alt="logo">
           </div>
 
-          <p class="my-5 text-xl text-gray-500 dark:text-gray-300">Crea tu cuenta</p>
+          <p class="my-5 text-xl text-gray-500">Crea tu cuenta</p>
         </div>
 
         <div class="mt-8">
 
           <form (ngSubmit)="onSubmit()" #registroForm="ngForm" class="grid grid-cols-2 gap-4">
             <div>
-              <label for="nombre" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Nombre</label>
+              <label for="nombre" class="block mb-2 text-sm text-gray-600">Nombre</label>
               <input type="text" name="nombre" id="nombre" placeholder="Tu nombre" [(ngModel)]="usuario.nombre" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
 
             <div>
-              <label for="username" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Nombre de usuario</label>
+              <label for="username" class="block mb-2 text-sm text-gray-600">Nombre de usuario</label>
               <input type="text" name="username" id="username" placeholder="Tu nombre de usuario" [(ngModel)]="usuario.username" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
 
             <div>
-              <label for="apellidos" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Apellidos</label>
+              <label for="apellidos" class="block mb-2 text-sm text-gray-600">Apellidos</label>
               <input type="text" name="apellidos" id="apellidos" placeholder="Tus apellidos" [(ngModel)]="usuario.apellidos" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
 
             <div>
-              <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email</label>
+              <label for="email" class="block mb-2 text-sm text-gray-600">Email</label>
               <input type="email" name="email" id="email" placeholder="ejemplo@ejemplo.com" [(ngModel)]="usuario.email" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
 
             <div>
-              <label for="telefono" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Teléfono</label>
+              <label for="telefono" class="block mb-2 text-sm text-gray-600">Teléfono</label>
               <input type="text" name="telefono" id="telefono" placeholder="Telefono de contacto" [(ngModel)]="usuario.telefono" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
 
             <div>
-              <label for="provincia" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Provincia</label>
+              <label for="provincia" class="block mb-2 text-sm text-gray-600">Provincia</label>
               <input type="text" name="provincia" id="provincia" placeholder="Tu provincia" [(ngModel)]="usuario.provincia" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
 
             <div>
-              <label for="localidad" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Localidad</label>
+              <label for="localidad" class="block mb-2 text-sm text-gray-600">Localidad</label>
               <input type="text" name="localidad" id="localidad" placeholder="Tu localidad" [(ngModel)]="usuario.localidad" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
 
             <div>
-              <label for="direccion" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Dirección</label>
+              <label for="direccion" class="block mb-2 text-sm text-gray-600">Dirección</label>
               <input type="text" name="direccion" id="direccion" placeholder="Tu dirección" [(ngModel)]="usuario.direccion" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
 
             <div>
-              <label for="fechaNacimiento" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Fecha de nacimiento</label>
+              <label for="fechaNacimiento" class="block mb-2 text-sm text-gray-600">Fecha de nacimiento</label>
               <input type="date" name="fechaNacimiento" id="fechaNacimiento" [(ngModel)]="usuario.fechaNacimiento" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
 
             <div>
-              <label for="password" class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Contraseña</label>
+              <label for="password" class="block mb-2 text-sm text-gray-600">Contraseña</label>
               <input type="password" name="password" id="password" placeholder="Tu contraseña" [(ngModel)]="usuario.password" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
 
             <div class="col-span-2" *ngIf="errorMessage">
@@ -110,8 +110,7 @@
       </div>
     </div>
 
-    <!-- X para cerrar o redirigir a la página principal -->
     <a href="/"
-      class="absolute top-3 right-6 text-3xl text-gray-700 hover:text-gray-900 dark:text-white dark:hover:text-gray-300">&times;</a>
+      class="absolute top-3 right-6 text-3xl text-gray-700 hover:text-gray-900">&times;</a>
   </div>
 </div>
