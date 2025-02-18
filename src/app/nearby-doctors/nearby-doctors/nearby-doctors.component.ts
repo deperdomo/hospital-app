@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Doctor } from '../../models/doctor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nearby-doctors',
@@ -8,4 +9,14 @@ import { Doctor } from '../../models/doctor';
 })
 export class NearbyDoctorsComponent {
   @Input() doctor!: Doctor;
+
+  constructor(private router: Router) {}
+
+  navigateToNewAppointment(doctorId: number) {
+    this.router.navigate(['/nuevaCita', doctorId]);
+  }
+
+
 }
+
+

@@ -21,7 +21,9 @@
       </div>
     </div>
     <div class="w-full flex justify-end">
-      <button class="bg-[#3b9ab8] text-white px-4 py-2 rounded-lg hover:bg-[#26738b] transition duration-300">Pedir Cita</button>
+      <button (click)="navigateToNewAppointment(doctor.id)" class="bg-[#3b9ab8] text-white px-4 py-2 rounded-lg hover:bg-[#26738b] transition duration-300">
+          Pedir Cita
+      </button>
     </div>
   </div>
 </div>
