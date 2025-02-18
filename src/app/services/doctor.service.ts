@@ -28,4 +28,8 @@ export class DoctorService {
     return this.http.get<Doctor[]>(`${this.apiUrl}/porNombreApellidoLocalidadYEspecialidad/${nombre}/${apellido}/${localidad}/${especialidad}`);
   }
 
+  buscarPorLocalidad(localidad: string): Observable<Doctor[]> {
+    return this.http.get<Doctor[]>(`${this.apiUrl}/localidad/${localidad}`);
+  }
+
 }

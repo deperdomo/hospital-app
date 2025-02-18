@@ -16,4 +16,5 @@ export interface Doctor {
   precioConsulta: number;
   especialidad: Especialidad;
   sexo: string;
+  votos: number;
 }

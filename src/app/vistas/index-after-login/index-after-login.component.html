@@ -1,7 +1,7 @@
 <div class="body-after-login">
     <app-left-nav />
     <div class="nav">
-        <app-secundary-nav/>
+        <app-secundary-nav [titulo]="'Bienvenido'"/>
         <div class="w-[30%]  absolute top-[25px] left-[52%] translate-x-[-45%]">
             <app-find-nav (doctoresEncontrados)="recibirDoctores($event)" />
         </div>
@@ -29,7 +29,7 @@
                   </div>
                 } @else {
                   <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
-                  <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" />
+                  <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" (doctoresCercanos)="doctores"/>
                 }
             </div>
             <div class="container-right-section mb-[30px]">

@@ -15,7 +15,7 @@ import { Disponibilidad } from '../../../models/disponibilidad';
   providers: [DisponibilidadService, DatePipe]
 })
 export class InfoDoctorComponent {
-  @Input() doctor!: Doctor ;
+  @Input() doctor!: Doctor;
   disponibilidad: Disponibilidad;
 
   constructor(private dispoService: DisponibilidadService, private router: Router) {
@@ -40,7 +40,8 @@ export class InfoDoctorComponent {
         experiencia: 10,
         precioConsulta: 100,
         especialidad: { id: 1, nombre: 'Cardiología' },
-        sexo: 'M'
+        sexo: 'M',
+        votos: 0
       }
     };
   }

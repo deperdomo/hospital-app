@@ -56,7 +56,8 @@ export class CalendarComponent {
         experiencia: 10,
         precioConsulta: 100,
         especialidad: { id: 1, nombre: 'Cardiología' },
-        sexo: 'M'
+        sexo: 'M',
+        votos: 0,
       }
     }
   }

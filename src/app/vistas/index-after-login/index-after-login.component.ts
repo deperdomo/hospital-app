@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { LeftNavComponent } from "../../navs/left-nav/left-nav.component";
@@ -29,6 +29,8 @@ export class IndexAfterLoginComponent implements OnInit{
   usuario: Usuario;
   doctores: Doctor[] = [];
 
+  
+
   constructor(private router: Router, private citaService: CitaService) {
     this.usuario = {} as Usuario;
   }
@@ -54,7 +56,7 @@ export class IndexAfterLoginComponent implements OnInit{
 
   recibirDoctores(doctores: Doctor[]) {
     this.doctores = doctores;
-    console.log('Doctores recibidos en index-before-login:', doctores);
+    console.log('Doctores recibidos de nearby:', doctores);
   }
 
 }
