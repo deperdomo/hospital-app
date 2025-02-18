@@ -12,8 +12,8 @@ import { DoctoresRecomendadosComponent } from "../../sections/doctores-recomenda
 import { Usuario } from '../../models/usuario';
 import { Cita } from '../../models/cita';
 import { CitaService } from '../../services/cita.service';
-import { FindNavComponent } from "../../navs/find-nav/find-nav.component";
 import { Doctor } from '../../models/doctor';
+import { FindNavComponent } from "../../navs/find-nav/find-nav.component";
 
 
 
@@ -29,12 +29,12 @@ export class IndexAfterLoginComponent implements OnInit{
   usuario: Usuario;
   doctores: Doctor[] = [];
 
-  
+
 
   constructor(private router: Router, private citaService: CitaService) {
     this.usuario = {} as Usuario;
   }
-  
+
   ngOnInit() {
     const usuarioGuardado = localStorage.getItem('usuario');
     if (usuarioGuardado) {
@@ -42,7 +42,7 @@ export class IndexAfterLoginComponent implements OnInit{
     }
     this.citaService.getCitasUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
-        //console.log('Citas del usuario:', citas); 
+        //console.log('Citas del usuario:', citas);
     });
   }
 

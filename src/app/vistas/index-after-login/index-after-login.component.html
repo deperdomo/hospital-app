@@ -1,7 +1,10 @@
 <div class="body-after-login">
-    
+
     <app-left-nav [panel]="true"></app-left-nav>
-    <app-secundary-nav></app-secundary-nav>
+    <app-secundary-nav [titulo]="'Bienvenido'"/>
+    <div class="w-[30%]  absolute top-[25px] left-[52%] translate-x-[-45%]">
+      <app-find-nav (doctoresEncontrados)="recibirDoctores($event)" />
+    </div>
 
     <div class="contenido px-[3%] mb-6">
         <div class="container-top">
@@ -40,5 +43,5 @@
     </div>
 
     <app-footer></app-footer>
-    
+
 </div>
