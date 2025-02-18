@@ -6,9 +6,13 @@
     </div>
     <div class="flex justify-between items-center mb-6">
         <div class="flex space-x-4">
-            <select (change)="onMonthSelected($event)" class="px-6  border rounded-md bg-white">
+            <!-- <select (change)="onMonthSelected($event)" class="px-6  border rounded-md bg-white">
                 <option *ngFor="let month of months; let i = index" [value]="i">{{ month }}</option>
 
+            </select> -->
+            <select class="px-6  border rounded-md bg-white">
+                <option value="feb">Feb</option>
+                <!-- <option value="mar">Mar</option> -->
             </select>
             <a href="/listaDoctores" class="flex items-center bg-[#3B9AB8] text-white px-7 py-3 rounded-md"><svg
                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

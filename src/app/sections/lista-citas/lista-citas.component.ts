@@ -39,7 +39,29 @@ export class ListaCitasComponent implements OnInit {
         this.citas = citas;
       }
     );
+    
   }
+
+  // cargarPorMes() {
+  //   this.mesSeleccionadoService.selectedMonth$.subscribe((month: number) => {
+  //     this.selectedMonth = month;
+  //     this.cargarCitas();
+  //   }
+  //   );
+  //   this.cargarCitas();
+  // }
+
+  // cargarCitas() {
+  //   this.citaService.getCitasUsuario(String(this.usuario.id)).subscribe(
+  //     (citas: Cita[]) => {
+  //       console.log("mes seleccionado", this.selectedMonth);
+        
+  //       this.citas = citas.filter(cita => new Date(cita.fecha).getMonth() === this.selectedMonth);
+  //       console.log('Comparación:', new Date(this.cita.fecha).getMonth());
+  //     }
+  //   );
+  // }
+
 
   get citasMostradas(): Cita[] {
     const month = this.currentDate.getMonth();
@@ -52,6 +74,7 @@ export class ListaCitasComponent implements OnInit {
     });
     return this.mostrartodas ? filtrarCitas : filtrarCitas.slice(0, 5);
   }
+
   getCurrentMonthYear(): string {
     const options: Intl.DateTimeFormatOptions = {
       month: 'long',
@@ -60,7 +83,12 @@ export class ListaCitasComponent implements OnInit {
     const formattedDate = this.currentDate.toLocaleString('es-ES', options);
     return this.capitalizeFirstLetter(formattedDate);
   }
+
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  // mesSeleccionado(mes: number) {
+  //   this.currentDate = new Date(this.currentDate.getFullYear(), mes, 1);
+  // }
 }
