@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
   selector: 'app-nearby-doctors',
   imports: [],
   templateUrl: './nearby-doctors.component.html',
+  styleUrls: ['./nearby-doctors.component.css'],
 })
 export class NearbyDoctorsComponent {
   @Input() doctor!: Doctor;

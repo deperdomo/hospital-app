@@ -11,24 +11,24 @@
             <div class="container-left-section mr-7 mb-[30px]">
                 <app-baner />
             <br>
-                @if (isNerbyDoctorsAvailable && doctoresCercanos.length > 0) {
+              @if (isNerbyDoctorsAvailable && doctoresCercanos.length > 0) {
                 <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
                 <div class="cont-info-doctors flex flex-wrap justify-between">
                   @for (doctor of doctoresCercanos; track $index) {
                     <app-nearby-doctors [doctor]="doctor" class="w-[32%]" />
                   }
                 </div>
-                } @else if (doctoresDeBusqueda.length > 0) {
-                  <h3 class="titulos text-2xl font-semibold my-6">Resultado de la busqueda</h3>
-                  <div class="cont-info-doctors flex flex-wrap justify-between">
+              } @else if (doctoresDeBusqueda.length > 0) {
+                <h3 class="titulos text-2xl font-semibold my-6">Resultado de la búsqueda</h3>
+                <div class="cont-info-doctors flex flex-wrap justify-between">
                   @for (doctor of doctoresDeBusqueda; track $index) {
                     <app-nearby-doctors [doctor]="doctor" class="w-[32%]" />
                   }
-                  </div>
-                } @else {
-                  <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
-                  <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" (doctoresCercanos)="recibirDoctoresCercanos($event)"/>
-                }
+                </div>
+              } @else {
+                <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+                <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" (doctoresCercanos)="recibirDoctoresCercanos($event)" [texto]="'Encuentra doctores cerca de ti.'"/>
+              }
             </div>
             <div class="container-right-section mb-[30px]">
                 <div class="container-header flex items-center justify-between mb-4">

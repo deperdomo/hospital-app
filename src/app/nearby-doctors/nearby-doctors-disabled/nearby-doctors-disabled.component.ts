@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DoctorService } from '../../services/doctor.service';
 import { Doctor } from '../../models/doctor';
 
@@ -11,6 +11,7 @@ import { Doctor } from '../../models/doctor';
 export class NearbyDoctorsDisabledComponent {
   @Output() habilitarNerbyDoctors = new EventEmitter<void>();
   @Output() doctoresCercanos: EventEmitter<Doctor[]> = new EventEmitter<Doctor[]>();
+  @Input() texto!: string;
 
   constructor(private doctorService: DoctorService) {}
 
@@ -24,9 +25,9 @@ export class NearbyDoctorsDisabledComponent {
           this.doctoresCercanos.emit(doctores);
       });
     }
-    
+
 
     this.habilitarNerbyDoctors.emit(); // Emitimos al padre
-    
+
   }
 }

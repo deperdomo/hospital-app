@@ -57,6 +57,7 @@ export class IndexAfterLoginComponent implements OnInit{
   }
 
   recibirDoctoresDeBusqueda(doctores: Doctor[]) {
+    this.isNerbyDoctorsAvailable = false;
     this.doctoresDeBusqueda = doctores;
     //console.log('Doctores recibidos de find-nav:', doctores);
   }

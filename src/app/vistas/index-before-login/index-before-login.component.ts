@@ -37,8 +37,9 @@ export class IndexBeforeLoginComponent {
   }
 
   recibirDoctoresDeBusqueda(doctores: Doctor[]) {
+    this.isNerbyDoctorsAvailable = false;
     this.doctoresDeBusqueda = doctores;
-    console.log('Doctores recibidos de find-nav:', doctores);
+    //console.log('Doctores recibidos de find-nav:', doctores);
   }
   recibirDoctoresCercanos(doctores: Doctor[]) {
     this.doctoresCercanos = doctores;

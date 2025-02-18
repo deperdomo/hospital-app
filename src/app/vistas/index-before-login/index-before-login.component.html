@@ -32,7 +32,7 @@
       </div>
     } @else {
       <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
-      <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" (doctoresCercanos)="recibirDoctoresCercanos($event)" />
+      <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" (doctoresCercanos)="recibirDoctoresCercanos($event)" [texto]="'Nesecita iniciar sesion para disrutar de esta funcionalidad.'" />
     }
 
   </div>

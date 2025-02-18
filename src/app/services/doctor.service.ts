@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Doctor } from '../models/doctor';
 
 @Injectable({
@@ -25,7 +26,14 @@ export class DoctorService {
   }
 
   buscarPorNombreApellidoLocalidadYEspecialidad(nombre: string, apellido: string, localidad: string, especialidad: string): Observable<Doctor[]> {
-    return this.http.get<Doctor[]>(`${this.apiUrl}/porNombreApellidoLocalidadYEspecialidad/${nombre}/${apellido}/${localidad}/${especialidad}`);
+    return this.http.get<Doctor[]>(`${this.apiUrl}/porNombreApellidoLocalidadYEspecialidad/${nombre}/${apellido}/${localidad}/${especialidad}`)
+      .pipe(
+        catchError(error => {
+          console.error('Datos erróneos introducidos:', error);
+
+          return of([]);
+        })
+      );
   }
 
   buscarPorLocalidad(localidad: string): Observable<Doctor[]> {
