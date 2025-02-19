@@ -19,12 +19,13 @@ export class CitaComponent {
   get isCitasPage() {
     return this.router.url === '/misCitasUsuario';
   }
-  //idioma 
+  //idioma
   getFirstLetterOfDay(date: string): string {
     const dayName = new Date(date).toLocaleDateString('es-ES', { weekday: 'long' });
     return dayName.charAt(0).toUpperCase();
   }
   cancelarCita(id: number) {
     this.citaService.cancelarCita(id).subscribe();
+    window.location.reload(); // refrescando la página para que las citas canceladas desaparezcan
   }
 }

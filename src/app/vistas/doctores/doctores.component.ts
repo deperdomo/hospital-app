@@ -10,5 +10,13 @@ import { ListaDoctoresComponent } from "../../sections/lista-doctores/lista-doct
   styleUrl: './doctores.component.css'
 })
 export class DoctoresComponent {
+  usuarioLogeado: boolean = false;
 
+  ngOnInit(): void {
+    this.usuarioLogeado = this.checkUsuarioEnLocalStorage();
+  }
+
+  checkUsuarioEnLocalStorage(): boolean {
+    return localStorage.getItem('usuario') !== null;
+  }
 }

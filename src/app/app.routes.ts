@@ -25,14 +25,14 @@ export const routes: Routes = [
     // { path: 'perfilHistorial/:id', component: PerfilHistorialComponent, canActivate: [AuthGuard]  }
     // { path: 'verReceta', component: RecetaComponent, canActivate: [AuthGuard]  },
     { path: 'editarPerfil', component: EditProfileComponent, canActivate: [AuthGuard]  },
-    { path: 'listaDoctores', component: DoctoresComponent, canActivate: [AuthGuard] },
+    { path: 'listaDoctores', component: DoctoresComponent },
 
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
-    
-    
+
+
   })
   export class AppRoutingModule { }
