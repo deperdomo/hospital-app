@@ -22,6 +22,7 @@ export class PatientBookingComponent {
   doctorId: string = '';
   doctor: Doctor | null = null;
   isStep2: boolean = false;
+  isFaltanDatos: boolean = false;
 
   selectedDateTime: Date | null = null;
 
@@ -58,8 +59,9 @@ export class PatientBookingComponent {
     step2() {
     if (this.selectedDateTime) {
       this.isStep2 = true;
+      this.isFaltanDatos = false;
     } else {
-      alert("Por favor selecciona una fecha antes de continuar.");
+      this.isFaltanDatos = true;
     }
   }
 

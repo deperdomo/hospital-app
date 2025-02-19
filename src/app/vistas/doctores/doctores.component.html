@@ -1,12 +1,12 @@
 <div class="grid grid-cols-[15%_1fr] h-screen">
 
     <div>
-        <app-left-nav [panel]="true"></app-left-nav>
+        <app-left-nav />
     </div>
 
     <div class="p-4 flex flex-col">
       @if (usuarioLogeado) {
-        <app-secundary-nav></app-secundary-nav>
+        <app-secundary-nav [titulo]="'Doctores disponibles'"/>
       } @else {
         <div class="flex items-center">
           <div onclick="window.location.href='/'"
@@ -25,6 +25,6 @@
 
       }
 
-      <app-lista-doctores></app-lista-doctores>
+      <app-lista-doctores/>
     </div>
   </div>
