@@ -68,10 +68,7 @@ public class CitaServiceImpl implements CitaService{
 		return crepo.findAll();
 	}
 
-/*	@Override
-	public List<Cita> buscarCitaPorUsuario(int id) {
-		return crepo.findCitaByUsuario(id);
-	}*/
+
 
 	@Override
 	public List<Cita> buscarCitasNoVistas(int idUsuario) {
@@ -85,26 +82,30 @@ public class CitaServiceImpl implements CitaService{
 		return citasNoVistasDelUsuaario;
 	}
 
-	/*@Override
-	public List<Cita> buscarCitasActivas() {
-		return crepo.findByEstado("pendiente");
-	}*/
 
 	@Override
 	public List<Cita> buscarCitasActivasPorUsuario(Usuario usuario, String estado) {
 		return crepo.findByUsuarioAndEstado(usuario, "pendiente");
 	}
+
 	
 	@Override
 	public List<Cita> buscarCitasCanceladasPorUsuario(Usuario usuario, String estado) {
 		return crepo.findByUsuarioAndEstado(usuario, "cancelada");
 	}
-	
+
+
 	@Override
 	public List<Cita> buscarCitaPorDoctor(Doctor doctor) {
 		return crepo.findByDoctor(doctor);
 	}
 
+
+	@Override
+	public List<Cita> buscarCitasActivasPorUsuarioTerminada(Usuario usuario, String estado) {
+		
+		return crepo.findByUsuarioAndEstado(usuario, "terminada");
+	}
 	
 	
 }

@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import hospital.entidades.Cita;
 import hospital.entidades.Usuario;
 import hospital.modelo.service.UsuarioService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -44,6 +46,30 @@ public class UsuarioRestController {
 	        return new ResponseEntity<>("Error en el registro", HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 	}
+	
+	@PutMapping("/editar")
+	public ResponseEntity<?> marcarCitaComoVista(@RequestBody Usuario usuario) {
+	    try {
+	        if (usuario == null) {
+	            return new ResponseEntity<>("Usuario no proporcionado", HttpStatus.BAD_REQUEST);
+	        }
+
+	        if (userv.modificar(usuario) != null) {
+	            return new ResponseEntity<>(usuario, HttpStatus.OK);
+	        } else {
+	            return new ResponseEntity<>("Ha ocurrido un error al editar", HttpStatus.NOT_FOUND);
+	        }
+	    } catch (DataIntegrityViolationException ex) {
+	        if (ex.getMessage().contains("Duplicate entry")) {
+	            return new ResponseEntity<>("El email proporcionado ya está en uso por otro usuario", HttpStatus.CONFLICT);
+	        } else {
+	            return new ResponseEntity<>("Error de integridad de datos: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+	        }
+	    } catch (Exception e) {
+	        return new ResponseEntity<>("Error interno del servidor: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
+
 
 	
 	

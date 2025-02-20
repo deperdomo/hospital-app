@@ -24,14 +24,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Usuario modificar(Usuario entidad) {
-		try {
-			if (urepo.existsById(entidad.getId())) {
-				return urepo.save(entidad);
-			} else {
-				return null;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (urepo.existsById(entidad.getId())) {
+			return urepo.save(entidad);
+		} else {
 			return null;
 		}
 	}
