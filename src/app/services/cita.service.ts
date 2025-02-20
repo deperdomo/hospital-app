@@ -35,6 +35,8 @@ export class CitaService {
   marcarCitaComoVista(id: number): Observable<Cita> {
     return this.http.put<Cita>(`${this.apiUrl}/marcarComoVista/${id}`, {});
   }
-
-
+  //citas estado terminado
+  getCitasTerminadoUsuario(id: string): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/misCitasUsuarioTerminado/${id}`);
+  }
 }
