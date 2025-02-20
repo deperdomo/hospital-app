@@ -54,7 +54,7 @@ export class ListaCitasComponent implements OnInit {
     console.log('se mete en CANCELADAS de lista-citas');
     this.citaService.getCitasCanceladasUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
-        console.log('CITAS:', citas);
+        console.log('CANCELADAS:', citas);
         this.citas = citas.filter((cita) => cita.estado === 'cancelada');
         console.log('CANCELADAS:', this.citas);
       }
@@ -63,26 +63,14 @@ export class ListaCitasComponent implements OnInit {
 
   cargarCitasPasadasUsuario() {
     console.log('se mete en PASADAS de lista-citas');
-    this.citaService.getCitasCanceladasUsuario(String(this.usuario.id)).subscribe(
+    this.citaService.getCitasTerminadoUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
-        console.log('CITAS:', citas);
-        this.citas = citas.filter((cita) => cita.estado === 'cancelada');
-        console.log('CANCELADAS:', this.citas);
+        console.log('PASADAS:', citas);
+        this.citas = citas.filter((cita) => cita.estado === 'terminada');
+        console.log('PASADAS:', this.citas);
       }
     )
   }
-
-  // cargarCitasPasadasUsuario() {
-  //   this.citaService.getCitasPasadasUsuario(String(this.usuario.id)).subscribe(
-  //     (citas: Cita[]) => {
-  //       this.citas = citas;
-  //     }
-  //   )
-  // }
-
-
-
-
 
 
   // cargarPorMes() {
@@ -112,6 +100,8 @@ export class ListaCitasComponent implements OnInit {
     // }
     if (this.mostrarCanceladas) {
       return this.citas.filter((cita) => cita.estado === 'cancelada');
+    } if (this.mostrarPasadas) {
+      return this.citas.filter((cita) => cita.estado === 'terminada');
     } else {
       const filtrarCitas = this.citas.filter(cita => {
         const fechaCita = new Date(cita.fecha);
@@ -120,7 +110,6 @@ export class ListaCitasComponent implements OnInit {
       });
       return this.mostrartodas ? filtrarCitas : filtrarCitas.slice(0, 5);
     }
-
   }
 
   getCurrentMonthYear(): string {
