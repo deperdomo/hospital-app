@@ -16,6 +16,7 @@ export class NavCitasComponent {
   currentDate: Date = new Date();
   @Output() citasProximas = new EventEmitter<void>();
   @Output() citasCanceladas = new EventEmitter<void>();
+  @Output() citasPasadas = new EventEmitter<void>();
 
 
   listaCitasProximas() {
@@ -23,7 +24,8 @@ export class NavCitasComponent {
     this.citasProximas.emit();
   }
   listaCitasPasadas() {
-
+    console.log('Citas pasadas');
+    this.citasPasadas.emit();
   }
   listaCitasCanceladas() {
     console.log('Citas canceladas');

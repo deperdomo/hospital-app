@@ -17,11 +17,19 @@ export class IndexVistasCitasComponent{
 
   onCitasCanceladas() {
     this.listaCitasComponent.mostrarCanceladas = true; 
+    this.listaCitasComponent.mostrarPasadas = false;
     this.listaCitasComponent.cargarCitasCanceladasUsuario();
   }
 
   onCitasProximas() {
     this.listaCitasComponent.mostrarCanceladas = false; 
+    this.listaCitasComponent.mostrarPasadas = false;
     this.listaCitasComponent.cargarCitasActivasUsuario();
+  }
+
+  onCitasPasadas() {
+    this.listaCitasComponent.mostrarCanceladas = false; 
+    this.listaCitasComponent.mostrarPasadas = true;
+    this.listaCitasComponent.cargarCitasPasadasUsuario();
   }
 }

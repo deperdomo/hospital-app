@@ -19,6 +19,7 @@ export class ListaCitasComponent implements OnInit {
   @Input() citas: Cita[] = [];
   mostrartodas: boolean = false;
   @Input() mostrarCanceladas: boolean = false;
+  @Input() mostrarPasadas: boolean = false;
   usuario: Usuario;
   currentDate: Date = new Date();
   cita: Cita;
@@ -51,6 +52,17 @@ export class ListaCitasComponent implements OnInit {
 
   cargarCitasCanceladasUsuario() {
     console.log('se mete en CANCELADAS de lista-citas');
+    this.citaService.getCitasCanceladasUsuario(String(this.usuario.id)).subscribe(
+      (citas: Cita[]) => {
+        console.log('CITAS:', citas);
+        this.citas = citas.filter((cita) => cita.estado === 'cancelada');
+        console.log('CANCELADAS:', this.citas);
+      }
+    )
+  }
+
+  cargarCitasPasadasUsuario() {
+    console.log('se mete en PASADAS de lista-citas');
     this.citaService.getCitasCanceladasUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
         console.log('CITAS:', citas);
