@@ -2,7 +2,6 @@ package hospital.modelo.repository;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import hospital.entidades.Cita;
 import hospital.entidades.Doctor;
 import hospital.entidades.Usuario;
@@ -18,6 +17,8 @@ public interface CitaRepository extends JpaRepository<Cita, Integer>{
 	List<Cita> findByDoctorAndEstado (Doctor doctor, String estado);
 	
 	List<Cita> findByVisto(int visto);
+	
+	List<Cita> findByDoctor(Doctor doctor);
 
 	
 	

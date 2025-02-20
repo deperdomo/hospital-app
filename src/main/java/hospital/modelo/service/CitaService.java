@@ -13,5 +13,4 @@ public interface CitaService extends GenericCRUD<Cita, Integer>{
 	List<Cita> buscarCitaPorDoctor (Doctor doctor);
 	List<Cita> buscarCitasNoVistas (int idUsuario);
 	
-	
 }

@@ -42,6 +42,7 @@ CREATE TABLE doctores (
     experiencia INT NOT NULL,
     precio_consulta INT NOT NULL,
     sexo varchar(20) NOT NULL, 
+    votos INT,
     FOREIGN KEY (id_especialidad) REFERENCES especialidades(id),
 	check(sexo in ('masculino', 'femenino'))
 );
@@ -141,19 +142,36 @@ VALUES
 
 
 -- Insertar doctores
-INSERT INTO doctores (id, id_especialidad, nombre, username, apellidos, email, provincia, localidad, direccion, fecha_alta, foto_perfil, password, experiencia, precio_consulta, sexo)
+INSERT INTO doctores (id, id_especialidad, nombre, username, apellidos, email, provincia, localidad, direccion, fecha_alta, foto_perfil, password, experiencia, precio_consulta, sexo, votos)
 VALUES
-(1, 1, 'Juan', 'Juan', 'Pérez', 'juan.perez@example.com', 'Madrid', 'Centro', 'Calle Falsa 123', '2023-01-01', 'doc_m_13.png', 'password123', 5, 20, 'masculino'),
-(2, 2, 'Mario', 'mario', 'Gómez', 'mario.gomez@example.com', 'Madrid', 'Arganzuela', 'Avenida Siempre Viva 456', '2023-02-15', 'doc_m_05.png', 'password456', 12, 25, 'masculino'),
-(3, 3, 'Ana', 'ana', 'Martínez', 'ana.martinez@example.com', 'Madrid', 'Chamberí', 'Calle Sol 321', '2023-04-05', 'doc_f_09.png', 'password321', 7, 30, 'femenino'),
-(4, 4, 'José', 'jose', 'Ramírez', 'jose.ramirez@example.com', 'Madrid', 'Arganzuela', 'Calle Real 45', '2022-05-10', 'doc_m_03.png', 'password111', 6, 40, 'masculino'),
-(5, 5, 'Patricia', 'patricia', 'Rodríguez', 'patricia.rodriguez@example.com', 'Madrid', 'Salamanca', 'Calle Mayor 78', '2023-01-12', 'doc_f_01.png', 'password222', 10, 45, 'femenino'),
-(6, 6, 'Antonio', 'antonio', 'García', 'antonio.garcia@example.com', 'Madrid', 'Tetuán', 'Calle de Goya 23', '2023-04-15', 'doc_m_06.png', 'password333', 4, 35, 'masculino'),
-(7, 1, 'Pedro', 'pedro', 'Serrano', 'pedro.serrano@example.com', 'Madrid', 'Carabanchel', 'Calle San Pedro 101', '2023-06-01', 'doc_m_02.png', 'password555', 8, 50, 'masculino'),
-(8, 2, 'Lucía', 'lucia', 'Fernández', 'lucia.fernandez@example.com', 'Madrid', 'Latina', 'Calle del Río 200', '2023-07-15', 'doc_f_10.png', 'password666', 5, 55, 'femenino'),
-(9, 3, 'Raquel', 'raquel', 'Pérez', 'raquel.perez@example.com', 'Madrid', 'Villaverde', 'Calle de Vallecas 456', '2023-04-20', 'doc_f_12.png', 'password777', 10, 60, 'femenino'),
-(10, 1, 'Carlos', 'carlos', 'Jiménez', 'carlos.jimenez@example.com', 'Madrid', 'Chamartín', 'Calle Asturias 30', '2023-03-01', 'doc_m_08.png', 'password888', 15, 70, 'masculino'),
-(11, 2, 'Nuria', 'nuria', 'Alonso', 'nuria.alonso@example.com', 'Madrid', 'Retiro', 'Calle del Retiro 12', '2023-02-01', 'doc_f_11.png', 'password999', 4, 45, 'femenino');
+(1, 1, 'Juan', 'Juan', 'Pérez', 'juan.perez@example.com', 'Madrid', 'Centro', 'Calle Falsa 123', '2023-01-01', 'doc_m_07.png', 'password123', 5, 20, 'masculino', 12),
+(2, 2, 'Mario', 'mario', 'Gómez', 'mario.gomez@example.com', 'Madrid', 'Arganzuela', 'Avenida Siempre Viva 456', '2023-02-15', 'doc_m_05.png', 'password456', 12, 25, 'masculino', 5),
+(3, 3, 'Ana', 'ana', 'Martínez', 'ana.martinez@example.com', 'Madrid', 'Chamberí', 'Calle Sol 321', '2023-04-05', 'doc_f_09.png', 'password321', 7, 30, 'femenino', 6),
+(4, 4, 'José', 'jose', 'Ramírez', 'jose.ramirez@example.com', 'Madrid', 'Arganzuela', 'Calle Real 45', '2022-05-10', 'doc_m_03.png', 'password111', 6, 40, 'masculino', 7),
+(5, 5, 'Patricia', 'patricia', 'Rodríguez', 'patricia.rodriguez@example.com', 'Madrid', 'Salamanca', 'Calle Mayor 78', '2023-01-12', 'doc_f_01.png', 'password222', 10, 45, 'femenino', 9),
+(6, 6, 'Antonio', 'antonio', 'García', 'antonio.garcia@example.com', 'Madrid', 'Tetuán', 'Calle de Goya 23', '2023-04-15', 'doc_m_06.png', 'password333', 4, 35, 'masculino', 23),
+(7, 1, 'Pedro', 'pedro', 'Serrano', 'pedro.serrano@example.com', 'Madrid', 'Carabanchel', 'Calle San Pedro 101', '2023-06-01', 'doc_m_02.png', 'password555', 8, 50, 'masculino', 22),
+(8, 2, 'Lucía', 'lucia', 'Fernández', 'lucia.fernandez@example.com', 'Madrid', 'Latina', 'Calle del Río 200', '2023-07-15', 'doc_f_10.png', 'password666', 5, 55, 'femenino', 31),
+(9, 3, 'Raquel', 'raquel', 'Pérez', 'raquel.perez@example.com', 'Madrid', 'Villaverde', 'Calle de Vallecas 456', '2023-04-20', 'doc_f_12.png', 'password777', 10, 60, 'femenino', 15),
+(10, 1, 'Carlos', 'carlos', 'Jiménez', 'carlos.jimenez@example.com', 'Madrid', 'Chamartín', 'Calle Asturias 30', '2023-03-01', 'doc_m_08.png', 'password888', 15, 70, 'masculino', 3),
+(11, 2, 'Nuria', 'nuria', 'Alonso', 'nuria.alonso@example.com', 'Madrid', 'Retiro', 'Calle del Retiro 12', '2023-02-01', 'doc_f_11.png', 'password999', 4, 45, 'femenino', 9),
+(12, 1, 'Gonzalo', 'gonzalo', 'José', 'antonio.jose@example.com', 'Madrid', 'Chamartín', 'Calle Asturias 30', '2023-03-01', 'doc_m_04.png', 'password888', 15, 70, 'masculino', 3),
+(13, 3, 'Sergio', 'sergio', 'López', 'sergio.lopez@example.com', 'Madrid', 'Moncloa', 'Calle del Pintor 45', '2023-05-01', 'doc_m_28.png', 'password999', 8, 35, 'masculino', 17),
+(14, 4, 'Beatriz', 'beatriz', 'Muñoz', 'beatriz.munoz@example.com', 'Madrid', 'Fuencarral', 'Calle de la Luna 12', '2023-06-15', 'doc_f_13.png', 'password111', 6, 40, 'femenino', 14),
+(15, 5, 'David', 'david', 'Ortega', 'david.ortega@example.com', 'Madrid', 'Hortaleza', 'Avenida de la Paz 78', '2023-07-30', 'doc_m_14.png', 'password222', 10, 45, 'masculino', 10),
+(16, 6, 'Silvia', 'silvia', 'Romero', 'silvia.romero@example.com', 'Madrid', 'Barajas', 'Calle del Águila 23', '2023-08-10', 'doc_f_15.png', 'password333', 4, 35, 'femenino', 12),
+(17, 1, 'Martín', 'martin', 'Santos', 'martin.santos@example.com', 'Madrid', 'Usera', 'Calle del Estadio 101', '2023-09-01', 'doc_m_23.png', 'password444', 7, 50, 'masculino', 13),
+(18, 2, 'Elena', 'elena', 'Torres', 'elena.torres@example.com', 'Madrid', 'Puente de Vallecas', 'Calle del Puente 200', '2023-10-15', 'doc_f_15.png', 'password555', 5, 55, 'femenino', 20),
+(19, 3, 'Jorge', 'jorge', 'Flores', 'jorge.flores@example.com', 'Madrid', 'San Blas', 'Calle de las Flores 456', '2023-11-20', 'doc_m_17.png', 'password666', 10, 60, 'masculino', 18),
+(20, 4, 'María', 'maria', 'Cruz', 'maria.cruz@example.com', 'Madrid', 'Coslada', 'Calle de la Cruz 30', '2023-12-01', 'doc_f_16.png', 'password777', 12, 70, 'femenino', 15),
+(21, 5, 'Manuel', 'manuel', 'González', 'manuel.gonzalez@example.com', 'Madrid', 'Leganés', 'Calle del Parque 12', '2023-01-05', 'doc_m_21.png', 'password888', 9, 45, 'masculino', 25),
+(22, 6, 'Carmen', 'carmen', 'Díaz', 'carmen.diaz@example.com', 'Madrid', 'Getafe', 'Calle de la Rosa 23', '2023-02-10', 'doc_f_18.png', 'password999', 6, 35, 'femenino', 14),
+(23, 1, 'Luis', 'luis', 'Gutiérrez', 'luis.gutierrez@example.com', 'Madrid', 'Alcalá de Henares', 'Calle del Sol 101', '2023-03-15', 'doc_m_22.png', 'password111', 8, 50, 'masculino', 22),
+(24, 2, 'Isabel', 'isabel', 'Vega', 'isabel.vega@example.com', 'Madrid', 'Majadahonda', 'Calle del Río 200', '2023-04-20', 'doc_f_19.png', 'password222', 7, 55, 'femenino', 16),
+(25, 3, 'Francisco', 'francisco', 'Moreno', 'francisco.moreno@example.com', 'Madrid', 'Pozuelo de Alarcón', 'Calle del Bosque 456', '2023-05-25', 'doc_m_25.png', 'password333', 10, 60, 'masculino', 19),
+(26, 4, 'Laura', 'laura', 'Giménez', 'laura.gimenez@example.com', 'Madrid', 'Las Rozas', 'Calle del Lago 30', '2023-06-01', 'doc_f_20.png', 'password444', 15, 70, 'femenino', 18),
+(27, 5, 'Ángel', 'angel', 'Castro', 'angel.castro@example.com', 'Madrid', 'Fuenlabrada', 'Calle del Ángel 12', '2023-07-05', 'doc_m_27.png', 'password555', 5, 45, 'masculino', 14),
+(28, 6, 'Cristina', 'cristina', 'Fuentes', 'cristina.fuentes@example.com', 'Madrid', 'Alcorcón', 'Calle de la Estrella 23', '2023-08-10', 'doc_f_24.png', 'password666', 4, 35, 'femenino', 12);
 
 -- Insertar disponibilidad
 INSERT INTO disponibilidad (id, id_doctor, hora_inicio, hora_fin, estado, comentarios)
@@ -168,7 +186,25 @@ VALUES
 (8, 8, '14:00:00', '18:00:00', 'disponible', 'Horario de consulta por la tarde'),
 (9, 9, '10:00:00', '14:00:00', 'disponible', 'Consultas en la mañana'),
 (10, 10, '16:00:00', '20:00:00', 'disponible', 'Atención vespertina'),
-(11, 11, '08:00:00', '12:00:00', 'disponible', 'Horario de atención de mañana');
+(11, 11, '08:00:00', '12:00:00', 'disponible', 'Horario de atención de mañana'),
+(12, 12, '10:00:00', '18:00:00', 'disponible', 'Consultas por la tarde'),
+(13, 13, '09:00:00', '17:00:00', 'disponible', 'Horario laboral normal'),
+(14, 14, '12:00:00', '20:00:00', 'disponible', 'Consultas en la tarde'),
+(15, 15, '11:00:00', '19:00:00', 'disponible', 'Horario vespertino'),
+(16, 16, '08:00:00', '16:00:00', 'disponible', 'Horario de consultas temprano'),
+(17, 17, '13:00:00', '21:00:00', 'disponible', 'Atención vespertina'),
+(18, 18, '07:00:00', '15:00:00', 'disponible', 'Horario temprano de atención'),
+(19, 19, '10:00:00', '14:00:00', 'disponible', 'Consultas en la mañana'),
+(20, 20, '09:00:00', '13:00:00', 'disponible', 'Horario de mañana'),
+(21, 21, '09:00:00', '17:00:00', 'disponible', 'Horario laboral normal'),
+(22, 22, '11:00:00', '15:00:00', 'disponible', 'Horario de consultas'),
+(23, 23, '13:00:00', '17:00:00', 'disponible', 'Atención vespertina'),
+(24, 24, '08:00:00', '12:00:00', 'disponible', 'Horario de atención temprano'),
+(25, 25, '14:00:00', '18:00:00', 'disponible', 'Consultas en la tarde'),
+(26, 26, '09:00:00', '17:00:00', 'disponible', 'Horario laboral normal'),
+(27, 27, '10:00:00', '14:00:00', 'disponible', 'Consultas en la mañana'),
+(28, 28, '15:00:00', '19:00:00', 'disponible', 'Horario vespertino para pacientes');
+
 
 -- Insertar historial médico
 INSERT INTO historial_medico (id, id_usuario, diagnostico, tratamiento, fecha)

@@ -97,8 +97,7 @@ public class CitaServiceImpl implements CitaService{
 
 	@Override
 	public List<Cita> buscarCitaPorDoctor(Doctor doctor) {
-		// TODO Auto-generated method stub
-		return null;
+		return crepo.findByDoctor(doctor);
 	}
 
 	
