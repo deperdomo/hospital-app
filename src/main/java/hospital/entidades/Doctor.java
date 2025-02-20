@@ -45,9 +45,11 @@ public class Doctor implements Serializable {
 	private int experiencia;
 	@Column(name="precio_consulta")
 	private int precioConsulta;
+	private String sexo;
+	private int votos;
 	
 	@ManyToOne
 	@JoinColumn(name="id_especialidad")
 	private Especialidad especialidad;
-	private String sexo;
+	
 }
