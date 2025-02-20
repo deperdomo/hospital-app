@@ -61,6 +61,16 @@ public class CitaRestController {
 		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 	}
 	
+	@GetMapping("/misCitasCanceladasUsuario/{id}")
+	public ResponseEntity<?> buscarCitasCanceladasUsuario(@PathVariable int id){
+		Usuario usuario = userv.buscarPorId(id);
+		if (usuario != null) {
+			
+			return new ResponseEntity<>(cserv.buscarCitasCanceladasPorUsuario(userv.buscarPorId(id), "cancelada"), HttpStatus.OK);
+		}
+		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+	}
+	
 	@PostMapping("/alta")
 	public ResponseEntity<?> alta(@RequestBody Cita cita) {
 	    try {
