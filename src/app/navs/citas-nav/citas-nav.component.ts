@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { CitaService } from '../../services/cita.service';
 import { Cita } from '../../models/cita';
 import { Usuario } from '../../models/usuario';
+import { ListaCitasComponent } from '../../sections/lista-citas/lista-citas.component';
 
 @Component({
   selector: 'app-nav-citas',
@@ -13,6 +14,21 @@ import { Usuario } from '../../models/usuario';
 })
 export class NavCitasComponent {
   currentDate: Date = new Date();
+  @Output() citasProximas = new EventEmitter<void>();
+  @Output() citasCanceladas = new EventEmitter<void>();
+
+
+  listaCitasProximas() {
+    console.log('Citas próximas');
+    this.citasProximas.emit();
+  }
+  listaCitasPasadas() {
+
+  }
+  listaCitasCanceladas() {
+    console.log('Citas canceladas');
+    this.citasCanceladas.emit();
+  }
   // selectedMonth: number = new Date().getMonth();
   // @Input() citas: Cita[] = [];
   // cita: Cita;

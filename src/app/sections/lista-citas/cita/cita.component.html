@@ -1,5 +1,5 @@
 <div
-    class="p-2 rounded-md w-[100%] flex justify-between items-center group hover:bg-[#F6F6F6] border border-[#E9E9E9] ">
+    class="p-2 mb-2 rounded-md w-[100%] flex justify-between items-center group hover:bg-[#F6F6F6] border border-[#E9E9E9] ">
     <div
         class="fecha flex-none bg-[#EEF5DF] px-6 py-2 mr-10 rounded-md border-r border-[#E9E9E9] group-hover:bg-[#FFFFFF] flex-none items-center">
         <p class="font-semibold grid justify-items-center w-6 ">{{ getFirstLetterOfDay(cita.fecha) }}</p>
@@ -51,6 +51,10 @@
             <p class="font-semibold text-gray-800">Motivo: {{ cita.motivo }}</p>
             <a href="#" class="text-sm text-[#3b9ab8] focus:text-blue-500 underline">Ver Documento</a>
         </div>
-        <button (click)="cancelarCita(cita.id)" class="flex text-red-400 hover:text-red-600  p-2 items-center ">Cancelar</button>
+        @if (cita.estado !== 'cancelada') {
+            <button (click)="cancelarCita(cita.id)" class="flex text-red-400 hover:text-red-600  p-2 items-center ">Cancelar</button>
+        }@else {
+            <div class="flex text-red-400 mr-5 p-2 items-center ">Cancelada</div>
+        }
     </div>
 </div>
