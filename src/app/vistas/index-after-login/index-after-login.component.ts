@@ -41,7 +41,7 @@ export class IndexAfterLoginComponent implements OnInit{
     if (usuarioGuardado) {
       this.usuario = JSON.parse(usuarioGuardado);
     }
-    this.citaService.getCitasUsuario(String(this.usuario.id)).subscribe(
+    this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
         //console.log('Citas del usuario:', citas);
     });

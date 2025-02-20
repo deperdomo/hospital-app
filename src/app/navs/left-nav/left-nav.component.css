@@ -1,0 +1,27 @@
+.svg {
+    fill: #7E7E7E;
+    min-width: 25px;
+    height: auto;
+    transition-duration: 300ms;
+    stroke:none;
+    
+}
+
+.svg:hover {
+    fill: #ffffff;
+}
+
+a:hover {
+    .svg {
+        fill: #ffffff;
+    }
+}
+
+.svg-selct {
+    min-width: 24px;
+    height: auto;
+    fill: #ffffff;
+    stroke:none;
+    min-width: 25px;
+    height: auto;
+}

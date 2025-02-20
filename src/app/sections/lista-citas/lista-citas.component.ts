@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Cita } from '../../models/cita';
 import { Router } from '@angular/router';
@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 export class ListaCitasComponent implements OnInit {
   @Input() citas: Cita[] = [];
   mostrartodas: boolean = false;
+  @Input() mostrarCanceladas: boolean = false;
   usuario: Usuario;
   currentDate: Date = new Date();
   cita: Cita;
@@ -30,17 +31,47 @@ export class ListaCitasComponent implements OnInit {
 
   ngOnInit() {
     const usuarioGuardado = localStorage.getItem('usuario');
+
     if (usuarioGuardado) {
       this.usuario = JSON.parse(usuarioGuardado);
     }
-    this.citaService.getCitasUsuario(String(this.usuario.id)).subscribe(
+
+    this.cargarCitasActivasUsuario();
+  }
+
+  cargarCitasActivasUsuario() {
+    console.log('se mete en ACTIVAS de lista-citas');
+    this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
-        //console.log('Citas del usuario:', citas);
-        this.citas = citas;
+        this.citas = citas.filter(cita => new Date(cita.fecha).getMonth() === this.currentDate.getMonth());
+        console.log('ACTIVAS:', this.citas);
       }
     );
-    
   }
+
+  cargarCitasCanceladasUsuario() {
+    console.log('se mete en CANCELADAS de lista-citas');
+    this.citaService.getCitasCanceladasUsuario(String(this.usuario.id)).subscribe(
+      (citas: Cita[]) => {
+        console.log('CITAS:', citas);
+        this.citas = citas.filter((cita) => cita.estado === 'cancelada');
+        console.log('CANCELADAS:', this.citas);
+      }
+    )
+  }
+
+  // cargarCitasPasadasUsuario() {
+  //   this.citaService.getCitasPasadasUsuario(String(this.usuario.id)).subscribe(
+  //     (citas: Cita[]) => {
+  //       this.citas = citas;
+  //     }
+  //   )
+  // }
+
+
+
+
+
 
   // cargarPorMes() {
   //   this.mesSeleccionadoService.selectedMonth$.subscribe((month: number) => {
@@ -55,7 +86,7 @@ export class ListaCitasComponent implements OnInit {
   //   this.citaService.getCitasUsuario(String(this.usuario.id)).subscribe(
   //     (citas: Cita[]) => {
   //       console.log("mes seleccionado", this.selectedMonth);
-        
+
   //       this.citas = citas.filter(cita => new Date(cita.fecha).getMonth() === this.selectedMonth);
   //       console.log('Comparación:', new Date(this.cita.fecha).getMonth());
   //     }
@@ -64,15 +95,20 @@ export class ListaCitasComponent implements OnInit {
 
 
   get citasMostradas(): Cita[] {
-    const month = this.currentDate.getMonth();
-    if (!this.citas || this.citas.length === 0) {
-      return [];
+    // if (!this.citas || this.citas.length === 0) {
+    //   return [];
+    // }
+    if (this.mostrarCanceladas) {
+      return this.citas.filter((cita) => cita.estado === 'cancelada');
+    } else {
+      const filtrarCitas = this.citas.filter(cita => {
+        const fechaCita = new Date(cita.fecha);
+        const month = this.currentDate.getMonth();
+        return fechaCita.getMonth() === month;
+      });
+      return this.mostrartodas ? filtrarCitas : filtrarCitas.slice(0, 5);
     }
-    const filtrarCitas = this.citas.filter(cita => {
-      const fechaCita = new Date(cita.fecha);
-      return fechaCita.getMonth() === month;
-    });
-    return this.mostrartodas ? filtrarCitas : filtrarCitas.slice(0, 5);
+
   }
 
   getCurrentMonthYear(): string {
