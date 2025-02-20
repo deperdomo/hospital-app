@@ -1,6 +1,10 @@
 package hospital.restcontroller;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +62,16 @@ public class CitaRestController {
 		}
 		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 	}
+	//citas con estado terminado
+	@GetMapping("/misCitasUsuarioTerminado/{id}")
+	public ResponseEntity<?> buscarCitasTerminadoUsuario(@PathVariable int id){
+		Usuario usuario = userv.buscarPorId(id);
+		if (usuario != null) {
+			
+			return new ResponseEntity<>(cserv.buscarCitasActivasPorUsuarioTerminada(userv.buscarPorId(id), "terminada"), HttpStatus.OK);
+		}
+		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+	}
 	
 	@PostMapping("/alta")
 	public ResponseEntity<?> alta(@RequestBody Cita cita) {
@@ -101,6 +115,20 @@ public class CitaRestController {
 		return new ResponseEntity<>(cita, HttpStatus.OK);
 		
 	}
+	//historial
+	//@GetMapping("/historial/{idUsuario}")
+	//public ResponseEntity<?> listaHistorial(@PathVariable int idUsuario){
+		//Usuario usuario= userv.buscarPorId(idUsuario);
+		//if (usuario!=null) {
+			//List<Cita> historial=cserv.todasCitasHistorial(idUsuario);
+			//Clase variable lista
+		//for (Cita cita : historial) {
+			//Doctor doctor = cita.getDoctor();
+		//}
+		//return new ResponseEntity<>(historial, HttpStatus.OK);
+		//}
+		//return new ResponseEntity<>("Error en el historial", HttpStatus.INTERNAL_SERVER_ERROR);
+	//}
 
 	
 }
