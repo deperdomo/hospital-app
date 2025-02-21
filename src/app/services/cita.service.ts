@@ -28,8 +28,8 @@ export class CitaService {
     return this.http.get<Cita[]>(`${this.apiUrl}/citasNoVistas/${id}`);
   }
 
-  getCitasDoctor(id: number): Observable<Cita[]> {
-    return this.http.get<Cita[]>(`${this.apiUrl}/misCitasDoctor/${id}`);
+  getCitasPendientesDoctor(id: number): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/doctorEstado/${id}/pendiente`);
   }
   //cancelar cita
   cancelarCita(id: number): Observable<Cita[]>{

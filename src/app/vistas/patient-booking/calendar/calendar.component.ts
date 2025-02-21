@@ -63,7 +63,7 @@ export class CalendarComponent {
   }
 
   ngOnInit() {
-    this.citaService.getCitasDoctor(this.doctor.id).subscribe(
+    this.citaService.getCitasPendientesDoctor(this.doctor.id).subscribe(
           (citas: Cita[]) => {
             this.citasDelDoctor = citas;
             citas.forEach(cita => {
