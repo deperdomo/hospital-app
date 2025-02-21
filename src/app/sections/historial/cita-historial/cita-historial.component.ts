@@ -39,42 +39,42 @@ export class CitaHistorialComponent {
          console.log("esto es pasado el if", this.usuario.id)
          console.log("COMPROBANDO",this.usuario)
          console.log("probando id", this.usuario.id)
-         //this.obtenerCitaUsuario(this.usuario.id); 
+         //this.obtenerCitaUsuario(this.usuario.id);
          if (this.usuario.id !== undefined) {
           this.obtenerCitaUsuario(this.usuario.id);
         } else {
           console.error("El ID del usuario es undefined.");
         }
        }
-       
+
      }
     obtenerCitaUsuario(id:number){
       console.log("obtener citaaaaaaaaaaaaaaa")
       this.citaService.getCitasTerminadoUsuario(id.toString()).subscribe(
         (citas)=>{
-          
+
           this.citas=citas;
-          
+
         },
         (error) => {
           console.error("Error obteniendo la cita:", error);
         }
       )
-      this.citaService.getCitasUsuario(id.toString()).subscribe(
-        (citas)=>{
-          this.citas=citas;
-        },
-        (error) => {
-          console.error("Error obteniendo la cita:", error);
-        }
-      )
+      // this.citaService.getCitasUsuario(id.toString()).subscribe(
+      //   (citas)=>{
+      //     this.citas=citas;
+      //   },
+      //   (error) => {
+      //     console.error("Error obteniendo la cita:", error);
+      //   }
+      // )
     }
-    //sumar media hora a la hora 
+    //sumar media hora a la hora
     sumarMediaHora(fecha: string): Date {
       const fechaObjeto = new Date(fecha);
       const nuevaFecha = new Date(fechaObjeto);
       nuevaFecha.setMinutes(nuevaFecha.getMinutes() + 30);
       return nuevaFecha;
     }
-     
+
 }

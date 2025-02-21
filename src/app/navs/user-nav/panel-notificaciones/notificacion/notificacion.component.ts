@@ -17,11 +17,15 @@ export class NotificacionComponent {
   constructor(private citaService: CitaService) { }
 
   ngOnInit() {
+    if (this.cita && this.cita.fecha) {
+      const citaFechaHora = new Date(this.cita.fecha);
+      citaFechaHora.setHours(citaFechaHora.getHours() - 1);
+      this.cita.fecha = citaFechaHora.toISOString();
+    }
     if (this.cita.id) {
       this.citaService.marcarCitaComoVista(this.cita.id).subscribe(
         (cita: Cita) => {
           console.log('Cita marcada como vista', cita);
-          
         },
         error => {
           console.error('Error al marcar la cita como vista', error);

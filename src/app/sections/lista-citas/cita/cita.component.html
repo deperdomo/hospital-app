@@ -53,8 +53,10 @@
         </div>
         @if (cita.estado !== 'cancelada' && cita.estado !== 'terminada') {
             <button (click)="cancelarCita(cita.id)" class="flex text-red-400 hover:text-red-600  p-2 items-center ">Cancelar</button>
-        }@else {
-            <div class="flex text-red-400 mr-5 p-2 items-center ">Cancelada</div>
+        } @else if (cita.estado === 'terminada') {
+            <div class="flex text-red-400 mr-5 p-2 items-center ">terminada</div>
+        } @else {
+            <div class="flex text-red-400 mr-5 p-2 items-center ">cancelada</div>
         }
     </div>
 </div>

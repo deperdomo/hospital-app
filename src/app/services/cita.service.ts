@@ -43,4 +43,8 @@ export class CitaService {
   getCitasTerminadoUsuario(id: string): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/misCitasUsuarioTerminado/${id}`);
   }
+
+  getCitasUsuarioDoctorEstado(idUsuario: number, idDoctor: number, estado: string): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/usuarioDoctorEstado/${idUsuario}/${idDoctor}/${estado}`);
+  }
 }
