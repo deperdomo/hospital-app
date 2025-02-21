@@ -1,6 +1,10 @@
 package hospital.restcontroller;
 
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +65,26 @@ public class CitaRestController {
 		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 	}
 	
+	@GetMapping("/misCitasUsuarioTerminado/{id}")
+	public ResponseEntity<?> buscarCitasTerminadoUsuario(@PathVariable int id){
+		Usuario usuario = userv.buscarPorId(id);
+		if (usuario != null) {
+			
+			return new ResponseEntity<>(cserv.buscarCitasActivasPorUsuarioTerminada(userv.buscarPorId(id), "terminada"), HttpStatus.OK);
+		}
+		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+	}
+	
+	@GetMapping("/misCitasCanceladasUsuario/{id}")
+	public ResponseEntity<?> buscarCitasCanceladasUsuario(@PathVariable int id){
+		Usuario usuario = userv.buscarPorId(id);
+		if (usuario != null) {
+			
+			return new ResponseEntity<>(cserv.buscarCitasCanceladasPorUsuario(userv.buscarPorId(id), "cancelada"), HttpStatus.OK);
+		}
+		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+	}
+	
 	@PostMapping("/alta")
 	public ResponseEntity<?> alta(@RequestBody Cita cita) {
 	    try {
@@ -79,20 +103,14 @@ public class CitaRestController {
 		}
 		return new ResponseEntity<>("Ha ocurrido un error ", HttpStatus.NOT_FOUND);
 	}
-	//cancelar cita
+
 	@PutMapping("/cancelar/{id}")
 	public ResponseEntity<?> cancelarCita(@PathVariable int id){
 		Cita cita = cserv.buscarPorId(id);
 		cita.setEstado("cancelada");
 		cserv.modificar(cita);
 		return new ResponseEntity<>(cita, HttpStatus.OK);
-		//Usuario usuario= userv.buscarPorId(id);
-		//Cita cita= (Cita) cserv.buscarCitaPorUsuario(usuario.getId());
-		//if (usuario != null) {
-			//cita.setEstado("Cancelado");
-			//return new ResponseEntity<>(cita, HttpStatus.OK);
-		//}
-		//return new ResponseEntity<>("No se pudo cancelar la cita", HttpStatus.NOT_FOUND);
+
 	}
 	
 	@PutMapping("/marcarComoVista/{id}")
