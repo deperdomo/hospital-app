@@ -1,15 +1,20 @@
-<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-  <div class="bg-white w-[500px] rounded-lg shadow-lg">
-    <div class="p-4 flex justify-between items-center border-b">
-      <h2 class="text-lg font-semibold">Panel de Notificaciones</h2>
-      <button (click)="cerrarModal()"  class="text-gray-500 hover:text-gray-700 text-xl mr-2">
-        &times;
+<div class="fixed inset-0 bg-gray-900/30 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
+  <div class="bg-white w-[500px] rounded-2xl shadow-2xl transform transition-all duration-300 animate-slide-up">
+    <div class="p-5 flex justify-between items-center bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
+      <h2 class="text-xl font-semibold text-gray-800 tracking-tight">Panel de Notificaciones</h2>
+      <button
+        (click)="cerrarModal()"
+        class="p-1.5 rounded-full transition-all"
+      >
+        <svg class="w-6 h-6 text-gray-500 hover:text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
       </button>
     </div>
 
-    <div class="p-4 max-h-80 overflow-y-auto">
+    <div class="p-4 max-h-[70vh] overflow-y-auto custom-scrollbar">
       @for (cita of citasNoVistas; track $index) {
-        <app-notificacion [cita]="cita" />
+        <app-notificacion [cita]="cita" class="hover:bg-gray-50/50 transition-colors duration-200 rounded-lg" />
       }
     </div>
   </div>

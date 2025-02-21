@@ -14,10 +14,12 @@ import { Cita } from '../../../models/cita';
 })
 export class PanelNotificacionesComponent {
   mostrarModal: boolean = true;
+  quitarNotificaciones: boolean = false;
   usuario: Usuario;
   citasNoVistas: Cita[] = [];
 
   @Output() modalCerrado = new EventEmitter<boolean>();
+  @Output() notificaciones = new EventEmitter<boolean>();
 
   constructor(private citaService: CitaService, private router: Router) {
     this.usuario = {} as Usuario;
@@ -29,7 +31,14 @@ export class PanelNotificacionesComponent {
       const usuario = JSON.parse(usuarioGuardado);
       this.usuario = usuario;
     }
+    if (this.usuario.id) {
+      this.getNotificaciones(this.usuario.id);
+    }
 
+
+  }
+
+  getNotificaciones(id: number) {
     if (this.usuario.id) {
       this.citaService.getCitasNoVistasPorUsuario(this.usuario.id).subscribe(
         (citas: Cita[]) => {
@@ -40,13 +49,21 @@ export class PanelNotificacionesComponent {
         }
       );
     }
-
   }
 
   cerrarModal() {
+    if (this.usuario.id) {
+      this.getNotificaciones(this.usuario.id);
+    }
     this.mostrarModal = false;
+    this.quitarNotificaciones = true;
     this.modalCerrado.emit(this.mostrarModal);
-    window.location.reload();
+    this.notificaciones.emit(this.quitarNotificaciones);
   }
-  
+
+  actualizarNotificaciones() {
+    this.quitarNotificaciones = true;
+    this.notificaciones.emit(this.quitarNotificaciones);
+  }
+
 }

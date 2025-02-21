@@ -30,6 +30,19 @@ export class UserNavComponent {
       this.usuario = usuario;
     }
 
+    this.comprobarNotificaciones()
+
+  }
+
+  abrirModal() {
+    this.isModalNotificacionesActive = true;
+  }
+
+  cerrarModal(valor: boolean) {
+    this.isModalNotificacionesActive = valor;
+  }
+
+  comprobarNotificaciones() {
     if (this.usuario.id) {
       this.citaService.getCitasNoVistasPorUsuario(this.usuario.id).subscribe(
         (citas: Cita[]) => {
@@ -43,15 +56,12 @@ export class UserNavComponent {
         }
       );
     }
-
   }
 
-  abrirModal() {
-    this.isModalNotificacionesActive = true;
-  }
-
-  cerrarModal(valor: boolean) {
-    this.isModalNotificacionesActive = valor;
+  actualizarNotificaciones(valor: boolean) {
+    if (valor) {
+      this.hayCitasNoVistas = false;
+    }
   }
 
 }
