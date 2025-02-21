@@ -106,6 +106,16 @@ public class CitaServiceImpl implements CitaService{
 		
 		return crepo.findByUsuarioAndEstado(usuario, "terminada");
 	}
+
+	@Override
+	public List<Cita> buscarCitasPorUsuarioDoctorYEstado(Usuario usuario, Doctor doctor, String estado) {
+		return crepo.findByUsuarioAndDoctorAndEstado(usuario, doctor, estado);
+	}
+
+	@Override
+	public List<Cita> buscarCitasPorDoctorYEstado(Doctor doctor, String estado) {
+		return crepo.findByDoctorAndEstado(doctor, estado);
+	}
 	
 	
 }

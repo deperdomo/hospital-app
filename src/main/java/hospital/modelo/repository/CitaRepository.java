@@ -25,6 +25,7 @@ public interface CitaRepository extends JpaRepository<Cita, Integer>{
 	
 	List<Cita> findByDoctor(Doctor doctor);
 
+	List<Cita> findByUsuarioAndDoctorAndEstado(Usuario usuario, Doctor doctor, String estado);
 
 	
 }

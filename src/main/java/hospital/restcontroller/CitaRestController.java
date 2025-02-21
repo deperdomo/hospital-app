@@ -43,13 +43,11 @@ public class CitaRestController {
 	@Autowired
 	private DoctorService dserv;
 	
-	@GetMapping("/misCitasDoctor/{id}")
-	public ResponseEntity<?> buscarCitaDoctor(@PathVariable int id) {
+	@GetMapping("/doctorEstado/{id}/{estado}")
+	public ResponseEntity<?> buscarCitaDoctor(@PathVariable int id, @PathVariable String estado) {
 		Doctor doctor = dserv.buscarPorId(id);
-		System.out.println("Este es el dictor"+doctor);
 		if (doctor != null) {
-			System.out.println("Estas son las citas: "+cserv.buscarCitaPorDoctor(dserv.buscarPorId(id)));
-			return new ResponseEntity<>(cserv.buscarCitaPorDoctor(dserv.buscarPorId(id)), HttpStatus.OK);
+			return new ResponseEntity<>(cserv.buscarCitasPorDoctorYEstado(doctor, estado), HttpStatus.OK);
 		}
 		return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 	}
@@ -121,6 +119,18 @@ public class CitaRestController {
 		return new ResponseEntity<>(cita, HttpStatus.OK);
 		
 	}
+	
+	@GetMapping("/usuarioDoctorEstado/{idUsuario}/{idDoctor}/{estado}")
+	public ResponseEntity<?> buscarCitasUsuarioDocrotEstado(@PathVariable int idUsuario, @PathVariable int idDoctor, @PathVariable String estado){
+		Usuario usuario = userv.buscarPorId(idUsuario);
+		Doctor doctor = dserv.buscarPorId(idDoctor);
+		if (usuario != null && doctor != null) {
+			
+			return new ResponseEntity<>(cserv.buscarCitasPorUsuarioDoctorYEstado(usuario, doctor, estado), HttpStatus.OK);
+		}
+		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+	}
+	
 
 	
 }
