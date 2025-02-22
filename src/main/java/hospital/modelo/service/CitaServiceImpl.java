@@ -1,6 +1,7 @@
 package hospital.modelo.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -115,6 +116,21 @@ public class CitaServiceImpl implements CitaService{
 	@Override
 	public List<Cita> buscarCitasPorDoctorYEstado(Doctor doctor, String estado) {
 		return crepo.findByDoctorAndEstado(doctor, estado);
+	}
+	
+	@Override
+		public List<Cita> buscarActuales(Usuario usuario, Date fecha) {
+			return crepo.findByUsuarioAndFechaEquals(usuario, fecha);
+	}
+	
+	@Override
+	public List<Cita> buscarPasadas(Usuario usuario, Date fecha) {
+		return crepo.findByFechaLessThan(usuario, fecha);
+	}
+
+	@Override
+	public List<Cita> buscarProximas(Usuario usuario, Date fecha) {
+		return crepo.findByFechaGreaterThan(usuario, fecha);
 	}
 	
 	

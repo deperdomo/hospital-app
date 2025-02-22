@@ -261,5 +261,6 @@ VALUES
 (9, 11, 10, '2023-09-07 15:00:00', 'usuario11@example.com', '123456789', 'Consulta médica', 100, 'Tarjeta de crédito', 'terminada', 1),
 (10, 12, 11, '2025-09-08 14:30:00', 'usuario12@example.com', '123456789', 'Consulta de salud general', 120, 'Transferencia', 'pendiente', 1),
 (11, 9, 8, '2025-09-03 11:00:00', 'usuario9@example.com', '123456789', 'Chequeo de tobillo', 120, 'Efectivo', 'pendiente', 1),
-(12, 8, 7, '2023-08-22 09:30:00', 'usuario8@example.com', '123456789', 'Consulta de insomnio', 100, 'Tarjeta de crédito', 'terminada', 1);
+(12, 8, 7, '2023-08-22 09:30:00', 'usuario8@example.com', '123456789', 'Consulta de insomnio', 100, 'Tarjeta de crédito', 'terminada', 1),
+(13, 3, 2, '2025-02-22 10:00:00', 'usuario1@example.com', '123456789', 'Actual', 100, 'Tarjeta de crédito', 'terminada', 1);
 
