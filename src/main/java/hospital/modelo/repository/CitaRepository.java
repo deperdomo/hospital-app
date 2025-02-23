@@ -11,9 +11,9 @@ import hospital.entidades.Doctor;
 import hospital.entidades.Usuario;
 
 public interface CitaRepository extends JpaRepository<Cita, Integer>{
-	
-	//@Query("select c from Cita c where c.usuario.id = ?1")
-	//List<Cita> todasCitasUsuario (int idUsaurio);
+		//si falla aqui
+	@Query("select c from Cita c where c.usuario.id = ?1")
+	List<Cita> todasCitasUsuario (int idUsaurio);
 	//
 	
 	//List<Cita> findByEstado (String estado);

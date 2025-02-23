@@ -132,6 +132,12 @@ public class CitaServiceImpl implements CitaService{
 	public List<Cita> buscarProximas(Usuario usuario, Date fecha) {
 		return crepo.findByFechaGreaterThan(usuario, fecha);
 	}
+//si falla aqui
+	@Override
+	public List<Cita> buscarCitasUsuario(int idUsuario) {
+		
+		return crepo.todasCitasUsuario(idUsuario);
+	}
 	
 	
 }

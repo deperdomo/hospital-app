@@ -29,6 +29,8 @@ import hospital.entidades.Usuario;
 import hospital.modelo.service.CitaService;
 import hospital.modelo.service.DoctorService;
 import hospital.modelo.service.UsuarioService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @CrossOrigin(origins="*")
@@ -164,6 +166,17 @@ public class CitaRestController {
         return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
     }
 
-
+	@GetMapping("/todasCitasUsuario/{idUsuario}")
+		
+		public ResponseEntity<?> buscarTodasCitasUsaurio(@PathVariable int idUsuario) {
+		Usuario usuario = userv.buscarPorId(idUsuario);	
+		if (usuario!= null) {
+			List<Cita> citas=cserv.buscarCitasUsuario(idUsuario);
+			return new ResponseEntity<>(citas, HttpStatus.OK);
+		}
+		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+		}
+		
+	
 	
 }
