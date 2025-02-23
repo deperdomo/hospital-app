@@ -47,4 +47,19 @@ export class CitaService {
   getCitasUsuarioDoctorEstado(idUsuario: number, idDoctor: number, estado: string): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/usuarioDoctorEstado/${idUsuario}/${idDoctor}/${estado}`);
   }
+  getCitasActuales(idUsuario:string,fecha:string): Observable<Cita[]>{
+    return this.http.get<Cita[]>(`${this.apiUrl}/actuales/${idUsuario}/${fecha}`);
+  }
+  getCitasPasadas(idUsuario:string,fecha:string): Observable<Cita[]>{
+    return this.http.get<Cita[]>(`${this.apiUrl}/pasadas/${idUsuario}/${fecha}`);
+  }
+  getCitasProximas(idUsuario:string,fecha:string): Observable<Cita[]>{
+    return this.http.get<Cita[]>(`${this.apiUrl}/proximas/${idUsuario}/${fecha}`);
+  }
+
+  //si falla aqui es elmetodo de buscartodas las citas de un usaurio
+  getCitasUsuario(idUsuario:string): Observable<Cita[]>{
+    return this.http.get<Cita[]>(`${this.apiUrl}/todasCitasUsuario/${idUsuario}`);
+  }
+
 }

@@ -18,24 +18,31 @@
     </div>
 
     <div>
-        <h3 class="text-xl font-semibold mt-6">Ayer</h3>
+        @if (citasPasadas.length > 0) {
+        <h3 class="text-xl font-semibold mt-6">Pasadas</h3>
         <div class="grid grid-cols-4 gap-4 mt-4">
+            <app-cita-historial [cita]="citasPasadas[0]"></app-cita-historial>
+            <!-- <app-cita-historial></app-cita-historial>
             <app-cita-historial></app-cita-historial>
-            <app-cita-historial></app-cita-historial>
-            <app-cita-historial></app-cita-historial>
-            <app-cita-historial></app-cita-historial>
+            <app-cita-historial></app-cita-historial> -->
         </div>
-        <h3 class="text-xl font-semibold mt-6">Hoy</h3>
+    }
+        @if (citasActuales.length > 0) {
+        <h3 class="text-xl font-semibold mt-6">Actuales</h3>
         <div class="grid grid-cols-4 gap-4 mt-4">
-            <app-cita-historial></app-cita-historial>
-            <app-cita-historial></app-cita-historial>
+            @for (cita of citasActuales; track $index) {
+                 <app-cita-historial [cita]="cita"></app-cita-historial>
+            }
         </div>
-        <h3 class="text-xl font-semibold mt-6">Próximas</h3>
+        }
+        @if (citasProximas.length > 0) {
+            <h3 class="text-xl font-semibold mt-6">Próximas</h3>
         <div class="grid grid-cols-4 gap-4 mt-4">
-            <app-cita-historial></app-cita-historial>
-            <app-cita-historial></app-cita-historial>
-            <app-cita-historial></app-cita-historial>
-            <app-cita-historial></app-cita-historial>
+            @for (cita of citasProximas; track $index) {
+             <app-cita-historial [cita]="cita"></app-cita-historial>
+            }
         </div>
+        }
+        
     </div>
 </div>
