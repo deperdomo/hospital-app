@@ -36,7 +36,7 @@ export class RegistroComponent {
       fotoPerfil: 'usu_anonimo.png',
       password: 'password123',
       rol: 'paciente',
-      sexo: 'hombre'
+      sexo: 'prefiero_no_decirlo'
     };
   }
 

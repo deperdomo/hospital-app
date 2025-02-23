@@ -87,6 +87,17 @@
                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
             </div>
 
+            <div>
+              <label for="sexo" class="block mb-2 text-sm text-gray-600">Sexo</label>
+              <select name="sexo" id="sexo" [(ngModel)]="usuario.sexo" required
+                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40">
+                <option value="" disabled selected>Selecciona tu sexo</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="prefiero_no_decirlo">Prefiero no decirlo</option>
+              </select>
+            </div>
+
             <div class="col-span-2" *ngIf="errorMessage">
               <div class="mt-4 text-red-600">
                 {{ errorMessage }}
@@ -101,6 +112,7 @@
               </button>
             </div>
           </form>
+
 
 
 
