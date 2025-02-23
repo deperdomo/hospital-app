@@ -17,7 +17,7 @@ CREATE TABLE usuarios (
     password VARCHAR(100) NOT NULL,
     sexo varchar(20) NOT NULL, 
     rol VARCHAR(50) NOT NULL, -- (admin, enfermera, pacientes etc.)
-    check(sexo in ('masculino', 'femenino')),
+    check(sexo in ('masculino', 'femenino', 'prefiero_no_decirlo')),
 	check(rol in ('admin', 'paciente'))
 );
 
