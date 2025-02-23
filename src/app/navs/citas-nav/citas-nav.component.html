@@ -26,10 +26,10 @@
     </div>
 </div> -->
 <div class="flex flex-row justify-between gap-4 p-2">
-    <div class="flex rounded-md">
-      <button (click)="listaCitasProximas()" (click)="onSelectButton('proxima')" [ngClass]="{'bg-[#ffffff] text-[#000000]': selectedButton === 'proxima'}" class="bg-[#EEEEEE] rounded-l-lg pl-5 pr-5 text-[#7a7d84] hover:bg-[#ffffff] hover:text-[#000000]">Próxima</button>
-      <button (click)="listaCitasPasadas()" (click)="onSelectButton('pasadas')" [ngClass]="{'bg-[#ffffff] text-[#000000]': selectedButton === 'pasadas'}" class="bg-[#EEEEEE] pl-5 pr-5 text-[#7a7d84] hover:bg-[#ffffff] hover:text-[#000000]">Pasadas</button>
-      <button (click)="listaCitasCanceladas()" (click)="onSelectButton('canceladas')" [ngClass]="{'bg-[#ffffff] text-[#000000]': selectedButton === 'canceladas'}" class="bg-[#EEEEEE] rounded-r-lg pl-5 pr-5 text-[#7a7d84] hover:bg-[#ffffff] hover:text-[#000000]">Canceladas</button>
+    <div class="flex flex-row gap-4 bg-[#f8f8f8]  items-center  rounded-md p-2">
+      <button (click)="listaCitasProximas()" (click)="onSelectButton('proxima')" [ngClass]="{'bg-[#ffffff] text-[#000000]': selectedButton === 'proxima'}" class="hover:bg-[#ffffff] rounded-md p-1 text-[#7a7d84] hover:text-[#000000] px-3">Próximas</button>
+      <button (click)="listaCitasPasadas()" (click)="onSelectButton('pasadas')" [ngClass]="{'bg-[#ffffff] text-[#000000]': selectedButton === 'pasadas'}" class="hover:bg-[#ffffff] rounded-md p-1 text-[#7a7d84] hover:text-[#000000] px-3">Pasadas</button>
+      <button (click)="listaCitasCanceladas()" (click)="onSelectButton('canceladas')" [ngClass]="{'bg-[#ffffff] text-[#000000]': selectedButton === 'canceladas'}" class="hover:bg-[#ffffff] rounded-md p-1 text-[#7a7d84] hover:text-[#000000] px-3">Canceladas</button>
     </div>
     <div class="flex justify-between items-center">
       <div class="flex space-x-4">
