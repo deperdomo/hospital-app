@@ -1,9 +1,6 @@
 package hospital.restcontroller;
 
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +26,6 @@ import hospital.entidades.Usuario;
 import hospital.modelo.service.CitaService;
 import hospital.modelo.service.DoctorService;
 import hospital.modelo.service.UsuarioService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
