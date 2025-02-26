@@ -1,6 +1,7 @@
 import { NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { RedirectGuard } from './guards/redirect.guard';
 
 import { LoginComponent } from './login/login/login.component';
 import { RegistroComponent } from './login/registro/registro.component';
@@ -13,8 +14,9 @@ import { PerfilHistorialComponent } from './vistas/perfil-historial/perfil-histo
 import { EditProfileComponent } from './vistas/edit-profile/edit-profile.component';
 import { DoctoresComponent } from './vistas/doctores/doctores.component';
 
+
 export const routes: Routes = [
-    { path: '', component: IndexBeforeLoginComponent },
+    { path: '', component: IndexBeforeLoginComponent, canActivate: [RedirectGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'registro', component: RegistroComponent },
     { path: 'index', component: IndexAfterLoginComponent, canActivate: [AuthGuard] },
