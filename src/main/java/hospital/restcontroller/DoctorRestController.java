@@ -46,6 +46,14 @@ public class DoctorRestController {
 		    return new ResponseEntity<>("Ese medico no existe", HttpStatus.NOT_FOUND);
 		}
 		
+		@GetMapping("oneByUsername/{username}")
+		public ResponseEntity<?> getOne(@PathVariable String username) {
+			if (dserv.buscarPorUsername(username) != null) {
+				return new ResponseEntity<>(dserv.buscarPorUsername(username), HttpStatus.OK);
+			}
+			return new ResponseEntity<>("Medico no existe", HttpStatus.NOT_FOUND);
+		}
+		
 		@GetMapping("/allDoctors")
 	    public ResponseEntity<?> todos() {
 	        List<Doctor> doctores = dserv.buscarTodos();

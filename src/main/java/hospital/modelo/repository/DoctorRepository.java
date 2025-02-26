@@ -20,6 +20,8 @@ public interface DoctorRepository extends JpaRepository<Doctor, Integer>{
 	                                                              @Param("apellidos") String apellidos,
 	                                                              @Param("localidad") String localidad,
 	                                                              @Param("especialidad") String especialidad);
+	Doctor findByUsername(String username);
+	
 	
 }
 
