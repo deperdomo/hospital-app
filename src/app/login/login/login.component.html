@@ -1,84 +1,53 @@
 <div class="bg-white">
   <div class="flex justify-center h-screen">
-      <div class="hidden bg-cover lg:block lg:w-2/3" style="background-image: url(https://images.unsplash.com/photo-1589917030663-849c7fe96c2b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
-          <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
-              <div>
-                  <h2 class="text-2xl font-bold text-white sm:text-3xl">Hospital Jakarta</h2>
-
-                  <p class="max-w-xl mt-3 text-gray-300">
-                    Inicia sesión para acceder a consultas online con médicos cercanos. Disfruta de atención médica de calidad desde la comodidad de tu hogar. Gestiona tus citas y recibe atención de manera rápida y segura.
-                  </p>
-              </div>
-          </div>
+    <div class="hidden bg-cover lg:block lg:w-2/3" style="background-image: url(https://images.unsplash.com/photo-1589917030663-849c7fe96c2b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)">
+      <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+        <div>
+          <h2 class="text-2xl font-bold text-white sm:text-3xl">Hospital Jakarta</h2>
+          <p class="max-w-xl mt-3 text-gray-300">
+            Inicia sesión para acceder a consultas online con médicos cercanos. Disfruta de atención médica de calidad desde la comodidad de tu hogar. Gestiona tus citas y recibe atención de manera rápida y segura.
+          </p>
+        </div>
       </div>
-
-      <div class="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
-          <div class="flex-1">
-              <div class="text-center">
-                  <div class="flex justify-center mx-auto">
-                    <img src="img/logo-login.png" alt="logo">
-                  </div>
-
-                  <p class="my-5 text-xl text-gray-500">Inicia sesión para acceder a tu cuenta</p>
-              </div>
-
-              <div class="mt-8">
-                <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-                  <div>
-                    <label for="username" class="block mb-2 text-sm text-gray-600">
-                      Nombre de usuario
-                    </label>
-                    <input
-                      type="text"
-                      name="username"
-                      id="username"
-                      placeholder="Tu nombre"
-                      [(ngModel)]="username"
-                      required
-                      class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-                  </div>
-
-                  <div class="mt-6">
-                    <div class="flex justify-between mb-2">
-                      <label for="password" class="text-sm text-gray-600">
-                        Contraseña
-                      </label>
-                      <a href="#" class="text-sm text-[#3b9ab8] focus:text-blue-500 hover:underline">
-                        He olvidado mi contraseña
-                      </a>
-                    </div>
-
-                    <input
-                      type="password"
-                      name="password"
-                      id="password"
-                      placeholder="Tu contraseña"
-                      [(ngModel)]="password"
-                      required
-                      class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg  focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
-                  </div>
-
-                  @if (errorMessage) {
-                    <div class="mt-4 text-red-600">
-                      {{ errorMessage }}
-                    </div>
-                  }
-
-                  <div class="mt-6">
-                    <button
-                      type="submit"
-                      class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-[#3b9ab8] rounded-lg cursor-pointer hover:bg-[#26738b] focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-                      Iniciar sesión
-                    </button>
-                  </div>
-                </form>
-
-
-                  <p class="mt-6 text-sm text-center text-gray-400">¿No tienes cuenta todavía? <a href="/registro" class="text-[#3b9ab8] focus:outline-none focus:underline hover:underline">Regístrate</a>.</p>
-              </div>
+    </div>
+    <div class="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+      <div class="flex-1">
+        <div class="text-center">
+          <div class="flex justify-center mx-auto">
+            <img src="img/logo-login.png" alt="logo">
           </div>
-      </div>
+          <p class="my-5 text-xl text-gray-500">Inicia sesión para acceder a tu cuenta</p>
+        </div>
 
-      <a href="/" class="absolute top-3 right-6 text-3xl text-gray-700 hover:text-gray-900">&times;</a>
+        <div class="mt-8">
+          <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <div>
+              <label for="username" class="block mb-2 text-sm text-gray-600"> Nombre de usuario </label>
+              <input type="text" name="username" id="username" placeholder="Tu nombre" [(ngModel)]="username" required class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            </div>
+            <div class="mt-6">
+              <div class="flex justify-between mb-2">
+                <label for="password" class="text-sm text-gray-600"> Contraseña </label>
+                <a href="#" class="text-sm text-[#3b9ab8] focus:text-blue-500 hover:underline"> He olvidado mi contraseña </a>
+              </div>
+              <input type="password" name="password" id="password" placeholder="Tu contraseña" [(ngModel)]="password" required class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            </div>
+            @if (errorMessage) {
+            <div class="mt-4 text-red-600"> {{ errorMessage }} </div>
+            }
+            <div class="mt-6">
+              <button type="submit" class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-[#3b9ab8] rounded-lg cursor-pointer hover:bg-[#26738b] focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"> Iniciar sesión </button>
+            </div>
+            <div class="absolute bottom-6 right-8">
+              <input type="checkbox" name="isDoctor" id="isDoctor" [(ngModel)]="isDoctor" class="mr-2">
+              <label for="isDoctor" class="text-sm text-gray-600">Soy Doctor</label>
+            </div>
+          </form>
+          <p class="mt-6 text-sm text-center text-gray-400">¿No tienes cuenta todavía? <a href="/registro" class="text-[#3b9ab8] focus:outline-none focus:underline hover:underline">Regístrate</a>.</p>
+        </div>
+      </div>
+    </div>
+    <a href="/" class="absolute top-3 right-6 text-3xl text-gray-700 hover:text-gray-900">&times;</a>
   </div>
+
 </div>
