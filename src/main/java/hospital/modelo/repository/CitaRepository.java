@@ -11,10 +11,11 @@ import hospital.entidades.Doctor;
 import hospital.entidades.Usuario;
 
 public interface CitaRepository extends JpaRepository<Cita, Integer>{
-		//si falla aqui
+	
 	@Query("select c from Cita c where c.usuario.id = ?1")
 	List<Cita> todasCitasUsuario (int idUsaurio);
 	//
+	//si falla a aqui
 	
 	//List<Cita> findByEstado (String estado);
 	List<Cita> findByUsuarioAndEstado (Usuario usuario, String estado);
@@ -36,8 +37,8 @@ public interface CitaRepository extends JpaRepository<Cita, Integer>{
 	@Query("SELECT c FROM Cita c WHERE c.usuario = ?1 and DATE(c.fecha) = ?2")
 	List<Cita> findByUsuarioAndFechaEquals(Usuario usuario, Date fecha);
 	
-	@Query("SELECT c FROM Cita c WHERE c.usuario = ?1 AND DATE(c.fecha) < ?2")
-	List<Cita> findByFechaLessThan(Usuario usuario, Date fecha);
+	@Query("SELECT c FROM Cita c WHERE c.usuario = ?1 AND DATE(c.fecha) = ?2")
+	List<Cita> findByFechaPasadas(Usuario usuario, Date fecha);
 
 	@Query("SELECT c FROM Cita c WHERE c.usuario = ?1 AND DATE(c.fecha) > ?2")
 	List<Cita> findByFechaGreaterThan(Usuario usuario, Date fecha);
