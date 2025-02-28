@@ -18,31 +18,41 @@
     </div>
 
     <div>
-        @if (citasPasadas.length > 0) {
-        <h3 class="text-xl font-semibold mt-6">Pasadas</h3>
+        @if (citasPasadas.length > 0 ) {
+        <h3 class="text-xl font-semibold mt-6">Ayer</h3>
         <div class="grid grid-cols-4 gap-4 mt-4">
-            <app-cita-historial [cita]="citasPasadas[0]"></app-cita-historial>
+            @for (cita of citasPasadas; track $index) {
+            <app-cita-historial  [cita]="cita"></app-cita-historial>
+            }
             <!-- <app-cita-historial></app-cita-historial>
             <app-cita-historial></app-cita-historial>
             <app-cita-historial></app-cita-historial> -->
         </div>
     }
         @if (citasActuales.length > 0) {
-        <h3 class="text-xl font-semibold mt-6">Actuales</h3>
+        <h3 class="text-xl font-semibold mt-6">Hoy</h3>
         <div class="grid grid-cols-4 gap-4 mt-4">
             @for (cita of citasActuales; track $index) {
                  <app-cita-historial [cita]="cita"></app-cita-historial>
             }
         </div>
         }
-        @if (citasProximas.length > 0) {
+        <div *ngIf="filtrarOrdenarCitasProximas(citasAgrupadas).length > 0">
             <h3 class="text-xl font-semibold mt-6">Próximas</h3>
-        <div class="grid grid-cols-4 gap-4 mt-4">
-            @for (cita of citasProximas; track $index) {
-             <app-cita-historial [cita]="cita"></app-cita-historial>
-            }
-        </div>
-        }
+          
+            <!-- recorro los datos sobre las fechas agrupadas -->
+            <div *ngFor="let fecha of filtrarOrdenarCitasProximas(citasAgrupadas)" class="mt-4">
+              <h4 class="text-lg font-semibold">{{ fecha | date:'dd-MM-yyyy' }}</h4>
+              
+              <!-- Muestra las citas de la fecha actual -->
+              <div class="grid grid-cols-4 gap-4 mt-4">
+                <app-cita-historial *ngFor="let cita of citasAgrupadas[fecha]" [cita]="cita"></app-cita-historial>
+              </div>
+            </div>
+          </div>
+            
+        
+        
         
     </div>
 </div>
