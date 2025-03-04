@@ -1,11 +1,10 @@
 package hospital.restcontroller;
 
-
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,6 +27,7 @@ import hospital.modelo.service.CitaService;
 import hospital.modelo.service.DoctorService;
 import hospital.modelo.service.UsuarioService;
 
+
 @RestController
 @CrossOrigin(origins="*")
 @RequestMapping("/cita")
@@ -43,13 +43,11 @@ public class CitaRestController {
 	@Autowired
 	private DoctorService dserv;
 	
-	@GetMapping("/misCitasDoctor/{id}")
-	public ResponseEntity<?> buscarCitaDoctor(@PathVariable int id) {
+	@GetMapping("/doctorEstado/{id}/{estado}")
+	public ResponseEntity<?> buscarCitaDoctor(@PathVariable int id, @PathVariable String estado) {
 		Doctor doctor = dserv.buscarPorId(id);
-		System.out.println("Este es el dictor"+doctor);
 		if (doctor != null) {
-			System.out.println("Estas son las citas: "+cserv.buscarCitaPorDoctor(dserv.buscarPorId(id)));
-			return new ResponseEntity<>(cserv.buscarCitaPorDoctor(dserv.buscarPorId(id)), HttpStatus.OK);
+			return new ResponseEntity<>(cserv.buscarCitasPorDoctorYEstado(doctor, estado), HttpStatus.OK);
 		}
 		return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 	}
@@ -64,13 +62,23 @@ public class CitaRestController {
 		}
 		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 	}
-	//citas con estado terminado
+	
 	@GetMapping("/misCitasUsuarioTerminado/{id}")
 	public ResponseEntity<?> buscarCitasTerminadoUsuario(@PathVariable int id){
 		Usuario usuario = userv.buscarPorId(id);
 		if (usuario != null) {
 			
 			return new ResponseEntity<>(cserv.buscarCitasActivasPorUsuarioTerminada(userv.buscarPorId(id), "terminada"), HttpStatus.OK);
+		}
+		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+	}
+	
+	@GetMapping("/misCitasCanceladasUsuario/{id}")
+	public ResponseEntity<?> buscarCitasCanceladasUsuario(@PathVariable int id){
+		Usuario usuario = userv.buscarPorId(id);
+		if (usuario != null) {
+			
+			return new ResponseEntity<>(cserv.buscarCitasCanceladasPorUsuario(userv.buscarPorId(id), "cancelada"), HttpStatus.OK);
 		}
 		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 	}
@@ -93,20 +101,14 @@ public class CitaRestController {
 		}
 		return new ResponseEntity<>("Ha ocurrido un error ", HttpStatus.NOT_FOUND);
 	}
-	//cancelar cita
+
 	@PutMapping("/cancelar/{id}")
 	public ResponseEntity<?> cancelarCita(@PathVariable int id){
 		Cita cita = cserv.buscarPorId(id);
 		cita.setEstado("cancelada");
 		cserv.modificar(cita);
 		return new ResponseEntity<>(cita, HttpStatus.OK);
-		//Usuario usuario= userv.buscarPorId(id);
-		//Cita cita= (Cita) cserv.buscarCitaPorUsuario(usuario.getId());
-		//if (usuario != null) {
-			//cita.setEstado("Cancelado");
-			//return new ResponseEntity<>(cita, HttpStatus.OK);
-		//}
-		//return new ResponseEntity<>("No se pudo cancelar la cita", HttpStatus.NOT_FOUND);
+
 	}
 	
 	@PutMapping("/marcarComoVista/{id}")
@@ -117,20 +119,60 @@ public class CitaRestController {
 		return new ResponseEntity<>(cita, HttpStatus.OK);
 		
 	}
-	//historial
-	//@GetMapping("/historial/{idUsuario}")
-	//public ResponseEntity<?> listaHistorial(@PathVariable int idUsuario){
-		//Usuario usuario= userv.buscarPorId(idUsuario);
-		//if (usuario!=null) {
-			//List<Cita> historial=cserv.todasCitasHistorial(idUsuario);
-			//Clase variable lista
-		//for (Cita cita : historial) {
-			//Doctor doctor = cita.getDoctor();
-		//}
-		//return new ResponseEntity<>(historial, HttpStatus.OK);
-		//}
-		//return new ResponseEntity<>("Error en el historial", HttpStatus.INTERNAL_SERVER_ERROR);
-	//}
+	
+	@GetMapping("/usuarioDoctorEstado/{idUsuario}/{idDoctor}/{estado}")
+	public ResponseEntity<?> buscarCitasUsuarioDocrotEstado(@PathVariable int idUsuario, @PathVariable int idDoctor, @PathVariable String estado){
+		Usuario usuario = userv.buscarPorId(idUsuario);
+		Doctor doctor = dserv.buscarPorId(idDoctor);
+		if (usuario != null && doctor != null) {
+			
+			return new ResponseEntity<>(cserv.buscarCitasPorUsuarioDoctorYEstado(usuario, doctor, estado), HttpStatus.OK);
+		}
+		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+	}
+	
+	// LA {fecha} SIEMPRE SERÁ LA FECHA ACTUAL EN FORMATO '2023-06-10'
+	@GetMapping("/actuales/{id}/{fecha}") // http://localhost:8090/cita/actuales/3/2023-06-10
+    public ResponseEntity<?> buscarCitasActuales(@PathVariable int id, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fecha) {
+        Usuario usuario = userv.buscarPorId(id);
+		if (fecha != null && usuario != null) {
+            List<Cita> citas = cserv.buscarActuales(usuario, fecha);
+            return new ResponseEntity<>(citas, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+    }
+	
+	@GetMapping("/pasadas/{id}/{fecha}") // http://localhost:8090/cita/pasadas/3/2023-06-10
+    public ResponseEntity<?> buscarCitasPasadas(@PathVariable int id, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fecha) {
+        Usuario usuario = userv.buscarPorId(id);
+		if (fecha != null && usuario != null) {
+            List<Cita> citas = cserv.buscarPasadas(usuario, fecha);
+            return new ResponseEntity<>(citas, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+    }
+	
+	@GetMapping("/proximas/{id}/{fecha}") // http://localhost:8090/cita/proximas/3/2023-06-10
+    public ResponseEntity<?> buscarCitasProximas(@PathVariable int id, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fecha) {
+        Usuario usuario = userv.buscarPorId(id);
+		if (fecha != null && usuario != null) {
+            List<Cita> citas = cserv.buscarProximas(usuario, fecha);
+            return new ResponseEntity<>(citas, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+    }
 
+	@GetMapping("/todasCitasUsuario/{idUsuario}")
+		
+		public ResponseEntity<?> buscarTodasCitasUsaurio(@PathVariable int idUsuario) {
+		Usuario usuario = userv.buscarPorId(idUsuario);	
+		if (usuario!= null) {
+			List<Cita> citas=cserv.buscarCitasUsuario(idUsuario);
+			return new ResponseEntity<>(citas, HttpStatus.OK);
+		}
+		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+		}
+		
+	
 	
 }
