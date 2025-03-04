@@ -172,6 +172,15 @@ public class CitaRestController {
 		}
 		 return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 		}
+	
+	@PutMapping("/actualizarTerminada/{id}")
+	public ResponseEntity<?> actualizarCita(@PathVariable int id){
+		Cita cita = cserv.buscarPorId(id);
+		cita.setEstado("terminada");
+		cserv.modificar(cita);
+		return new ResponseEntity<>(cita, HttpStatus.OK);
+
+	}
 		
 	
 	
