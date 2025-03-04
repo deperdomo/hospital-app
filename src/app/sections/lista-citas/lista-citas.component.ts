@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Cita } from '../../models/cita';
 import { Router } from '@angular/router';
@@ -32,21 +32,67 @@ export class ListaCitasComponent implements OnInit {
 
   ngOnInit() {
     const usuarioGuardado = localStorage.getItem('usuario');
+ 
 
     if (usuarioGuardado) {
       this.usuario = JSON.parse(usuarioGuardado);
     }
-
+    this.actualizarEstadoCitas();
     this.cargarCitasActivasUsuario();
+    
+  }
+
+  actualizarEstadoCitas() {
+    const hoy = new Date();
+    hoy.setHours(hoy.getHours() + 1);
+    const fechaActual = hoy.toISOString();
+
+    this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
+    (citas: Cita[]) => {
+      citas.forEach(cita => {
+        const fechaCita = new Date(cita.fecha).toISOString();
+        if (fechaCita <= fechaActual) {
+          cita.estado = 'terminada';
+          this.citaService.actualizarCita(cita).subscribe(
+            response => {
+              console.log(`Cita ${cita.id} actualizada a terminada`);
+            },
+            error => {
+              console.error(`Error actualizando cita ${cita.id}:`, error);
+            }
+          );
+        }
+      });
+    },
+    error => {
+      console.error('Error fetching active appointments:', error);
+    }
+  );
   }
 
   cargarCitasActivasUsuario() {
+  
+    const hoy = new Date();
+    hoy.setHours(hoy.getHours() + 1);
+    const fechaActual = hoy.toISOString();
+
+    console.log("FECHA HOY:", fechaActual);
+  
     console.log('se mete en ACTIVAS de lista-citas');
     this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
-        this.citas = citas.filter(cita => new Date(cita.fecha).getMonth() === this.currentDate.getMonth());
+        this.citas = citas.filter(cita => {
+          const fechaCita = new Date(cita.fecha).toISOString();
+          return fechaCita > fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth();
+        })
+        .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+
         console.log('ACTIVAS:', this.citas);
+      },
+      error => {
+        console.error('Error fetching active appointments:', error);
       }
+ 
     );
   }
 
@@ -55,18 +101,26 @@ export class ListaCitasComponent implements OnInit {
     this.citaService.getCitasCanceladasUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
         console.log('CANCELADAS:', citas);
-        this.citas = citas.filter((cita) => cita.estado === 'cancelada');
+        this.citas = citas.filter((cita) => cita.estado === 'cancelada')
+        .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
         console.log('CANCELADAS:', this.citas);
       }
     )
   }
 
   cargarCitasPasadasUsuario() {
+    const hoy = new Date();
+    hoy.setHours(hoy.getHours() + 1);
+    const fechaActual = hoy.toISOString();
+
     console.log('se mete en PASADAS de lista-citas');
     this.citaService.getCitasTerminadoUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
-        console.log('PASADAS:', citas);
-        this.citas = citas.filter((cita) => cita.estado === 'terminada');
+        this.citas = citas.filter(cita => {
+          const fechaCita = new Date(cita.fecha).toISOString();
+          return fechaCita < fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth() && cita.estado === 'terminada';
+        })
+        .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
         console.log('PASADAS:', this.citas);
       }
     )
@@ -95,9 +149,6 @@ export class ListaCitasComponent implements OnInit {
 
 
   get citasMostradas(): Cita[] {
-    // if (!this.citas || this.citas.length === 0) {
-    //   return [];
-    // }
     if (this.mostrarCanceladas) {
       return this.citas.filter((cita) => cita.estado === 'cancelada');
     } if (this.mostrarPasadas) {
