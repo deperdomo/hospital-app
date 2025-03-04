@@ -11,8 +11,9 @@
     fill: #ffffff;
 }
 
-a:hover {
+a:hover, #ayuda:hover {
     .svg {
+        transition: all 0.1s;
         fill: #ffffff;
     }
 }

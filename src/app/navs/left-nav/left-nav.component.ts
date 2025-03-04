@@ -5,10 +5,11 @@ import { Usuario } from '../../models/usuario';
 import { UsuarioService } from '../../services/usuario.service';
 import { Doctor } from '../../models/doctor';
 import { DoctorService } from '../../services/doctor.service';
+import { AyudaComponent } from "./ayuda/ayuda.component";
 
 @Component({
   selector: 'app-left-nav',
-  imports: [HttpClientModule],
+  imports: [HttpClientModule, AyudaComponent],
   templateUrl: './left-nav.component.html',
   styleUrl: './left-nav.component.css', 
   providers: [UsuarioService, DoctorService]
@@ -19,6 +20,8 @@ export class LeftNavComponent {
   doctor: Doctor;
   isDoctorOrAdmin: boolean = false;
   selected: boolean = false;
+  isOpen: boolean = false;
+
   @Input() panel!: boolean;
   @Input() perfil!: boolean;
   @Input() citas!: boolean;
@@ -43,6 +46,14 @@ export class LeftNavComponent {
 
   logout() {
     localStorage.removeItem('usuario');
+  }
+
+  
+  open() {
+    this.isOpen = true;
+  }
+  cerrarModal(estado: boolean) {
+    this.isOpen = estado;
   }
 
 }
