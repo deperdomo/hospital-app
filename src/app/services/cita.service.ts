@@ -62,4 +62,8 @@ export class CitaService {
     return this.http.get<Cita[]>(`${this.apiUrl}/todasCitasUsuario/${idUsuario}`);
   }
 
+  actualizarCita(cita: Cita): Observable<any> {
+    return this.http.put(`${this.apiUrl}/actualizarTerminada/${cita.id}`, cita);
+  }
+
 }

@@ -3,12 +3,10 @@
     <div
         class="fecha flex-none bg-[#EEF5DF] px-6 py-2 mr-10 rounded-md border-r border-[#E9E9E9] group-hover:bg-[#FFFFFF] flex-none items-center">
         <p class="font-semibold grid justify-items-center w-6 ">{{ getFirstLetterOfDay(cita.fecha) }}</p>
-        <!-- {{ cita.fecha | date: 'dd' }} -->
         <p class="text-[20px] mt-1 grid justify-items-center">{{ cita.fecha | date: 'dd' }}</p>
     </div>
     <div *ngIf="!isCitasPage" class="flex flex-auto justify-between">
         <div>
-            <!-- {{ cita.fecha | date: 'shortTime' }} -->
             <p class="font-semibold text-gray-800">{{cita.fecha | date: 'HH:mm':'UTC'}}</p>
             <p class="text-sm text-gray-600">Dr. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }}</p>
         </div>
@@ -49,14 +47,17 @@
 
         <div class="ml-4 flex flex-col w-[200px]">
             <p class="font-semibold text-gray-800">Motivo: {{ cita.motivo }}</p>
-            <a href="#" class="text-sm text-[#3b9ab8] focus:text-blue-500 underline">Ver Documento</a>
+            <!-- if para que apaezca dependiendo de si tiene receta o no -->
+            @if (cita.estado === "terminada") {
+                <a href="#" class="text-sm text-[#3b9ab8] focus:text-blue-500 underline">Ver Receta</a>
+            } 
         </div>
         @if (cita.estado !== 'cancelada' && cita.estado !== 'terminada') {
             <button (click)="cancelarCita(cita.id)" class="flex text-red-400 hover:text-red-600  p-2 items-center ">Cancelar</button>
         } @else if (cita.estado === 'terminada') {
-            <div class="flex text-red-400 mr-5 p-2 items-center ">terminada</div>
+            <div class="flex text-red-400 mr-5 p-2 items-center ">Terminada</div>
         } @else {
-            <div class="flex text-red-400 mr-5 p-2 items-center ">cancelada</div>
+            <div class="flex text-red-400 mr-5 p-2 items-center ">Cancelada</div>
         }
     </div>
 </div>

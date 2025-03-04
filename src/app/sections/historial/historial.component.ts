@@ -30,20 +30,15 @@ export class HistorialComponent {
     
   }
   ngOnInit() {
-    console.log("esta en ngOninit")
-    console.log("Comprobando", this.citas)
+
     const usuarioGuardado = localStorage.getItem('usuario');
     if (usuarioGuardado) {
       const usuario = JSON.parse(usuarioGuardado);
       this.usuario = usuario;
-      console.log("esto es pasado el if", this.usuario.id)
-      console.log("COMPROBANDO", this.usuario)
-      console.log("probando id", this.usuario.id)
       
       if (this.usuario.id !== undefined) {
         this.obtenerCitas(this.usuario.id);//paso id para saber que usuario es 
       } else {
-        console.error("El ID del usuario es undefined.");
       }
     }
 
