@@ -144,9 +144,9 @@ VALUES
 -- Insertar doctores
 INSERT INTO doctores (id, id_especialidad, nombre, username, apellidos, email, provincia, localidad, direccion, fecha_alta, foto_perfil, password, experiencia, precio_consulta, sexo, votos)
 VALUES
-(1, 1, 'Juan', 'Juan', 'Pérez', 'juan.perez@example.com', 'Madrid', 'Centro', 'Calle Falsa 123', '2023-01-01', 'doc_m_07.png', 'password123', 5, 20, 'masculino', 12),
-(2, 2, 'Mario', 'mario', 'Gómez', 'mario.gomez@example.com', 'Madrid', 'Arganzuela', 'Avenida Siempre Viva 456', '2023-02-15', 'doc_m_05.png', 'password456', 12, 25, 'masculino', 5),
-(3, 3, 'Ana', 'ana', 'Martínez', 'ana.martinez@example.com', 'Madrid', 'Chamberí', 'Calle Sol 321', '2023-04-05', 'doc_f_09.png', 'password321', 7, 30, 'femenino', 6),
+(1, 1, 'Juan', 'juan', 'Pérez', 'juan.perez@example.com', 'Madrid', 'Centro', 'Calle Falsa 123', '2023-01-01', 'doc_m_07.png', 'juan', 5, 20, 'masculino', 12),
+(2, 2, 'Mario', 'mario', 'Gómez', 'mario.gomez@example.com', 'Madrid', 'Arganzuela', 'Avenida Siempre Viva 456', '2023-02-15', 'doc_m_05.png', 'mario', 12, 25, 'masculino', 5),
+(3, 3, 'Ana', 'ana', 'Martínez', 'ana.martinez@example.com', 'Madrid', 'Chamberí', 'Calle Sol 321', '2023-04-05', 'doc_f_09.png', 'ana', 7, 30, 'femenino', 6),
 (4, 4, 'José', 'jose', 'Ramírez', 'jose.ramirez@example.com', 'Madrid', 'Arganzuela', 'Calle Real 45', '2022-05-10', 'doc_m_03.png', 'password111', 6, 40, 'masculino', 7),
 (5, 5, 'Patricia', 'patricia', 'Rodríguez', 'patricia.rodriguez@example.com', 'Madrid', 'Salamanca', 'Calle Mayor 78', '2023-01-12', 'doc_f_01.png', 'password222', 10, 45, 'femenino', 9),
 (6, 6, 'Antonio', 'antonio', 'García', 'antonio.garcia@example.com', 'Madrid', 'Tetuán', 'Calle de Goya 23', '2023-04-15', 'doc_m_06.png', 'password333', 4, 35, 'masculino', 23),
