@@ -262,10 +262,10 @@ VALUES
 (10, 12, 11, '2025-09-08 14:30:00', 'usuario12@example.com', '123456789', 'Consulta de salud general', 120, 'Transferencia', 'pendiente', 1),
 (11, 9, 8, '2025-09-03 11:00:00', 'usuario9@example.com', '123456789', 'Chequeo de tobillo', 120, 'Efectivo', 'pendiente', 1),
 (12, 8, 7, '2025-08-22 09:30:00', 'usuario8@example.com', '123456789', 'Consulta de insomnio', 100, 'Tarjeta de crédito', 'pendiente', 1),
-(13, 3, 4, '2025-02-01 11:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'pendiente', 1),
-(14, 3, 5, '2025-02-01 12:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'pendiente', 1),
-(15, 3, 7, '2025-02-01 13:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'pendiente', 1),
-(16, 3, 6, '2025-03-01 14:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'pendiente', 1),
-(17, 3, 8, '2025-02-01 15:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'pendiente',  1),
-(18, 3, 9, '2025-03-01 16:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'pendiente', 1);
+(13, 3, 4, '2025-02-01 11:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1),
+(14, 3, 5, '2025-02-01 12:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1),
+(15, 3, 7, '2025-02-01 13:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1),
+(16, 3, 6, '2025-03-01 14:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1),
+(17, 3, 8, '2025-02-01 15:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada',  1),
+(18, 3, 9, '2025-03-01 16:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1);
 

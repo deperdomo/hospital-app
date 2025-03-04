@@ -125,7 +125,7 @@ public class CitaServiceImpl implements CitaService{
 	
 	@Override
 	public List<Cita> buscarPasadas(Usuario usuario, Date fecha) {
-		return crepo.findByFechaLessThan(usuario, fecha);
+		return crepo.findByFechaPasadas(usuario, fecha);
 	}
 
 	@Override
