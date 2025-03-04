@@ -15,9 +15,9 @@
   </div>
   <div class="flex items-center mr-6">
     <div class="h-10 w-10 rounded-full overflow-hidden cursor-pointer">
-      <img [routerLink]="'/perfil'" src="img/usuarios/{{ usuario.fotoPerfil }}" alt="Foto de perfil de {{ usuario.nombre }}" class="h-full w-full object-cover">
+        <img [routerLink]="'/perfil'" src="{{ urlFotoPerfil }}" alt="Foto de perfil de {{ nombre }}" class="h-full w-full object-cover">
     </div>
-    <span class="font-bold ml-3 text-lg">{{ usuario.nombre }}</span>
+    <span class="font-bold ml-3 text-lg">{{ nombre }}</span>
   </div>
 </div>
 @if (isModalNotificacionesActive) {

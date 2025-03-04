@@ -46,6 +46,7 @@ export class LeftNavComponent {
 
   logout() {
     localStorage.removeItem('usuario');
+    localStorage.removeItem('doctor');
   }
 
   

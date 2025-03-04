@@ -1,3 +1,7 @@
+.logo {
+    min-width: 25px;
+}
+
 .svg {
     fill: #7E7E7E;
     min-width: 25px;
