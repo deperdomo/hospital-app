@@ -103,6 +103,7 @@ CREATE TABLE citas (
 	forma_pago VARCHAR(50) NOT NULL,
     estado VARCHAR(50) NOT NULL,
     visto INT,
+    votado boolean,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
     FOREIGN KEY (id_doctor) REFERENCES doctores(id),
     check(estado in ('pendiente', 'cancelada', 'terminada'))
@@ -248,24 +249,24 @@ VALUES
 (10, 12, 150.00, '2023-09-06', 'pendiente');
 
 -- Insertar citas
-INSERT INTO citas (id, id_usuario, id_doctor, fecha, email, telefono, motivo, tarifa, forma_pago, estado, visto)
+INSERT INTO citas (id, id_usuario, id_doctor, fecha, email, telefono, motivo, tarifa, forma_pago, estado, visto, votado)
 VALUES
-(1, 3, 2, '2023-05-01 10:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1),
-(2, 3, 3, '2023-06-10 11:30:00', 'usuario2@example.com', '123456789', 'Revisión', 150, 'Efectivo', 'terminada', 1),
-(3, 4, 4, '2023-06-20 10:00:00', 'usuario4@example.com', '123456789', 'Consulta general', 150, 'Tarjeta de crédito', 'terminada', 1),
-(4, 5, 5, '2023-07-15 12:00:00', 'usuario5@example.com', '123456789', 'Chequeo general', 120, 'Efectivo', 'terminada', 1),
-(5, 6, 6, '2025-08-18 09:30:00', 'usuario6@example.com', '123456789', 'Control médico', 90, 'Transferencia', 'pendiente', 1),
-(6, 5, 4, '2023-07-20 15:00:00', 'usuario4@example.com', '123456789', 'Revisión de salud', 100, 'Tarjeta de crédito', 'terminada', 1),
-(7, 6, 3, '2023-08-10 14:00:00', 'usuario5@example.com', '123456789', 'Consulta médica', 110, 'Efectivo', 'terminada', 1),
-(8, 10, 9, '2023-09-06 10:00:00', 'usuario10@example.com', '123456789', 'Consulta para migraña', 150, 'Efectivo', 'terminada', 1),
-(9, 11, 10, '2023-09-07 15:00:00', 'usuario11@example.com', '123456789', 'Consulta médica', 100, 'Tarjeta de crédito', 'terminada', 1),
-(10, 12, 11, '2025-09-08 14:30:00', 'usuario12@example.com', '123456789', 'Consulta de salud general', 120, 'Transferencia', 'pendiente', 1),
-(11, 9, 8, '2025-09-03 11:00:00', 'usuario9@example.com', '123456789', 'Chequeo de tobillo', 120, 'Efectivo', 'pendiente', 1),
-(12, 8, 7, '2025-08-22 09:30:00', 'usuario8@example.com', '123456789', 'Consulta de insomnio', 100, 'Tarjeta de crédito', 'pendiente', 1),
-(13, 3, 4, '2025-02-01 11:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1),
-(14, 3, 5, '2025-02-01 12:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1),
-(15, 3, 7, '2025-02-01 13:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1),
-(16, 3, 6, '2025-03-01 14:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1),
-(17, 3, 8, '2025-02-01 15:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada',  1),
-(18, 3, 9, '2025-03-01 16:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1);
+(1, 3, 2, '2023-05-01 10:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1, false),
+(2, 3, 3, '2023-06-10 11:30:00', 'usuario2@example.com', '123456789', 'Revisión', 150, 'Efectivo', 'terminada', 1, false),
+(3, 4, 4, '2023-06-20 10:00:00', 'usuario4@example.com', '123456789', 'Consulta general', 150, 'Tarjeta de crédito', 'terminada', 1, false),
+(4, 5, 5, '2023-07-15 12:00:00', 'usuario5@example.com', '123456789', 'Chequeo general', 120, 'Efectivo', 'terminada', 1, false),
+(5, 6, 6, '2025-08-18 09:30:00', 'usuario6@example.com', '123456789', 'Control médico', 90, 'Transferencia', 'pendiente', 1, false),
+(6, 5, 4, '2023-07-20 15:00:00', 'usuario4@example.com', '123456789', 'Revisión de salud', 100, 'Tarjeta de crédito', 'terminada', 1, false),
+(7, 6, 3, '2023-08-10 14:00:00', 'usuario5@example.com', '123456789', 'Consulta médica', 110, 'Efectivo', 'terminada', 1, false),
+(8, 10, 9, '2023-09-06 10:00:00', 'usuario10@example.com', '123456789', 'Consulta para migraña', 150, 'Efectivo', 'terminada', 1, false),
+(9, 11, 10, '2023-09-07 15:00:00', 'usuario11@example.com', '123456789', 'Consulta médica', 100, 'Tarjeta de crédito', 'terminada', 1, false),
+(10, 12, 11, '2025-09-08 14:30:00', 'usuario12@example.com', '123456789', 'Consulta de salud general', 120, 'Transferencia', 'pendiente', 1, false),
+(11, 9, 8, '2025-09-03 11:00:00', 'usuario9@example.com', '123456789', 'Chequeo de tobillo', 120, 'Efectivo', 'pendiente', 1, false),
+(12, 8, 7, '2025-08-22 09:30:00', 'usuario8@example.com', '123456789', 'Consulta de insomnio', 100, 'Tarjeta de crédito', 'pendiente', 1, false),
+(13, 3, 4, '2025-02-01 11:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1, false),
+(14, 3, 5, '2025-02-01 12:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1, false),
+(15, 3, 7, '2025-02-01 13:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1, false),
+(16, 3, 6, '2025-03-01 14:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1, false),
+(17, 3, 8, '2025-02-01 15:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada',  1, false),
+(18, 3, 9, '2025-03-01 16:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1, false);
 

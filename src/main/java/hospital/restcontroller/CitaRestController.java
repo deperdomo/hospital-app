@@ -163,8 +163,7 @@ public class CitaRestController {
     }
 
 	@GetMapping("/todasCitasUsuario/{idUsuario}")
-		
-		public ResponseEntity<?> buscarTodasCitasUsaurio(@PathVariable int idUsuario) {
+	public ResponseEntity<?> buscarTodasCitasUsaurio(@PathVariable int idUsuario) {
 		Usuario usuario = userv.buscarPorId(idUsuario);	
 		if (usuario!= null) {
 			List<Cita> citas=cserv.buscarCitasUsuario(idUsuario);
@@ -179,9 +178,20 @@ public class CitaRestController {
 		cita.setEstado("terminada");
 		cserv.modificar(cita);
 		return new ResponseEntity<>(cita, HttpStatus.OK);
-
 	}
-		
 	
+	@PutMapping("/marcarComoVotada/{idCita}")
+	public ResponseEntity<?> cambiarAVotada(@PathVariable int idCita){
+		Cita cita = cserv.buscarPorId(idCita);
+		if (cita != null) {
+			cita.setVotado(true);
+			if (cserv.modificar(cita) != null) {
+				return new ResponseEntity<>(cita, HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+	}
+	
+		
 	
 }
