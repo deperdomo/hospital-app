@@ -74,9 +74,12 @@ public class UsuarioRestController {
 	public ResponseEntity<?> cambiarContraseñausuario(@RequestBody String password, @PathVariable int id ) {
 		Usuario usuario= userv.buscarPorId(id);
 		if (usuario!=null) {
-			usuario.getPassword();
+			//usuario.getPassword();
 			usuario.setPassword(password);
+			System.out.println("comprobando cambio de contraseña"+ usuario.getPassword());
 			if (userv.modificar(usuario)!=null) {
+				System.out.println("comprobando cambio de contraseña"+ usuario);
+
 				return new ResponseEntity<>(usuario, HttpStatus.OK);
 			}else {
 				return new ResponseEntity<>("No se edito el usuario", HttpStatus.NOT_FOUND);
