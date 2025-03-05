@@ -19,7 +19,7 @@
 
     <div>
         @if (citasPasadas.length > 0 ) {
-        <h3 class="text-xl font-semibold mt-6">Ayer</h3>
+        <h5 class="text-xl font-semibold mt-6">Ayer</h5>
         <div class="grid grid-cols-4 gap-4 mt-4">
             @for (cita of citasPasadas; track $index) {
             <app-cita-historial  [cita]="cita"></app-cita-historial>
@@ -42,10 +42,10 @@
           
             <!-- recorro los datos sobre las fechas agrupadas -->
             <div *ngFor="let fecha of filtrarOrdenarCitasProximas(citasAgrupadas)" class="mt-4">
-              <h4 class="text-lg font-semibold">{{ fecha | date:'dd-MM-yyyy' }}</h4>
+              <h6 class=" font-semibold text-[#7a7d84]">{{ fecha | date:'dd-MM-yyyy' }}</h6>
               
               <!-- Muestra las citas de la fecha actual -->
-              <div class="grid grid-cols-4 gap-4 mt-4">
+              <div class="grid grid-cols-4 gap-4 mt-4 ">
                 <app-cita-historial *ngFor="let cita of citasAgrupadas[fecha]" [cita]="cita"></app-cita-historial>
               </div>
             </div>

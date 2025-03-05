@@ -26,5 +26,8 @@ export class UsuarioService {
     return this.http.put<Usuario>(`${this.apiUrl}/editar`, usuario);
   }
 
-
+  editarPassword(id: string, password:string): Observable<Usuario> {
+    //const passwordCambiada={password:password};
+    return this.http.put<Usuario>(`${this.apiUrl}/password/${id}`,password);
+  }
 }

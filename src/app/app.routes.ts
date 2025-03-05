@@ -13,6 +13,7 @@ import { ProfileComponent } from './vistas/profile/profile.component';
 import { PerfilHistorialComponent } from './vistas/perfil-historial/perfil-historial.component';
 import { EditProfileComponent } from './vistas/edit-profile/edit-profile.component';
 import { DoctoresComponent } from './vistas/doctores/doctores.component';
+import { InfoGeneralCambioPasswordComponent } from './vistas/info-general-cambio-password/info-general-cambio-password.component';
 
 
 export const routes: Routes = [
@@ -27,6 +28,7 @@ export const routes: Routes = [
     // { path: 'perfilHistorial/:id', component: PerfilHistorialComponent, canActivate: [AuthGuard]  }
     // { path: 'verReceta', component: RecetaComponent, canActivate: [AuthGuard]  },
     { path: 'editarPerfil', component: EditProfileComponent, canActivate: [AuthGuard]  },
+    { path: 'editarPassword', component: InfoGeneralCambioPasswordComponent, canActivate: [AuthGuard]  },
     { path: 'listaDoctores', component: DoctoresComponent },
 
 ];
