@@ -38,6 +38,8 @@ public class Cita implements Serializable{
 	@Column(name="forma_pago")
 	private String formaPago;
 	private String estado;
+	private int visto;
+	private boolean votado;
 	
 	@ManyToOne
 	@JoinColumn(name="id_usuario")
@@ -45,6 +47,6 @@ public class Cita implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="id_doctor")
 	private Doctor doctor;
-	private int visto;
+	
 	
 }

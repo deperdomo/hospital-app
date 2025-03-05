@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +27,18 @@ public class DoctorRestController {
 	
 		@Autowired
 		private DoctorService dserv;
+		
+		@PostMapping("/alta")
+		public ResponseEntity<?> alta(@RequestBody Doctor doctor) {
+		    try {
+		    	Doctor nuevoDoctor = dserv.alta(doctor);
+		        return new ResponseEntity<>(nuevoDoctor, HttpStatus.OK);
+		    } catch (DataIntegrityViolationException e) {
+		        return new ResponseEntity<>("El correo electrónico o el nombre de doctor ya están en uso", HttpStatus.CONFLICT);
+		    } catch (Exception e) {
+		        return new ResponseEntity<>("Error en el registro", HttpStatus.INTERNAL_SERVER_ERROR);
+		    }
+		}
 		
 		@GetMapping("recomendado/{cantidad}")
 		public ResponseEntity<?> getMedicos(@PathVariable int cantidad) {
@@ -85,8 +101,26 @@ public class DoctorRestController {
 	        return new ResponseEntity<>(doctores, HttpStatus.OK);
 	    }
 	 
-	 
-	 
+	 	@PutMapping("/votar/{idDoctor}/{valoracion}")
+	 	public ResponseEntity<?> votarDoctor(@PathVariable int idDoctor, @PathVariable boolean valoracion) {
+	 		Doctor doctor = dserv.buscarPorId(idDoctor);
+	 		if (doctor != null) {
+				if (valoracion) {
+					doctor.setVotos(doctor.getVotos() + 1);
+				} else {
+					doctor.setVotos(doctor.getVotos() - 1);
+				}
+				if (dserv.modificar(doctor) != null) {
+					return new ResponseEntity<>(doctor, HttpStatus.OK);
+				}
+				return new ResponseEntity<>("No se pudo modificar el doctor", HttpStatus.NOT_FOUND);
+			} else {
+				return new ResponseEntity<>("No se encontró el doctor", HttpStatus.NOT_FOUND);
+			}
+	 	}
+	 	
+	 	
+	 	
 }
 	
 	

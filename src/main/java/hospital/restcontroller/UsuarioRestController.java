@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hospital.entidades.Cita;
 import hospital.entidades.Usuario;
 import hospital.modelo.service.UsuarioService;
 import org.springframework.web.bind.annotation.GetMapping;
