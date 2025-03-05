@@ -13,6 +13,10 @@ export class DoctorService {
 
   constructor(private http: HttpClient) { }
 
+  altaDoctor(doctor: Doctor): Observable<Doctor> {
+    return this.http.post<Doctor>(`${this.apiUrl}/alta`, doctor);
+  }
+
   getXDoctors(cantidad: number): Observable<Doctor[]> {
     return this.http.get<Doctor[]>(`${this.apiUrl}/recomendado/${cantidad}`);
   }
@@ -38,6 +42,10 @@ export class DoctorService {
 
   buscarPorLocalidad(localidad: string): Observable<Doctor[]> {
     return this.http.get<Doctor[]>(`${this.apiUrl}/localidad/${localidad}`);
+  }
+
+  votarDoctor(idDoctor: number, valoracion: boolean): Observable<Doctor> {
+    return this.http.put<Doctor>(`${this.apiUrl}/votar/${idDoctor}/${valoracion}`, null);
   }
 
 }

@@ -1,0 +1,150 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50 backdrop-blur-sm">
+  
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full relative">
+      <button 
+        class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors bg-white rounded-full h-6 w-6 flex items-center justify-center shadow-sm"
+        (click)="enviarEstado()"
+        aria-label="Cerrar"
+      >
+        ✕
+      </button>
+      <h2 class="text-3xl font-bold text-center mb-8" style="color: #3b9ab8;">
+        Registro de Médico
+      </h2>
+  
+      <form (ngSubmit)="onSubmit()" #doctorForm="ngForm" class="grid grid-cols-2 gap-4">
+        <!-- Columna Izquierda -->
+        <div>
+          <label for="nombre" class="block mb-2 text-sm text-gray-600">Nombre</label>
+          <input type="text" name="nombre" id="nombre" placeholder="Nombre del médico" 
+                 [(ngModel)]="doctor.nombre" required
+                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
+                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
+                        focus:outline-none focus:ring focus:ring-opacity-40">
+        </div>
+  
+        <div>
+          <label for="apellidos" class="block mb-2 text-sm text-gray-600">Apellidos</label>
+          <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos del médico" 
+                 [(ngModel)]="doctor.apellidos" required
+                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
+                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
+                        focus:outline-none focus:ring focus:ring-opacity-40">
+        </div>
+  
+        <div>
+          <label for="username" class="block mb-2 text-sm text-gray-600">Nombre de usuario</label>
+          <input type="text" name="username" id="username" placeholder="Nombre de usuario" 
+                 [(ngModel)]="doctor.username" required
+                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
+                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
+                        focus:outline-none focus:ring focus:ring-opacity-40">
+        </div>
+  
+        <div>
+          <label for="email" class="block mb-2 text-sm text-gray-600">Email</label>
+          <input type="email" name="email" id="email" placeholder="ejemplo@clinica.com" 
+                 [(ngModel)]="doctor.email" required
+                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
+                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
+                        focus:outline-none focus:ring focus:ring-opacity-40">
+        </div>
+  
+        <div>
+          <label for="especialidad" class="block mb-2 text-sm text-gray-600">Especialidad</label>
+          <select name="especialidad" id="especialidad" [(ngModel)]="doctor.especialidad.id" required
+                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 
+                         rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] focus:outline-none 
+                         focus:ring focus:ring-opacity-40">
+            <option value="" disabled selected>Seleccione especialidad</option>
+            <option *ngFor="let esp of especialidades" [value]="esp.id">{{esp.nombre}}</option>
+          </select>
+        </div>
+  
+        <div>
+          <label for="precioConsulta" class="block mb-2 text-sm text-gray-600">Precio Consulta (€)</label>
+          <input type="number" name="precioConsulta" id="precioConsulta" placeholder="Ej: 50" 
+                 [(ngModel)]="doctor.precioConsulta" required
+                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
+                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
+                        focus:outline-none focus:ring focus:ring-opacity-40">
+        </div>
+  
+        <!-- Columna Derecha -->
+        <div>
+          <label for="experiencia" class="block mb-2 text-sm text-gray-600">Años de Experiencia</label>
+          <input type="number" name="experiencia" id="experiencia" placeholder="Ej: 5" 
+                 [(ngModel)]="doctor.experiencia" required
+                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
+                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
+                        focus:outline-none focus:ring focus:ring-opacity-40">
+        </div>
+  
+        <div>
+          <label for="provincia" class="block mb-2 text-sm text-gray-600">Provincia</label>
+          <input type="text" name="provincia" id="provincia" placeholder="Ej: Madrid" 
+                 [(ngModel)]="doctor.provincia" required
+                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
+                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
+                        focus:outline-none focus:ring focus:ring-opacity-40">
+        </div>
+  
+        <div>
+          <label for="localidad" class="block mb-2 text-sm text-gray-600">Localidad</label>
+          <input type="text" name="localidad" id="localidad" placeholder="Ej: Centro" 
+                 [(ngModel)]="doctor.localidad" required
+                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
+                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
+                        focus:outline-none focus:ring focus:ring-opacity-40">
+        </div>
+  
+        <div>
+          <label for="direccion" class="block mb-2 text-sm text-gray-600">Dirección</label>
+          <input type="text" name="direccion" id="direccion" placeholder="Dirección consulta" 
+                 [(ngModel)]="doctor.direccion" required
+                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
+                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
+                        focus:outline-none focus:ring focus:ring-opacity-40">
+        </div>
+  
+        <div>
+          <label for="password" class="block mb-2 text-sm text-gray-600">Contraseña</label>
+          <input type="password" name="password" id="password" placeholder="••••••••" 
+                 [(ngModel)]="doctor.password" required
+                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
+                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
+                        focus:outline-none focus:ring focus:ring-opacity-40">
+        </div>
+  
+        <div>
+          <label for="sexo" class="block mb-2 text-sm text-gray-600">Sexo</label>
+          <select name="sexo" id="sexo" [(ngModel)]="doctor.sexo" required
+                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 
+                         rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] focus:outline-none 
+                         focus:ring focus:ring-opacity-40">
+            <option value="" disabled selected>Seleccione sexo</option>
+            <option value="masculino">Masculino</option>
+            <option value="femenino">Femenino</option>
+
+          </select>
+        </div>
+  
+        <!-- Mensaje de error -->
+        <div class="col-span-2" *ngIf="errorMessage">
+          <div class="mt-4 text-red-600">
+            {{ errorMessage }}
+          </div>
+        </div>
+  
+        <!-- Botón de Registro -->
+        <div class="col-span-2 mt-6">
+          <button type="submit" 
+                  class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 
+                         transform bg-[#3b9ab8] rounded-lg cursor-pointer hover:bg-[#26738b] 
+                         focus:outline-none focus:ring focus:ring-[#3b9ab8] focus:ring-opacity-50">
+            Registrar Médico
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

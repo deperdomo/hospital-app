@@ -51,6 +51,7 @@ export class LeftNavComponent {
 
   
   open() {
+    document.body.classList.add('overflow-hidden');
     this.isOpen = true;
   }
   cerrarModal(estado: boolean) {

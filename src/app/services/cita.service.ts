@@ -66,4 +66,9 @@ export class CitaService {
     return this.http.put(`${this.apiUrl}/actualizarTerminada/${cita.id}`, cita);
   }
 
+  marcarComoVotada(id: number): Observable<Cita> {
+    return this.http.put<Cita>(`${this.apiUrl}/marcarComoVotada/${id}`, {});
+  }
+  
+
 }

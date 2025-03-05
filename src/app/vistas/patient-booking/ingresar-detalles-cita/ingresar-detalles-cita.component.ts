@@ -37,6 +37,7 @@ export class IngresarDetallesCitaComponent {
        formaPago: '',
        estado: '',
        visto: 0,
+       votado: false,
        usuario: this.usuario,
        doctor: this.doctor
     };

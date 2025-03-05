@@ -12,6 +12,7 @@ export class AyudaComponent {
   @Output() cambiarEstado = new EventEmitter<boolean>();
   enviarEstado() {
     this.isOpen = false;
+    document.body.classList.remove('overflow-hidden');
     this.cambiarEstado.emit(this.isOpen);
   }
   sections = [

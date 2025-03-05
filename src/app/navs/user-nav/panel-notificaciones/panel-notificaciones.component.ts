@@ -57,6 +57,7 @@ export class PanelNotificacionesComponent {
     }
     this.mostrarModal = false;
     this.quitarNotificaciones = true;
+    document.body.classList.remove('overflow-hidden');
     this.modalCerrado.emit(this.mostrarModal);
     this.notificaciones.emit(this.quitarNotificaciones);
   }

@@ -11,6 +11,7 @@ export interface Cita {
 	formaPago: string;
     estado: string;
     visto: number;
+    votado: boolean;
     usuario: Usuario;
     doctor: Doctor;
 }

@@ -3,18 +3,21 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Cita } from '../../../models/cita';
 import { CitaService } from '../../../services/cita.service';
+import { DoctorService } from '../../../services/doctor.service';
 @Component({
   selector: 'app-cita',
   imports: [CommonModule],
   templateUrl: './cita.component.html',
-  styleUrl: './cita.component.css'
+  styleUrl: './cita.component.css',
+  providers: [CitaService, DoctorService]
 })
 export class CitaComponent {
+  citavotada: boolean = false;
 
   @Input() cita!: Cita;
 
 
-  constructor(private router: Router, private citaService: CitaService) { }
+  constructor(private router: Router, private citaService: CitaService, private doctorService: DoctorService) { }
 
   get isCitasPage() {
     return this.router.url === '/misCitasUsuario';
@@ -28,4 +31,18 @@ export class CitaComponent {
     this.citaService.cancelarCita(id).subscribe();
     window.location.reload(); // refrescando la página para que las citas canceladas desaparezcan
   }
+
+  voto(idDoctor: number, valoracion: boolean) {
+    this.doctorService.votarDoctor(idDoctor, valoracion).subscribe(
+      doctor => {
+        this.citaService.marcarComoVotada(this.cita.id).subscribe(
+          cita => {
+            window.location.reload();
+          }
+        );
+
+      }
+    );
+  }
+
 }

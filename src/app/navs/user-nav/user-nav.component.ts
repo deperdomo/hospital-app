@@ -6,12 +6,13 @@ import { Cita } from '../../models/cita';
 import { RouterModule } from '@angular/router';
 import { PanelNotificacionesComponent } from './panel-notificaciones/panel-notificaciones.component';
 import { Doctor } from '../../models/doctor';
+import { NewDoctorComponent } from "./new-doctor/new-doctor.component";
 
 
 
 @Component({
   selector: 'app-user-nav',
-  imports: [HttpClientModule, RouterModule, PanelNotificacionesComponent],
+  imports: [HttpClientModule, RouterModule, PanelNotificacionesComponent, NewDoctorComponent],
   templateUrl: './user-nav.component.html',
   providers: [CitaService]
 })
@@ -20,6 +21,7 @@ export class UserNavComponent {
   doctor: Doctor;
   hayCitasNoVistas: boolean = false;
   isModalNotificacionesActive: boolean = false;
+  isFormularioActivo: boolean = false;
 
   nombre: string = "";
   urlFotoPerfil: string = "";
@@ -51,11 +53,16 @@ export class UserNavComponent {
   }
 
   abrirModal() {
+    document.body.classList.add('overflow-hidden');
     this.isModalNotificacionesActive = true;
   }
 
   cerrarModal(valor: boolean) {
     this.isModalNotificacionesActive = valor;
+  }
+
+  cerrarFormulario(valor: boolean) {
+    this.isFormularioActivo = valor;
   }
 
   comprobarNotificaciones() {
@@ -78,6 +85,11 @@ export class UserNavComponent {
     if (valor) {
       this.hayCitasNoVistas = false;
     }
+  }
+
+  abrirFormulario() {
+    this.isFormularioActivo = true;
+    document.body.classList.add('overflow-hidden');
   }
 
 }

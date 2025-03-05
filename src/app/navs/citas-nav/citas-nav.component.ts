@@ -13,15 +13,16 @@ import { ListaCitasComponent } from '../../sections/lista-citas/lista-citas.comp
   providers: [CitaService]
 })
 export class NavCitasComponent {
-  currentDate: Date = new Date();
-  selectedButton: string = '';
+  currentDate: Date = new Date(); 
+  selectedButton: string = 'proxima';
+  
   @Output() citasProximas = new EventEmitter<void>();
   @Output() citasCanceladas = new EventEmitter<void>();
   @Output() citasPasadas = new EventEmitter<void>();
 
 
-  onSelectButton(button: string): void {
-    this.selectedButton = button; // Establecer el botón seleccionado
+  onSelectButton(buttonType: string) {
+    this.selectedButton = buttonType;
   } 
   
   listaCitasProximas() {
