@@ -8,5 +8,7 @@ public interface UsuarioService extends GenericCRUD<Usuario, Integer> {
 
 	List<Usuario> buscaPorRol(String rol);
 	Usuario buscarPorUsername(String username); 
+	//cambiar contraseña
+	//Usuario cambiarContraseñaUsuario(String username, String password);
 	
 }

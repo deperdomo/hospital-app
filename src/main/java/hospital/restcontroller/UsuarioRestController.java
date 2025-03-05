@@ -71,6 +71,22 @@ public class UsuarioRestController {
 	}
 
 
+	@PutMapping("/password/{id}")
+	public ResponseEntity<?> cambiarContraseñausuario(@RequestBody String password, @PathVariable int id ) {
+		Usuario usuario= userv.buscarPorId(id);
+		if (usuario!=null) {
+			usuario.getPassword();
+			usuario.setPassword(password);
+			if (userv.modificar(usuario)!=null) {
+				return new ResponseEntity<>(usuario, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>("No se edito el usuario", HttpStatus.NOT_FOUND);
+			}
+			
+			
+		}
+		return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
+	}
 	
 	
 }
