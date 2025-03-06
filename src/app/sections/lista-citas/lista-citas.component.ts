@@ -96,6 +96,32 @@ export class ListaCitasComponent implements OnInit {
     );
   }
 
+  // cargarCitasActivasDoctor() {
+  
+  //   const hoy = new Date();
+  //   hoy.setHours(hoy.getHours() + 1);
+  //   const fechaActual = hoy.toISOString();
+
+  //   console.log("FECHA HOY:", fechaActual);
+  
+  //   console.log('se mete en ACTIVAS de lista-citas');
+  //   this.citaService.getCitasDoctor(String(this.usuario.id)).subscribe(
+  //     (citas: Cita[]) => {
+  //       this.citas = citas.filter(cita => {
+  //         const fechaCita = new Date(cita.fecha).toISOString();
+  //         return fechaCita > fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth();
+  //       })
+  //       .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+
+  //       console.log('ACTIVAS:', this.citas);
+  //     },
+  //     error => {
+  //       console.error('Error fetching active appointments:', error);
+  //     }
+ 
+  //   );
+  // }
+
   cargarCitasCanceladasUsuario() {
     console.log('se mete en CANCELADAS de lista-citas');
     this.citaService.getCitasCanceladasUsuario(String(this.usuario.id)).subscribe(

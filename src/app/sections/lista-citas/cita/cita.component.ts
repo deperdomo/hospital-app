@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Cita } from '../../../models/cita';
 import { CitaService } from '../../../services/cita.service';
 import { DoctorService } from '../../../services/doctor.service';
+
 @Component({
   selector: 'app-cita',
   imports: [CommonModule],
@@ -11,8 +12,11 @@ import { DoctorService } from '../../../services/doctor.service';
   styleUrl: './cita.component.css',
   providers: [CitaService, DoctorService]
 })
+
 export class CitaComponent {
   citavotada: boolean = false;
+  isModalDetalleCitaActivo: boolean = false;
+  isNotDoctor: boolean = false;
 
   @Input() cita!: Cita;
 
@@ -45,4 +49,23 @@ export class CitaComponent {
     );
   }
 
+  // abrirModal(cita: Cita) {
+  //     console.log(this.cita);
+  //     console.log("abrir modal")
+  //     document.body.classList.add('overflow-hidden');
+  //     this.isModalDetalleCitaActivo = true;
+  //     this.cita = cita;
+  // }
+
+  sumarMediaHora(fecha: string): Date {
+    const fechaObjeto = new Date(fecha);
+    const nuevaFecha = new Date(fechaObjeto);
+    nuevaFecha.setMinutes(nuevaFecha.getMinutes() + 30);
+    return nuevaFecha;
+  }
+
+  // cerrarModal() {
+  //   this.isModalDetalleCitaActivo = false;
+  //   document.body.classList.remove('overflow-hidden');
+  // }
 }
