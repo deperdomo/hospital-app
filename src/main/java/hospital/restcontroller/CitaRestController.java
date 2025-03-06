@@ -43,6 +43,16 @@ public class CitaRestController {
 	@Autowired
 	private DoctorService dserv;
 	
+	@GetMapping("/citasDoctor/{id}")
+	public ResponseEntity<?> buscarCitasDoctor(@PathVariable int id) {
+		Doctor doctor = dserv.buscarPorId(id);
+
+		if (doctor != null) {
+			return new ResponseEntity<>(cserv.buscarCitaPorDoctor(doctor), HttpStatus.OK);
+		}
+		return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+	}
+	
 	@GetMapping("/doctorEstado/{id}/{estado}")
 	public ResponseEntity<?> buscarCitaDoctor(@PathVariable int id, @PathVariable String estado) {
 		Doctor doctor = dserv.buscarPorId(id);
