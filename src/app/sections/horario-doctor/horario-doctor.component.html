@@ -1,0 +1,82 @@
+<!-- Calendar Container -->
+<div class="p-4 bg-white rounded-lg shadow-lg">
+    <!-- Calendar Header -->
+    <div class="flex items-center justify-between mb-6">
+        <button (click)="previousMonth()" class="p-2 text-gray-600 hover:bg-gray-100 rounded-full"
+            aria-label="Mes anterior">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+        <h2 class="text-xl font-semibold text-gray-800">{{ getCurrentMonthYear() }}</h2>
+        <!-- <h2 class="text-xl font-semibold text-gray-800">{{ currentDate | date:'MMMM yyyy':'':'es' }}</h2> -->
+        <button (click)="nextMonth()" class="p-2 text-gray-600 hover:bg-gray-100 rounded-full"
+            aria-label="Siguiente mes">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Updated: Changed weekdays order to start from Monday -->
+    <div class="grid grid-cols-7 gap-1 mb-2">
+        <div *ngFor="let day of weekDays" class="p-2 text-center text-sm font-medium text-gray-700">
+            {{ day }}
+        </div>
+    </div>
+
+    <!-- Updated: Added disabled styles for weekends -->
+    <div class="grid grid-cols-7 gap-1">
+        <div *ngFor="let day of calendarDays" [class]="'min-h-[120px] p-2 border rounded-lg ' + 
+              (isWeekend(day) || !isCurrentMonth(day) ? 'bg-gray-200 cursor-not-allowed opacity-50' :
+             isToday(day) ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200')">
+            <div class="flex flex-col h-full">
+                <span [class]="'text-sm font-medium ' + 
+                (isToday(day) ? 'text-blue-600' : 'text-gray-700')">{{ day | date:'d':'':'es' }}</span>
+
+                <!-- Appointments for the day -->
+                <div class="flex-1 overflow-y-auto mt-1 space-y-1 max-h-[110px] custom-scrollbar">
+                    <div *ngFor="let cita of getAppointmentsForDay(day)"
+                        (click)="!isWeekend(day) && showAppointmentDetails(cita)"
+                        class="mt-1 p-2 text-xs rounded-md transition-colors bg-[#3B9AB8]/[60%]"
+                        [class.cursor-pointer]="!isWeekend(day)" [class.cursor-not-allowed]="isWeekend(day)"
+                        [class.bg-green-100]>
+                        <div class="font-bold text-[13px]">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</div>
+                        <div class="pl-1 font-medium text-gray-800">{{ cita.fecha | date: 'HH:mm':'UTC'}} -
+                            {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}</div>
+                        <div class="pl-1 truncate text-gray-600">{{ cita.motivo }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Appointment Details Modal -->
+@if (selectedAppointment) {
+<div class="fixed inset-0 bg-gray-900/30 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
+    <div class="bg-white w-[500px]  rounded-2xl shadow-2xl transform transition-all duration-300 animate-slide-up">
+        <div
+            class="p-5 flex justify-between items-center bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
+            <h2 class="text-xl font-semibold text-gray-800 tracking-tight">Detalles de la Cita</h2>
+            <button (click)="closeAppointmentDetails()" class="text-gray-500 hover:text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <!--  space-y-3 mx-4 -->
+        <div class="p-6 max-h-[70vh]">
+            <p class="py-2"><span class="font-medium">Paciente:</span> {{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</p>
+            <p class="py-2"><span class="font-medium">Hora:</span> {{ cita.fecha | date: 'HH:mm':'UTC'}} -
+                {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}</p>
+            <p class="py-2"><span class="font-medium">Motivo:</span> {{ cita.motivo }}</p>
+            <p class="py-2"><span class="font-medium">Edad:</span> {{ calcularEdad(cita.usuario.fechaNacimiento) }}</p>
+            <p class="py-2"><span class="font-medium">Sexo:</span> {{ cita.usuario.sexo }}</p>
+            <p class="py-2"><span class="font-medium">Email:</span> {{ cita.email }}</p>
+            <p class="py-2"><span class="font-medium">Teléfono:</span> {{ cita.telefono }}</p>
+        </div>
+    </div>
+</div>
+}
