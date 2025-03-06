@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FindNavComponent } from "../find-nav/find-nav.component";
 import { UserNavComponent } from "../user-nav/user-nav.component";
 import { UserWelcomeNavComponent } from "./user-welcome-nav/user-welcome-nav.component";
+import { Doctor } from '../../models/doctor';
 
 @Component({
   selector: 'app-secundary-nav',
@@ -10,7 +11,16 @@ import { UserWelcomeNavComponent } from "./user-welcome-nav/user-welcome-nav.com
   styleUrl: './secundary-nav.component.css'
 })
 export class SecundaryNavComponent {
-  withFindNav: boolean = false;
+  isNerbyDoctorsAvailable = false;
+  doctoresDeBusqueda: Doctor[] = [];
 
   @Input() titulo!: string;
+  @Input() findNav!: boolean;
+  @Output() doctoresEncontrados = new EventEmitter<Doctor[]>();
+
+  recibirDoctoresDeBusqueda(doctores: Doctor[]) {
+    this.isNerbyDoctorsAvailable = false;
+    this.doctoresDeBusqueda = doctores;
+    this.doctoresEncontrados.emit(doctores);
+  }
 }

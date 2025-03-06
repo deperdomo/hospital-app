@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { LeftNavComponent } from "../../navs/left-nav/left-nav.component";
 import { SecundaryNavComponent } from "../../navs/secundary-nav/secundary-nav.component";
@@ -19,7 +19,7 @@ import { FindNavComponent } from "../../navs/find-nav/find-nav.component";
 
 @Component({
   selector: 'app-index-after-login',
-  imports: [LeftNavComponent, SecundaryNavComponent, BanerComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent, DoctoresRecomendadosComponent, FindNavComponent],
+  imports: [LeftNavComponent, SecundaryNavComponent, BanerComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent, DoctoresRecomendadosComponent],
   templateUrl: './index-after-login.component.html',
   styleUrl: './index-after-login.component.css',
   providers: [CitaService]
@@ -29,8 +29,7 @@ export class IndexAfterLoginComponent implements OnInit{
   usuario: Usuario;
   doctoresDeBusqueda: Doctor[] = [];
   doctoresCercanos: Doctor[] = [];
-
-
+  
 
   constructor(private router: Router, private citaService: CitaService) {
     this.usuario = {} as Usuario;
@@ -61,6 +60,7 @@ export class IndexAfterLoginComponent implements OnInit{
     this.doctoresDeBusqueda = doctores;
     //console.log('Doctores recibidos de find-nav:', doctores);
   }
+
   recibirDoctoresCercanos(doctores: Doctor[]) {
     this.doctoresCercanos = doctores;
     //console.log('Doctores recibidos de nearby:', doctores);

@@ -1,4 +1,17 @@
 <div class="ml-4 text-lg">
-  <p class="text-gray-500 font-medium">Hola, {{ nombreApellido }}</p>
+  @if (isDoctor) {
+    @if (sexo == 'masculino') {
+      <p class="text-gray-500 font-medium">Hola, Dr. {{ nombreApellido }}</p>
+    } @else {
+      <p class="text-gray-500 font-medium">Hola, Dra. {{ nombreApellido }}</p>
+    } 
+  }
+  @if (isUsuario) {
+    @if (sexo == 'masculino') {
+      <p class="text-gray-500 font-medium">Hola, Sr. {{ nombreApellido }}</p>
+    } @else {
+      <p class="text-gray-500 font-medium">Hola, Sra. {{ nombreApellido }}</p>
+    }
+  }
   <p class="font-extrabold text-2xl">{{ titulo }}</p>
 </div>

@@ -2,6 +2,7 @@ import { NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { RedirectGuard } from './guards/redirect.guard';
+import { DoctorGuard } from './guards/doctor.guard';
 
 import { LoginComponent } from './login/login/login.component';
 import { RegistroComponent } from './login/registro/registro.component';
@@ -14,7 +15,9 @@ import { PerfilHistorialComponent } from './vistas/perfil-historial/perfil-histo
 import { EditProfileComponent } from './vistas/edit-profile/edit-profile.component';
 import { DoctoresComponent } from './vistas/doctores/doctores.component';
 import { InfoGeneralCambioPasswordComponent } from './vistas/info-general-cambio-password/info-general-cambio-password.component';
+import { IndexDoctoresComponent } from './vistas/index-doctores/index-doctores.component';
 import { HorarioComponent } from './vistas/horario/horario.component';
+
 
 
 export const routes: Routes = [
@@ -30,7 +33,10 @@ export const routes: Routes = [
     { path: 'editarPerfil', component: EditProfileComponent, canActivate: [AuthGuard]  },
     { path: 'editarPassword', component: InfoGeneralCambioPasswordComponent, canActivate: [AuthGuard]  },
     { path: 'listaDoctores', component: DoctoresComponent },
+    { path: 'indexDoctores', component: IndexDoctoresComponent, canActivate: [DoctorGuard] },
+
     { path: 'horario', component: HorarioComponent, canActivate: [AuthGuard]  },
+
 
 ];
 

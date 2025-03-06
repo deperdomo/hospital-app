@@ -61,7 +61,7 @@ export class LoginComponent {
           console.log('Doctor autenticado:', doctor);
           // Guardar el doctor en el localStorage y redirigir a /index:
           localStorage.setItem('doctor', JSON.stringify(doctor));
-          this.router.navigate(['/index']);
+          this.router.navigate(['/indexDoctores']);
         } else {
           this.errorMessage = 'Credenciales incorrectas. Por favor, inténtalo de nuevo.';
           console.log('Contraseña incorrecta');

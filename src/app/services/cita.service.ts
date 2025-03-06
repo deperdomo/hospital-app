@@ -28,6 +28,10 @@ export class CitaService {
     return this.http.get<Cita[]>(`${this.apiUrl}/citasNoVistas/${id}`);
   }
 
+  getCitasDoctorEstado(id: number, estado: string): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/doctorEstado/${id}/${estado}`);
+  }
+
   getCitasPendientesDoctor(id: number): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/doctorEstado/${id}/pendiente`);
   }
