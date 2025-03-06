@@ -7,6 +7,9 @@ import { Component, Input } from '@angular/core';
 })
 export class UserWelcomeNavComponent {
   nombreApellido: string = '';
+  isDoctor: boolean = false;
+  isUsuario: boolean = false;
+  sexo: string = '';
   @Input() titulo!: string;
 
 
@@ -15,9 +18,13 @@ export class UserWelcomeNavComponent {
     const doctorGuardado = localStorage.getItem('doctor');
     if (usuarioGuardado) {
       const usuario = JSON.parse(usuarioGuardado);
+      this.isUsuario = true;
+      this.sexo = usuario.sexo;
       this.nombreApellido = usuario.nombre + ' ' + usuario.apellidos;
     } else if (doctorGuardado) {
       const doctor = JSON.parse(doctorGuardado);
+      this.isDoctor = true;
+      this.sexo = doctor.sexo;
       this.nombreApellido = doctor.nombre + ' ' + doctor.apellidos;
     }
   }

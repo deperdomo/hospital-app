@@ -15,6 +15,7 @@ export class SecundaryNavComponent {
   doctoresDeBusqueda: Doctor[] = [];
 
   @Input() titulo!: string;
+  @Input() findNav!: boolean;
   @Output() doctoresEncontrados = new EventEmitter<Doctor[]>();
 
   recibirDoctoresDeBusqueda(doctores: Doctor[]) {
@@ -22,6 +23,4 @@ export class SecundaryNavComponent {
     this.doctoresDeBusqueda = doctores;
     this.doctoresEncontrados.emit(doctores);
   }
-
-  
 }

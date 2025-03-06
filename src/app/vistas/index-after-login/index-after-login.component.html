@@ -1,7 +1,7 @@
 <div class="body-after-login">
 
     <app-left-nav [panel]="true" />
-    <app-secundary-nav (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" [titulo]="'Bienvenido'"/>
+    <app-secundary-nav [findNav]="true" (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" [titulo]="'Bienvenido'"/>
     <div class="contenido px-[3%] mb-6">
         <div class="container-top">
             <div class="container-left-section mr-7 mb-[30px]">
@@ -38,6 +38,6 @@
         <cont-doctores-recomendados />
     </div>
         
-    <app-footer></app-footer>
+    <app-footer/>
 
 </div>
