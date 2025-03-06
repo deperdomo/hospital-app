@@ -16,6 +16,7 @@ import { EditProfileComponent } from './vistas/edit-profile/edit-profile.compone
 import { DoctoresComponent } from './vistas/doctores/doctores.component';
 import { InfoGeneralCambioPasswordComponent } from './vistas/info-general-cambio-password/info-general-cambio-password.component';
 import { IndexDoctoresComponent } from './vistas/index-doctores/index-doctores.component';
+import { HorarioComponent } from './vistas/horario/horario.component';
 
 
 
@@ -28,12 +29,14 @@ export const routes: Routes = [
     { path: 'misCitasUsuario', component: IndexVistasCitasComponent, canActivate: [AuthGuard] },
     { path: 'perfil', component: ProfileComponent, canActivate: [AuthGuard] },
     { path: 'perfilHistorial', component: PerfilHistorialComponent, canActivate: [AuthGuard]  },
-    // { path: 'perfilHistorial/:id', component: PerfilHistorialComponent, canActivate: [AuthGuard]  }
     // { path: 'verReceta', component: RecetaComponent, canActivate: [AuthGuard]  },
     { path: 'editarPerfil', component: EditProfileComponent, canActivate: [AuthGuard]  },
     { path: 'editarPassword', component: InfoGeneralCambioPasswordComponent, canActivate: [AuthGuard]  },
     { path: 'listaDoctores', component: DoctoresComponent },
     { path: 'indexDoctores', component: IndexDoctoresComponent, canActivate: [DoctorGuard] },
+
+    { path: 'horario', component: HorarioComponent, canActivate: [AuthGuard]  },
+
 
 ];
 

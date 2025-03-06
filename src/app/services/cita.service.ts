@@ -73,6 +73,9 @@ export class CitaService {
   marcarComoVotada(id: number): Observable<Cita> {
     return this.http.put<Cita>(`${this.apiUrl}/marcarComoVotada/${id}`, {});
   }
-  
+
+    getCitasDoctor(idDoctor:string): Observable<Cita[]>{
+    return this.http.get<Cita[]>(`${this.apiUrl}/citasDoctor/${idDoctor}`);
+  }
 
 }
