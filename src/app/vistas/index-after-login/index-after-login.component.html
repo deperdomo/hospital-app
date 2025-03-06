@@ -1,11 +1,7 @@
 <div class="body-after-login">
 
     <app-left-nav [panel]="true" />
-    <app-secundary-nav [titulo]="'Bienvenido'"/>
-            <div class="w-[30%]  absolute top-[25px] left-[52%] translate-x-[-45%]">
-            <app-find-nav (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" />
-        </div>
-
+    <app-secundary-nav (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" [titulo]="'Bienvenido'"/>
     <div class="contenido px-[3%] mb-6">
         <div class="container-top">
             <div class="container-left-section mr-7 mb-[30px]">
