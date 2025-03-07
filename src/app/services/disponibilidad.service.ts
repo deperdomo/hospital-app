@@ -16,4 +16,12 @@ export class DisponibilidadService {
     return this.http.get<Disponibilidad>(`${this.apiUrl}/doctor/${id}`);
   }
 
+  altaDisponibilidad(disponibilidad: Disponibilidad): Observable<Disponibilidad> {
+    return this.http.post<Disponibilidad>(`${this.apiUrl}/alta`, disponibilidad);
+  }
+
+  modificarDisponibilidad(disponibilidad: Disponibilidad): Observable<Disponibilidad> {
+    return this.http.put<Disponibilidad>(`${this.apiUrl}/editar`, disponibilidad);
+  }
+
 }

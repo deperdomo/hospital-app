@@ -1,0 +1,81 @@
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50">
+    <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[700px] p-4">
+        <div class="relative bg-white rounded-lg shadow-xl">
+            <button (click)="enviarEstado()" type="button" class="absolute right-4 top-4 text-gray-400 hover:text-gray-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold mb-6 text-[#3B9AB8]">Disponibilidad del Doctor</h2>
+
+                <form (ngSubmit)="onSubmit()" class="space-y-6">
+                    <input type="hidden" name="doctor" [value]="doctor">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Hora de inicio -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Hora de inicio</label>
+                            <input 
+      type="time" 
+      name="hora_inicio" 
+      required
+      [(ngModel)]="disponibilidadAntigua.horaInicio"
+      class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-[#3B9AB8] focus:border-[#3B9AB8] border-gray-300"
+      (input)="validateMinutes($event)">
+                        </div>
+
+                        <!-- Hora de fin -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Hora de fin</label>
+                            <input 
+      type="time" 
+      name="hora_fin" 
+      required
+      [(ngModel)]="disponibilidadAntigua.horaFin"
+      class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-[#3B9AB8] focus:border-[#3B9AB8] border-gray-300"
+      (input)="validateMinutes($event)">
+                        </div>
+                    </div>
+
+                    <!-- Estado -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Estado</label>
+                        <select 
+                            name="estado" 
+                            required
+                            [(ngModel)]="disponibilidadAntigua.estado"
+                            class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-[#3B9AB8] focus:border-[#3B9AB8] border-gray-300">
+                            <option value="" disabled [selected]="!isDisponibilidadAntigua">Seleccione un estado</option>
+                            <option 
+                                *ngFor="let estado of ['disponible', 'no disponible', 'vacaciones']" 
+                                [value]="estado"
+                                [selected]="estado === disponibilidadAntigua.estado">
+                                {{ estado | titlecase }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Comentarios -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Comentarios</label>
+                        <textarea 
+                            name="comentarios" 
+                            rows="3"
+                            [(ngModel)]="disponibilidadAntigua.comentarios"
+                            class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-[#3B9AB8] focus:border-[#3B9AB8] border-gray-300"
+                            placeholder="Agregue comentarios adicionales..."></textarea>
+                    </div>
+
+                    <!-- Botón de enviar -->
+                    <button type="submit"
+                        class="w-full bg-[#3B9AB8] text-white py-2 px-4 rounded-md hover:bg-[#2E7A94] transition-colors duration-200">
+                        {{ isDisponibilidadAntigua ? 'Actualizar' : 'Crear' }} Disponibilidad
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
