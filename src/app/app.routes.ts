@@ -17,6 +17,7 @@ import { DoctoresComponent } from './vistas/doctores/doctores.component';
 import { InfoGeneralCambioPasswordComponent } from './vistas/info-general-cambio-password/info-general-cambio-password.component';
 import { IndexDoctoresComponent } from './vistas/index-doctores/index-doctores.component';
 import { HorarioComponent } from './vistas/horario/horario.component';
+import { ListaEspecializacionesComponent } from './vistas/lista-especializaciones/lista-especializaciones.component';
 
 
 
@@ -36,6 +37,7 @@ export const routes: Routes = [
     { path: 'indexDoctores', component: IndexDoctoresComponent, canActivate: [DoctorGuard] },
 
     { path: 'horario', component: HorarioComponent, canActivate: [AuthGuard]  },
+    { path: 'especialidades', component: ListaEspecializacionesComponent },
 
 
 ];
