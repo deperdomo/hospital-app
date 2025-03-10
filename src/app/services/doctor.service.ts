@@ -48,4 +48,13 @@ export class DoctorService {
     return this.http.put<Doctor>(`${this.apiUrl}/votar/${idDoctor}/${valoracion}`, null);
   }
 
+  //editar
+  editarDoctor(doctor: Doctor): Observable<Doctor> {
+      return this.http.put<Doctor>(`${this.apiUrl}/editar`, doctor);
+    }
+//cambio de password
+    editarPassword(id: string, password:string): Observable<Doctor> {
+        
+        return this.http.put<Doctor>(`${this.apiUrl}/password/${id}`,password);
+      }
 }

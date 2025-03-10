@@ -1,4 +1,5 @@
 <div class="flex items-center p-4 my-6 border rounded-lg text-gray-500 bg-white">
+    @if (usuarios) {
         <img [src]="'img/usuarios/' + usuario.fotoPerfil" class="w-16 h-16 rounded-full mr-3" alt="Foto de perfil de Pepe dux">
         <div class="text-sm">
             <div
@@ -8,4 +9,17 @@
             <p>{{ usuario.rol }}</p>
             <p>{{ usuario.localidad }}, {{ usuario.provincia }}</p>
         </div>
+    }
+    @else  {
+        <img [src]="'img/doctores/' + doctor.fotoPerfil" class="w-16 h-16 rounded-full mr-3" alt="Foto de perfil de Pepe dux">
+        <div class="text-sm">
+            <div
+                class="font-medium leading-none text-gray-900 hover:text-indigo-600 transition duration-500 ease-in-out">
+                {{ doctor.nombre }} {{ doctor.apellidos }}
+            </div>
+            <p>{{ doctor.especialidad.nombre }}</p>
+            <p>{{ doctor.localidad }}, {{ doctor.provincia }}</p>
+        </div>
+    }
+    
 </div>

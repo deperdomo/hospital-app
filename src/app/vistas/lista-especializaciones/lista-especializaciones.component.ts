@@ -115,16 +115,4 @@ export class ListaEspecializacionesComponent {
 
 
 }
-// especialidad: Especialidad;InfoDoctorComponent
-// constructor(private especialidadService: EspecialidadService) {
-//     this.especialidad = [];
-//   }
-//   ngOnInit() {
-//     this.especialidadService.getEspecialidades().subscribe(
-//       (especialidad: Especialidad[]) => {
-//         this.especialidad = doctores;
-//       },
-//       error => {
-//         console.error('Error al recuperar los todos los doctores', error);
-//       });
-//   }
+
