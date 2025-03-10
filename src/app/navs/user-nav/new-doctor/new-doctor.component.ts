@@ -66,9 +66,8 @@ export class NewDoctorComponent {
     
     this.doctorService.altaDoctor(this.doctor).subscribe(
       (doctor: Doctor) => {
-        this.doctor = doctor;
         console.log('Doctor creado correctamente', doctor);
-        this.router.navigate(['/index']);
+        this.enviarEstado();
       },
       error => {
         this.errorMessage = error.error;
@@ -79,7 +78,6 @@ export class NewDoctorComponent {
 
   enviarEstado() {
     this.cambiarEstado.emit(false);
-    document.body.classList.remove('overflow-hidden');
   }
 
 }
