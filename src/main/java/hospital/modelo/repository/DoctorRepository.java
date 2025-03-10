@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import hospital.entidades.Doctor;
+import hospital.entidades.Especialidad;
 
 public interface DoctorRepository extends JpaRepository<Doctor, Integer>{
 	
@@ -21,7 +22,9 @@ public interface DoctorRepository extends JpaRepository<Doctor, Integer>{
 	                                                              @Param("localidad") String localidad,
 	                                                              @Param("especialidad") String especialidad);
 	Doctor findByUsername(String username);
-	
+	//buscar doctores por la especialidad
+	//@Query("select d from Doctor d where d.especialidad.id=?1")
+	//List<Doctor> findByDoctorEspecialidad(int idEvento);
 	
 }
 

@@ -82,5 +82,13 @@ public class DoctorServiceImpl implements DoctorService {
 		return drepo.findByUsername(username);
 	}
 
+	//@Override
+	//public List<Doctor> buscarDoctorPorEspecialidad(int idEspecialidad) {
+		
+		//return drepo.findByDoctorEspecialidad(idEspecialidad);
+	//}
+
+	
+
 
 }
