@@ -16,29 +16,51 @@
 
   <div class="flex flex-col justify-between flex-1 mt-6 py-5">
     <nav>
-      @if (panel) {
-      <a class="flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-md bg-[#3B9AB8] text-[#FFFFFF]"
-        href="/index">
-        <svg class="svg-selct" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-          <path class="svg-selct" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
-            stroke-width="1.5"
-            d="M6.625 2.75a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75M6.625 13.5a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75" />
-        </svg>
-        <span class="mx-4 font-medium">Panel de control</span>
-      </a>
+      @if (isDoctor){
+        @if (panel) {
+          <a class="flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-md bg-[#3B9AB8] text-[#FFFFFF]"
+            href="/indexDoctores">
+            <svg class="svg-selct" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path class="svg-selct" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M6.625 2.75a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75M6.625 13.5a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75" />
+            </svg>
+            <span class="mx-4 font-medium">Panel de control</span>
+          </a>
+          }@else {
+          <a class="flex items-center px-4 py-2 mt-5 text-[#7E7E7E] transition-colors duration-300 transform rounded-md hover:bg-[#3B9AB8] hover:text-[#FFFFFF]"
+            href="/indexDoctores">
+            <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path class="svg" fill="none" stroke="#7E7E7E" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M6.625 2.75a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75M6.625 13.5a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75" />
+            </svg>
+            <span class="mx-4 font-medium">Panel de control</span>
+          </a>
+          }
       }@else {
-      <a class="flex items-center px-4 py-2 mt-5 text-[#7E7E7E] transition-colors duration-300 transform rounded-md hover:bg-[#3B9AB8] hover:text-[#FFFFFF]"
-        href="/index">
-        <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-          <path class="svg" fill="none" stroke="#7E7E7E" stroke-linecap="round" stroke-linejoin="round"
-            stroke-width="1.5"
-            d="M6.625 2.75a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75M6.625 13.5a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75" />
-        </svg>
-        <span class="mx-4 font-medium">Panel de control</span>
-      </a>
+        @if (panel) {
+          <a class="flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-md bg-[#3B9AB8] text-[#FFFFFF]"
+            href="/index">
+            <svg class="svg-selct" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path class="svg-selct" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M6.625 2.75a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75M6.625 13.5a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75" />
+            </svg>
+            <span class="mx-4 font-medium">Panel de control</span>
+          </a>
+          }@else {
+          <a class="flex items-center px-4 py-2 mt-5 text-[#7E7E7E] transition-colors duration-300 transform rounded-md hover:bg-[#3B9AB8] hover:text-[#FFFFFF]"
+            href="/index">
+            <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path class="svg" fill="none" stroke="#7E7E7E" stroke-linecap="round" stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M6.625 2.75a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75M6.625 13.5a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75m10.75 0a3.875 3.875 0 1 0 0 7.75a3.875 3.875 0 0 0 0-7.75" />
+            </svg>
+            <span class="mx-4 font-medium">Panel de control</span>
+          </a>
+          }
       }
-
-
       @if (isDoctorOrAdmin) {
       @if (horario) {
       <a class="flex items-center px-4 py-2 mt-5 text-[#7E7E7E] transition-colors duration-300 transform rounded-md bg-[#3B9AB8] text-[#FFFFFF]"

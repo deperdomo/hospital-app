@@ -10,9 +10,17 @@
         <div>
             <p class="font-semibold text-gray-800">{{cita.fecha | date: 'HH:mm':'UTC'}}</p>
             @if (isNotDoctor){
-                <p class="text-sm text-gray-600">Dr. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }}</p>
+                @if (cita.doctor.sexo === 'masculino') {
+                    <p class="text-sm text-gray-600">Dr. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }}</p>
+                }@else {
+                    <p class="text-sm text-gray-600">Dra. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }}</p>
+                }
             }@else {
-                <p class="text-sm text-gray-600">Dr. {{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</p>
+                @if (cita.usuario.sexo === 'masculino') {
+                    <p class="text-sm text-gray-600">Sr. {{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</p>
+                }@else {
+                    <p class="text-sm text-gray-600">Sra. {{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</p>
+                }
             }
         </div>
         <button >
@@ -47,9 +55,17 @@
                     </svg>
                 </div>
                 @if (isNotDoctor){
-                    <p class="text-sm text-gray-600">Dr. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }}</p>
+                    @if (cita.doctor.sexo === 'masculino') {
+                        <p class="text-sm text-gray-600">Dr. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }}</p>
+                    }@else {
+                        <p class="text-sm text-gray-600">Dra. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }}</p>
+                    }
                 }@else {
-                    <p class="text-sm text-gray-600">Dr. {{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</p>
+                    @if (cita.usuario.sexo === 'masculino') {
+                        <p class="text-sm text-gray-600">Sr. {{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</p>
+                    }@else {
+                        <p class="text-sm text-gray-600">Sra. {{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</p>
+                    }
                 }
             </div>
         </div>
