@@ -21,6 +21,7 @@ export class LeftNavComponent {
   isDoctorOrAdmin: boolean = false;
   selected: boolean = false;
   isOpen: boolean = false;
+  isDoctor: boolean = false;
 
   @Input() panel!: boolean;
   @Input() perfil!: boolean;
@@ -34,9 +35,15 @@ export class LeftNavComponent {
 
   ngOnInit () {
     const usuarioGuardado = localStorage.getItem('usuario');
+    const doctorGuardado = localStorage.getItem('doctor');
     if (usuarioGuardado) {
       const usuario = JSON.parse(usuarioGuardado);
       this.usuario = usuario;
+      this.isDoctor = false;
+    } else if (doctorGuardado) {
+      const doctor = JSON.parse(doctorGuardado);
+      this.doctor = doctor;
+      this.isDoctor= true;
     }
 
     if (this.usuario.rol !== 'paciente' || this.doctor.precioConsulta){

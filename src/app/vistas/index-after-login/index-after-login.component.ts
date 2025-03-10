@@ -39,11 +39,12 @@ export class IndexAfterLoginComponent implements OnInit{
     const usuarioGuardado = localStorage.getItem('usuario');
     if (usuarioGuardado) {
       this.usuario = JSON.parse(usuarioGuardado);
+      this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
+        (citas: Cita[]) => {
+          //console.log('Citas del usuario:', citas);
+      });
     }
-    this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
-      (citas: Cita[]) => {
-        //console.log('Citas del usuario:', citas);
-    });
+
 
   }
 
