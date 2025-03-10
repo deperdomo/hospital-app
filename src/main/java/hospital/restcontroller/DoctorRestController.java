@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import hospital.entidades.Doctor;
+import hospital.entidades.Usuario;
 import hospital.modelo.service.DoctorService;
 
 
@@ -120,7 +121,39 @@ public class DoctorRestController {
 			}
 	 	}
 	 	
+	 	//update perfil
+	 	@PutMapping("/editar")
+	 	public ResponseEntity<?> editarDoctor( @RequestBody Doctor doctor) {
+	 		if (doctor!=null) {
+				if (dserv.modificar(doctor) !=null) {
+					return new ResponseEntity<>(doctor, HttpStatus.OK);
+				}
+				return new ResponseEntity<>("Ha ocurrido un error al editar", HttpStatus.NOT_FOUND);
+			}
+	 		return  new ResponseEntity<>("Doctor a editar no encontrado", HttpStatus.NOT_FOUND);
+	 	}
 	 	
+	 	//update password
+	 	
+	 	@PutMapping("/password/{id}")
+		public ResponseEntity<?> cambiarContraseñausuario(@RequestBody String password, @PathVariable int id ) {
+			Doctor doctor= dserv.buscarPorId(id);
+			if (doctor!=null) {
+				//usuario.getPassword();
+				doctor.setPassword(password);
+				System.out.println("comprobando cambio de contraseña"+ doctor.getPassword());
+				if (dserv.modificar(doctor)!=null) {
+					System.out.println("comprobando cambio de contraseña"+ doctor);
+
+					return new ResponseEntity<>(doctor, HttpStatus.OK);
+				}else {
+					return new ResponseEntity<>("No se edito password del doctor", HttpStatus.NOT_FOUND);
+				}
+				
+				
+			}
+			return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
+		}
 	 
 	 	
 }
