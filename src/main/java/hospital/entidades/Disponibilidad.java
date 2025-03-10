@@ -1,6 +1,8 @@
 package hospital.entidades;
 
 import java.io.Serializable;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,14 +32,12 @@ public class Disponibilidad implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@Temporal(TemporalType.TIME)
 	@DateTimeFormat(pattern = "HH:mm:ss")
-	@Column(name="hora_inicio")
-	private Date horaInicio;
-	@Temporal(TemporalType.TIME)
+	@Column(name = "hora_inicio")
+	private LocalTime horaInicio;
 	@DateTimeFormat(pattern = "HH:mm:ss")
-	@Column(name="hora_fin")
-	private Date horaFin;
+	@Column(name = "hora_fin")
+	private LocalTime horaFin;
 	private String estado;  
 	private String comentarios;
 	
