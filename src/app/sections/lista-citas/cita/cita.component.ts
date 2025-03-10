@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Cita } from '../../../models/cita';
 import { CitaService } from '../../../services/cita.service';
 import { DoctorService } from '../../../services/doctor.service';
+import { Usuario } from '../../../models/usuario';
 
 @Component({
   selector: 'app-cita',
@@ -17,15 +18,34 @@ export class CitaComponent {
   citavotada: boolean = false;
   isModalDetalleCitaActivo: boolean = false;
   isNotDoctor: boolean = false;
+  usuario: Usuario;
 
   @Input() cita!: Cita;
 
 
-  constructor(private router: Router, private citaService: CitaService, private doctorService: DoctorService) { }
+  constructor(private router: Router, private citaService: CitaService, private doctorService: DoctorService) { 
+    this.usuario = {} as Usuario;
+  }
 
   get isCitasPage() {
     return this.router.url === '/misCitasUsuario';
   }
+
+  ngOnInit() {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    const doctorGuardado = localStorage.getItem('doctor');
+    if (usuarioGuardado) {
+      this.usuario = JSON.parse(usuarioGuardado);
+      this.isNotDoctor = true;
+      console.log("isNotDoctor: ", this.isNotDoctor);
+    }else if (doctorGuardado) {
+      this.isNotDoctor = false;
+      console.log("isNotDoctor: ", this.isNotDoctor);
+    }else {
+      console.log('No hay usuario ni doctor logueado');
+    }
+  }
+
   //idioma
   getFirstLetterOfDay(date: string): string {
     const dayName = new Date(date).toLocaleDateString('es-ES', { weekday: 'long' });
