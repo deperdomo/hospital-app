@@ -26,6 +26,8 @@ export class ListaCitasComponent implements OnInit {
   currentDate: Date = new Date();
   cita: Cita;
 
+  selectedMonth: number = new Date().getMonth();
+
   constructor(private router: Router, private citaService: CitaService) {
     this.mostrartodas = this.router.url.includes('/misCitasUsuario');
     this.usuario = {} as Usuario;
@@ -41,16 +43,29 @@ export class ListaCitasComponent implements OnInit {
       this.usuario = JSON.parse(usuarioGuardado);
       this.cargarCitasActivasUsuario();
       this.actualizarEstadoCitasUsuario();
-      console.log("USUAEIO:", usuarioGuardado);
     }else if (doctorGuardado) {
       this.doctor = JSON.parse(doctorGuardado);
       this.cargarCitasActivasDoctor()
       this.actualizarEstadoCitasDoctor();
-      console.log("DOCTOR:", doctorGuardado);
     }else {
-      console.log('No hay usuario ni doctor logueado');
+      console.error('No hay usuario ni doctor logueado');
     }
 
+  }
+
+  onMonthSelected(month: number) {
+    this.selectedMonth = month;
+    this.cargarCitas();
+    console.log(this.selectedMonth);
+  }
+
+  cargarCitas() {
+    if (this.usuario) {
+      this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe((citas: Cita[]) => {
+        this.citas = citas.filter(cita => new Date(cita.fecha).getMonth() === this.selectedMonth);
+        console.log("Citas filtradas:", this.citas);
+      });
+    }
   }
 
   actualizarEstadoCitasUsuario() {
@@ -119,21 +134,16 @@ export class ListaCitasComponent implements OnInit {
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
 
-    console.log("FECHA HOY:", fechaActual);
-  
-    console.log('se mete en ACTIVAS de lista-citas paciente');
-
       this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
         (citas: Cita[]) => {
           this.citas = citas.filter(cita => {
             const fechaCita = new Date(cita.fecha);
             fechaCita.setMinutes(fechaCita.getMinutes() + 30);
             const fechaFinCita = fechaCita.toISOString();
-            return fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth();
+            return fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth;
           })
           .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
   
-          console.log('ACTIVAS:', this.citas);
         },
         error => {
           console.error('Error fetching active appointments:', error);
@@ -149,9 +159,6 @@ export class ListaCitasComponent implements OnInit {
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
 
-    console.log("FECHA HOY:", fechaActual);
-  
-    console.log('se mete en ACTIVAS de lista-citas doctor');
     this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
       (citas: Cita[]) => {
         this.citas = citas.filter(cita => {
@@ -162,7 +169,6 @@ export class ListaCitasComponent implements OnInit {
         })
         .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
 
-        console.log('ACTIVAS:', this.citas);
       },
       error => {
         console.error('Error fetching active appointments:', error);
@@ -172,25 +178,21 @@ export class ListaCitasComponent implements OnInit {
   }
 
   cargarCitasCanceladasUsuario() {
-    console.log('se mete en CANCELADAS de lista-citas paciente');
+
     this.citaService.getCitasCanceladasUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
-        console.log('CANCELADAS:', citas);
         this.citas = citas.filter((cita) => cita.estado === 'cancelada')
         .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
-        console.log('CANCELADAS:', this.citas);
       }
     )
   }
 
   cargarCitasCanceladasDoctor() {
-    console.log('se mete en CANCELADAS de lista-citas doctor');
+
     this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
       (citas: Cita[]) => {
-        console.log('CANCELADAS:', citas);
         this.citas = citas.filter((cita) => cita.estado === 'cancelada')
         .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
-        console.log('CANCELADAS:', this.citas);
       }
     )
   }
@@ -200,7 +202,6 @@ export class ListaCitasComponent implements OnInit {
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
 
-    console.log('se mete en PASADAS de lista-citas paciente');
     this.citaService.getCitasTerminadoUsuario(String(this.usuario.id)).subscribe(
       (citas: Cita[]) => {
         this.citas = citas.filter(cita => {
@@ -208,7 +209,6 @@ export class ListaCitasComponent implements OnInit {
           return fechaCita < fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth() && cita.estado === 'terminada';
         })
         .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
-        console.log('PASADAS:', this.citas);
       }
     )
   }
@@ -218,7 +218,7 @@ export class ListaCitasComponent implements OnInit {
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
 
-    console.log('se mete en PASADAS de lista-citas doctor');
+
     this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
       (citas: Cita[]) => {
         this.citas = citas.filter(cita => {
@@ -226,32 +226,9 @@ export class ListaCitasComponent implements OnInit {
           return fechaCita < fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth() && cita.estado === 'terminada';
         })
         .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
-        console.log('PASADAS:', this.citas);
       }
     )
   }
-
-
-  // cargarPorMes() {
-  //   this.mesSeleccionadoService.selectedMonth$.subscribe((month: number) => {
-  //     this.selectedMonth = month;
-  //     this.cargarCitas();
-  //   }
-  //   );
-  //   this.cargarCitas();
-  // }
-
-  // cargarCitas() {
-  //   this.citaService.getCitasUsuario(String(this.usuario.id)).subscribe(
-  //     (citas: Cita[]) => {
-  //       console.log("mes seleccionado", this.selectedMonth);
-
-  //       this.citas = citas.filter(cita => new Date(cita.fecha).getMonth() === this.selectedMonth);
-  //       console.log('Comparación:', new Date(this.cita.fecha).getMonth());
-  //     }
-  //   );
-  // }
-
 
   get citasMostradas(): Cita[] {
     if (this.mostrarCanceladas) {
@@ -281,7 +258,5 @@ export class ListaCitasComponent implements OnInit {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  // mesSeleccionado(mes: number) {
-  //   this.currentDate = new Date(this.currentDate.getFullYear(), mes, 1);
-  // }
+
 }

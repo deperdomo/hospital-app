@@ -37,12 +37,10 @@ export class CitaComponent {
     if (usuarioGuardado) {
       this.usuario = JSON.parse(usuarioGuardado);
       this.isNotDoctor = true;
-      console.log("isNotDoctor: ", this.isNotDoctor);
     }else if (doctorGuardado) {
       this.isNotDoctor = false;
-      console.log("isNotDoctor: ", this.isNotDoctor);
     }else {
-      console.log('No hay usuario ni doctor logueado');
+      console.error('No hay usuario ni doctor logueado');
     }
   }
 

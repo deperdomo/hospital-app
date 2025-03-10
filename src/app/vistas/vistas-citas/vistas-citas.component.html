@@ -4,7 +4,7 @@
   </div>
   <div class="p-4 flex flex-col">
     <app-secundary-nav [titulo]="'Citas'"></app-secundary-nav>
-    <app-nav-citas (citasCanceladas)="onCitasCanceladas()" (citasProximas)="onCitasProximas()" (citasPasadas)="onCitasPasadas()"></app-nav-citas>
+    <app-nav-citas (monthSelected)="onMonthSelected($event)" (citasCanceladas)="onCitasCanceladas()" (citasProximas)="onCitasProximas()" (citasPasadas)="onCitasPasadas()"></app-nav-citas>
     <app-lista-citas></app-lista-citas>
   </div>
 </div>

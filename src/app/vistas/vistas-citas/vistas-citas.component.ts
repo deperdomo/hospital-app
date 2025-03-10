@@ -15,6 +15,7 @@ import { Doctor } from '../../models/doctor';
 export class IndexVistasCitasComponent {
   usuario: Usuario | undefined;
   doctor: Doctor | undefined;
+  selectedMonth: number = new Date().getMonth();
 
   @ViewChild(ListaCitasComponent) listaCitasComponent!: ListaCitasComponent;
   @ViewChild(NavCitasComponent) navCitasComponent!: NavCitasComponent;
@@ -30,6 +31,14 @@ export class IndexVistasCitasComponent {
     if (doctorGuardado) {
       this.doctor = JSON.parse(doctorGuardado);
     }
+  }
+
+  onMonthSelected(month: number) {
+    this.selectedMonth = month;
+    this.listaCitasComponent.selectedMonth = month;
+    this.listaCitasComponent.cargarCitas();
+    console.log(this.selectedMonth);
+    console.log("son");
   }
 
   onCitasCanceladas() {

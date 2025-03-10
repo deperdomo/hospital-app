@@ -18,7 +18,6 @@ export class LeftNavComponent {
 
   usuario: Usuario;
   doctor: Doctor;
-  isDoctorOrAdmin: boolean = false;
   selected: boolean = false;
   isOpen: boolean = false;
   isDoctor: boolean = false;
@@ -45,22 +44,17 @@ export class LeftNavComponent {
       this.doctor = doctor;
       this.isDoctor= true;
     }
-
-    if (this.usuario.rol !== 'paciente' || this.doctor.precioConsulta){
-      this.isDoctorOrAdmin = true;
-    } 
   }
 
   logout() {
     ['usuario', 'doctor'].forEach(item => localStorage.removeItem(item));
-}
+  }
 
-
-  
   open() {
     document.body.classList.add('overflow-hidden');
     this.isOpen = true;
   }
+  
   cerrarModal(estado: boolean) {
     this.isOpen = estado;
   }
