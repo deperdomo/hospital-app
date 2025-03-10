@@ -26,7 +26,9 @@ export class IndexBeforeLoginComponent {
 
   constructor( private router: Router) {}
 
-
+  ngOnInit() {
+    ['usuario', 'doctor'].forEach(item => localStorage.removeItem(item));
+  }
 
   cambiarEstado() {
     this.isNerbyDoctorsAvailable = true; // Cambiamos la variable a true
