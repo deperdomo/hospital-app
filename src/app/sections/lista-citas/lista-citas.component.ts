@@ -61,8 +61,10 @@ export class ListaCitasComponent implements OnInit {
     this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
     (citas: Cita[]) => {
       citas.forEach(cita => {
-        const fechaCita = new Date(cita.fecha).toISOString();
-        if (fechaCita <= fechaActual) {
+        const fechaCita = new Date(cita.fecha);
+        fechaCita.setMinutes(fechaCita.getMinutes() + 30);
+        const fechaFinCita = fechaCita.toISOString();
+        if (fechaFinCita <= fechaActual && cita.estado === 'pendiente') {
           cita.estado = 'terminada';
           this.citaService.actualizarCita(cita).subscribe(
             response => {
@@ -89,8 +91,10 @@ export class ListaCitasComponent implements OnInit {
     this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
     (citas: Cita[]) => {
       citas.forEach(cita => {
-        const fechaCita = new Date(cita.fecha).toISOString();
-        if (fechaCita <= fechaActual) {
+        const fechaCita = new Date(cita.fecha);
+        fechaCita.setMinutes(fechaCita.getMinutes() + 30);
+        const fechaFinCita = fechaCita.toISOString();
+        if (fechaFinCita <= fechaActual && cita.estado === 'pendiente') {
           cita.estado = 'terminada';
           this.citaService.actualizarCita(cita).subscribe(
             response => {
@@ -122,8 +126,10 @@ export class ListaCitasComponent implements OnInit {
       this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
         (citas: Cita[]) => {
           this.citas = citas.filter(cita => {
-            const fechaCita = new Date(cita.fecha).toISOString();
-            return fechaCita > fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth();
+            const fechaCita = new Date(cita.fecha);
+            fechaCita.setMinutes(fechaCita.getMinutes() + 30);
+            const fechaFinCita = fechaCita.toISOString();
+            return fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth();
           })
           .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
   
@@ -149,8 +155,10 @@ export class ListaCitasComponent implements OnInit {
     this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
       (citas: Cita[]) => {
         this.citas = citas.filter(cita => {
-          const fechaCita = new Date(cita.fecha).toISOString();
-          return fechaCita > fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth() && cita.estado === 'pendiente';
+          const fechaCita = new Date(cita.fecha);
+            fechaCita.setMinutes(fechaCita.getMinutes() + 30);
+            const fechaFinCita = fechaCita.toISOString();
+          return fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth() && cita.estado === 'pendiente';
         })
         .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
 

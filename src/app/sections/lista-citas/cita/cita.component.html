@@ -8,7 +8,8 @@
     </div>
     <div *ngIf="!isCitasPage" class="flex flex-auto justify-between">
         <div>
-            <p class="font-semibold text-gray-800">{{cita.fecha | date: 'HH:mm':'UTC'}}</p>
+            <p class="font-semibold text-gray-800">{{cita.fecha | date: 'HH:mm':'UTC'}} -
+                {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}</p>
             @if (isNotDoctor){
                 @if (cita.doctor.sexo === 'masculino') {
                     <p class="text-sm text-gray-600">Dr. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }}</p>
@@ -42,7 +43,8 @@
                         <path d="M11 8v5h5" />
                     </g>
                 </svg>
-                <p class="font-semibold text-gray-800">{{cita.fecha | date: 'HH:mm':'UTC'}} </p>
+                <p class="font-semibold text-gray-800">{{cita.fecha | date: 'HH:mm':'UTC'}} -
+                    {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}</p>
             </div>
 
             <div class="flex items-center gap-2 w-[200px]">
