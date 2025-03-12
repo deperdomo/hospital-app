@@ -1,22 +1,22 @@
-<div>
-  <div class="flex justify-between items-center rounded-lg shadow-md p-4 w-full max-w-md" >
-    <div class="flex items-center">
-      <div>
-        <!-- Foto del doctor -->
-        <img class="w-16 h-16 rounded-full mr-3" src="img/doctores/{{ cita.doctor.fotoPerfil }}" alt="Foto de perfil de {{ cita.doctor.nombre }}">
-      </div>
-      <div class="ml-4">
-        <p class="font-semibold text-gray-800">{{ cita.doctor.nombre }} {{cita.doctor.apellidos}}</p>
-        <p class="text-sm text-[#3B9AB8]">{{ cita.fecha | date: 'HH:mm':'UTC' }} - {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}} </p>
-        <!-- <p class="text-sm text-[#3B9AB8]">{{ cita.fecha | date: 'dd-MM-yyyy':'UTC'}}</p> -->
-      </div>
+<div class="flex justify-between items-center rounded-lg shadow-md p-4 w-full max-w-md">
+  <div class="flex items-center">
+    <div>
+      <!-- Foto del doctor o usuario -->
+      <img class="w-16 h-16 rounded-full mr-3" 
+           [src]="usuarios ? 'img/doctores/' + cita.doctor.fotoPerfil : 'img/usuarios/' + cita.usuario.fotoPerfil">
     </div>
-    <div class="receta">
-      <a href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-          <path fill="#3B9AB8" d="m16.95 20.65l1.15-1.15l-1.6-1.6l-1.15 1.15q-.35.35-.35.8t.35.8t.8.35t.8-.35m2.55-2.55l1.15-1.15q.35-.35.35-.8t-.35-.8t-.8-.35t-.8.35L17.9 16.5zm-1.125 3.975Q17.45 23 16.15 23t-2.225-.925T13 19.85t.925-2.225l3.7-3.7Q18.55 13 19.85 13t2.225.925T23 16.15t-.925 2.225zM5 19V5zm6.125 2H3V3h6.2q.325-.9 1.088-1.45T12 1t1.713.55T14.8 3H21v8.125Q20.5 11 20 11t-1 .075V5H5v14h6.075Q11 19.5 11 20t.125 1M12 4.25q.325 0 .538-.213t.212-.537t-.213-.537T12 2.75t-.537.213t-.213.537t.213.538t.537.212M7 9V7h10v2zm0 4v-2h10v.85q-.2.125-.387.288t-.388.362l-.5.5zm0 4v-2h6.725L12.5 16.225q-.2.2-.362.388T11.85 17z"/>
-        </svg>
-      </a>
+    <div class="ml-4">
+      <p class="font-semibold text-gray-800">{{ usuarios ? cita.doctor.nombre + ' ' + cita.doctor.apellidos : cita.usuario.nombre + ' ' + cita.usuario.apellidos }}</p>
+      <p class="text-sm text-[#3B9AB8]">
+        {{ cita.fecha | date: 'HH:mm':'UTC' }} - {{ sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC' }}
+      </p>
     </div>
+  </div>
+  <div class="receta">
+    <a href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="#3B9AB8" d="m16.95 20.65l1.15-1.15l-1.6-1.6l-1.15 1.15q-.35.35-.35.8t.35.8t.8.35t.8-.35m2.55-2.55l1.15-1.15q.35-.35.35-.8t-.35-.8t-.8-.35t-.8.35L17.9 16.5zm-1.125 3.975Q17.45 23 16.15 23t-2.225-.925T13 19.85t.925-2.225l3.7-3.7Q18.55 13 19.85 13t2.225.925T23 16.15t-.925 2.225zM5 19V5zm6.125 2H3V3h6.2q.325-.9 1.088-1.45T12 1t1.713.55T14.8 3H21v8.125Q20.5 11 20 11t-1 .075V5H5v14h6.075Q11 19.5 11 20t.125 1M12 4.25q.325 0 .538-.213t.212-.537t-.213-.537T12 2.75t-.537.213t-.213.537t.213.538t.537.212M7 9V7h10v2zm0 4v-2h10v.85q-.2.125-.387.288t-.388.362l-.5.5zm0 4v-2h6.725L12.5 16.225q-.2.2-.362.388T11.85 17z"/>
+      </svg>
+    </a>
   </div>
 </div>

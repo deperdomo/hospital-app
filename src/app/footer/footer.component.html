@@ -4,22 +4,35 @@
             <div class="pb-6">
                 <h2 class="text-lg font-bold">Jakarta</h2>
             </div>
-            
+
             <div><a href="/especialidades">Especialidad</a></div>
-            <div > <a *ngIf="usuario.id != undefined; else login" href="/misCitasUsuario">Citas</a> </div>
+            <div> <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else login"
+                    href="/misCitasUsuario">Citas</a> </div>
             <ng-template #login>
                 <a href="/login">Citas</a>
-              </ng-template>
+            </ng-template>
             <div>Resultados</div>
         </div>
         <div class="pb-5">
             <div class="pb-7 font-bold">Información</div>
-            <div>Sobre nosotros</div>
-            <div>Servicios</div>
-            <a *ngIf="usuario.id != undefined; else loguearse" href="/listaDoctores" >Doctores</a>
+            <div> <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else inicio" href="/perfilHistorial">Historial</a></div>
+            <ng-template #inicio>
+                <a href="/login">Historial</a>
+            </ng-template>
+            <div> <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else sesion" href="/perfil">Perfil</a>
+            </div>
+            <ng-template #sesion>
+                <a href="/login">Perfil</a>
+            </ng-template>
+
+            <a *ngIf="usuario.id != undefined; else verificarDoctor" href="/listaDoctores">Doctores</a>
+            <ng-template #verificarDoctor>
+                <a *ngIf="doctor?.id != undefined; else loguearse" href="/horario">Horario</a>
+            </ng-template>
             <ng-template #loguearse>
                 <a href="/login">Doctores</a>
-              </ng-template>
+            </ng-template>
+            
         </div>
         <div class="pb-5">
             <div class="pb-7 font-bold">¡Contáctanos!</div>

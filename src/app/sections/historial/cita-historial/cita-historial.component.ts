@@ -22,7 +22,7 @@ export class CitaHistorialComponent {
   
   // @Input() doctor!: Doctor;
    @Input() cita!:Cita;
-   
+   @Input() usuarios!: boolean;
    
   // constructor(private citaService: CitaService,private doctorService:DoctorService){}
   

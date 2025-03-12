@@ -77,5 +77,14 @@ export class CitaService {
     getCitasDoctor(idDoctor:string): Observable<Cita[]>{
     return this.http.get<Cita[]>(`${this.apiUrl}/citasDoctor/${idDoctor}`);
   }
-
+//historial doctor
+getCitasActualesDoctor(idDoctor:string,fecha:string): Observable<Cita[]>{
+  return this.http.get<Cita[]>(`${this.apiUrl}/actualesDoctor/${idDoctor}/${fecha}`);
+}
+getCitasPasadasDoctor(idDoctor:string,fecha:string): Observable<Cita[]>{
+  return this.http.get<Cita[]>(`${this.apiUrl}/pasadasDoctor/${idDoctor}/${fecha}`);
+}
+getCitasProximasDoctor(idDoctor:string,fecha:string): Observable<Cita[]>{
+  return this.http.get<Cita[]>(`${this.apiUrl}/proximasDoctor/${idDoctor}/${fecha}`);
+}
 }

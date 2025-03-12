@@ -22,7 +22,7 @@
         <h5 class="text-xl font-semibold mt-6">Ayer</h5>
         <div class="grid grid-cols-4 gap-4 mt-4">
             @for (cita of citasPasadas; track $index) {
-            <app-cita-historial  [cita]="cita"></app-cita-historial>
+            <app-cita-historial  [cita]="cita" [usuarios]="usuarios"></app-cita-historial>
             }
             <!-- <app-cita-historial></app-cita-historial>
             <app-cita-historial></app-cita-historial>
@@ -33,7 +33,7 @@
         <h3 class="text-xl font-semibold mt-6">Hoy</h3>
         <div class="grid grid-cols-4 gap-4 mt-4">
             @for (cita of citasActuales; track $index) {
-                 <app-cita-historial [cita]="cita"></app-cita-historial>
+                 <app-cita-historial [cita]="cita" [usuarios]="usuarios"></app-cita-historial>
             }
         </div>
         }
@@ -46,7 +46,7 @@
               
               <!-- Muestra las citas de la fecha actual -->
               <div class="grid grid-cols-4 gap-4 mt-4 ">
-                <app-cita-historial *ngFor="let cita of citasAgrupadas[fecha]" [cita]="cita"></app-cita-historial>
+                <app-cita-historial *ngFor="let cita of citasAgrupadas[fecha]" [cita]="cita" [usuarios]="usuarios"></app-cita-historial>
               </div>
             </div>
           </div>
