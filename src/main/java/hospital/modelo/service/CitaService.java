@@ -24,6 +24,10 @@ public interface CitaService extends GenericCRUD<Cita, Integer>{
 	
 	//si falla aqui
 	List<Cita> buscarCitasUsuario(int iUsuario);
+	//historial doctor
+	List<Cita> buscarPasadasDoctor(Doctor doctor, Date fecha);
+	List<Cita> buscarActualesDoctor(Doctor doctor, Date fecha);
+	List<Cita> buscarProximasDoctor(Doctor doctor, Date fecha);
 	
 }
 

@@ -202,6 +202,37 @@ public class CitaRestController {
 		return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
 	}
 	
+	//historial Doctor
+	@GetMapping("/actualesDoctor/{id}/{fecha}") // http://localhost:8090/cita/actuales/3/2023-06-10
+    public ResponseEntity<?> buscarCitasActualesDoctor(@PathVariable int id, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fecha) {
+        Doctor doctor = dserv.buscarPorId(id);
+		if (fecha != null && doctor != null) {
+            List<Cita> citas = cserv.buscarActualesDoctor(doctor,fecha);
+            return new ResponseEntity<>(citas, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+    }
+	
+	@GetMapping("/pasadasDoctor/{id}/{fecha}") // http://localhost:8090/cita/pasadas/3/2023-06-10
+    public ResponseEntity<?> buscarCitasPasadasDoctor(@PathVariable int id, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fecha) {
+		Doctor doctor = dserv.buscarPorId(id);
+		if (fecha != null && doctor != null) {
+            List<Cita> citas = cserv.buscarPasadasDoctor(doctor, fecha);
+            return new ResponseEntity<>(citas, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+    }
+	
+	@GetMapping("/proximasDoctor/{id}/{fecha}") // http://localhost:8090/cita/proximas/3/2023-06-10
+    public ResponseEntity<?> buscarCitasProximasDoctor(@PathVariable int id, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fecha) {
+		Doctor doctor = dserv.buscarPorId(id);
+		if (fecha != null && doctor != null) {
+            List<Cita> citas = cserv.buscarProximasDoctor(doctor, fecha);
+            return new ResponseEntity<>(citas, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
+    }
+	
 		
 	
 }
