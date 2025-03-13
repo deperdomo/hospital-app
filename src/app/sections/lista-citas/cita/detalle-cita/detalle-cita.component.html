@@ -11,6 +11,7 @@
             </button>
         </div>
         <div>
+            @if (isUsuario) {
             <div class="p-6 max-h-[70vh]">
                 <p class="py-2"><span class="font-medium">Doctor:</span> {{ cita.doctor.nombre}} {{
                     cita.doctor.apellidos }}</p>
@@ -24,6 +25,26 @@
                 <p class="py-2"><span class="font-medium">Teléfono:</span> {{ cita.telefono }}</p>
                 <p class="py-2"><span class="font-medium">Estado:</span> {{ cita.estado }}</p>
             </div>
+            }@else {
+            <div class="p-6 max-h-[70vh]">
+                <p class="py-2"><span class="font-medium">Paciente:</span> {{ cita.usuario.nombre }} {{
+                    cita.usuario.apellidos }}</p>
+                <p class="py-2"><span class="font-medium">Fecha:</span> {{ cita.fecha | date:'dd-MM-yyyy' }} </p>
+                <p class="py-2"><span class="font-medium">Hora:</span> {{ cita.fecha | date: 'HH:mm':'UTC'}} -
+                    {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}</p>
+                <p class="py-2"><span class="font-medium">Motivo:</span> {{ cita.motivo }}</p>
+                <p class="py-2"><span class="font-medium">Edad:</span> {{ calcularEdad(cita.usuario.fechaNacimiento) }}
+                </p>
+                <p class="py-2"><span class="font-medium">Sexo:</span> {{ cita.usuario.sexo }}</p>
+                <p class="py-2"><span class="font-medium">Dirección:</span> {{ cita.doctor.direccion }}</p>
+                <p class="py-2"><span class="font-medium">Precio:</span> {{ cita.tarifa }} €</p>
+                <p class="py-2"><span class="font-medium">Sexo:</span> {{ cita.usuario.sexo }}</p>
+                <p class="py-2"><span class="font-medium">Email:</span> {{ cita.email }}</p>
+                <p class="py-2"><span class="font-medium">Teléfono:</span> {{ cita.telefono }}</p>
+                <p class="py-2"><span class="font-medium">Estado:</span> {{ cita.estado }}</p>
+            </div>
+            }
+
         </div>
     </div>
 </div>
