@@ -38,7 +38,6 @@ export class IndexVistasCitasComponent {
     this.listaCitasComponent.selectedMonth = month;
     this.listaCitasComponent.cargarCitas();
     console.log(this.selectedMonth);
-    console.log("son");
   }
 
   onCitasCanceladas() {
@@ -59,9 +58,9 @@ export class IndexVistasCitasComponent {
     this.listaCitasComponent.mostrarCanceladas = false;
     this.listaCitasComponent.mostrarPasadas = false;
     if (this.usuario) {
-      this.listaCitasComponent.cargarCitasActivasUsuario();
+      this.listaCitasComponent.cargarCitas();
     } else if (this.doctor) {
-      this.listaCitasComponent.cargarCitasActivasDoctor();
+      this.listaCitasComponent.cargarCitas();
 
     } else {
       console.error('No se ha encontrado ni usuario ni doctor');
