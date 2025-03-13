@@ -36,19 +36,15 @@
                         class="mt-1 p-2 text-xs rounded-md transition-colors bg-[#3B9AB8]/[60%]"
                         [class.cursor-pointer]="!isWeekend(day)" [class.cursor-not-allowed]="isWeekend(day)"
                         [ngClass]="{
-                            'bg-red-100': cita.estado === 'cancelada',
-                            'bg-gray-200 text-gray-400': cita.estado === 'terminada',
+                            'bg-red-400/[40%]': cita.estado === 'cancelada',
+                            'bg-gray-400/[50%]': cita.estado === 'terminada',
                             'bg-[#3B9AB8]/[60%]': cita.estado === 'pendiente'
                         }">
                         <div class="font-bold text-[13px]">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</div>
                         <div class="pl-1 font-medium text-gray-800">{{ cita.fecha | date: 'HH:mm':'UTC'}} -
                             {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}</div>
                         <div class="pl-1 truncate text-gray-600">{{ cita.motivo }}</div>
-                        <!-- [class.bg-green-100]>
-                        <div class="font-bold text-[13px]">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</div>
-                        <div class="pl-1 font-medium text-gray-800">{{ cita.fecha | date: 'HH:mm':'UTC'}} -
-                            {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}</div>
-                        <div class="pl-1 truncate text-gray-600">{{ cita.motivo }}</div> -->
+
                     </div>
                 </div>
             </div>

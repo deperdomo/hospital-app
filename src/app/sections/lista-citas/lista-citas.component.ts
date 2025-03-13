@@ -25,6 +25,9 @@ export class ListaCitasComponent implements OnInit {
   doctor: Doctor;
   currentDate: Date = new Date();
   cita: Cita;
+  fechaProximasCitas: boolean = true;
+  fechaPasadasCitas: boolean = false;
+  fechaCanceladasCitas: boolean = false;
 
   @Input() selectedMonth: number = new Date().getMonth();
 
@@ -79,7 +82,7 @@ export class ListaCitasComponent implements OnInit {
             const fechaCita = new Date(cita.fecha);
             fechaCita.setMinutes(fechaCita.getMinutes() + 30);
             const fechaFinCita = fechaCita.toISOString();
-            return fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth && cita.estado==='pendiente';
+            return this.mostrartodas ? fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth && cita.estado==='pendiente' : fechaFinCita > fechaActual && cita.estado==='pendiente';
           })
             .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
 
@@ -96,7 +99,7 @@ export class ListaCitasComponent implements OnInit {
             const fechaCita = new Date(cita.fecha);
             fechaCita.setMinutes(fechaCita.getMinutes() + 30);
             const fechaFinCita = fechaCita.toISOString();
-            return fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth && cita.estado==='pendiente';
+            return this.mostrartodas ? fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth && cita.estado==='pendiente' : fechaFinCita > fechaActual && cita.estado==='pendiente';
           })
             .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
 
@@ -212,16 +215,28 @@ export class ListaCitasComponent implements OnInit {
 
   get citasMostradas(): Cita[] {
     if (this.mostrarCanceladas) {
+      this.fechaProximasCitas = false;
+      this.fechaCanceladasCitas = true;
+      this.fechaPasadasCitas = false;
       return this.citas.filter((cita) => cita.estado === 'cancelada');
     } if (this.mostrarPasadas) {
+      this.fechaProximasCitas = false;
+      this.fechaPasadasCitas = true;
+      this.fechaCanceladasCitas = false;
       return this.citas.filter((cita) => cita.estado === 'terminada');
     } else {
       const filtrarCitas = this.citas.filter(cita => {
-        const fechaCita = new Date(cita.fecha);
-        return fechaCita.getMonth() === this.selectedMonth;
+       return cita.estado === 'pendiente';
+        
       });
-
-      return this.mostrartodas ? filtrarCitas : filtrarCitas.slice(0, 5);
+      if (this.mostrartodas) {
+        this.fechaProximasCitas = false; 
+        this.fechaPasadasCitas = false;
+        this.fechaCanceladasCitas = false;
+        return filtrarCitas;
+      } else {
+        return filtrarCitas.slice(0, 5);
+      }
     }
   }
 

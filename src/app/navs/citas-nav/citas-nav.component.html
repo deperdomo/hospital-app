@@ -24,9 +24,11 @@
 
   <div class="flex justify-between items-center">
     <div class="flex space-x-4">
-      <select (change)="onMonthSelected($event)" class="px-6 border rounded-md bg-white">
-        <option *ngFor="let month of months; let i = index" [value]="month.monthNumber">{{ month.monthName }}</option>
-      </select>
+      @if (selectedButton === 'proxima') {
+        <select (change)="onMonthSelected($event)" class="px-6 border rounded-md bg-white">
+          <option *ngFor="let month of months; let i = index" [value]="month.monthNumber">{{ month.monthName }}</option>
+        </select>
+      }
       @if (isUsuario) {
       <a href="/listaDoctores"
         class="flex items-center bg-[#3B9AB8] transition-colors hover:bg-[#096c8a] text-white px-7 py-3 rounded-md"><svg

@@ -12,6 +12,7 @@ import { Doctor } from '../../models/doctor';
   templateUrl: './vistas-citas.component.html',
   styleUrl: './vistas-citas.component.css'
 })
+
 export class IndexVistasCitasComponent {
   usuario: Usuario | undefined;
   doctor: Doctor | undefined;
