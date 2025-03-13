@@ -46,12 +46,21 @@ export class ListaCitasComponent implements OnInit {
       this.actualizarEstadoCitasUsuario();
     } else if (doctorGuardado) {
       this.doctor = JSON.parse(doctorGuardado);
-      this.cargarCitasActivasDoctor()
+      this.cargarCitas();
+      // this.cargarCitasActivasDoctor();
       this.actualizarEstadoCitasDoctor();
     } else {
       console.error('No hay usuario ni doctor logueado');
     }
 
+  }
+
+  // Método para obtener el nombre del mes
+  getMonthName(monthIndex: number): string {
+    const months = [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+    return months[monthIndex];
   }
 
   onMonthSelected(month: number) {
@@ -66,7 +75,14 @@ export class ListaCitasComponent implements OnInit {
         this.citas = citas.filter(cita => new Date(cita.fecha).getMonth() === this.selectedMonth);
         console.log("Citas filtradas:", this.citas);
       });
+    } 
+    if (this.doctor) {
+      this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe((citas: Cita[]) => {
+        this.citas = citas.filter(cita => new Date(cita.fecha).getMonth() === this.selectedMonth);
+        console.log("Citas filtradas:", this.citas);
+      });
     }
+
   }
 
   actualizarEstadoCitasUsuario() {
@@ -241,10 +257,7 @@ export class ListaCitasComponent implements OnInit {
         const fechaCita = new Date(cita.fecha);
         return fechaCita.getMonth() === this.selectedMonth;
       });
-      // const filtrarCitas = this.citas.filter(cita => {
-      //   const fechaCita = new Date(cita.fecha);
-      //   const month = this.currentDate.getMonth();
-      //   return fechaCita.getMonth() === month;
+
       return this.mostrartodas ? filtrarCitas : filtrarCitas.slice(0, 5);
     }
   }
