@@ -48,3 +48,5 @@ app-footer{
     border: solid 1.5px #e1e1e1;
     box-sizing: border-box;
 }
+
+@media (max-width: 1150px) { app-left-nav { display: none; } }
