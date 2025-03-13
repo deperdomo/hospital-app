@@ -26,7 +26,7 @@ export class ListaCitasComponent implements OnInit {
   currentDate: Date = new Date();
   cita: Cita;
 
-  @Input() selectedMonth: number = new Date().getMonth();  // Recibe el mes seleccionado
+  @Input() selectedMonth: number = new Date().getMonth();
 
   constructor(private router: Router, private citaService: CitaService) {
     this.mostrartodas = this.router.url.includes('/misCitasUsuario');
@@ -53,7 +53,7 @@ export class ListaCitasComponent implements OnInit {
 
   }
 
-  // Método para obtener el nombre del mes
+ 
   getMonthName(monthIndex: number): string {
     const months = [
       'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
@@ -79,7 +79,7 @@ export class ListaCitasComponent implements OnInit {
             const fechaCita = new Date(cita.fecha);
             fechaCita.setMinutes(fechaCita.getMinutes() + 30);
             const fechaFinCita = fechaCita.toISOString();
-            return fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth;
+            return fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth && cita.estado==='pendiente';
           })
             .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
 
@@ -96,7 +96,7 @@ export class ListaCitasComponent implements OnInit {
             const fechaCita = new Date(cita.fecha);
             fechaCita.setMinutes(fechaCita.getMinutes() + 30);
             const fechaFinCita = fechaCita.toISOString();
-            return fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth;
+            return fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth && cita.estado==='pendiente';
           })
             .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
 

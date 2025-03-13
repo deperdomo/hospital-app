@@ -4,16 +4,16 @@ import { Observable } from "rxjs";
 import { Cita } from "../models/cita";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class CitaService {
 
   private apiUrl = 'http://localhost:8090/cita';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   altaCita(cita: Cita): Observable<Cita> {
-      return this.http.post<Cita>(`${this.apiUrl}/alta`, cita);
+    return this.http.post<Cita>(`${this.apiUrl}/alta`, cita);
   }
 
   getCitasActivasUsuario(id: string): Observable<Cita[]> {
@@ -35,15 +35,15 @@ export class CitaService {
   getCitasPendientesDoctor(id: number): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/doctorEstado/${id}/pendiente`);
   }
-  //cancelar cita
-  cancelarCita(id: number): Observable<Cita[]>{
-    return this.http.put<Cita[]>(`${this.apiUrl}/cancelar/${id}`,{});
+
+  cancelarCita(id: number): Observable<Cita[]> {
+    return this.http.put<Cita[]>(`${this.apiUrl}/cancelar/${id}`, {});
   }
 
   marcarCitaComoVista(id: number): Observable<Cita> {
     return this.http.put<Cita>(`${this.apiUrl}/marcarComoVista/${id}`, {});
   }
-  //citas estado terminado
+
   getCitasTerminadoUsuario(id: string): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/misCitasUsuarioTerminado/${id}`);
   }
@@ -51,18 +51,20 @@ export class CitaService {
   getCitasUsuarioDoctorEstado(idUsuario: number, idDoctor: number, estado: string): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/usuarioDoctorEstado/${idUsuario}/${idDoctor}/${estado}`);
   }
-  getCitasActuales(idUsuario:string,fecha:string): Observable<Cita[]>{
+
+  getCitasActuales(idUsuario: string, fecha: string): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/actuales/${idUsuario}/${fecha}`);
   }
-  getCitasPasadas(idUsuario:string,fecha:string): Observable<Cita[]>{
+
+  getCitasPasadas(idUsuario: string, fecha: string): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/pasadas/${idUsuario}/${fecha}`);
   }
-  getCitasProximas(idUsuario:string,fecha:string): Observable<Cita[]>{
+
+  getCitasProximas(idUsuario: string, fecha: string): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/proximas/${idUsuario}/${fecha}`);
   }
 
-  //si falla aqui es elmetodo de buscartodas las citas de un usaurio
-  getCitasUsuario(idUsuario:string): Observable<Cita[]>{
+  getCitasUsuario(idUsuario: string): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/todasCitasUsuario/${idUsuario}`);
   }
 
@@ -74,17 +76,17 @@ export class CitaService {
     return this.http.put<Cita>(`${this.apiUrl}/marcarComoVotada/${id}`, {});
   }
 
-    getCitasDoctor(idDoctor:string): Observable<Cita[]>{
+  getCitasDoctor(idDoctor: string): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/citasDoctor/${idDoctor}`);
   }
-//historial doctor
-getCitasActualesDoctor(idDoctor:string,fecha:string): Observable<Cita[]>{
-  return this.http.get<Cita[]>(`${this.apiUrl}/actualesDoctor/${idDoctor}/${fecha}`);
-}
-getCitasPasadasDoctor(idDoctor:string,fecha:string): Observable<Cita[]>{
-  return this.http.get<Cita[]>(`${this.apiUrl}/pasadasDoctor/${idDoctor}/${fecha}`);
-}
-getCitasProximasDoctor(idDoctor:string,fecha:string): Observable<Cita[]>{
-  return this.http.get<Cita[]>(`${this.apiUrl}/proximasDoctor/${idDoctor}/${fecha}`);
-}
+
+  getCitasActualesDoctor(idDoctor: string, fecha: string): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/actualesDoctor/${idDoctor}/${fecha}`);
+  }
+  getCitasPasadasDoctor(idDoctor: string, fecha: string): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/pasadasDoctor/${idDoctor}/${fecha}`);
+  }
+  getCitasProximasDoctor(idDoctor: string, fecha: string): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/proximasDoctor/${idDoctor}/${fecha}`);
+  }
 }
