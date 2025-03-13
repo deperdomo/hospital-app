@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { CitaService } from '../../services/cita.service';
+import { MesesService } from '../../services/meses.service';
 
 
 
@@ -9,7 +10,7 @@ import { CitaService } from '../../services/cita.service';
   imports: [CommonModule],
   templateUrl: './citas-nav.component.html',
   styleUrl: './citas-nav.component.css',
-  providers: [CitaService]
+  providers: [CitaService, MesesService]
 })
 export class NavCitasComponent {
   currentDate: Date = new Date();
@@ -24,45 +25,12 @@ export class NavCitasComponent {
 
   @Output() monthSelected = new EventEmitter<number>();
 
-  constructor() {
+  constructor(private mesesService: MesesService) {
     this.generateMonths();
   }
 
   generateMonths() {
-    const monthList = [
-      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-    ];
-  
-    this.months = [];
-    const currentMonth = this.currentDate.getMonth();
-    console.log('Mes actual:', currentMonth); 
-    
-    // Genera los próximos 6 meses (a partir del mes actual)
-    for (let i = 0; i < 6; i++) {
-      const monthIndex = (currentMonth + i) % 12; // Para que vuelva a empezar desde Enero (0)
-      this.months.push({
-        monthName: monthList[monthIndex], // Nombre del mes
-        monthNumber: monthIndex // Número del mes (0 - 11)
-      });
-    }
-  
-    console.log('Meses generados:', this.months); // Para verificar que estamos generando correctamente los meses
-  }
-  
-  
-
-  onSelectButton(buttonType: string) {
-    this.selectedButton = buttonType;
-  }
-
-  listaCitasProximas() {
-    this.citasProximas.emit();
-  }
-  listaCitasPasadas() {
-    this.citasPasadas.emit();
-  }
-  listaCitasCanceladas() {
-    this.citasCanceladas.emit();
+    this.months = this.mesesService.getMonths();
   }
 
   onMonthSelected(event: any) {
@@ -78,9 +46,25 @@ export class NavCitasComponent {
     return `${month}/${year}`;
   }
 
-
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
+
+  onSelectButton(buttonType: string) {
+    this.selectedButton = buttonType;
+  }
+
+  listaCitasProximas() {
+    this.citasProximas.emit();
+  }
+
+  listaCitasPasadas() {
+    this.citasPasadas.emit();
+  }
+
+  listaCitasCanceladas() {
+    this.citasCanceladas.emit();
   }
 
 }
