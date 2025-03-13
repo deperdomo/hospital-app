@@ -26,11 +26,11 @@ export class NavCitasComponent {
   @Output() monthSelected = new EventEmitter<number>();
 
   constructor(private mesesService: MesesService) {
-    this.generateMonths();
+    this.generateNextSixMonths();
   }
 
-  generateMonths() {
-    this.months = this.mesesService.getMonths();
+  generateNextSixMonths() {
+    this.months = this.mesesService.getNextSixMonths();
   }
 
   onMonthSelected(event: any) {

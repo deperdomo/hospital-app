@@ -22,8 +22,16 @@ export class MesesService {
 
   constructor() { }
 
-  getMonths() {
-    return this.months;
+  getNextSixMonths() {
+    const currentMonth = new Date().getMonth();
+    const nextSixMonths = [];
+    
+    for (let i = 0; i < 6; i++) {
+      const monthIndex = (currentMonth + i) % 12; // Para manejar el desbordamiento de los meses (de diciembre a enero)
+      nextSixMonths.push(this.months[monthIndex]);
+    }
+
+    return nextSixMonths;
   }
 
   getMonthByIndex(index: number) {
