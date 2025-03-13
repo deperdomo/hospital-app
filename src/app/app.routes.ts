@@ -35,7 +35,6 @@ export const routes: Routes = [
     { path: 'editarPassword', component: InfoGeneralCambioPasswordComponent, canActivate: [AuthGuard]  },
     { path: 'listaDoctores', component: DoctoresComponent },
     { path: 'indexDoctores', component: IndexDoctoresComponent, canActivate: [DoctorGuard] },
-
     { path: 'horario', component: HorarioComponent, canActivate: [AuthGuard]  },
     { path: 'especialidades', component: ListaEspecializacionesComponent },
 

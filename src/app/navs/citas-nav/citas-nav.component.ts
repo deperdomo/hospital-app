@@ -2,8 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { CitaService } from '../../services/cita.service';
 import { MesesService } from '../../services/meses.service';
-
-
+import { Usuario } from '../../models/usuario';
+import { Doctor } from '../../models/doctor';
 
 @Component({
   selector: 'app-nav-citas',
@@ -13,20 +13,38 @@ import { MesesService } from '../../services/meses.service';
   providers: [CitaService, MesesService]
 })
 export class NavCitasComponent {
+  
+  usuario: Usuario;
+  doctor: Doctor;
   currentDate: Date = new Date();
   selectedButton: string = 'proxima';
-
+  isUsuario: boolean = false;
   months: { monthName: string, monthNumber: number }[] = [];
   selectedMonth: number = this.currentDate.getMonth();
 
   @Output() citasProximas = new EventEmitter<void>();
   @Output() citasCanceladas = new EventEmitter<void>();
   @Output() citasPasadas = new EventEmitter<void>();
-
   @Output() monthSelected = new EventEmitter<number>();
 
   constructor(private mesesService: MesesService) {
     this.generateNextSixMonths();
+    this.usuario = {} as Usuario;
+    this.doctor = {} as Doctor;
+  }
+
+  ngOnInit () {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    const doctorGuardado = localStorage.getItem('doctor');
+    if (usuarioGuardado) {
+      const usuario = JSON.parse(usuarioGuardado);
+      this.usuario = usuario;
+      this.isUsuario = true;
+    } else if (doctorGuardado) {
+      const doctor = JSON.parse(doctorGuardado);
+      this.doctor = doctor;
+      this.isUsuario= false;
+    }
   }
 
   generateNextSixMonths() {
@@ -35,13 +53,13 @@ export class NavCitasComponent {
 
   onMonthSelected(event: any) {
     this.selectedMonth = parseInt(event.target.value, 10);
-    this.monthSelected.emit(this.selectedMonth);  // Emitimos el mes seleccionado
+    this.monthSelected.emit(this.selectedMonth);  
     console.log("Mes seleccionado:", this.selectedMonth);
   }
 
   getCurrentMonthYear(): string {
     const date = new Date();
-    const month = date.getMonth() + 1; // Los meses en JavaScript son 0-indexados
+    const month = date.getMonth() + 1; 
     const year = date.getFullYear();
     return `${month}/${year}`;
   }

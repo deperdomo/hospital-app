@@ -22,7 +22,6 @@ export class CitaComponent {
 
   @Input() cita!: Cita;
 
-
   constructor(private router: Router, private citaService: CitaService, private doctorService: DoctorService) { 
     this.usuario = {} as Usuario;
   }
@@ -44,14 +43,14 @@ export class CitaComponent {
     }
   }
 
-  //idioma
   getFirstLetterOfDay(date: string): string {
     const dayName = new Date(date).toLocaleDateString('es-ES', { weekday: 'long' });
     return dayName.charAt(0).toUpperCase();
   }
+
   cancelarCita(id: number) {
     this.citaService.cancelarCita(id).subscribe();
-    window.location.reload(); // refrescando la página para que las citas canceladas desaparezcan
+    window.location.reload();
   }
 
   voto(idDoctor: number, valoracion: boolean) {
@@ -67,6 +66,13 @@ export class CitaComponent {
     );
   }
 
+  sumarMediaHora(fecha: string): Date {
+    const fechaObjeto = new Date(fecha);
+    const nuevaFecha = new Date(fechaObjeto);
+    nuevaFecha.setMinutes(nuevaFecha.getMinutes() + 30);
+    return nuevaFecha;
+  }
+
   // abrirModal(cita: Cita) {
   //     console.log(this.cita);
   //     console.log("abrir modal")
@@ -74,13 +80,6 @@ export class CitaComponent {
   //     this.isModalDetalleCitaActivo = true;
   //     this.cita = cita;
   // }
-
-  sumarMediaHora(fecha: string): Date {
-    const fechaObjeto = new Date(fecha);
-    const nuevaFecha = new Date(fechaObjeto);
-    nuevaFecha.setMinutes(nuevaFecha.getMinutes() + 30);
-    return nuevaFecha;
-  }
 
   // cerrarModal() {
   //   this.isModalDetalleCitaActivo = false;

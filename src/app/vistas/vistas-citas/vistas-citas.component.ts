@@ -12,6 +12,7 @@ import { Doctor } from '../../models/doctor';
   templateUrl: './vistas-citas.component.html',
   styleUrl: './vistas-citas.component.css'
 })
+
 export class IndexVistasCitasComponent {
   usuario: Usuario | undefined;
   doctor: Doctor | undefined;
@@ -36,7 +37,7 @@ export class IndexVistasCitasComponent {
   onMonthSelected(month: number) {
     this.selectedMonth = month;
     this.listaCitasComponent.selectedMonth = month;
-    this.listaCitasComponent.cargarCitas();
+    this.listaCitasComponent.cargarCitasActivas();
     console.log(this.selectedMonth);
   }
 
@@ -44,9 +45,9 @@ export class IndexVistasCitasComponent {
     this.listaCitasComponent.mostrarCanceladas = true;
     this.listaCitasComponent.mostrarPasadas = false;
     if (this.usuario) {
-      this.listaCitasComponent.cargarCitasCanceladasUsuario();
+      this.listaCitasComponent.cargarCitasCanceladas();
     } else if (this.doctor) {
-      this.listaCitasComponent.cargarCitasCanceladasDoctor();
+      this.listaCitasComponent.cargarCitasCanceladas();
 
     } else {
       console.error('No se ha encontrado ni usuario ni doctor');
@@ -58,9 +59,9 @@ export class IndexVistasCitasComponent {
     this.listaCitasComponent.mostrarCanceladas = false;
     this.listaCitasComponent.mostrarPasadas = false;
     if (this.usuario) {
-      this.listaCitasComponent.cargarCitas();
+      this.listaCitasComponent.cargarCitasActivas();
     } else if (this.doctor) {
-      this.listaCitasComponent.cargarCitas();
+      this.listaCitasComponent.cargarCitasActivas();
 
     } else {
       console.error('No se ha encontrado ni usuario ni doctor');
@@ -72,9 +73,9 @@ export class IndexVistasCitasComponent {
     this.listaCitasComponent.mostrarCanceladas = false;
     this.listaCitasComponent.mostrarPasadas = true;
     if (this.usuario) {
-      this.listaCitasComponent.cargarCitasPasadasUsuario();
+      this.listaCitasComponent.cargarCitasPasadas();
     } else if (this.doctor) {
-      this.listaCitasComponent.cargarCitasPasadasDoctor();
+      this.listaCitasComponent.cargarCitasPasadas();
 
     } else {
       console.error('No se ha encontrado ni usuario ni doctor');
