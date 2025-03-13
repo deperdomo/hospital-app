@@ -5,10 +5,11 @@ import { Cita } from '../../../models/cita';
 import { CitaService } from '../../../services/cita.service';
 import { DoctorService } from '../../../services/doctor.service';
 import { Usuario } from '../../../models/usuario';
+import { DetalleCitaComponent } from "./detalle-cita/detalle-cita.component";
 
 @Component({
   selector: 'app-cita',
-  imports: [CommonModule],
+  imports: [CommonModule, DetalleCitaComponent],
   templateUrl: './cita.component.html',
   styleUrl: './cita.component.css',
   providers: [CitaService, DoctorService]
@@ -73,16 +74,16 @@ export class CitaComponent {
     return nuevaFecha;
   }
 
-  // abrirModal(cita: Cita) {
-  //     console.log(this.cita);
-  //     console.log("abrir modal")
-  //     document.body.classList.add('overflow-hidden');
-  //     this.isModalDetalleCitaActivo = true;
-  //     this.cita = cita;
-  // }
+  abrirModal(cita: Cita) {
+    console.log("abrir modal", cita);  // Verifica que la cita esté bien.
+    this.cita = cita;  // Asigna la cita al componente antes de abrir el modal
+    document.body.classList.add('overflow-hidden');
+    this.isModalDetalleCitaActivo = true;  // Abre el modal
+  }
 
-  // cerrarModal() {
-  //   this.isModalDetalleCitaActivo = false;
-  //   document.body.classList.remove('overflow-hidden');
-  // }
+  cerrarModal() {
+    this.isModalDetalleCitaActivo = false;
+    document.body.classList.remove('overflow-hidden');
+  }
+
 }
