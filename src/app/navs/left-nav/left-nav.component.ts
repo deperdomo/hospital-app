@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 
 import { HttpClientModule } from '@angular/common/http';
 import { Usuario } from '../../models/usuario';
@@ -110,16 +110,5 @@ export class LeftNavComponent {
     this.isFormularioNewDoctorActivo = valor
     document.body.classList.remove('overflow-hidden');
   }
-
-  isMobileMenuOpen: boolean = false;
-
-toggleMobileMenu() {
-  this.isMobileMenuOpen = !this.isMobileMenuOpen;
-}
-
-// Asegúrate de cerrar el menú móvil cuando se haga clic en un enlace
-cerrarMenuMobile() {
-  this.isMobileMenuOpen = false;
-}
 
 }
