@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { CommonModule } from '@angular/common'; // Asegúrate de que esto esté importado
 import { LeftNavComponent } from "../../navs/left-nav/left-nav.component";
 import { SecundaryNavComponent } from "../../navs/secundary-nav/secundary-nav.component";
 import { NearbyDoctorsComponent } from "../../nearby-doctors/nearby-doctors/nearby-doctors.component";
@@ -19,17 +19,18 @@ import { FindNavComponent } from "../../navs/find-nav/find-nav.component";
 
 @Component({
   selector: 'app-index-after-login',
-  imports: [LeftNavComponent, SecundaryNavComponent, BanerComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent, DoctoresRecomendadosComponent],
+  imports: [LeftNavComponent, SecundaryNavComponent, BanerComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent, DoctoresRecomendadosComponent, CommonModule],
   templateUrl: './index-after-login.component.html',
   styleUrl: './index-after-login.component.css',
   providers: [CitaService]
 })
-export class IndexAfterLoginComponent implements OnInit{
+export class IndexAfterLoginComponent implements OnInit {
   isNerbyDoctorsAvailable = false;
   usuario: Usuario;
   doctoresDeBusqueda: Doctor[] = [];
   doctoresCercanos: Doctor[] = [];
-  
+  isLeftNavOpen: boolean = false;
+  isMobile: boolean = false;
 
   constructor(private router: Router, private citaService: CitaService) {
     this.usuario = {} as Usuario;
@@ -42,9 +43,9 @@ export class IndexAfterLoginComponent implements OnInit{
       this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
         (citas: Cita[]) => {
           //console.log('Citas del usuario:', citas);
-      });
+        });
     }
-
+    this.checkWindowSize();
 
   }
 
@@ -53,7 +54,7 @@ export class IndexAfterLoginComponent implements OnInit{
   }
 
   navegativeToMisCitas(usuarioId: number) {
-      this.router.navigate(['/misCitasUsuario', usuarioId]);
+    this.router.navigate(['/misCitasUsuario', usuarioId]);
   }
 
   recibirDoctoresDeBusqueda(doctores: Doctor[]) {
@@ -66,5 +67,22 @@ export class IndexAfterLoginComponent implements OnInit{
     this.doctoresCercanos = doctores;
     //console.log('Doctores recibidos de nearby:', doctores);
   }
+
+  // Método para alternar la visibilidad del Left-Nav
+  toggleLeftNav() {
+    this.isLeftNavOpen = !this.isLeftNavOpen; // Cambia el estado de apertura
+
+  }
+
+  @HostListener('window:resize', ['$event']) // Recalcula el tamaño cuando se redimensione la ventana
+  onResize(event: any) {
+    this.checkWindowSize();
+  }
+
+  checkWindowSize() {
+    // Verifica si el ancho de la ventana es menor o igual a 768px (para móviles)
+    this.isMobile = window.innerWidth <= 1225;
+  }
+
 
 }
