@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { CitaService } from '../../services/cita.service';
 import { MesesService } from '../../services/meses.service';
@@ -12,7 +12,7 @@ import { Doctor } from '../../models/doctor';
   styleUrl: './citas-nav.component.css',
   providers: [CitaService, MesesService]
 })
-export class NavCitasComponent {
+export class NavCitasComponent implements OnInit {
   
   usuario: Usuario;
   doctor: Doctor;
@@ -47,6 +47,7 @@ export class NavCitasComponent {
     }
   }
 
+
   generateNextSixMonths() {
     this.months = this.mesesService.getNextSixMonths();
   }
@@ -54,7 +55,7 @@ export class NavCitasComponent {
   onMonthSelected(event: any) {
     this.selectedMonth = parseInt(event.target.value, 10);
     this.monthSelected.emit(this.selectedMonth);  
-    console.log("Mes seleccionado:", this.selectedMonth);
+    
   }
 
   getCurrentMonthYear(): string {
@@ -71,6 +72,7 @@ export class NavCitasComponent {
 
   onSelectButton(buttonType: string) {
     this.selectedButton = buttonType;
+    
   }
 
   listaCitasProximas() {

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
 import { LeftNavComponent } from "../../navs/left-nav/left-nav.component";
 import { SecundaryNavComponent } from "../../navs/secundary-nav/secundary-nav.component";
 import { ListaCitasComponent } from "../../sections/lista-citas/lista-citas.component";
@@ -13,13 +13,15 @@ import { Doctor } from '../../models/doctor';
   styleUrl: './vistas-citas.component.css'
 })
 
-export class IndexVistasCitasComponent {
+export class IndexVistasCitasComponent implements OnInit {
   usuario: Usuario | undefined;
   doctor: Doctor | undefined;
   selectedMonth: number = new Date().getMonth();
 
   @ViewChild(ListaCitasComponent) listaCitasComponent!: ListaCitasComponent;
   @ViewChild(NavCitasComponent) navCitasComponent!: NavCitasComponent;
+
+  constructor(private cdr: ChangeDetectorRef){}
 
   ngOnInit() {
     const usuarioGuardado = localStorage.getItem('usuario');
@@ -37,17 +39,23 @@ export class IndexVistasCitasComponent {
   onMonthSelected(month: number) {
     this.selectedMonth = month;
     this.listaCitasComponent.selectedMonth = month;
-    this.listaCitasComponent.cargarCitasActivas();
-    console.log(this.selectedMonth);
+    if(this.usuario){
+      this.listaCitasComponent.cargarCitasActivasUsuario();
+    }else if (this.doctor){
+      this.listaCitasComponent.cargarCitasActivasDoctor();
+    } else {
+      console.error('No se ha encontrado ni usuario ni doctor');
+    }
+    
   }
 
   onCitasCanceladas() {
     this.listaCitasComponent.mostrarCanceladas = true;
     this.listaCitasComponent.mostrarPasadas = false;
     if (this.usuario) {
-      this.listaCitasComponent.cargarCitasCanceladas();
+      this.listaCitasComponent.cargarCitasCanceladasUsuario();
     } else if (this.doctor) {
-      this.listaCitasComponent.cargarCitasCanceladas();
+      this.listaCitasComponent.cargarCitasCanceladasDoctor();
 
     } else {
       console.error('No se ha encontrado ni usuario ni doctor');
@@ -59,9 +67,9 @@ export class IndexVistasCitasComponent {
     this.listaCitasComponent.mostrarCanceladas = false;
     this.listaCitasComponent.mostrarPasadas = false;
     if (this.usuario) {
-      this.listaCitasComponent.cargarCitasActivas();
+      this.listaCitasComponent.cargarCitasActivasUsuario();
     } else if (this.doctor) {
-      this.listaCitasComponent.cargarCitasActivas();
+      this.listaCitasComponent.cargarCitasActivasDoctor();
 
     } else {
       console.error('No se ha encontrado ni usuario ni doctor');
@@ -73,9 +81,9 @@ export class IndexVistasCitasComponent {
     this.listaCitasComponent.mostrarCanceladas = false;
     this.listaCitasComponent.mostrarPasadas = true;
     if (this.usuario) {
-      this.listaCitasComponent.cargarCitasPasadas();
+      this.listaCitasComponent.cargarCitasPasadasUsuario();
     } else if (this.doctor) {
-      this.listaCitasComponent.cargarCitasPasadas();
+      this.listaCitasComponent.cargarCitasPasadasDoctor();
 
     } else {
       console.error('No se ha encontrado ni usuario ni doctor');

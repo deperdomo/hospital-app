@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Cita } from '../../models/cita';
 import { Router } from '@angular/router';
@@ -31,7 +31,7 @@ export class ListaCitasComponent implements OnInit {
 
   @Input() selectedMonth: number = new Date().getMonth();
 
-  constructor(private router: Router, private citaService: CitaService) {
+  constructor(private router: Router, private citaService: CitaService, private cdr: ChangeDetectorRef) {
     this.mostrartodas = this.router.url.includes('/misCitasUsuario');
     this.usuario = {} as Usuario;
     this.cita = {} as Cita;
@@ -44,17 +44,18 @@ export class ListaCitasComponent implements OnInit {
 
     if (usuarioGuardado) {
       this.usuario = JSON.parse(usuarioGuardado);
-      this.cargarCitasActivas();
-      this.actualizarEstadoCitas();
+      this.cargarCitasActivasUsuario();
+      this.actualizarEstadoCitasUsuario();
     } else if (doctorGuardado) {
       this.doctor = JSON.parse(doctorGuardado);
-      this.cargarCitasActivas();
-      this.actualizarEstadoCitas();
+      this.cargarCitasActivasDoctor();
+      this.actualizarEstadoCitasDoctor();
     } else {
       console.error('No hay usuario ni doctor logueado');
     }
-
   }
+
+
 
  
   getMonthName(monthIndex: number): string {
@@ -66,16 +67,19 @@ export class ListaCitasComponent implements OnInit {
 
   onMonthSelected(month: number) {
     this.selectedMonth = month;
-    this.cargarCitasActivas();
-    console.log(this.selectedMonth);
+    if (this.usuario){
+      this.cargarCitasActivasUsuario();
+    } else {
+      this.cargarCitasActivasDoctor();
+    }
+    this.cdr.detectChanges();
   }
 
-  cargarCitasActivas() {
+  cargarCitasActivasUsuario() {
     const hoy = new Date();
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
 
-    if (this.usuario) {
       this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
         (citas: Cita[]) => {
           this.citas = citas.filter(cita => {
@@ -90,9 +94,16 @@ export class ListaCitasComponent implements OnInit {
         error => {
           console.error('Error fetching active appointments:', error);
         });
+        this.cdr.detectChanges();
 
-    }
-    if (this.doctor) {
+    
+  }
+
+  cargarCitasActivasDoctor() {
+    const hoy = new Date();
+    hoy.setHours(hoy.getHours() + 1);
+    const fechaActual = hoy.toISOString();
+
       this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
         (citas: Cita[]) => {
           this.citas = citas.filter(cita => {
@@ -107,14 +118,16 @@ export class ListaCitasComponent implements OnInit {
         error => {
           console.error('Error fetching active appointments:', error);
         });
-    }
+        this.cdr.detectChanges();
+
+
   }
 
-  actualizarEstadoCitas() {
+  actualizarEstadoCitasUsuario() {
     const hoy = new Date();
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
-    if (this.usuario) {
+
       this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
         (citas: Cita[]) => {
           citas.forEach(cita => {
@@ -138,8 +151,16 @@ export class ListaCitasComponent implements OnInit {
           console.error('Error fetching active appointments:', error);
         }
       );
-    }
-    if (this.doctor) {
+      this.cdr.detectChanges();
+
+    
+  }
+
+  actualizarEstadoCitasDoctor() {
+    const hoy = new Date();
+    hoy.setHours(hoy.getHours() + 1);
+    const fechaActual = hoy.toISOString();
+    
       this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
         (citas: Cita[]) => {
           citas.forEach(cita => {
@@ -163,29 +184,36 @@ export class ListaCitasComponent implements OnInit {
           console.error('Error fetching active appointments:', error);
         }
       );
-    }
+      this.cdr.detectChanges();
+
+  
   }
 
-  cargarCitasCanceladas() {
-    if (this.usuario) {
+  cargarCitasCanceladasUsuario() {
       this.citaService.getCitasCanceladasUsuario(String(this.usuario.id)).subscribe(
         (citas: Cita[]) => {
           this.citas = citas.filter((cita) => cita.estado === 'cancelada')
             .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
         }
       )
-    }
-    if (this.doctor) {
+      this.cdr.detectChanges();
+
+
+  }
+
+  cargarCitasCanceladasDoctor() {
       this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
         (citas: Cita[]) => {
           this.citas = citas.filter((cita) => cita.estado === 'cancelada')
             .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
         }
       )
-    }
+      this.cdr.detectChanges();
+
+
   }
 
-  cargarCitasPasadas() {
+  cargarCitasPasadasUsuario() {
     const hoy = new Date();
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
@@ -200,7 +228,15 @@ export class ListaCitasComponent implements OnInit {
         }
       )
     }
-    if (this.doctor) {
+    this.cdr.detectChanges();
+
+  }
+
+  cargarCitasPasadasDoctor() {
+    const hoy = new Date();
+    hoy.setHours(hoy.getHours() + 1);
+    const fechaActual = hoy.toISOString();
+
       this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
         (citas: Cita[]) => {
           this.citas = citas.filter(cita => {
@@ -210,7 +246,8 @@ export class ListaCitasComponent implements OnInit {
             .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
         }
       )
-    }
+      this.cdr.detectChanges();
+
   }
 
   get citasMostradas(): Cita[] {
