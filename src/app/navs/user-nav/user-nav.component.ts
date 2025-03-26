@@ -7,16 +7,13 @@ import { RouterModule } from '@angular/router';
 import { PanelNotificacionesComponent } from './panel-notificaciones/panel-notificaciones.component';
 import { Doctor } from '../../models/doctor';
 import { NewDoctorComponent } from "./new-doctor/new-doctor.component";
-import { FormDisponibilidadComponent } from "./form-disponibilidad/form-disponibilidad.component";
-import { DisponibilidadService } from '../../services/disponibilidad.service';
-
 
 
 @Component({
   selector: 'app-user-nav',
-  imports: [HttpClientModule, RouterModule, PanelNotificacionesComponent, NewDoctorComponent, FormDisponibilidadComponent],
+  imports: [HttpClientModule, RouterModule, PanelNotificacionesComponent],
   templateUrl: './user-nav.component.html',
-  providers: [CitaService, DisponibilidadService]
+  providers: [CitaService]
 })
 export class UserNavComponent {
   usuario: Usuario;
@@ -26,12 +23,11 @@ export class UserNavComponent {
   hayCitasNoVistas: boolean = false;
   isModalNotificacionesActive: boolean = false;
   isFormularioActivo: boolean = false;
-  isFormularioDisponibilidadActivo: boolean = false;
 
   nombre: string = "";
   urlFotoPerfil: string = "";
   
-  constructor(private citaService: CitaService, private disponibilidadService: DisponibilidadService) {
+  constructor(private citaService: CitaService) {
     this.usuario = {} as Usuario;
     this.doctor = {} as Doctor;
   }
@@ -50,27 +46,11 @@ export class UserNavComponent {
       this.doctor = doctor;
       this.isDoctor = true;
       this.urlFotoPerfil = 'img/doctores/' + this.doctor?.fotoPerfil || 'Foto de Perfil no definida';
-
-      this.disponibilidadService.getDisponibilidadDoctor(this.doctor.id).subscribe(
-      (disponibilidad) => {
-        if (disponibilidad) {
-          // Acción cuando hay disponibilidad
-        } else {
-          this.mostrarModalAlerta(
-            'Doctor ' + this.doctor.nombre + ' no tiene disponibilidad actualmente. Para que los usuarios puedan agendar citas, es necesario que defina su disponibilidad. Puede hacerlo seleccionando la opción de disponibilidad en el menú superior.'
-          );
-        }
-      },
-      (error) => {
-        console.error('Error al consultar disponibilidad:', error);
-        this.mostrarModalAlerta('Ocurrió un error al consultar la disponibilidad');
-      });
-      
     }
 
     this.nombre = this.usuario?.nombre || this.doctor?.nombre || 'Nombre no definido';
     
-
+    this.comprobarNotificaciones();
     
   }
 
@@ -83,17 +63,13 @@ export class UserNavComponent {
     this.isModalNotificacionesActive = valor;
   }
 
-  cerrarFormularios(valor: boolean) {
-    this.isFormularioActivo = valor;
-    this.isFormularioDisponibilidadActivo = valor;
-    document.body.classList.remove('overflow-hidden');
-  }
+  
 
   comprobarNotificaciones() {
     if (this.usuario.id) {
       this.citaService.getCitasNoVistasPorUsuario(this.usuario.id).subscribe(
         (citas: Cita[]) => {
-          //console.log('Citas no vistas: ', citas);
+          console.log('Citas no vistas: ', citas);
           if (citas.length > 0) {
             this.hayCitasNoVistas = true;
           }
@@ -111,27 +87,8 @@ export class UserNavComponent {
     }
   }
 
-  abrirFormulario() {
-    this.isFormularioActivo = true;
-    document.body.classList.add('overflow-hidden');
-  }
+  
 
-  abrirFormularioDisponibilidad() {
-    this.isFormularioDisponibilidadActivo = true;
-    document.body.classList.add('overflow-hidden');
-  }
-
-  // Método para mostrar la alerta
-  mostrarModalAlerta(mensaje: string) {
-    const modal = document.getElementById('alert-modal');
-    if (modal) {
-      modal.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
-      const mensajeElemento = document.getElementById('alert-message');
-      if (mensajeElemento) {
-        mensajeElemento.textContent = mensaje;
-      }
-    }
-  }
+  
 
 }

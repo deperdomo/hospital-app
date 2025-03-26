@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Cita } from '../../models/cita';
 import { Router } from '@angular/router';
@@ -25,10 +25,13 @@ export class ListaCitasComponent implements OnInit {
   doctor: Doctor;
   currentDate: Date = new Date();
   cita: Cita;
+  fechaProximasCitas: boolean = true;
+  fechaPasadasCitas: boolean = false;
+  fechaCanceladasCitas: boolean = false;
 
-  selectedMonth: number = new Date().getMonth();
+  @Input() selectedMonth: number = new Date().getMonth();
 
-  constructor(private router: Router, private citaService: CitaService) {
+  constructor(private router: Router, private citaService: CitaService, private cdr: ChangeDetectorRef) {
     this.mostrartodas = this.router.url.includes('/misCitasUsuario');
     this.usuario = {} as Usuario;
     this.cita = {} as Cita;
@@ -43,93 +46,36 @@ export class ListaCitasComponent implements OnInit {
       this.usuario = JSON.parse(usuarioGuardado);
       this.cargarCitasActivasUsuario();
       this.actualizarEstadoCitasUsuario();
-    }else if (doctorGuardado) {
+    } else if (doctorGuardado) {
       this.doctor = JSON.parse(doctorGuardado);
-      this.cargarCitasActivasDoctor()
+      this.cargarCitasActivasDoctor();
       this.actualizarEstadoCitasDoctor();
-    }else {
+    } else {
       console.error('No hay usuario ni doctor logueado');
     }
+  }
 
+
+
+ 
+  getMonthName(monthIndex: number): string {
+    const months = [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+    return months[monthIndex];
   }
 
   onMonthSelected(month: number) {
     this.selectedMonth = month;
-    this.cargarCitas();
-    console.log(this.selectedMonth);
-  }
-
-  cargarCitas() {
-    if (this.usuario) {
-      this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe((citas: Cita[]) => {
-        this.citas = citas.filter(cita => new Date(cita.fecha).getMonth() === this.selectedMonth);
-        console.log("Citas filtradas:", this.citas);
-      });
+    if (this.usuario){
+      this.cargarCitasActivasUsuario();
+    } else {
+      this.cargarCitasActivasDoctor();
     }
-  }
-
-  actualizarEstadoCitasUsuario() {
-    const hoy = new Date();
-    hoy.setHours(hoy.getHours() + 1);
-    const fechaActual = hoy.toISOString();
-
-    this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
-    (citas: Cita[]) => {
-      citas.forEach(cita => {
-        const fechaCita = new Date(cita.fecha);
-        fechaCita.setMinutes(fechaCita.getMinutes() + 30);
-        const fechaFinCita = fechaCita.toISOString();
-        if (fechaFinCita <= fechaActual && cita.estado === 'pendiente') {
-          cita.estado = 'terminada';
-          this.citaService.actualizarCita(cita).subscribe(
-            response => {
-              console.log(`Cita ${cita.id} actualizada a terminada`);
-            },
-            error => {
-              console.error(`Error actualizando cita ${cita.id}:`, error);
-            }
-          );
-        }
-      });
-    },
-    error => {
-      console.error('Error fetching active appointments:', error);
-    }
-  );
-  }
-
-  actualizarEstadoCitasDoctor() {
-    const hoy = new Date();
-    hoy.setHours(hoy.getHours() + 1);
-    const fechaActual = hoy.toISOString();
-
-    this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
-    (citas: Cita[]) => {
-      citas.forEach(cita => {
-        const fechaCita = new Date(cita.fecha);
-        fechaCita.setMinutes(fechaCita.getMinutes() + 30);
-        const fechaFinCita = fechaCita.toISOString();
-        if (fechaFinCita <= fechaActual && cita.estado === 'pendiente') {
-          cita.estado = 'terminada';
-          this.citaService.actualizarCita(cita).subscribe(
-            response => {
-              console.log(`Cita ${cita.id} actualizada a terminada`);
-            },
-            error => {
-              console.error(`Error actualizando cita ${cita.id}:`, error);
-            }
-          );
-        }
-      });
-    },
-    error => {
-      console.error('Error fetching active appointments:', error);
-    }
-  );
+    this.cdr.detectChanges();
   }
 
   cargarCitasActivasUsuario() {
-  
     const hoy = new Date();
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
@@ -140,77 +86,150 @@ export class ListaCitasComponent implements OnInit {
             const fechaCita = new Date(cita.fecha);
             fechaCita.setMinutes(fechaCita.getMinutes() + 30);
             const fechaFinCita = fechaCita.toISOString();
-            return fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth;
+            return this.mostrartodas ? fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth && cita.estado==='pendiente' : fechaFinCita > fechaActual && cita.estado==='pendiente';
           })
-          .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
-  
+            .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+
         },
         error => {
           console.error('Error fetching active appointments:', error);
-        }
-   
-      );
+        });
+        this.cdr.detectChanges();
 
+    
   }
 
   cargarCitasActivasDoctor() {
-  
     const hoy = new Date();
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
 
-    this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
-      (citas: Cita[]) => {
-        this.citas = citas.filter(cita => {
-          const fechaCita = new Date(cita.fecha);
+      this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
+        (citas: Cita[]) => {
+          this.citas = citas.filter(cita => {
+            const fechaCita = new Date(cita.fecha);
             fechaCita.setMinutes(fechaCita.getMinutes() + 30);
             const fechaFinCita = fechaCita.toISOString();
-          return fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth() && cita.estado === 'pendiente';
-        })
-        .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+            return this.mostrartodas ? fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth && cita.estado==='pendiente' : fechaFinCita > fechaActual && cita.estado==='pendiente';
+          })
+            .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
 
-      },
-      error => {
-        console.error('Error fetching active appointments:', error);
-      }
- 
-    );
+        },
+        error => {
+          console.error('Error fetching active appointments:', error);
+        });
+        this.cdr.detectChanges();
+
+
+  }
+
+  actualizarEstadoCitasUsuario() {
+    const hoy = new Date();
+    hoy.setHours(hoy.getHours() + 1);
+    const fechaActual = hoy.toISOString();
+
+      this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
+        (citas: Cita[]) => {
+          citas.forEach(cita => {
+            const fechaCita = new Date(cita.fecha);
+            fechaCita.setMinutes(fechaCita.getMinutes() + 30);
+            const fechaFinCita = fechaCita.toISOString();
+            if (fechaFinCita <= fechaActual && cita.estado === 'pendiente') {
+              cita.estado = 'terminada';
+              this.citaService.actualizarCita(cita).subscribe(
+                response => {
+                  console.log(`Cita ${cita.id} actualizada a terminada`);
+                },
+                error => {
+                  console.error(`Error actualizando cita ${cita.id}:`, error);
+                }
+              );
+            }
+          });
+        },
+        error => {
+          console.error('Error fetching active appointments:', error);
+        }
+      );
+      this.cdr.detectChanges();
+
+    
+  }
+
+  actualizarEstadoCitasDoctor() {
+    const hoy = new Date();
+    hoy.setHours(hoy.getHours() + 1);
+    const fechaActual = hoy.toISOString();
+    
+      this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
+        (citas: Cita[]) => {
+          citas.forEach(cita => {
+            const fechaCita = new Date(cita.fecha);
+            fechaCita.setMinutes(fechaCita.getMinutes() + 30);
+            const fechaFinCita = fechaCita.toISOString();
+            if (fechaFinCita <= fechaActual && cita.estado === 'pendiente') {
+              cita.estado = 'terminada';
+              this.citaService.actualizarCita(cita).subscribe(
+                response => {
+                  console.log(`Cita ${cita.id} actualizada a terminada`);
+                },
+                error => {
+                  console.error(`Error actualizando cita ${cita.id}:`, error);
+                }
+              );
+            }
+          });
+        },
+        error => {
+          console.error('Error fetching active appointments:', error);
+        }
+      );
+      this.cdr.detectChanges();
+
+  
   }
 
   cargarCitasCanceladasUsuario() {
+      this.citaService.getCitasCanceladasUsuario(String(this.usuario.id)).subscribe(
+        (citas: Cita[]) => {
+          this.citas = citas.filter((cita) => cita.estado === 'cancelada')
+            .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+        }
+      )
+      this.cdr.detectChanges();
 
-    this.citaService.getCitasCanceladasUsuario(String(this.usuario.id)).subscribe(
-      (citas: Cita[]) => {
-        this.citas = citas.filter((cita) => cita.estado === 'cancelada')
-        .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
-      }
-    )
+
   }
 
   cargarCitasCanceladasDoctor() {
+      this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
+        (citas: Cita[]) => {
+          this.citas = citas.filter((cita) => cita.estado === 'cancelada')
+            .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+        }
+      )
+      this.cdr.detectChanges();
 
-    this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
-      (citas: Cita[]) => {
-        this.citas = citas.filter((cita) => cita.estado === 'cancelada')
-        .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
-      }
-    )
+
   }
 
   cargarCitasPasadasUsuario() {
     const hoy = new Date();
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
+    if (this.usuario) {
+      this.citaService.getCitasTerminadoUsuario(String(this.usuario.id)).subscribe(
+        (citas: Cita[]) => {
+          this.citas = citas.filter(cita => {
+            const fechaCita = new Date(cita.fecha).toISOString();
+            return fechaCita < fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth() && cita.estado === 'terminada';
+          })
+            .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+        }
+      )
+    }
+    this.cdr.detectChanges();
 
-    this.citaService.getCitasTerminadoUsuario(String(this.usuario.id)).subscribe(
-      (citas: Cita[]) => {
-        this.citas = citas.filter(cita => {
-          const fechaCita = new Date(cita.fecha).toISOString();
-          return fechaCita < fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth() && cita.estado === 'terminada';
-        })
-        .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
-      }
-    )
   }
 
   cargarCitasPasadasDoctor() {
@@ -218,30 +237,43 @@ export class ListaCitasComponent implements OnInit {
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
 
+      this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
+        (citas: Cita[]) => {
+          this.citas = citas.filter(cita => {
+            const fechaCita = new Date(cita.fecha).toISOString();
+            return fechaCita < fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth() && cita.estado === 'terminada';
+          })
+            .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+        }
+      )
+      this.cdr.detectChanges();
 
-    this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
-      (citas: Cita[]) => {
-        this.citas = citas.filter(cita => {
-          const fechaCita = new Date(cita.fecha).toISOString();
-          return fechaCita < fechaActual && new Date(cita.fecha).getMonth() === this.currentDate.getMonth() && cita.estado === 'terminada';
-        })
-        .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
-      }
-    )
   }
 
   get citasMostradas(): Cita[] {
     if (this.mostrarCanceladas) {
+      this.fechaProximasCitas = false;
+      this.fechaCanceladasCitas = true;
+      this.fechaPasadasCitas = false;
       return this.citas.filter((cita) => cita.estado === 'cancelada');
     } if (this.mostrarPasadas) {
+      this.fechaProximasCitas = false;
+      this.fechaPasadasCitas = true;
+      this.fechaCanceladasCitas = false;
       return this.citas.filter((cita) => cita.estado === 'terminada');
     } else {
       const filtrarCitas = this.citas.filter(cita => {
-        const fechaCita = new Date(cita.fecha);
-        const month = this.currentDate.getMonth();
-        return fechaCita.getMonth() === month;
+       return cita.estado === 'pendiente';
+        
       });
-      return this.mostrartodas ? filtrarCitas : filtrarCitas.slice(0, 5);
+      if (this.mostrartodas) {
+        this.fechaProximasCitas = false; 
+        this.fechaPasadasCitas = false;
+        this.fechaCanceladasCitas = false;
+        return filtrarCitas;
+      } else {
+        return filtrarCitas.slice(0, 5);
+      }
     }
   }
 

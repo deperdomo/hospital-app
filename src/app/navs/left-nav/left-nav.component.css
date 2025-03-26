@@ -2,7 +2,7 @@
     min-width: 25px;
 }
 
-.svg {
+.svg{
     fill: #7E7E7E;
     min-width: 25px;
     height: auto;
@@ -15,7 +15,7 @@
     fill: #ffffff;
 }
 
-a:hover, #ayuda:hover {
+a:hover, #ayuda:hover #disponibilidad:hover #newDoctor:hover {
     .svg {
         transition: all 0.1s;
         fill: #ffffff;
@@ -30,3 +30,12 @@ a:hover, #ayuda:hover {
     min-width: 25px;
     height: auto;
 }
+
+  /* @media (max-width: 700px) {
+    .hs-collapse {
+      display: none !important;
+    }
+    .hs-collapse.open {
+      display: block !important;
+    }
+  } */

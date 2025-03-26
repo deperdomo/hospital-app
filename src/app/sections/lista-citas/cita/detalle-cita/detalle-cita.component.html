@@ -1,0 +1,50 @@
+<div class="fixed inset-0 bg-gray-900/30 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
+    <div class="bg-white w-[500px]  rounded-2xl shadow-2xl transform transition-all duration-300 animate-slide-up">
+        <div
+            class="p-5 flex justify-between items-center bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
+            <h2 class="text-xl font-semibold text-gray-800 tracking-tight">Detalles de la Cita</h2>
+            <button (click)="cerrarModal()" class="text-gray-500 hover:text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <div>
+            @if (isUsuario) {
+            <div class="p-6 max-h-[70vh]">
+                <p class="py-2"><span class="font-medium">Doctor:</span> {{ cita.doctor.nombre}} {{
+                    cita.doctor.apellidos }}</p>
+                <p class="py-2"><span class="font-medium">Fecha:</span> {{ cita.fecha | date:'dd-MM-yyyy' }} </p>
+                <p class="py-2"><span class="font-medium">Hora:</span> {{ cita.fecha | date: 'HH:mm':'UTC'}} -
+                    {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}</p>
+                <p class="py-2"><span class="font-medium">Motivo:</span> {{ cita.motivo }}</p>
+                <p class="py-2"><span class="font-medium">Email del doctor:</span> {{ cita.doctor.email }}</p>
+                <p class="py-2"><span class="font-medium">Dirección:</span> {{ cita.doctor.direccion }}</p>
+                <p class="py-2"><span class="font-medium">Precio:</span> {{ cita.tarifa }} €</p>
+                <p class="py-2"><span class="font-medium">Teléfono:</span> {{ cita.telefono }}</p>
+                <p class="py-2"><span class="font-medium">Estado:</span> {{ cita.estado }}</p>
+            </div>
+            }@else {
+            <div class="p-6 max-h-[70vh]">
+                <p class="py-2"><span class="font-medium">Paciente:</span> {{ cita.usuario.nombre }} {{
+                    cita.usuario.apellidos }}</p>
+                <p class="py-2"><span class="font-medium">Fecha:</span> {{ cita.fecha | date:'dd-MM-yyyy' }} </p>
+                <p class="py-2"><span class="font-medium">Hora:</span> {{ cita.fecha | date: 'HH:mm':'UTC'}} -
+                    {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}</p>
+                <p class="py-2"><span class="font-medium">Motivo:</span> {{ cita.motivo }}</p>
+                <p class="py-2"><span class="font-medium">Edad:</span> {{ calcularEdad(cita.usuario.fechaNacimiento) }}
+                </p>
+                <p class="py-2"><span class="font-medium">Sexo:</span> {{ cita.usuario.sexo }}</p>
+                <p class="py-2"><span class="font-medium">Dirección:</span> {{ cita.doctor.direccion }}</p>
+                <p class="py-2"><span class="font-medium">Precio:</span> {{ cita.tarifa }} €</p>
+                <p class="py-2"><span class="font-medium">Sexo:</span> {{ cita.usuario.sexo }}</p>
+                <p class="py-2"><span class="font-medium">Email:</span> {{ cita.email }}</p>
+                <p class="py-2"><span class="font-medium">Teléfono:</span> {{ cita.telefono }}</p>
+                <p class="py-2"><span class="font-medium">Estado:</span> {{ cita.estado }}</p>
+            </div>
+            }
+
+        </div>
+    </div>
+</div>

@@ -5,10 +5,11 @@ import { Cita } from '../../../models/cita';
 import { CitaService } from '../../../services/cita.service';
 import { DoctorService } from '../../../services/doctor.service';
 import { Usuario } from '../../../models/usuario';
+import { DetalleCitaComponent } from "./detalle-cita/detalle-cita.component";
 
 @Component({
   selector: 'app-cita',
-  imports: [CommonModule],
+  imports: [CommonModule, DetalleCitaComponent],
   templateUrl: './cita.component.html',
   styleUrl: './cita.component.css',
   providers: [CitaService, DoctorService]
@@ -21,7 +22,6 @@ export class CitaComponent {
   usuario: Usuario;
 
   @Input() cita!: Cita;
-
 
   constructor(private router: Router, private citaService: CitaService, private doctorService: DoctorService) { 
     this.usuario = {} as Usuario;
@@ -44,14 +44,14 @@ export class CitaComponent {
     }
   }
 
-  //idioma
   getFirstLetterOfDay(date: string): string {
     const dayName = new Date(date).toLocaleDateString('es-ES', { weekday: 'long' });
     return dayName.charAt(0).toUpperCase();
   }
+
   cancelarCita(id: number) {
     this.citaService.cancelarCita(id).subscribe();
-    window.location.reload(); // refrescando la página para que las citas canceladas desaparezcan
+    window.location.reload();
   }
 
   voto(idDoctor: number, valoracion: boolean) {
@@ -67,14 +67,6 @@ export class CitaComponent {
     );
   }
 
-  // abrirModal(cita: Cita) {
-  //     console.log(this.cita);
-  //     console.log("abrir modal")
-  //     document.body.classList.add('overflow-hidden');
-  //     this.isModalDetalleCitaActivo = true;
-  //     this.cita = cita;
-  // }
-
   sumarMediaHora(fecha: string): Date {
     const fechaObjeto = new Date(fecha);
     const nuevaFecha = new Date(fechaObjeto);
@@ -82,8 +74,16 @@ export class CitaComponent {
     return nuevaFecha;
   }
 
-  // cerrarModal() {
-  //   this.isModalDetalleCitaActivo = false;
-  //   document.body.classList.remove('overflow-hidden');
-  // }
+  abrirModal(cita: Cita) {
+    console.log("abrir modal", cita);  // Verifica que la cita esté bien.
+    this.cita = cita;  // Asigna la cita al componente antes de abrir el modal
+    document.body.classList.add('overflow-hidden');
+    this.isModalDetalleCitaActivo = true;  // Abre el modal
+  }
+
+  cerrarModal() {
+    this.isModalDetalleCitaActivo = false;
+    document.body.classList.remove('overflow-hidden');
+  }
+
 }

@@ -1,10 +1,54 @@
-<div class="grid grid-cols-[15%_1fr] h-screen">
+@if (!isMobile) {
+  <div class="grid grid-cols-[15%_1fr] h-screen">
     <div>
-        <app-left-nav></app-left-nav>
+        <app-left-nav [citas]="true"></app-left-nav>
       </div>
       <div class="flex flex-col mx-[5%]">
-        <app-secundary-nav></app-secundary-nav>
+        <app-secundary-nav [titulo]="'Mi historial'"></app-secundary-nav>
         <app-perfil-nav></app-perfil-nav>
         <app-historial></app-historial>
     </div>
 </div>
+}@else {
+  <div class="flex flex-col h-screen">
+    <!-- Left Nav (oculto en pantallas pequeñas) -->
+    <div id="leftNav" [ngClass]="{ 'translate-x-0': isLeftNavOpen, '-translate-x-full': !isLeftNavOpen }"
+      class="translate-x-0 transition-transform transform lg:block fixed inset-y-0 left-0 z-40 bg-white border-r border-gray-200">
+      <app-left-nav [citas]="true"></app-left-nav>
+    </div>
+  
+    <!-- Main Content -->
+    <div class="p-4 flex flex-col">
+      <!-- Secondary Navigation and other content go here -->
+      <div class="flex items-center">
+        <svg class="logo" width="21" height="37" viewBox="0 0 23 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Tu SVG aquí -->
+        </svg>
+        <h1 class="text-[#3B9AB8] font-semibold text-xl cursor-pointer">Jakarta</h1>
+      </div>
+      <app-secundary-nav [titulo]="'Mi historial'"></app-secundary-nav>
+  
+      <!-- Button para abrir el Left Nav en pantallas pequeñas -->
+      <div class="flex w-full items-center justify-end">
+        
+  
+        <!-- Botón Hamburguesa -->
+        <button *ngIf="!isLeftNavOpen && isMobile" (click)="isLeftNavOpen = true"
+          class="hs-collapse-toggle p-2 rounded-lg hover:bg-gray-100 focus:outline-none" aria-label="Toggle navigation">
+          <svg class="hs-collapse-open:hidden w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#3B9AB8">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg class="hs-collapse-open:block hidden w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#3B9AB8">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <app-perfil-nav></app-perfil-nav>
+      <app-historial></app-historial>
+
+    </div>
+  
+    <!-- Overlay (Aparece cuando el menú está abierto) -->
+    <div *ngIf="isLeftNavOpen" (click)="isLeftNavOpen = false" class="fixed inset-0 bg-black bg-opacity-50 z-30"></div>
+  </div>
+}
