@@ -34,6 +34,14 @@ public class UsuarioRestController {
 		return new ResponseEntity<>("Usuario no existe", HttpStatus.NOT_FOUND);
 	}
 	
+	
+	@GetMapping("/buscarUno/{id}")
+	public ResponseEntity<?> getUsuarioId(@PathVariable int id) {
+		if (userv.buscarPorId(id) != null) {
+			return new ResponseEntity<>(userv.buscarPorId(id), HttpStatus.OK);
+		}
+		return new ResponseEntity<>("Usuario no existe", HttpStatus.NOT_FOUND);
+	}
 	@PostMapping("/alta")
 	public ResponseEntity<?> alta(@RequestBody Usuario usuario) {
 	    try {

@@ -26,6 +26,8 @@ import hospital.entidades.Usuario;
 import hospital.modelo.service.CitaService;
 import hospital.modelo.service.DoctorService;
 import hospital.modelo.service.UsuarioService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -233,6 +235,14 @@ public class CitaRestController {
         return new ResponseEntity<>("Ha ocurrido un error", HttpStatus.NOT_FOUND);
     }
 	
-		
+	@GetMapping("/buscarCita/{id}")
+	public ResponseEntity<?> buscarUnaCita(@PathVariable int id) {
+		Cita cita =cserv.buscarPorId(id);
+		if (cita!=null) {
+			 return new ResponseEntity<>(cita, HttpStatus.OK);
+		}
+		return new ResponseEntity<>("No se encontro la cita", HttpStatus.NOT_FOUND);
+	}
+	
 	
 }

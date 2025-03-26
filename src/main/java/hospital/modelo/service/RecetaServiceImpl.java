@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import hospital.entidades.Cita;
 import hospital.entidades.Receta;
 import hospital.modelo.repository.RecetaRepository;
 
@@ -70,6 +71,12 @@ public class RecetaServiceImpl implements RecetaService{
 	@Override
 	public List<Receta> buscarTodos() {
 		return rrepo.findAll();
+	}
+
+	@Override
+	public List<Receta> buscarRecetaCita(int idCita) {
+		
+		return rrepo.findByCitaReserva(idCita);
 	}
 
 }

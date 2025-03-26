@@ -57,40 +57,6 @@ CREATE TABLE disponibilidad (
     FOREIGN KEY (id_doctor) REFERENCES doctores(id),
 	check(estado in ('disponible', 'no disponible', 'vacaciones'))
 );
-
-CREATE TABLE historial_medico (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL,
-    diagnostico TEXT NOT NULL,
-    tratamiento TEXT,
-    fecha DATE NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
-);
-
-CREATE TABLE recetas (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_paciente INT NOT NULL,
-    id_historial_medico INT NOT NULL,
-    nombre_medicamento VARCHAR(100) NOT NULL,
-    dosis VARCHAR(50) NOT NULL,
-    frecuencia VARCHAR(100) NOT NULL,
-    fecha_inicio DATE NOT NULL,
-    fecha_fin DATE NOT NULL,
-    instrucciones TEXT NOT NULL,
-    FOREIGN KEY (id_paciente) REFERENCES usuarios(id),
-    FOREIGN KEY (id_historial_medico) REFERENCES historial_medico(id)
-);
-
-CREATE TABLE facturas (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL,
-    monto DECIMAL(10,2) NOT NULL,
-    fecha DATE NOT NULL,
-    estado_pago VARCHAR(50) NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
-    check(estado_pago in ('pendiente', 'pagado'))
-);
-
 CREATE TABLE citas (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
@@ -108,6 +74,43 @@ CREATE TABLE citas (
     FOREIGN KEY (id_doctor) REFERENCES doctores(id),
     check(estado in ('pendiente', 'cancelada', 'terminada'))
 );
+
+CREATE TABLE historial_medico (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    diagnostico TEXT NOT NULL,
+    tratamiento TEXT,
+    fecha DATE NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+);
+
+CREATE TABLE recetas (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_paciente INT NOT NULL,
+    id_historial_medico INT NOT NULL,
+    id_cita INT NOT NULL,
+    nombre_medicamento VARCHAR(100) NOT NULL,
+    dosis VARCHAR(50) NOT NULL,
+    frecuencia VARCHAR(100) NOT NULL,
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE NOT NULL,
+    instrucciones TEXT NOT NULL,
+    FOREIGN KEY (id_paciente) REFERENCES usuarios(id),
+    FOREIGN KEY (id_historial_medico) REFERENCES historial_medico(id),
+    FOREIGN KEY (id_cita) REFERENCES citas(id)
+);
+
+CREATE TABLE facturas (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    monto DECIMAL(10,2) NOT NULL,
+    fecha DATE NOT NULL,
+    estado_pago VARCHAR(50) NOT NULL,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+    check(estado_pago in ('pendiente', 'pagado'))
+);
+
+
 
 -- Insertar usuarios
 INSERT INTO usuarios (id, nombre, apellidos, username, email, telefono, provincia, localidad, direccion, fecha_nacimiento, fecha_alta, foto_perfil, password, sexo, rol) 
@@ -206,48 +209,6 @@ VALUES
 (27, 27, '10:00:00', '14:00:00', 'disponible', 'Consultas en la mañana'),
 (28, 28, '15:00:00', '19:00:00', 'disponible', 'Horario vespertino para pacientes');
 
-
--- Insertar historial médico
-INSERT INTO historial_medico (id, id_usuario, diagnostico, tratamiento, fecha)
-VALUES
-(1, 3, 'Hipertensión arterial', 'Control de presión y dieta baja en sal', '2023-05-01'),
-(2, 3, 'Resfriado común', 'Reposo y medicamentos sintomáticos', '2023-06-10'),
-(3, 4, 'Asma bronquial', 'Uso de inhaladores y control de los síntomas', '2023-06-15'),
-(4, 5, 'Alergia a ciertos medicamentos', 'Revisión de las medicinas y recomendaciones médicas', '2023-07-05'),
-(5, 6, 'Dolor lumbar', 'Recomendación de fisioterapia y ejercicios', '2023-08-10'),
-(6, 8, 'Insomnio', 'Recomendación de relajantes y terapia cognitivo-conductual', '2023-08-20'),
-(7, 9, 'Esguince de tobillo', 'Uso de vendaje y descanso', '2023-09-01'),
-(8, 10, 'Migrañas', 'Tratamiento con analgésicos y cambios en hábitos', '2023-09-03'),
-(9, 11, 'Alergia estacional', 'Antihistamínicos y evitar alergenos', '2023-09-05'),
-(10, 12, 'Gastritis', 'Dieta blanda y medicamentos antiácidos', '2023-09-06');
-
--- Insertar recetas
-INSERT INTO recetas (id_paciente, id_historial_medico, nombre_medicamento, dosis, frecuencia, fecha_inicio, fecha_fin, instrucciones)
-VALUES
-(3, 1, 'Losartán', '50 mg', 'Una vez al día', '2023-05-01', '2023-11-01', 'Tomar por la mañana'),
-(3, 2, 'Paracetamol', '500 mg', 'Cada 8 horas', '2023-06-10', '2023-06-17', 'Tomar con agua'),
-(4, 3, 'Salbutamol', '100 mcg', 'Dos veces al día', '2023-06-16', '2023-12-16', 'Inhalar según sea necesario'),
-(5, 4, 'Dipirona', '500 mg', 'Cada 6 horas', '2023-07-06', '2023-07-10', 'Tomar con agua después de las comidas'),
-(6, 5, 'Ibuprofeno', '400 mg', 'Cada 8 horas', '2023-08-11', '2023-08-15', 'Tomar con alimento'),
-(8, 6, 'Lorazepam', '1 mg', 'Antes de dormir', '2023-08-21', '2023-12-21', 'Tomar una dosis por la noche'),
-(9, 8, 'Sumatriptán', '50 mg', 'Al primer síntoma de migraña', '2023-09-04', '2023-12-04', 'Tomar a la primera señal de dolor'),
-(10, 9, 'Loratadina', '10 mg', 'Una vez al día', '2023-09-06', '2023-11-06', 'Tomar con alimentos'),
-(11, 10, 'Omeprazol', '20 mg', 'Una vez al día', '2023-09-07', '2023-12-07', 'Tomar por la mañana con agua');
-
--- Insertar facturas
-INSERT INTO facturas (id, id_usuario, monto, fecha, estado_pago)
-VALUES
-(1, 3, 150.00, '2023-05-05', 'pagado'),
-(2, 3, 75.00, '2023-06-15', 'pendiente'),
-(3, 4, 200.00, '2023-06-20', 'pendiente'),
-(4, 5, 80.00, '2023-07-12', 'pagado'),
-(5, 6, 120.00, '2023-08-15', 'pendiente'),
-(6, 8, 180.00, '2023-08-22', 'pendiente'),
-(7, 9, 130.00, '2023-09-02', 'pagado'),
-(8, 10, 250.00, '2023-09-04', 'pendiente'),
-(9, 11, 100.00, '2023-09-05', 'pagado'),
-(10, 12, 150.00, '2023-09-06', 'pendiente');
-
 -- Insertar citas
 INSERT INTO citas (id, id_usuario, id_doctor, fecha, email, telefono, motivo, tarifa, forma_pago, estado, visto, votado)
 VALUES
@@ -268,5 +229,108 @@ VALUES
 (15, 3, 7, '2025-02-01 13:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1, false),
 (16, 3, 6, '2025-03-01 14:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1, false),
 (17, 3, 8, '2025-02-01 15:30:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada',  1, false),
-(18, 3, 9, '2025-03-01 16:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1, false);
+(18, 3, 9, '2025-03-01 16:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1, false),
+(19, 8, 21, '2025-03-20 10:30:00', 'isabel.martinez@example.com', '123456789', 'Dolor de muelas', 45, 'Paypal', 'pendiente', 1, false),
+(20, 3, 4, '2025-03-10 11:30:00', 'diego.martinez@example.com', '123456789', 'Dolor de cabeza', 40, 'Paypal', 'terminada', 1,false),
+(21, 3, 1, '2025-03-11 09:00:00', 'diego.martinez@example.com', '123456789', 'Marcapasos', 20, 'Tarjeta de crédito', 'terminada', 1, false),
+(22, 3, 7, '2025-03-11 09:00:00', 'diego.martinez@example.com', '123456789', 'dsdfs', 50, 'Paypal', 'terminada', 1,false),
+(23, 3, 3, '2025-03-12 13:30:00', 'diego.martinez@example.com', '123456789', 'Consulta', 30, 'Paypal', 'terminada', 1,false),
+(24, 1, 3, '2025-03-12 14:00:00', 'carlos.lopez@example.com', '123456789', 'Seguimiento', 30, 'Paypal', 'terminada',  false),
+(25, 5, 3, '2025-03-14 13:00:00', 'sandra.gonzalez@example.com', '123456789', 'Seguimiento', 30, 'Paypal', 'pendiente',  false),
+(26, 3, 4, '2025-03-14 11:00:00', 'diego.martinez@example.com', '123456789', 'Consulta', 40, 'Tarjeta de crédito', 'pendiente',  false);
+
+
+-- Insertar historial médico
+INSERT INTO historial_medico (id, id_usuario, diagnostico, tratamiento, fecha)
+VALUES
+(1,3, 'Consulta general', 'Descanso, analgésicos', '2023-05-01'),
+(2,3, 'Revisión', 'Recomendación de seguimiento, analgésicos', '2023-06-10'),
+(3,4, 'Consulta general', 'Recomendación de descanso, antiinflamatorios', '2023-06-20'),
+(4,5, 'Chequeo general', 'Seguimiento de estado de salud', '2023-07-15'),
+(5,6, 'Control médico', 'Monitoreo de salud, medicación de mantenimiento', '2025-08-18'),
+(6,5, 'Revisión de salud', 'Revisión de estado físico, pruebas de sangre', '2023-07-20'),
+(7,6, 'Consulta médica', 'Análisis y descanso', '2023-08-10'),
+(8,10, 'Consulta para migraña', 'Medicamento para migraña, reposo', '2023-09-06'),
+(9,11, 'Consulta médica', 'Antiinflamatorios, reposo', '2023-09-07'),
+(10,12, 'Consulta de salud general', 'Control general, análisis', '2025-09-08'),
+(11,9, 'Chequeo de tobillo', 'Inmovilización y fisioterapia', '2025-09-03'),
+(12,8, 'Consulta de insomnio', 'Tratamiento para el insomnio', '2025-08-22'),
+(13,3, 'Consulta general', 'Recomendación de descanso, medicamentos', '2025-02-01'),
+(14,3, 'Consulta general', 'Seguimiento, analgésicos', '2025-02-01'),
+(15,3, 'Consulta general', 'Recomendación de descanso, tratamiento para dolor', '2025-02-01'),
+(16,3, 'Consulta general', 'Descanso, antiinflamatorios', '2025-03-01'),
+(17,3, 'Consulta general', 'Medicamentos para el dolor, revisión', '2025-02-01'),
+(18,3, 'Consulta general', 'Recomendación de descanso, control', '2025-03-01'),
+(19,8, 'Dolor de muelas', 'Analgésicos, revisión dental', '2025-03-20'),
+(20,3, 'Dolor de cabeza', 'Analgésicos, reposo', '2025-03-10'),
+(21,3, 'Marcapasos', 'Control de marcapasos, medicamentos', '2025-03-11'),
+(22,3, 'Consulta general', 'Reposo, analgésicos', '2025-03-11'),
+(23,3, 'Consulta general', 'Reposo, monitoreo', '2025-03-12'),
+(24,1, 'Seguimiento', 'Monitoreo de salud', '2025-03-12'),
+(25,5, 'Seguimiento', 'Revisión, recomendaciones médicas', '2025-03-14'),
+(26,3, 'Consulta general', 'Reposo, tratamiento general', '2025-03-14');
+/*(1, 3, 'Hipertensión arterial', 'Control de presión y dieta baja en sal', '2023-05-01'),
+(2, 3, 'Resfriado común', 'Reposo y medicamentos sintomáticos', '2023-06-10'),
+(3, 4, 'Asma bronquial', 'Uso de inhaladores y control de los síntomas', '2023-06-15'),
+(4, 5, 'Alergia a ciertos medicamentos', 'Revisión de las medicinas y recomendaciones médicas', '2023-07-05'),
+(5, 6, 'Dolor lumbar', 'Recomendación de fisioterapia y ejercicios', '2023-08-10'),
+(6, 8, 'Insomnio', 'Recomendación de relajantes y terapia cognitivo-conductual', '2023-08-20'),
+(7, 9, 'Esguince de tobillo', 'Uso de vendaje y descanso', '2023-09-01'),
+(8, 10, 'Migrañas', 'Tratamiento con analgésicos y cambios en hábitos', '2023-09-03'),
+(9, 11, 'Alergia estacional', 'Antihistamínicos y evitar alergenos', '2023-09-05'),
+(10, 12, 'Gastritis', 'Dieta blanda y medicamentos antiácidos', '2023-09-06');*/
+
+-- Insertar recetas
+INSERT INTO recetas (id_paciente, id_historial_medico,id_cita ,nombre_medicamento, dosis, frecuencia, fecha_inicio, fecha_fin, instrucciones)
+VALUES
+(3, 1, 1, 'Paracetamol', '500mg', 'Cada 8 horas', '2023-05-01', '2023-05-07', 'Tomar después de las comidas'),
+(3, 2, 2, 'Ibuprofeno', '400mg', 'Cada 12 horas', '2023-06-10', '2023-06-16', 'Tomar con alimentos'),
+(4, 3, 3, 'Aspirina', '250mg', 'Cada 6 horas', '2023-06-20', '2023-06-27', 'Evitar tomar con alcohol'),
+(5, 4, 4, 'Loratadina', '10mg', 'Una vez al día', '2023-07-15', '2023-07-22', 'Tomar en la mañana'),
+(6, 5, 5, 'Metformina', '500mg', 'Dos veces al día', '2025-08-18', '2025-09-18', 'Tomar con las comidas'),
+(5, 6, 6, 'Paracetamol', '500mg', 'Cada 6 horas', '2023-07-20', '2023-07-27', 'Tomar después de las comidas'),
+(6, 7, 7, 'Ibuprofeno', '400mg', 'Cada 8 horas', '2023-08-10', '2023-08-17', 'Tomar con alimentos'),
+(10, 8, 8, 'Sumatriptán', '50mg', 'Al inicio del dolor', '2023-09-06', '2023-09-06', 'Tomar al inicio del dolor de migraña'),
+(11, 9, 9, 'Ibuprofeno', '400mg', 'Cada 12 horas', '2023-09-07', '2023-09-14', 'Tomar con alimentos'),
+(12, 10, 10, 'Paracetamol', '500mg', 'Cada 8 horas', '2025-09-08', '2025-09-14', 'Tomar después de las comidas'),
+(9, 11, 11, 'Doxiciclina', '100mg', 'Una vez al día', '2025-09-03', '2025-09-10', 'Tomar con un vaso de agua'),
+(8, 12, 12, 'Melatonina', '5mg', 'Una vez al día', '2025-08-22', '2025-08-29', 'Tomar 30 minutos antes de dormir'),
+(3, 13, 13, 'Paracetamol', '500mg', 'Cada 8 horas', '2025-02-01', '2025-02-07', 'Tomar después de las comidas'),
+(3, 14, 14, 'Ibuprofeno', '400mg', 'Cada 12 horas', '2025-02-01', '2025-02-07', 'Tomar con alimentos'),
+(3, 15, 15, 'Aspirina', '250mg', 'Cada 6 horas', '2025-02-01', '2025-02-07', 'Evitar tomar con alcohol'),
+(3, 16, 16, 'Loratadina', '10mg', 'Una vez al día', '2025-03-01', '2025-03-07', 'Tomar en la mañana'),
+(3, 17, 17, 'Metformina', '500mg', 'Dos veces al día', '2025-02-01', '2025-02-14', 'Tomar con las comidas'),
+(3, 18, 18, 'Paracetamol', '500mg', 'Cada 8 horas', '2025-03-01', '2025-03-07', 'Tomar después de las comidas'),
+(8, 6, 19, 'Amoxicilina', '500mg', 'Cada 8 horas', '2025-03-20', '2025-03-23', 'Tomar después de las comidas'),
+(3, 7, 20, 'Paracetamol', '500mg', 'Cada 6 horas', '2025-03-10', '2025-03-13', 'Tomar con líquidos'),
+(3, 8, 21, 'Metformina', '500mg', 'Dos veces al día', '2025-03-11', '2025-03-18', 'Tomar con las comidas'),
+(3, 9, 22, 'Ibuprofeno', '400mg', 'Cada 12 horas', '2025-03-11', '2025-03-14', 'Tomar con alimentos'),
+(1, 10, 23, 'Aspirina', '250mg', 'Cada 6 horas', '2025-03-12', '2025-03-15', 'Evitar tomar con alcohol'),
+(5, 11, 24, 'Loratadina', '10mg', 'Una vez al día', '2025-03-12', '2025-03-19', 'Tomar en la mañana'),
+(3, 12, 25, 'Paracetamol', '500mg', 'Cada 8 horas', '2025-03-14', '2025-03-17', 'Tomar después de las comidas'),
+(3, 13, 26, 'Ibuprofeno', '400mg', 'Cada 12 horas', '2025-03-14', '2025-03-21', 'Tomar con alimentos');
+/*(3, 1, 'Losartán', '50 mg', 'Una vez al día', '2023-05-01', '2023-11-01', 'Tomar por la mañana'),
+(3, 2, 'Paracetamol', '500 mg', 'Cada 8 horas', '2023-06-10', '2023-06-17', 'Tomar con agua'),
+(4, 3, 'Salbutamol', '100 mcg', 'Dos veces al día', '2023-06-16', '2023-12-16', 'Inhalar según sea necesario'),
+(5, 4, 'Dipirona', '500 mg', 'Cada 6 horas', '2023-07-06', '2023-07-10', 'Tomar con agua después de las comidas'),
+(6, 5, 'Ibuprofeno', '400 mg', 'Cada 8 horas', '2023-08-11', '2023-08-15', 'Tomar con alimento'),
+(8, 6, 'Lorazepam', '1 mg', 'Antes de dormir', '2023-08-21', '2023-12-21', 'Tomar una dosis por la noche'),
+(9, 8, 'Sumatriptán', '50 mg', 'Al primer síntoma de migraña', '2023-09-04', '2023-12-04', 'Tomar a la primera señal de dolor'),
+(10, 9, 'Loratadina', '10 mg', 'Una vez al día', '2023-09-06', '2023-11-06', 'Tomar con alimentos'),
+(11, 10, 'Omeprazol', '20 mg', 'Una vez al día', '2023-09-07', '2023-12-07', 'Tomar por la mañana con agua');*/
+
+-- Insertar facturas
+INSERT INTO facturas (id, id_usuario, monto, fecha, estado_pago)
+VALUES
+(1, 3, 150.00, '2023-05-05', 'pagado'),
+(2, 3, 75.00, '2023-06-15', 'pendiente'),
+(3, 4, 200.00, '2023-06-20', 'pendiente'),
+(4, 5, 80.00, '2023-07-12', 'pagado'),
+(5, 6, 120.00, '2023-08-15', 'pendiente'),
+(6, 8, 180.00, '2023-08-22', 'pendiente'),
+(7, 9, 130.00, '2023-09-02', 'pagado'),
+(8, 10, 250.00, '2023-09-04', 'pendiente'),
+(9, 11, 100.00, '2023-09-05', 'pagado'),
+(10, 12, 150.00, '2023-09-06', 'pendiente');
+
 

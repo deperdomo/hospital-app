@@ -30,7 +30,7 @@ public class Receta implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-    private String nombre_medicament;
+    private String nombre_medicamento;
     private String dosis;
     private String frecuencia;
     @Temporal(TemporalType.DATE)
@@ -50,6 +50,8 @@ public class Receta implements Serializable {
     @ManyToOne
 	@JoinColumn(name="id_historial_medico")
     private HistorialMedico historialMedico;
-    
+    @ManyToOne
+	@JoinColumn(name="id_cita")
+    private Cita cita;
     
 }
