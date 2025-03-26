@@ -87,4 +87,8 @@ getCitasPasadasDoctor(idDoctor:string,fecha:string): Observable<Cita[]>{
 getCitasProximasDoctor(idDoctor:string,fecha:string): Observable<Cita[]>{
   return this.http.get<Cita[]>(`${this.apiUrl}/proximasDoctor/${idDoctor}/${fecha}`);
 }
+
+getCita(idCita:string): Observable<Cita>{
+  return this.http.get<Cita>(`${this.apiUrl}/buscarCita/${idCita}`);
+}
 }

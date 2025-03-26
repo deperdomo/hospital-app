@@ -25,8 +25,10 @@ export class NearbyDoctorsComponent {
   }
 
   navigateToNewReceta() {
+    // se añadio cita a la url
     const usuarioId = this.cita.usuario.id;
-    this.router.navigate(['/nuevaReceta', usuarioId]);
+    const idCita = this.cita.id;
+    this.router.navigate(['/nuevaReceta', usuarioId,idCita]);
   }
 
   calcularEdad(fechaNacimiento: string): number {

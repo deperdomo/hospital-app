@@ -1,0 +1,46 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100 font-serif">
+  @for (receta of recetas; track $index) {
+    <div class="flex flex-col w-full max-w-2xl bg-white rounded-xl shadow-lg p-10">
+  
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-semibold text-[#3b9ab8]">Jakarta</h1>
+        
+      </div>
+      
+      <div class="mb-8 border-b border-gray-200 pb-4">
+        <h2 class="text-2xl font-semibold text-[#3b9ab8] mb-4">Información del Doctor</h2>
+        <div class="mb-2">
+          <strong class="text-gray-700">Nombre:</strong> {{receta.cita.doctor.nombre}}   {{receta.cita.doctor.apellidos}}
+        </div>
+        <div class="mb-2">
+          <strong class="text-gray-700">Especialidad:</strong> {{receta.cita.doctor.especialidad.nombre}}
+        </div>
+      </div>
+  
+      <div class="mb-8 border-b border-gray-200 pb-4">
+        <h2 class="text-2xl font-semibold text-[#3b9ab8] mb-4">Medicamento Recetado</h2>
+        <div class="mb-2">
+          <strong class="text-gray-700">Nombre:</strong> {{receta.nombre_medicamento}}
+        </div>
+        <div class="mb-2">
+          <strong class="text-gray-700">Dosis:</strong> {{receta.dosis}}
+        </div>
+        <div class="mb-2">
+          <strong class="text-gray-700">Frecuencia:</strong> {{receta.frecuencia}}
+        </div>
+        <div class="mb-2">
+          <strong class="text-gray-700">Fecha de Inicio:</strong> {{receta.fechaInicio}}
+        </div>
+        <div>
+          <strong class="text-gray-700">Fecha de Fin:</strong> {{receta.fechaFin}}
+        </div>
+      </div>
+  
+      <div class="mb-8">
+        <h2 class="text-2xl font-semibold text-[#3b9ab8] mb-4 border-b border-gray-200 pb-4">Instrucciones</h2>
+        <p class="text-lg">{{receta.instrucciones}}</p>
+      </div>
+  
+    </div>
+  }
+  </div>

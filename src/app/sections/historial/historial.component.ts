@@ -5,10 +5,12 @@ import { CitaService } from '../../services/cita.service';
 import { Usuario } from '../../models/usuario';
 import { CommonModule } from '@angular/common';
 import { Doctor } from '../../models/doctor';
+import { InformesConmponent } from "./cita-historial/informes/informes.component";
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-historial',
-  imports: [CitaHistorialComponent, CommonModule],
+  imports: [CitaHistorialComponent, CommonModule,HttpClientModule],
   templateUrl: './historial.component.html',
   styleUrl: './historial.component.css',
   providers: [CitaService]

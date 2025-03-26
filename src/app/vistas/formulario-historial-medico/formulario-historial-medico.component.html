@@ -1,0 +1,61 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+  <div class="flex flex-col p-5 w-full max-w-lg bg-white rounded-lg shadow-md">
+    <h1 class="text-2xl font-semibold text-[#3B9AB8] cursor-pointer mb-8 text-center">Jakarta</h1>
+
+    @if (usuario.id) {
+    <!-- Formulario con ngSubmit -->
+    <form class="space-y-6" (ngSubmit)="crearHistorial(usuario.id,cita.id)">
+      <input type="hidden">{{historialMedico.usuario.id}}
+      <!-- Diagnóstico -->
+      <div class="space-y-2">
+        <label for="diagnostico" class="block text-gray-700 font-medium">
+          Diagnóstico
+        </label>
+        <input [(ngModel)]="historialMedico.diagnostico"
+          id="diagnostico"
+          name="diagnostico"
+          type="text"
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#3B9AB8] focus:border-transparent"
+          required
+        />
+      </div>
+
+      <!-- Tratamiento -->
+      <div class="space-y-2">
+        <label for="tratamiento" class="block text-gray-700 font-medium">
+          Tratamiento
+        </label>
+        <input [(ngModel)]="historialMedico.tratamiento"
+          id="tratamiento"
+          name="tratamiento"
+          type="text"
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#3B9AB8] focus:border-transparent"
+          required
+        />
+      </div>
+
+      <!-- Fecha del Historial Médico -->
+      <div class="space-y-2">
+        <label for="fecha" class="block text-gray-700 font-medium">
+          Fecha del Historial Médico
+        </label>
+        <input [(ngModel)]="historialMedico.fecha"
+          type="date"
+          id="fecha"
+          name="fecha"
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#3B9AB8] focus:border-transparent"
+          required
+        />
+      </div>
+   
+      <!-- Botón de enviar -->
+      <div class="flex justify-center">
+        <button type="submit" class="px-6 py-2 bg-[#3B9AB8] text-white rounded-md hover:bg-[#2d7d96] transition-colors">
+          Continuar
+        </button>
+      </div>
+
+    </form>
+    }
+  </div>
+</div>

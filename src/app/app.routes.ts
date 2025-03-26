@@ -18,6 +18,9 @@ import { InfoGeneralCambioPasswordComponent } from './vistas/info-general-cambio
 import { IndexDoctoresComponent } from './vistas/index-doctores/index-doctores.component';
 import { HorarioComponent } from './vistas/horario/horario.component';
 import { ListaEspecializacionesComponent } from './vistas/lista-especializaciones/lista-especializaciones.component';
+import { InformesConmponent } from './sections/historial/cita-historial/informes/informes.component';
+import { FormularioRecetaComponent } from './vistas/formulario-receta/formulario-receta.component';
+import { FormularioHistorialMedicoComponent } from './vistas/formulario-historial-medico/formulario-historial-medico.component';
 
 
 
@@ -38,8 +41,10 @@ export const routes: Routes = [
 
     { path: 'horario', component: HorarioComponent, canActivate: [AuthGuard]  },
     { path: 'especialidades', component: ListaEspecializacionesComponent },
-
-
+    { path: 'informes/:id', component: InformesConmponent },
+    { path: 'nuevaReceta/:id/:idCita', component: FormularioHistorialMedicoComponent },
+    { path: 'formularioReceta/:idUsuario/:idCita/:idHistorialMedico', component: FormularioRecetaComponent },
+    
 ];
 
 @NgModule({

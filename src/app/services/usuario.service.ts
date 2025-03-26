@@ -21,6 +21,10 @@ export class UsuarioService {
   getUsuarioById(id: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}/one/${id}`);
   }
+  
+  buscarUsuario(id: string): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}/buscarUno/${id}`);
+  }
 
   editarUsuario(usuario: Usuario): Observable<Usuario> {
     return this.http.put<Usuario>(`${this.apiUrl}/editar`, usuario);
