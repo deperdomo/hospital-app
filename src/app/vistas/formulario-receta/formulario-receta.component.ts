@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Usuario } from '../../models/usuario';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Receta } from '../../models/receta';
@@ -25,7 +25,7 @@ export class FormularioRecetaComponent {
   historialMedico: HistorialMedico;
   cita: Cita;
   receta: Receta;
-  constructor(private route: ActivatedRoute, private historialMedicoService: HistorialMedicoService, private usuarioService: UsuarioService, private recetaService: RecetaService, private citaService: CitaService) {
+  constructor(private route: ActivatedRoute, private historialMedicoService: HistorialMedicoService, private usuarioService: UsuarioService, private recetaService: RecetaService, private citaService: CitaService,private router: Router) {
     this.usuario = {} as Usuario;
     this.historialMedico = {} as HistorialMedico;
     this.cita = {} as Cita;
@@ -99,6 +99,7 @@ export class FormularioRecetaComponent {
       this.receta
     ).subscribe(
       (receta: Receta) => {
+        this.router.navigate(['/indexDoctores']);
         console.log('Respuesta del backend:', receta);
       },
       error => {
@@ -106,6 +107,6 @@ export class FormularioRecetaComponent {
       }
     );
   }
-
+  
 }
 

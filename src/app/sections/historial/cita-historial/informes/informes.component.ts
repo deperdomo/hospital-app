@@ -7,7 +7,7 @@ import { Doctor } from '../../../../models/doctor';
 import { Cita } from '../../../../models/cita';
 import { Receta } from '../../../../models/receta';
 import { CitaService } from '../../../../services/cita.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-informes',
@@ -25,7 +25,7 @@ export class InformesConmponent implements OnInit {
   usuarios: boolean = false;
 
   // Constructor para los servicios                                                           //coje los valores de la url
-  constructor(private recetaService: RecetaService, private citaService: CitaService,private route: ActivatedRoute) {
+  constructor(private recetaService: RecetaService, private citaService: CitaService,private route: ActivatedRoute,private router: Router) {
     this.usuario = {} as Usuario;
     this.doctor = {} as Doctor;
     this.cita = {} as Cita;
@@ -107,5 +107,8 @@ export class InformesConmponent implements OnInit {
     } else {
       console.error('No se encontró ni un usuario ni un doctor para obtener recetas.');
     }
+  }
+  navigateToProfile() {
+    this.router.navigate(['/perfilHistorial']);
   }
 }

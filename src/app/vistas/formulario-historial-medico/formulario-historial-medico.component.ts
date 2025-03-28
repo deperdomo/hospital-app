@@ -120,6 +120,9 @@ redireccionAltaReceta(idUsuario: number,idHistorialMedico: number ,idCita:number
   console.log("URL idCita",idCita)
   console.log("URL idHistorialMedico",idHistorialMedico)
 }
+navigateToProfile() {
+  this.router.navigate(['/indexDoctores']);
+}
 
 
 }
