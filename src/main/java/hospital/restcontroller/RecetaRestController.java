@@ -1,5 +1,7 @@
 package hospital.restcontroller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,5 +74,30 @@ public class RecetaRestController {
 		}
 		return new ResponseEntity<>("No se pudo encontrar la reserva", HttpStatus.NOT_FOUND);
 	}
+	@GetMapping("/citaReceta/{idCita}")
+	public ResponseEntity<?> buscarCitaReceta(@PathVariable int idCita) {
+		boolean estado= false;
+		Cita cita = cserv.buscarPorId(idCita);
+		 if (cita == null) {
+		        return new ResponseEntity<>("Cita no encontrada", HttpStatus.NOT_FOUND);
+		    }
+
+		    // Obtener todas las recetas
+		    List<Receta> recetas = rserv.buscarTodos();
+
+		    // Iterar a través de todas las recetas para ver si alguna tiene la misma cita
+		    for (Receta receta : recetas) {
+		        if (receta.getCita().getId() == idCita) {
+		            // Si se encuentra una receta con la misma cita, devolver respuesta de éxito
+		        	estado=true;
+		            return new ResponseEntity<>(estado, HttpStatus.OK);
+		        }
+		    }
+
+		    // Si no se encuentra ninguna receta asociada a la cita
+		    estado=false;
+		    return new ResponseEntity<>(estado,  HttpStatus.OK);
+	}
+	
 	
 }
