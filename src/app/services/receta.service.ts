@@ -19,4 +19,7 @@ export class RecetaService {
   altaReceta(idUsuario:string,idCita:string,idHistorialMedico:string,receta:Receta): Observable<Receta>{
     return this.http.post<Receta>(`${this.apiUrl}/alta/${idUsuario}/${idCita}/${idHistorialMedico}`,receta);
   }
+  obtenerCitaReceta(idCita:string): Observable<boolean>{
+    return this.http.get<boolean>(`${this.apiUrl}/citaReceta/${idCita}`);
+  }
 }
