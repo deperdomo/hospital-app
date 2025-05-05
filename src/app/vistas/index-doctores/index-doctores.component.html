@@ -1,35 +1,39 @@
 <div class="body-after-login">
     <app-left-nav [panel]="true" />
-    <app-secundary-nav [findNav]="false" [titulo]="'Bienvenido'"/>
-
+    <app-secundary-nav [findNav]="false" [titulo]="'Bienvenido'" />
+  
     <div class="contenido px-[3%] mb-6">
-        <div class="container-top">
-            <div class="container-left-section mr-7 mb-[30px]">
-                <app-baner />
-            <br>
-            @if (citasHoy) {
-                <h3 class="titulos text-2xl font-semibold my-6">Citas para hoy</h3>
-                <div class="cont-info-doctors flex flex-wrap justify-between">
-                  @for (cita of citasHoy; track $index) {
-                    <app-nearby-doctors [cita]="cita" class="w-[32%]" />
-                  }
-                </div>
-            }
-            
-        </div>
-        <div class="container-right-section mb-[30px]">
-            <div class="container-header flex items-center justify-between mb-4">
-                <h3 class="titulos text-2xl font-semibold ">Citas Programadas</h3>
-                <a href="/misCitasUsuario" routerLink="/misCitasUsuario" class="enlace text-[#3B9AB8]">Ver Todas ></a>
+      <div class="container-top flex flex-col lg:flex-row">
+        <div class="container-left-section mr-0 lg:mr-7 mb-[30px] w-full lg:w-[70%]">
+          <app-baner />
+          <br />
+          @if (citasHoy) {
+            <h3 class="titulos text-2xl font-semibold my-6">Citas para hoy</h3>
+            <div class="cont-info-doctors flex flex-wrap justify-between gap-y-4">
+              @for (cita of citasHoy; track $index) {
+                <app-nearby-doctors
+                  [cita]="cita"
+                  class="w-full sm:w-[48%] lg:w-[32%]"
+                />
+              }
             </div>
-            <app-lista-citas />
+          }
         </div>
-        
+        <div class="container-right-section mb-[30px] w-full lg:w-[30%]">
+          <div class="container-header flex items-center justify-between mb-4">
+            <h3 class="titulos text-2xl font-semibold">Citas Programadas</h3>
+            <a
+              href="/misCitasUsuario"
+              routerLink="/misCitasUsuario"
+              class="enlace text-[#3B9AB8]"
+              >Ver Todas ></a
+            >
+          </div>
+          <app-lista-citas />
+        </div>
+      </div>
     </div>
-
-    
-
-   
-
-</div>
- <app-footer />
+  
+    <app-footer />
+  </div>
+  

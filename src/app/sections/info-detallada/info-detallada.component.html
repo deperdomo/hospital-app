@@ -1,101 +1,98 @@
-<div class="container border rounded-lg relative p-5 my-6  bg-white">
-    @if (usuarios) {
-    <div class="absolute top-4 right-4">
-      <a href="/editarPerfil"
-        class="flex items-center px-4 py-1 text-sm font-medium text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 hover:text-gray-800 transition duration-300"
-      >
-        Editar
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z" />
-        </svg>
-      </a>
-    </div>
-  
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-6">
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Nombre</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.nombre}}</div>
-      </div>
-  
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Fecha de Nacimiento</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.fechaNacimiento}}</div>
-      </div>
-  
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Edad</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{calcularEdad(usuario.fechaNacimiento)}}</div>
-      </div>
-  
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Número de Teléfono</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.telefono}}</div>
-      </div>
-  
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Email</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.email}}</div>
-      </div>
-  
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Sexo</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.sexo}}</div>
-      </div>
-    </div>
-  }@else {
-
-    <div class="absolute top-4 right-4">
-      <a href="/editarPerfil"
-        class="flex items-center px-4 py-1 text-sm font-medium text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 hover:text-gray-800 transition duration-300"
-      >
-        Editar
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z" />
-        </svg>
-      </a>
-    </div>
-  
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-6">
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Nombre</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.nombre}}</div>
-      </div>
-  
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Email</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.email}}</div>
-      </div>
-
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Direccion</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.direccion}}</div>
-      </div>
-
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Experiencia</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.experiencia}}</div>
-      </div>
-
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Precio Consulta</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.precioConsulta}}</div>
-      </div>
-
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Votos</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.votos}}</div>
-      </div>
-  
-      <div>
-        <div class="text-xs font-medium text-gray-400 uppercase">Sexo</div>
-        <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.sexo}}</div>
-      </div>
-    </div>
-
-
-
-  }
+<div class="container border rounded-lg relative p-5 my-6 bg-white">
+  @if (usuarios) {
+  <div class="absolute top-4 right-4">
+    <a href="/editarPerfil"
+      class="flex items-center px-4 py-1 text-sm font-medium text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 hover:text-gray-800 transition duration-300"
+    >
+      Editar
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z" />
+      </svg>
+    </a>
   </div>
-  
+
+  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-6">
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Nombre</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.nombre}}</div>
+    </div>
+
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Fecha de Nacimiento</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.fechaNacimiento}}</div>
+    </div>
+
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Edad</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{calcularEdad(usuario.fechaNacimiento)}}</div>
+    </div>
+
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Número de Teléfono</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.telefono}}</div>
+    </div>
+
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Email</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.email}}</div>
+    </div>
+
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Sexo</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.sexo}}</div>
+    </div>
+  </div>
+} @else {
+
+  <div class="absolute top-4 right-4">
+    <a href="/editarPerfil"
+      class="flex items-center px-4 py-1 text-sm font-medium text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 hover:text-gray-800 transition duration-300"
+    >
+      Editar
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z" />
+      </svg>
+    </a>
+  </div>
+
+  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-6">
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Nombre</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.nombre}}</div>
+    </div>
+
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Email</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.email}}</div>
+    </div>
+
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Direccion</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.direccion}}</div>
+    </div>
+
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Experiencia</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.experiencia}}</div>
+    </div>
+
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Precio Consulta</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.precioConsulta}}</div>
+    </div>
+
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Votos</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.votos}}</div>
+    </div>
+
+    <div>
+      <div class="text-xs font-medium text-gray-400 uppercase">Sexo</div>
+      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.sexo}}</div>
+    </div>
+  </div>
+
+}
+</div>

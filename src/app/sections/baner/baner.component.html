@@ -1,29 +1,41 @@
-<div class="cont-baner relative flex justify-between items-center h-[370px] my-8 bg-cover bg-no-repeat rounded-3xl shadow-lg gap-5">
-    <div class="rigth flex-1 text-white px-5 mb-16 ml-5">
-        <h2 class="text-4xl font-bold leading-tight mb-4">¡Pide ahora tu cita!</h2>
-        <p class="text-lg mb-5">Contamos con los mejores especialistas listos para atenderte.</p>
-        <div class="online-doctors flex items-center">
-          <div class="img-group flex items-center gap-2 relative">
-            <div class="doc-1 w-12 h-12 rounded-full overflow-hidden relative shadow-md z-30 border-[2.5px] border-white">
-              <img src="img/doctores/doc_m_25.png" alt="doctor-1" class="w-full h-full object-cover">
-            </div>
-            <div class="doc-2 w-12 h-12 rounded-full overflow-hidden relative shadow-md -ml-5 z-20 border-[2.5px] border-white">
-              <img src="img/doctores/doc_f_09.png" alt="doctor-2" class="w-full h-full object-cover">
-            </div>
-            <div class="doc-3 w-12 h-12 rounded-full overflow-hidden relative shadow-md -ml-5 z-10 border-[2.5px] border-white">
-              <img src="img/doctores/doc_m_14.png" alt="doctor-3" class="w-full h-full object-cover">
-            </div>
-            <div class="text text-lg ml-2">+200 doctores registrados</div>
+<div class="cont-baner relative flex flex-col sm:flex-row justify-between items-center h-auto sm:h-auto my-8 bg-cover bg-no-repeat rounded-3xl shadow-lg gap-5 px-5 py-8 overflow-hidden">
+    <!-- TEXTO -->
+    <div class="rigth flex-1 text-white mb-5 sm:mb-16 text-center sm:text-left min-w-0 flex flex-col justify-center">
+      <!-- Título -->
+      <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold leading-snug sm:leading-tight mb-4 tracking-tight">
+        ¡Pide ahora tu cita!
+      </h2>
+  
+      <!-- Párrafo -->
+      <p class="text-sm sm:text-base md:text-lg lg:text-xl font-medium opacity-90 mb-5 max-w-xl mx-auto sm:mx-0">
+        Contamos con los mejores especialistas listos para atenderte.
+      </p>
+  
+      <!-- Información de doctores -->
+      <div class="online-doctors flex flex-col sm:flex-row items-center sm:items-center justify-center sm:justify-start gap-2">
+        <div class="img-group flex items-center relative">
+          <div class="doc-1 w-12 h-12 rounded-full overflow-hidden relative shadow-md z-30 border-[2.5px] border-white">
+            <img src="img/doctores/doc_m_25.png" alt="doctor-1" class="w-full h-full object-cover">
           </div>
-
-
-
+          <div class="doc-2 w-12 h-12 rounded-full overflow-hidden relative shadow-md -ml-5 z-20 border-[2.5px] border-white">
+            <img src="img/doctores/doc_f_09.png" alt="doctor-2" class="w-full h-full object-cover">
+          </div>
+          <div class="doc-3 w-12 h-12 rounded-full overflow-hidden relative shadow-md -ml-5 z-10 border-[2.5px] border-white">
+            <img src="img/doctores/doc_m_14.png" alt="doctor-3" class="w-full h-full object-cover">
+          </div>
         </div>
-    </div>
-    <div class="left flex-1 flex justify-end">
-        <div class="doctores absolute bottom-[-4px] right-0">
-            <img src="img/Doctores_baner.png" alt="doctores-baner" class="max-w-full h-auto rounded-lg">
+        <div class="text text-[clamp(0.9rem,2.5vw,1.125rem)] font-medium ml-0 sm:ml-2 mt-2 sm:mt-0">
+          +200 doctores registrados
         </div>
+      </div>
     </div>
-
-</div>
+  
+    <!-- IMAGEN FIJA A LA DERECHA -->
+    <div class="left flex justify-center sm:justify-end flex-shrink-0 min-w-[200px]">
+      <div class="doctores relative w-[200px] sm:w-[250px] md:w-[300px] lg:w-[350px] max-h-[400px] overflow-hidden">
+        <img src="img/Doctores_baner.png" alt="doctores-baner"
+             class="w-full h-auto rounded-lg object-contain">
+      </div>
+    </div>
+  </div>
+  

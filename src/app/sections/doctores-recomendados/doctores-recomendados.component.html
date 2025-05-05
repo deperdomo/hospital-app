@@ -1,11 +1,13 @@
 <div class="container-bottom mt-4">
-  <div class="container-header flex items-center justify-between mb-4">
-      <h3 class="titulos text-2xl font-semibold mb-4">Doctores Recomendados</h3>
-      <a href="/listaDoctores" class="enlace text-[#3B9AB8]">Ver Todos ></a>
+  <div class="container-header flex flex-col sm:flex-row items-center justify-between mb-4 gap-2 sm:gap-0">
+      <h3 class="titulos text-xl sm:text-2xl font-semibold text-center sm:text-left mb-4">Doctores Recomendados</h3>
+      <a href="/listaDoctores" class="enlace text-[#3B9AB8] text-sm sm:text-base">Ver Todos ></a>
   </div>
-  <div class="cont-info-doctors flex flex-wrap justify-between">
+
+  <div class="cont-info-doctors flex flex-wrap justify-center sm:justify-between gap-4">
     @for (doctor of doctores; track $index) {
-      <app-info-doctor [doctor]="doctor" class="w-[32%]"></app-info-doctor>
+      <app-info-doctor [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]"></app-info-doctor>
     }
   </div>
 </div>
+
