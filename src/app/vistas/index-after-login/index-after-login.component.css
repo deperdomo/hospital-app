@@ -49,4 +49,4 @@ app-footer{
     box-sizing: border-box;
 }
 
-@media (max-width: 1150px) { app-left-nav { display: none; } }
+/* @media (max-width: 1150px) { app-left-nav { display: none; } } */
