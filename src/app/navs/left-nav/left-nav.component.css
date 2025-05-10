@@ -21,12 +21,28 @@ a:hover .svg {
   height: auto;
 }
 
+aside {
+  transition: transform 0.3s ease;
+}
 
-  /* @media (max-width: 700px) {
-    .hs-collapse {
-      display: none !important;
-    }
-    .hs-collapse.open {
-      display: block !important;
-    }
-  } */
+body.overflow-hidden {
+  overflow: hidden;
+}
+
+
+@media (max-width: 640px) {
+  aside {
+    width: 80%;
+    max-width: 300px;
+  }
+  
+  button[aria-label="Menu"]:hover svg {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+  }
+  
+  /* para hacer que los enlaces sean mas fáciles de pulsar en tamaño móvil */
+  nav a {
+    padding: 0.75rem 1rem;
+  }
+}
