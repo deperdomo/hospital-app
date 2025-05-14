@@ -4,7 +4,10 @@
     <div class="info flex flex-col">
       <h2 class="m-0 text-xl font-semibold">{{ doctor.nombre }} {{ doctor.apellidos }}</h2>
       <p class="my-2 text-sm text-[#666]">{{ doctor.experiencia }} años de experiencia</p>
-      <span class="specialization">{{ doctor.especialidad.nombre }}</span>
+      <span class="specialization text-center sm:text-left self-center sm:self-start">
+        {{ doctor.especialidad.nombre }}
+      </span>
+      
     </div>
   </div>
 
