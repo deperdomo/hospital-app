@@ -1,6 +1,7 @@
 .body-after-login {
     height: 100vh;
     display: grid;
+    
     grid-template-columns: 242px 1fr; /* Ajustado para un sidebar fijo y contenido flexible */
     grid-template-rows: auto 1fr 30%; /* Header, contenido principal y footer */
     grid-template-areas: 

@@ -137,7 +137,6 @@ export class LeftNavComponent {
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
 
-    // Optional: prevent body scrolling when menu is open
     if (this.mobileMenuOpen) {
       document.body.classList.add('overflow-hidden');
     } else {

@@ -30,7 +30,7 @@ body.overflow-hidden {
 }
 
 
-@media (max-width: 640px) {
+@media (max-width: 1040px) {
   aside {
     width: 80%;
     max-width: 300px;
