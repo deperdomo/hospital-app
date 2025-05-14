@@ -232,12 +232,7 @@ VALUES
 (18, 3, 9, '2025-03-01 16:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1, false),
 (19, 8, 21, '2025-03-20 10:30:00', 'isabel.martinez@example.com', '123456789', 'Dolor de muelas', 45, 'Paypal', 'pendiente', 1, false),
 (20, 3, 4, '2025-03-10 11:30:00', 'diego.martinez@example.com', '123456789', 'Dolor de cabeza', 40, 'Paypal', 'terminada', 1,false),
-(21, 3, 1, '2025-03-11 09:00:00', 'diego.martinez@example.com', '123456789', 'Marcapasos', 20, 'Tarjeta de crédito', 'terminada', 1, false),
-(22, 3, 7, '2025-03-11 09:00:00', 'diego.martinez@example.com', '123456789', 'dsdfs', 50, 'Paypal', 'terminada', 1,false),
-(23, 3, 3, '2025-03-12 13:30:00', 'diego.martinez@example.com', '123456789', 'Consulta', 30, 'Paypal', 'terminada', 1,false),
-(24, 1, 3, '2025-03-12 14:00:00', 'carlos.lopez@example.com', '123456789', 'Seguimiento', 30, 'Paypal', 'terminada',  false),
-(25, 5, 3, '2025-03-14 13:00:00', 'sandra.gonzalez@example.com', '123456789', 'Seguimiento', 30, 'Paypal', 'pendiente',  false),
-(26, 3, 4, '2025-03-14 11:00:00', 'diego.martinez@example.com', '123456789', 'Consulta', 40, 'Tarjeta de crédito', 'pendiente',  false);
+(21, 3, 1, '2025-03-11 09:00:00', 'diego.martinez@example.com', '123456789', 'Marcapasos', 20, 'Tarjeta de crédito', 'terminada', 1, false);
 
 
 -- Insertar historial médico
@@ -303,12 +298,7 @@ VALUES
 (3, 18, 18, 'Paracetamol', '500mg', 'Cada 8 horas', '2025-03-01', '2025-03-07', 'Tomar después de las comidas'),
 (8, 6, 19, 'Amoxicilina', '500mg', 'Cada 8 horas', '2025-03-20', '2025-03-23', 'Tomar después de las comidas'),
 (3, 7, 20, 'Paracetamol', '500mg', 'Cada 6 horas', '2025-03-10', '2025-03-13', 'Tomar con líquidos'),
-(3, 8, 21, 'Metformina', '500mg', 'Dos veces al día', '2025-03-11', '2025-03-18', 'Tomar con las comidas'),
-(3, 9, 22, 'Ibuprofeno', '400mg', 'Cada 12 horas', '2025-03-11', '2025-03-14', 'Tomar con alimentos'),
-(1, 10, 23, 'Aspirina', '250mg', 'Cada 6 horas', '2025-03-12', '2025-03-15', 'Evitar tomar con alcohol'),
-(5, 11, 24, 'Loratadina', '10mg', 'Una vez al día', '2025-03-12', '2025-03-19', 'Tomar en la mañana'),
-(3, 12, 25, 'Paracetamol', '500mg', 'Cada 8 horas', '2025-03-14', '2025-03-17', 'Tomar después de las comidas'),
-(3, 13, 26, 'Ibuprofeno', '400mg', 'Cada 12 horas', '2025-03-14', '2025-03-21', 'Tomar con alimentos');
+(3, 8, 21, 'Metformina', '500mg', 'Dos veces al día', '2025-03-11', '2025-03-18', 'Tomar con las comidas');
 /*(3, 1, 'Losartán', '50 mg', 'Una vez al día', '2023-05-01', '2023-11-01', 'Tomar por la mañana'),
 (3, 2, 'Paracetamol', '500 mg', 'Cada 8 horas', '2023-06-10', '2023-06-17', 'Tomar con agua'),
 (4, 3, 'Salbutamol', '100 mcg', 'Dos veces al día', '2023-06-16', '2023-12-16', 'Inhalar según sea necesario'),
