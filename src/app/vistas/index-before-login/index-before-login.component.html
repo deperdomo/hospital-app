@@ -6,13 +6,13 @@
 
     <div class="container-baner relative">
       <app-baner />
-      <div class="w-[60%] absolute bottom-[-30px] left-[50%] translate-x-[-50%]">
-        <app-find-nav (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" />
+      <div class="cont-find-nav w-[60%] sm:min-w-[600px] md:min-w-[600px] absolute bottom-[-30px] left-[50%] translate-x-[-50%]">
+          <app-find-nav class="w-full" (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" />
       </div>
     </div>
 
     <br>
-    <cont-doctores-recomendados />
+    <cont-doctores-recomendados class="recomendados"/>
 
     <br>
 

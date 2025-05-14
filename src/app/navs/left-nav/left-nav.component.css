@@ -1,41 +1,48 @@
 .logo {
-    min-width: 25px;
+  min-width: 25px;
 }
 
-.svg{
-    fill: #7E7E7E;
-    min-width: 25px;
-    height: auto;
-    transition-duration: 300ms;
-    stroke:none;
-    
+.svg {
+  fill: #7E7E7E;
+  stroke: none;
+  min-width: 25px;
+  height: auto;
+  transition: fill 0.3s;
 }
 
-.svg:hover {
-    fill: #ffffff;
-}
-
-a:hover, #ayuda:hover #disponibilidad:hover #newDoctor:hover {
-    .svg {
-        transition: all 0.1s;
-        fill: #ffffff;
-    }
+a:hover .svg {
+  fill: #ffffff;
 }
 
 .svg-selct {
-    min-width: 24px;
-    height: auto;
-    fill: #ffffff;
-    stroke:none;
-    min-width: 25px;
-    height: auto;
+  fill: #ffffff;
+  stroke: none;
+  min-width: 25px;
+  height: auto;
 }
 
-  /* @media (max-width: 700px) {
-    .hs-collapse {
-      display: none !important;
-    }
-    .hs-collapse.open {
-      display: block !important;
-    }
-  } */
+aside {
+  transition: transform 0.3s ease;
+}
+
+body.overflow-hidden {
+  overflow: hidden;
+}
+
+
+@media (max-width: 640px) {
+  aside {
+    width: 80%;
+    max-width: 300px;
+  }
+  
+  button[aria-label="Menu"]:hover svg {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+  }
+  
+  /* para hacer que los enlaces sean mas fáciles de pulsar en tamaño móvil */
+  nav a {
+    padding: 0.75rem 1rem;
+  }
+}

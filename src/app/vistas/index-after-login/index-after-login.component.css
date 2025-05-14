@@ -1,52 +1,93 @@
 .body-after-login {
     height: 100vh;
     display: grid;
-    grid-template-columns: 15% 1fr;
-    grid-template-rows: 15% 1fr 30%;
+    grid-template-columns: 242px 1fr; /* Ajustado para un sidebar fijo y contenido flexible */
+    grid-template-rows: auto 1fr 30%; /* Header, contenido principal y footer */
     grid-template-areas: 
-    "zn     zh"
-    "zn     zs"
-    "zf     zf";
+        "zn zh"
+        "zn zs"
+        "zn zf";
 }
 
 .nav {
     grid-area: zh;
+    background-color: #f8f9fa; 
 }
 
 app-left-nav {
     grid-area: zn;
+    background-color: #fff;
+    border-right: 1px solid #e1e1e1;
 }
 
 .contenido {
     grid-area: zs;
+    padding: 20px;
 }
 
-app-footer{
+app-footer {
     grid-area: zf;
+    background-color: #f8f9fa;
+    
 }
 
 .container-top {
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .container-left-section {
-    width: 65%;
-
+    flex: 2;
+    min-width: 300px;
 }
 
 .container-right-section {
-    width: 35%;
-    padding: 2%;
+    flex: 1;
+    min-width: 250px;
+    padding: 15px;
     border-radius: 10px;
-    border: solid 1.5px #e1e1e1;
+    border: 1.5px solid #e1e1e1;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+.cont-info-doctors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+app-nearby-doctors {
+    flex: 1 1 calc(33.33% - 20px);
+    max-width: calc(33.33% - 20px);
     box-sizing: border-box;
 }
 
-.container-bottom {
-    padding: 2%;
-    border-radius: 10px;
-    border: solid 1.5px #e1e1e1;
-    box-sizing: border-box;
+@media (max-width: 1024px) {
+    app-nearby-doctors {
+        flex: 1 1 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
 }
 
-@media (max-width: 1150px) { app-left-nav { display: none; } }
+@media (max-width: 640px) {
+    .body-after-login {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "zh"
+            "zs"
+            "zf";
+    }
+
+    /* app-left-nav {
+        display: none; 
+    } */
+
+    .container-top {
+        flex-direction: column;
+    }
+
+    
+}

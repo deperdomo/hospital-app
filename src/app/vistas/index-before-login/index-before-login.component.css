@@ -1,0 +1,10 @@
+@media (max-width: 480px) {
+    .cont-find-nav {
+        bottom: -110px;
+        
+    }
+    .container-baner {
+        margin-bottom: 120px;
+    }
+
+}

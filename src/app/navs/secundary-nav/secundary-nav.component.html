@@ -2,7 +2,7 @@
   <app-user-welcome-nav [titulo]="titulo" />
   
   @if (findNav) {
-    <div class="mx-5">
+    <div class="cont-find-nav mx-5">
       <app-find-nav (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" class="w-2/3"/>
     </div>
   }
