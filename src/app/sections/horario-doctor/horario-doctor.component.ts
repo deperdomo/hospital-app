@@ -18,10 +18,10 @@ registerLocaleData(localeEs);
   styleUrl: './horario-doctor.component.css',
   providers: [CitaService]
 })
-
 export class HorarioDoctorComponent implements OnInit {
   currentDate: Date = new Date();
   calendarDays: Date[] = [];
+  weeks: Date[][] = [];
   weekDays: string[] = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
   selectedAppointment: boolean = false;
 
@@ -30,13 +30,11 @@ export class HorarioDoctorComponent implements OnInit {
   doctor: Doctor;
   cita: Cita;
 
-
   constructor(private citaService: CitaService) {
     this.usuario = {} as Usuario;
     this.doctor = {} as Doctor;
     this.cita = {} as Cita;
   }
-
 
   ngOnInit() {
     const doctoroGuardado = localStorage.getItem('doctor');
@@ -45,6 +43,7 @@ export class HorarioDoctorComponent implements OnInit {
     if (doctoroGuardado) {
       this.doctor = JSON.parse(doctoroGuardado);
     }
+
     this.cargarCitas();
     this.generateCalendarDays();
   }
@@ -54,8 +53,8 @@ export class HorarioDoctorComponent implements OnInit {
       (citas: Cita[]) => {
         this.citas = citas;
         console.log(this.citas);
-
-      });
+      }
+    );
   }
 
   generateCalendarDays() {
@@ -85,6 +84,15 @@ export class HorarioDoctorComponent implements OnInit {
       this.calendarDays.push(new Date(year, month + 1, i));
     }
 
+    this.generateWeeks(); // nuevo
+  }
+
+  generateWeeks() {
+    this.weeks = [];
+    for (let i = 0; i < this.calendarDays.length; i += 7) {
+      const week = this.calendarDays.slice(i, i + 7);
+      this.weeks.push(week);
+    }
   }
 
   getCurrentMonthYear(): string {
@@ -95,6 +103,7 @@ export class HorarioDoctorComponent implements OnInit {
     const formattedDate = this.currentDate.toLocaleString('es-ES', options);
     return this.capitalizeFirstLetter(formattedDate);
   }
+
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -155,7 +164,4 @@ export class HorarioDoctorComponent implements OnInit {
     const añoActual = new Date().getFullYear();
     return añoActual - añoNacimiento;
   }
-
-
-
 }
