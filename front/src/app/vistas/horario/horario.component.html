@@ -1,9 +1,7 @@
-<div class="grid grid-cols-[15%_1fr] h-screen">
-    <div>
-      <app-left-nav [horario]="true"></app-left-nav>
-    </div>
-    <div class="p-4 flex flex-col">
-      <app-secundary-nav [titulo]="'Horario'"></app-secundary-nav>
-      <app-horario-doctor></app-horario-doctor>
-    </div>
+<div class="body-horario">
+  <app-left-nav [horario]="true" />
+  <app-secundary-nav [titulo]="'Horario'" />
+  <div class="conenido mx-[5%]">
+    <app-horario-doctor />
   </div>
+</div>

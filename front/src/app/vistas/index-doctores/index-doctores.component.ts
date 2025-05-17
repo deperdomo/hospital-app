@@ -26,8 +26,8 @@ export class IndexDoctoresComponent {
 
   ngOnInit() {
     this.doctor = JSON.parse(localStorage.getItem('doctor') || '{}');
-    
-    if (this.doctor.id){
+
+    if (this.doctor.id) {
       // si quires que salgan las de hoy no pueden ser las pendientes, porque cuando pasa su hora se cambian a terminadas
       this.citaService.getCitasDoctorEstado(this.doctor.id, 'pendiente').subscribe(
         (citas: Cita[]) => {
@@ -37,14 +37,12 @@ export class IndexDoctoresComponent {
             if (new Date(cita.fecha).toISOString().split('T')[0] === today) {
               this.citasHoy.push(cita);
             }
-            
+
           });
         });
     }
 
-  
   }
-
 
 }
 

@@ -1,44 +1,46 @@
 <div class="body-after-login">
 
   <app-left-nav [panel]="true" />
-  <app-secundary-nav [findNav]="true" (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" [titulo]="'Bienvenido'"/>
+  <app-secundary-nav [findNav]="true" (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)"
+    [titulo]="'Bienvenido'" />
   <div class="contenido px-[3%] mb-6">
-      <div class="container-top flex flex-col lg:flex-row">
-          <div class="container-left-section mr-0 lg:mr-7 mb-[30px] w-full lg:w-2/3">
-              <app-baner />
-          <br>
-            @if (isNerbyDoctorsAvailable && doctoresCercanos.length > 0) {
-              <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
-              <div class="cont-info-doctors flex flex-wrap justify-between">
-                @for (doctor of doctoresCercanos; track $index) {
-                  <app-nearby-doctors [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]" />
-                }
-              </div>
-            } @else if (doctoresDeBusqueda.length > 0) {
-              <h3 class="titulos text-2xl font-semibold my-6">Resultado de la búsqueda</h3>
-              <div class="cont-info-doctors flex flex-wrap justify-between">
-                @for (doctor of doctoresDeBusqueda; track $index) {
-                  <app-nearby-doctors [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]" />
-                }
-              </div>
-            } @else {
-              <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
-              <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" (doctoresCercanos)="recibirDoctoresCercanos($event)" [texto]="'Encuentra doctores cerca de ti.'"/>
-            }
-          </div>
-          <div class="container-right-section mb-[30px] w-full sm:px-4 md:px-6 lg:w-1/3">
-  <div class="container-header flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-    <h3 class="titulos text-xl sm:text-2xl font-semibold">Citas Programadas</h3>
-    <a href="/misCitasUsuario" routerLink="/misCitasUsuario" class="enlace text-[#3B9AB8] mt-2 sm:mt-0">Ver Todas ></a>
-  </div>
-  <app-lista-citas />
-</div>
-          
-
+    <div class="container-top flex flex-col lg:flex-row">
+      <div class="container-left-section mr-0 lg:mr-7 mb-[30px] w-full lg:w-2/3">
+        <app-baner />
+        <br>
+        @if (isNerbyDoctorsAvailable && doctoresCercanos.length > 0) {
+        <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+        <div class="cont-info-doctors flex flex-wrap justify-between">
+          @for (doctor of doctoresCercanos; track $index) {
+          <app-nearby-doctors [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]" />
+          }
+        </div>
+        } @else if (doctoresDeBusqueda.length > 0) {
+        <h3 class="titulos text-2xl font-semibold my-6">Resultado de la búsqueda</h3>
+        <div class="cont-info-doctors flex flex-wrap justify-between">
+          @for (doctor of doctoresDeBusqueda; track $index) {
+          <app-nearby-doctors [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]" />
+          }
+        </div>
+        } @else {
+        <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+        <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()"
+          (doctoresCercanos)="recibirDoctoresCercanos($event)" [texto]="'Encuentra doctores cerca de ti.'" />
+        }
       </div>
-      <cont-doctores-recomendados />
+      <div class="container-right-section mb-[30px] w-full sm:px-4 md:px-6 lg:w-1/3">
+        <div class="container-header flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+          <h3 class="titulos text-xl sm:text-2xl font-semibold">Citas Programadas</h3>
+          <a href="/misCitasUsuario" routerLink="/misCitasUsuario" class="enlace text-[#3B9AB8] mt-2 sm:mt-0">Ver Todas
+            ></a>
+        </div>
+        <app-lista-citas />
+      </div>
+
+    </div>
+    <cont-doctores-recomendados />
   </div>
-      
-  <app-footer/>
+
+  <app-footer />
 
 </div>

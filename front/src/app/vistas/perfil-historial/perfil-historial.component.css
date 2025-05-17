@@ -1,0 +1,5 @@
+@media (max-width: 640px) {
+    app-secundary-nav {
+        margin-left: -60px;
+    }
+}

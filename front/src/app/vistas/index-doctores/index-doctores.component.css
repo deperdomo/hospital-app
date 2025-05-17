@@ -1,12 +1,12 @@
 .body-after-login {
     height: 100vh;
     display: grid;
-    grid-template-columns: 15% 1fr;
-    grid-template-rows: 15% 1fr 30%;
-    grid-template-areas: 
-    "zn     zh"
-    "zn     zs"
-    "zf     zf";
+    grid-template-columns: 242px 1fr;
+    grid-template-rows: auto 1fr 30%;
+    grid-template-areas:
+        "zn zh"
+        "zn zs"
+        "zn zf";
 }
 
 .nav {
@@ -19,9 +19,10 @@ app-left-nav {
 
 .contenido {
     grid-area: zs;
+    padding: 20px;
 }
 
-app-footer{
+app-footer {
     grid-area: zf;
 }
 

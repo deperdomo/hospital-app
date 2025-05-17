@@ -1,0 +1,32 @@
+.body-horario {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 242px 1fr;
+    grid-template-rows: 15% 1fr;
+    grid-template-areas:
+        "zn zh"
+        "zn zs";
+    height: 100vh;
+    overflow: hidden;
+}
+
+app-left-nav {
+    grid-area: zn;
+}
+
+app-secundary-nav {
+    grid-area: zh;
+}
+
+.conenido {
+    grid-area: zs;
+}
+
+@media (max-width: 640px) {
+    .body-horario {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "zh"
+            "zs";
+    }
+}
