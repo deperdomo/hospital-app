@@ -2,8 +2,8 @@
     height: 100vh;
     display: grid;
     
-    grid-template-columns: 242px 1fr; /* Ajustado para un sidebar fijo y contenido flexible */
-    grid-template-rows: auto 1fr 30%; /* Header, contenido principal y footer */
+    grid-template-columns: 242px 1fr;
+    grid-template-rows: auto 1fr 30%;
     grid-template-areas: 
         "zn zh"
         "zn zs"
@@ -81,14 +81,8 @@ app-nearby-doctors {
             "zs"
             "zf";
     }
-
-    /* app-left-nav {
-        display: none; 
-    } */
-
     .container-top {
         flex-direction: column;
     }
 
-    
 }

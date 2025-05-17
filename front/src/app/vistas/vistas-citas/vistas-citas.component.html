@@ -29,22 +29,6 @@
     </div>
     <app-secundary-nav [titulo]="'Citas'"></app-secundary-nav>
 
-    <!-- Button para abrir el Left Nav en pantallas pequeñas -->
-    <div class="flex w-full items-center justify-end">
-      
-
-      <!-- Botón Hamburguesa -->
-      <button *ngIf="!isLeftNavOpen && isMobile" (click)="isLeftNavOpen = true"
-        class="hs-collapse-toggle p-2 rounded-lg hover:bg-gray-100 focus:outline-none" aria-label="Toggle navigation">
-        <svg class="hs-collapse-open:hidden w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#3B9AB8">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-        <svg class="hs-collapse-open:block hidden w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#3B9AB8">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-    </div>
-
     <app-nav-citas (monthSelected)="onMonthSelected($event)" (citasCanceladas)="onCitasCanceladas()"
       (citasProximas)="onCitasProximas()" (citasPasadas)="onCitasPasadas()"></app-nav-citas>
     <app-lista-citas></app-lista-citas>
