@@ -1,3 +1,6 @@
+.card {
+  min-width: 310px;
+}
 
 .specialization {
   display: inline-block;
