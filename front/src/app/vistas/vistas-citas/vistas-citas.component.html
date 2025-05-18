@@ -1,9 +1,9 @@
 <div class="body-citas">
-  <app-left-nav [citas]="true"></app-left-nav>
-  <app-secundary-nav [titulo]="'Citas'"></app-secundary-nav>
+  <app-left-nav [citas]="true" />
+  <app-secundary-nav [titulo]="'Citas'" />
   <div class="conenido mx-[5%]">
     <app-nav-citas (monthSelected)="onMonthSelected($event)" (citasCanceladas)="onCitasCanceladas()"
-      (citasProximas)="onCitasProximas()" (citasPasadas)="onCitasPasadas()"></app-nav-citas>
-    <app-lista-citas></app-lista-citas>
+      (citasProximas)="onCitasProximas()" (citasPasadas)="onCitasPasadas()"/>
+    <app-lista-citas />
   </div>
 </div>
