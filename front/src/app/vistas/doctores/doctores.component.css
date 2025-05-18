@@ -23,7 +23,7 @@ app-secundary-nav {
 }
 
 @media (max-width: 640px) {
-  .body-citas {
+  .body-doctores {
     grid-template-columns: 1fr;
     grid-template-areas:
       "zh"
