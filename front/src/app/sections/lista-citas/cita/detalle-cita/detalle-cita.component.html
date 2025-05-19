@@ -18,7 +18,9 @@
                 <p class="py-2"><span class="font-medium">Fecha:</span> {{ cita.fecha | date:'dd-MM-yyyy' }} </p>
                 <p class="py-2"><span class="font-medium">Hora:</span> {{ cita.fecha | date: 'HH:mm':'UTC'}} -
                     {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}</p>
-                <p class="py-2"><span class="font-medium">Motivo:</span> {{ cita.motivo }}</p>
+                @if (cita.motivo != "") {
+                    <p class="py-2"><span class="font-medium">Motivo:</span> {{ cita.motivo }}</p>
+                }
                 <p class="py-2"><span class="font-medium">Email del doctor:</span> {{ cita.doctor.email }}</p>
                 <p class="py-2"><span class="font-medium">Dirección:</span> {{ cita.doctor.direccion }}</p>
                 <p class="py-2"><span class="font-medium">Precio:</span> {{ cita.tarifa }} €</p>
@@ -32,9 +34,10 @@
                 <p class="py-2"><span class="font-medium">Fecha:</span> {{ cita.fecha | date:'dd-MM-yyyy' }} </p>
                 <p class="py-2"><span class="font-medium">Hora:</span> {{ cita.fecha | date: 'HH:mm':'UTC'}} -
                     {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}</p>
-                <p class="py-2"><span class="font-medium">Motivo:</span> {{ cita.motivo }}</p>
-                <p class="py-2"><span class="font-medium">Edad:</span> {{ calcularEdad(cita.usuario.fechaNacimiento) }}
-                </p>
+                @if (cita.motivo != "") {
+                    <p class="py-2"><span class="font-medium">Motivo:</span> {{ cita.motivo }}</p>
+                }
+                <p class="py-2"><span class="font-medium">Edad:</span> {{ calcularEdad(cita.usuario.fechaNacimiento) }}</p>
                 <p class="py-2"><span class="font-medium">Sexo:</span> {{ cita.usuario.sexo }}</p>
                 <p class="py-2"><span class="font-medium">Dirección:</span> {{ cita.doctor.direccion }}</p>
                 <p class="py-2"><span class="font-medium">Precio:</span> {{ cita.tarifa }} €</p>

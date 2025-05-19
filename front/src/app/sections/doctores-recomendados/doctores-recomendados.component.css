@@ -1,5 +1,18 @@
-@media (min-width: 1115px) {
+
   .info-doctor {
     width: 32%;
+  }
+
+
+@media (max-width: 640px) {
+  .info-doctor {
+    min-width: 100%;
+    margin: 20px 0;
+  }
+}
+
+@media (max-width: 1220px) {
+  .info-doctor {
+    width: 48%;
   }
 }
