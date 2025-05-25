@@ -5,15 +5,19 @@
   <div class="contenido px-[3%] mb-6">
     <div class="container-top flex flex-col lg:flex-row">
       <div class="container-left-section mr-0 lg:mr-7 mb-[30px] w-full lg:w-[70%]">
-        <app-baner />
+        <div class="w-full">
+          <app-baner class="w-full"/>
+        </div>
         <br />
         @if (citasHoy.length > 0) {
-        <h3 class="titulos text-2xl font-semibold my-6">Citas para hoy</h3>
-        <div class="cont-info-doctors flex flex-wrap justify-between gap-y-4">
-          @for (cita of citasHoy; track $index) {
-          <app-nearby-doctors [cita]="cita" class="w-full sm:w-[48%] lg:w-[32%]" />
-          }
-        </div>
+          <div class="w-full">
+            <h3 class="titulos text-2xl font-semibold my-6">Citas para hoy</h3>
+            <div class="cont-info-doctors flex flex-wrap justify-between gap-y-4">
+              @for (cita of citasHoy; track $index) {
+              <app-nearby-doctors [cita]="cita" class="w-full lg:w-[48%]" />
+              }
+            </div>
+          </div>
         }
       </div>
       <div class="container-right-section mb-[30px] w-full lg:w-[30%]">
