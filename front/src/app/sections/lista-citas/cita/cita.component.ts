@@ -45,9 +45,7 @@ export class CitaComponent {
   }
 
   ngOnInit() {
-    console.log("comprobandoo")
     const usuarioGuardado = localStorage.getItem('usuario');
-    console.log("constante susario", usuarioGuardado)
     const doctorGuardado = localStorage.getItem('doctor');
     if (usuarioGuardado) {
       this.usuario = JSON.parse(usuarioGuardado);

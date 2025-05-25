@@ -80,7 +80,7 @@
 
     @if (cita.estado !== 'cancelada' && cita.estado !== 'terminada') {
       @if (isNotDoctor === false) {
-        <a href="/nuevaReceta/{{usuario.id}}/{{cita.id}}" class="flex items-center bg-[#3B9AB8] transition-colors hover:bg-[#096c8a] text-white px-7 py-3 rounded-md">
+        <a href="/nuevaReceta/{{cita.usuario.id}}/{{cita.id}}" class="flex items-center bg-[#3B9AB8] transition-colors hover:bg-[#096c8a] text-white px-7 py-3 rounded-md">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path fill="currentColor" [attr.d]="svg.addReceta1"/>
             <path fill="currentColor" fill-rule="evenodd" [attr.d]="svg.addReceta2" clip-rule="evenodd" />
