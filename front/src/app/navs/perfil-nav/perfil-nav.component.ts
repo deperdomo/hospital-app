@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-perfil-nav',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './perfil-nav.component.html',
   styleUrl: './perfil-nav.component.css'
 })
 export class PerfilNavComponent {
+
+  @Input() selectedGeneral: boolean = true;
 
 }
