@@ -1,41 +1,45 @@
-
 @if (!esPaginaDeAutenticacion()) {
-  <app-nav-before-login />
+  <!-- Estructura principal con grid para mantener el footer abajo -->
+  <div class="body-before-login">
+    <app-nav-before-login />
 
-  <div class="contenido px-[10%] mb-6">
-
-    <div class="container-baner relative">
-      <app-baner />
-      <div class="cont-find-nav w-[60%] sm:min-w-[600px] md:min-w-[600px] absolute bottom-[-30px] left-[50%] translate-x-[-50%]">
+    <!-- Aquí está el cambio: max-w-5xl, mx-auto, px-4 -->
+    <div class="contenido max-w-5xl mx-auto px-4 mb-6">
+      <div class="container-baner relative">
+        <app-baner />
+        <div class="cont-find-nav w-[60%] sm:min-w-[600px] md:min-w-[600px] absolute bottom-[-30px] left-[50%] translate-x-[-50%]">
           <app-find-nav class="w-full" (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" />
+        </div>
       </div>
+
+      <br />
+      <cont-doctores-recomendados class="w-full" />
+      <br />
+
+      @if (isNerbyDoctorsAvailable && doctoresCercanos.length > 0) {
+        <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+        <div class="cont-info-doctors flex flex-wrap justify-between">
+          @for (doctor of doctoresCercanos; track $index) {
+            <app-nearby-doctors [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]" />
+          }
+        </div>
+      } @else if (doctoresDeBusqueda.length > 0) {
+        <h3 class="titulos text-2xl font-semibold my-6">Resultado de la busqueda</h3>
+        <div class="cont-info-doctors flex flex-wrap justify-between">
+          @for (doctor of doctoresDeBusqueda; track $index) {
+            <app-nearby-doctors [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]" />
+          }
+        </div>
+      } @else {
+        <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+        <app-nearby-doctors-disabled
+          (habilitarNerbyDoctors)="cambiarEstado()"
+          (doctoresCercanos)="recibirDoctoresCercanos($event)"
+          [texto]="'Nesecita iniciar sesion para disrutar de esta funcionalidad.'"
+        />
+      }
     </div>
 
-    <br>
-    <cont-doctores-recomendados class="w-full"/>
-
-    <br>
-
-    @if (isNerbyDoctorsAvailable && doctoresCercanos.length > 0) {
-      <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
-      <div class="cont-info-doctors flex flex-wrap justify-between">
-        @for (doctor of doctoresCercanos; track $index) {
-          <app-nearby-doctors [doctor]="doctor" class="w-[32%]" />
-        }
-      </div>
-    } @else if (doctoresDeBusqueda.length > 0) {
-      <h3 class="titulos text-2xl font-semibold my-6">Resultado de la busqueda</h3>
-      <div class="cont-info-doctors flex flex-wrap justify-between">
-      @for (doctor of doctoresDeBusqueda; track $index) {
-        <app-nearby-doctors [doctor]="doctor" class="w-[32%]" />
-      }
-      </div>
-    } @else {
-      <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
-      <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()" (doctoresCercanos)="recibirDoctoresCercanos($event)" [texto]="'Nesecita iniciar sesion para disrutar de esta funcionalidad.'" />
-    }
-
+    <app-footer class="footer" />
   </div>
-  <app-footer/>
-
-  }
+}

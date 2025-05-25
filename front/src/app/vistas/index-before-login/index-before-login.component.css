@@ -1,10 +1,99 @@
-@media (max-width: 480px) {
-    .cont-find-nav {
-        bottom: -110px;
-        
-    }
-    .container-baner {
-        margin-bottom: 120px;
-    }
-
+/* Añade esto al principio de tu archivo CSS principal o estilos globales */
+html {
+  box-sizing: border-box;
 }
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* El resto de tu CSS */
+.body-before-login {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "content"
+    "footer";
+}
+
+app-nav-before-login {
+  grid-area: header;
+}
+
+.contenido {
+  grid-area: content;
+  width: 100%; /* Asegura que ocupe el 100% del ancho de su área de cuadrícula */
+}
+
+app-footer, .footer {
+  grid-area: footer;
+  width: 100%; /* Asegura que el footer también ocupe el 100% */
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  padding-top: 40px;
+  padding-bottom: 15px;
+  color: white;
+}
+
+.cont-info-doctors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+app-nearby-doctors {
+  flex: 1 1 calc(33.33% - 20px);
+  max-width: calc(33.33% - 20px);
+  box-sizing: border-box; /* Aunque ya lo tiene por el *::before, etc., no está de más */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+@media (max-width: 1024px) {
+  app-nearby-doctors {
+    flex: 1 1 calc(50% - 20px);
+    max-width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .cont-find-nav {
+    width: 90% !important;
+    min-width: auto !important;
+    /* Revisa si hay algún padding o margin que lo empuje fuera de los límites */
+  }
+}
+
+@media (max-width: 640px) {
+  app-nearby-doctors {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .cont-find-nav {
+    bottom: -110px;
+    width: 90% !important;
+    min-width: auto !important;
+  }
+
+  .container-baner {
+    margin-bottom: 120px;
+  }
+  /* Asegúrate de que el contenedor del banner no tenga un ancho fijo que cause desbordamiento */
+}
+
+/* **Posible solución de último recurso si el problema persiste y no encuentras el culpable:** */
+/* html, body {
+  overflow-x: hidden;
+  width: 100%;
+} */
+/* ¡ADVERTENCIA! Esto oculta la barra de desplazamiento horizontal, pero NO soluciona la causa raíz del desbordamiento. */
+/* Solo úsalo si no encuentras el elemento que se desborda y entiendes las implicaciones. */

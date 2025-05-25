@@ -1,77 +1,101 @@
-<div class="bg-[#3b9ab8] flex flex-col items-center justify-center text-white shadow-md py-10">
-  <div class="bg-[#3b9ab8] flex flex-row justify-around text-white w-4/5 py-5 mb-5 overflow-x-auto">
-    <div class="pb-5 px-6 flex-shrink-0">
-      <div class="pb-6">
-        <h2 class="text-lg font-bold">Jakarta</h2>
-      </div>
-      <div><a href="/especialidades">Especialidad</a></div>
-      <div>
-        <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else login" href="/misCitasUsuario">Citas</a>
-      </div>
-      <ng-template #login>
-        <a href="/login">Citas</a>
-      </ng-template>
-      <div>Resultados</div>
-    </div>
+<div class="bg-[#3b9ab8] flex flex-col items-center justify-center text-white shadow-md py-5 overflow-hidden">
+  <!-- Contenedor principal -->
+  <div class="flex flex-wrap justify-center items-start gap-y-4 gap-x-2 w-full px-2 sm:px-4 py-5 mb-5 max-w-full text-white text-xs sm:text-sm">
 
-    <div class="pb-5 px-6 flex-shrink-0">
-      <div class="pb-7 font-bold">Información</div>
-      <div>
-        <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else inicio" href="/perfilHistorial">Historial</a>
+    <!-- Bloques principales con más espacio horizontal en lg -->
+    <div class="flex flex-wrap justify-center items-start gap-x-4 lg:gap-x-16 w-full lg:w-auto">
+      <!-- Jakarta -->
+      <div class="flex-shrink-0 basis-[100px] max-w-[150px] px-2">
+        <div class="pb-2 font-bold text-sm sm:text-base">Jakarta</div>
+        <div><a href="/especialidades">Especialidad</a></div>
+        <div>
+          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else login" href="/misCitasUsuario">Citas</a>
+        </div>
+        <ng-template #login>
+          <a href="/login">Citas</a>
+        </ng-template>
+        <div>Resultados</div>
       </div>
-      <ng-template #inicio>
-        <a href="/login">Historial</a>
-      </ng-template>
-      <div>
-        <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else sesion" href="/perfil">Perfil</a>
+
+      <!-- Información -->
+      <div class="flex-shrink-0 basis-[100px] max-w-[150px] px-2">
+        <div class="pb-2 font-bold text-sm sm:text-base">Información</div>
+        <div>
+          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else inicio" href="/perfilHistorial">Historial</a>
+        </div>
+        <ng-template #inicio>
+          <a href="/login">Historial</a>
+        </ng-template>
+        <div>
+          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else sesion" href="/perfil">Perfil</a>
+        </div>
+        <ng-template #sesion>
+          <a href="/login">Perfil</a>
+        </ng-template>
+        <div>
+          <a *ngIf="usuario.id != undefined; else verificarDoctor" href="/listaDoctores">Doctores</a>
+        </div>
+        <ng-template #verificarDoctor>
+          <a *ngIf="doctor?.id != undefined; else loguearse" href="/horario">Horario</a>
+        </ng-template>
+        <ng-template #loguearse>
+          <a href="/login">Doctores</a>
+        </ng-template>
       </div>
-      <ng-template #sesion>
-        <a href="/login">Perfil</a>
-      </ng-template>
 
-      <a *ngIf="usuario.id != undefined; else verificarDoctor" href="/listaDoctores">Doctores</a>
-      <ng-template #verificarDoctor>
-        <a *ngIf="doctor?.id != undefined; else loguearse" href="/horario">Horario</a>
-      </ng-template>
-      <ng-template #loguearse>
-        <a href="/login">Doctores</a>
-      </ng-template>
-    </div>
+      <!-- Contáctanos -->
+      <div class="flex-shrink-0 basis-[100px] max-w-[150px] px-2">
+        <div class="pb-2 font-bold text-sm sm:text-base">¡Contáctanos!</div>
+        <div>Teléfono: (+34) 912 345 678</div>
+        <div>Email: soporte&#64;hospitaljakarta.com</div>
+        <div>España</div>
+      </div>
 
-    <div class="pb-5 px-6 flex-shrink-0">
-      <div class="pb-7 font-bold">¡Contáctanos!</div>
-      <div>Teléfono: (+34) 912 345 678</div>
-      <div>Email: soporte&#64;hospitaljakarta.com</div>
-      <div>España</div>
-    </div>
-
-    <!-- Para más información solo visible en md en adelante -->
-    <div class="pb-5 px-6 hidden md:block flex-shrink-0">
-      <div class="pb-7 font-bold">Para más información</div>
-      <div class="bg-blue-300 rounded-md text-blue-700 flex items-center justify-center px-4 py-2">
-        <a href="mailto:soporte@hospitaljakarta.com">Introduzca su email</a>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="ml-2">
-          <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634L21.044 2.32c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8l-8 6z" />
-        </svg>
+      <!-- Para más información -->
+      <div
+        class="w-full flex justify-center mt-4 px-2 lg:mt-0 lg:w-auto lg:flex-shrink-0 lg:max-w-[150px]"
+      >
+        <div class="max-w-md w-full flex flex-col sm:flex-row md:flex-col md:items-center md:space-y-2 lg:flex-col lg:space-y-2 mx-auto">
+          <div
+            class="pb-2 font-bold text-sm sm:text-base text-center lg:text-left whitespace-nowrap"
+          >
+            Para más información
+          </div>
+          <div
+            class="bg-blue-300 rounded-md text-blue-700 px-4 py-2 inline-flex items-center justify-center space-x-2"
+          >
+            <a
+              href="mailto:soporte@hospitaljakarta.com"
+              class="text-xs sm:text-sm whitespace-nowrap text-center"
+              >Introduzca su email</a
+            >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M1.946 9.315c-.522-.174-.527-.455.01-.634L21.044 2.32c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8l-8 6z"
+              />
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Para más información solo visible en sm -->
-  <div class="block md:hidden w-4/5 mb-5">
-    <div class="pb-7 font-bold">Para más información</div>
-    <div class="bg-blue-300 rounded-md text-blue-700 flex items-center justify-center px-4 py-2">
-      <a href="mailto:soporte@hospitaljakarta.com">Introduzca su email</a>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="ml-2">
-        <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634L21.044 2.32c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8l-8 6z" />
-      </svg>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="flex flex-col md:flex-row justify-around items-center mt-5 w-4/5 space-y-4 md:space-y-0">
-    <p class="text-center md:text-left">© 2025 Hospital Jakarta - Todos los Derechos Reservados</p>
-    <div class="flex justify-center items-center text-center space-x-4">
+  <!-- Footer inferior -->
+  <div
+    class="flex flex-col md:flex-row justify-around items-center mt-5 w-4/5 space-y-3 md:space-y-0 px-4 md:px-0 text-xs sm:text-base"
+  >
+    <p class="text-center md:text-left">
+      © 2025 Hospital Jakarta - Todos los Derechos Reservados
+    </p>
+    <div
+      class="flex justify-center items-center text-center space-x-4"
+    >
       <!-- Iconos -->
     </div>
   </div>
