@@ -45,16 +45,21 @@ export class CitaComponent {
   }
 
   ngOnInit() {
+    console.log("comprobandoo")
     const usuarioGuardado = localStorage.getItem('usuario');
+    console.log("constante susario", usuarioGuardado)
     const doctorGuardado = localStorage.getItem('doctor');
     if (usuarioGuardado) {
       this.usuario = JSON.parse(usuarioGuardado);
+          console.log('Usuario cargado:', this.usuario);
+
       this.isNotDoctor = true;
     }else if (doctorGuardado) {
       this.isNotDoctor = false;
     }else {
       console.error('No hay usuario ni doctor logueado');
     }
+
   }
 
   getFirstLetterOfDay(date: string): string {
