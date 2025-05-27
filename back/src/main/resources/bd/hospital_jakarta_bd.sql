@@ -243,7 +243,6 @@ VALUES
 (26, 4, 5, '2025-05-27 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
 (27, 4, 6, '2025-05-27 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
 (28, 4, 7, '2025-05-27 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
-(29, 4, 8, '2025-05-28 23:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
 (30, 4, 9, '2025-05-28 23:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
 (31, 4, 10, '2025-05-28 22:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
 (32, 4, 11, '2025-05-28 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
