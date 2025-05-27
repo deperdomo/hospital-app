@@ -114,12 +114,11 @@ CREATE TABLE facturas (
 
 -- Insertar usuarios
 INSERT INTO usuarios (id, nombre, apellidos, username, email, telefono, provincia, localidad, direccion, fecha_nacimiento, fecha_alta, foto_perfil, password, sexo, rol) 
-VALUES 
-
+VALUES
 (1, 'Carlos', 'López', 'carlos', 'carlos.lopez@example.com', '123456789', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'usu_anonimo.png', 'password789', 'masculino', 'paciente'),
 (2, 'Sole', 'Moral', 'sole', 'sole.moral@example.com', '123456789', 'Madrid', 'Moncloa-Aravaca', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'sole', 'femenino', 'admin'),
 (3, 'Diego', 'Martinez', 'diego', 'diego.martinez@example.com', '123456789', 'Madrid', 'Retiro', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'diego', 'masculino', 'admin'),
-(4, 'Deivi', 'Perdomo', 'deivi', 'deivi.lopez@example.com', '123456789', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'admin.png', 'deivi', 'masculino', 'admin'),
+(4, 'Deivi', 'Perdomo', 'deivi', 'deivi.perdomo@example.com', '123456789', 'Madrid', 'Barajas', 'Calle Luna 789', '2000-01-01', '2023-03-10', 'deivi.png', 'deivi', 'masculino', 'admin'),
 (5, 'Sandra', 'González', 'sandra', 'sandra.gonzalez@example.com', '123456789', 'Madrid', 'Moratalaz', 'Calle Alegría 101', '1998-12-15', '2023-06-01', 'usu_anonimo.png', 'password321', 'femenino', 'paciente'),
 (6, 'Raúl', 'Sánchez', 'raul', 'raul.sanchez@example.com', '123456789', 'Madrid', 'Retiro', 'Calle Sol 500', '1995-07-20', '2023-07-05', 'usu_anonimo.png', 'password654', 'masculino', 'paciente'),
 (7, 'Laura', 'Méndez', 'laura', 'laura.mendez@example.com', '123456789', 'Madrid', 'Centro', 'Avenida de la Constitución 20', '1997-03-03', '2023-08-10', 'usu_anonimo.png', 'password987', 'femenino','paciente'),
@@ -136,13 +135,17 @@ VALUES
 INSERT INTO especialidades (id, nombre)
 VALUES
 (1, 'Cardiología'),
-(2, 'Pediatra'),
-(3, 'Medicina Interna'),
-(4, 'Odontología'),
+(2, 'Odontología'),
+(3, 'Cirujía'),
+(4, 'Oncología'),
 (5, 'Dermatología'),
 (6, 'Pediatría'),
 (7, 'Psiquiatría'),
-(8, 'Oftalmología');
+(8, 'Oftalmología'),
+(9, 'Nefrología'),
+(10, 'Neurocirugía'),
+(11, 'Alergología'),
+(12, 'Geriatría');
 
 
 -- Insertar doctores
@@ -162,9 +165,9 @@ VALUES
 (12, 1, 'Gonzalo', 'gonzalo', 'José', 'antonio.jose@example.com', 'Madrid', 'Chamartín', 'Calle Asturias 30', '2023-03-01', 'doc_m_04.png', 'password888', 15, 70, 'masculino', 3),
 (13, 3, 'Sergio', 'sergio', 'López', 'sergio.lopez@example.com', 'Madrid', 'Moncloa', 'Calle del Pintor 45', '2023-05-01', 'doc_m_28.png', 'password999', 8, 35, 'masculino', 17),
 (14, 4, 'Beatriz', 'beatriz', 'Muñoz', 'beatriz.munoz@example.com', 'Madrid', 'Fuencarral', 'Calle de la Luna 12', '2023-06-15', 'doc_f_13.png', 'password111', 6, 40, 'femenino', 14),
-(15, 5, 'David', 'david', 'Ortega', 'david.ortega@example.com', 'Madrid', 'Hortaleza', 'Avenida de la Paz 78', '2023-07-30', 'doc_m_14.png', 'password222', 10, 45, 'masculino', 10),
+(15, 5, 'David', 'david', 'Ortega', 'david.ortega@example.com', 'Madrid', 'Barajas', 'Avenida de la Paz 78', '2023-07-30', 'doc_m_14.png', 'password222', 10, 45, 'masculino', 10),
 (16, 6, 'Silvia', 'silvia', 'Romero', 'silvia.romero@example.com', 'Madrid', 'Barajas', 'Calle del Águila 23', '2023-08-10', 'doc_f_15.png', 'password333', 4, 35, 'femenino', 12),
-(17, 1, 'Martín', 'martin', 'Santos', 'martin.santos@example.com', 'Madrid', 'Usera', 'Calle del Estadio 101', '2023-09-01', 'doc_m_23.png', 'password444', 7, 50, 'masculino', 13),
+(17, 1, 'Martín', 'martin', 'Santos', 'martin.santos@example.com', 'Madrid', 'Barajas', 'Calle del Estadio 101', '2023-09-01', 'doc_m_23.png', 'password444', 7, 50, 'masculino', 13),
 (18, 2, 'Elena', 'elena', 'Torres', 'elena.torres@example.com', 'Madrid', 'Puente de Vallecas', 'Calle del Puente 200', '2023-10-15', 'doc_f_15.png', 'password555', 5, 55, 'femenino', 20),
 (19, 3, 'Jorge', 'jorge', 'Flores', 'jorge.flores@example.com', 'Madrid', 'San Blas', 'Calle de las Flores 456', '2023-11-20', 'doc_m_17.png', 'password666', 10, 60, 'masculino', 18),
 (20, 4, 'María', 'maria', 'Cruz', 'maria.cruz@example.com', 'Madrid', 'Coslada', 'Calle de la Cruz 30', '2023-12-01', 'doc_f_16.png', 'password777', 12, 70, 'femenino', 15),
@@ -232,7 +235,69 @@ VALUES
 (18, 3, 9, '2025-03-01 16:00:00', 'usuario1@example.com', '123456789', 'Consulta general', 100, 'Tarjeta de crédito', 'terminada', 1, false),
 (19, 8, 21, '2025-03-20 10:30:00', 'isabel.martinez@example.com', '123456789', 'Dolor de muelas', 45, 'Paypal', 'pendiente', 1, false),
 (20, 3, 4, '2025-03-10 11:30:00', 'diego.martinez@example.com', '123456789', 'Dolor de cabeza', 40, 'Paypal', 'terminada', 1,false),
-(21, 3, 1, '2025-03-11 09:00:00', 'diego.martinez@example.com', '123456789', 'Marcapasos', 20, 'Tarjeta de crédito', 'terminada', 1, false);
+(21, 4, 1, '2025-03-26 09:00:00', 'diego.martinez@example.com', '123456789', 'Marcapasos', 20, 'Tarjeta de crédito', 'terminada', 1, false),
+(22, 4, 1, '2025-05-26 23:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(23, 4, 2, '2025-05-26 23:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(24, 4, 3, '2025-05-26 22:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(25, 4, 4, '2025-05-27 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(26, 4, 5, '2025-05-27 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(27, 4, 6, '2025-05-27 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(28, 4, 7, '2025-05-27 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(29, 4, 8, '2025-05-28 23:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(30, 4, 9, '2025-05-28 23:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(31, 4, 10, '2025-05-28 22:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(32, 4, 11, '2025-05-28 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(33, 4, 12, '2025-05-28 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(34, 4, 13, '2025-05-28 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(35, 4, 14, '2025-05-28 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(36, 4, 15, '2025-05-29 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(37, 4, 3, '2025-05-29 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(38, 4, 17, '2025-05-29 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(39, 4, 18, '2025-05-29 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(40, 4, 19, '2025-05-30 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(41, 4, 20, '2025-05-30 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(42, 4, 21, '2025-05-30 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(43, 4, 22, '2025-05-30 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(44, 4, 23, '2025-05-31 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(45, 4, 24, '2025-05-31 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(46, 4, 25, '2025-05-31 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(47, 4, 26, '2025-05-31 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(48, 4, 27, '2025-06-01 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(49, 4, 28, '2025-06-01 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(50, 4, 1, '2025-06-02 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(51, 4, 2, '2025-06-03 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+
+-- Citas de la doctora Ana
+(52, 1, 3, '2025-05-26 23:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(53, 2, 3, '2025-05-26 23:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(54, 3, 3, '2025-05-26 22:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(55, 4, 3, '2025-05-27 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(56, 5, 3, '2025-05-27 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(57, 6, 3, '2025-05-27 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(58, 7, 3, '2025-05-27 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(59, 8, 3, '2025-05-28 23:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(60, 9, 3, '2025-05-28 23:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(61, 10, 3, '2025-05-28 22:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(62, 11, 3, '2025-05-28 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(63, 12, 3, '2025-05-28 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(64, 13, 3, '2025-05-28 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(65, 14, 3, '2025-05-28 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(66, 1, 3, '2025-05-29 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(67, 2, 3, '2025-05-29 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(68, 3, 3, '2025-05-29 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(69, 4, 3, '2025-05-29 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(70, 5, 3, '2025-05-30 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(81, 6, 3, '2025-05-30 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(82, 7, 3, '2025-05-30 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(83, 8, 3, '2025-05-30 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(84, 9, 3, '2025-05-31 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(85, 10, 3, '2025-05-31 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(86, 11, 3, '2025-05-31 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(87, 12, 3, '2025-05-31 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(88, 13, 3, '2025-06-01 22:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(89, 14, 3, '2025-06-01 21:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(90, 1, 3, '2025-06-02 21:00:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false),
+(91, 2, 3, '2025-06-03 20:30:00', 'deivi.perdomo@example.com', '123456789', 'Consulta general', 20, 'Tarjeta de crédito', 'pendiente', 1, false);
 
 
 -- Insertar historial médico
@@ -264,16 +329,6 @@ VALUES
 (24,1, 'Seguimiento', 'Monitoreo de salud', '2025-03-12'),
 (25,5, 'Seguimiento', 'Revisión, recomendaciones médicas', '2025-03-14'),
 (26,3, 'Consulta general', 'Reposo, tratamiento general', '2025-03-14');
-/*(1, 3, 'Hipertensión arterial', 'Control de presión y dieta baja en sal', '2023-05-01'),
-(2, 3, 'Resfriado común', 'Reposo y medicamentos sintomáticos', '2023-06-10'),
-(3, 4, 'Asma bronquial', 'Uso de inhaladores y control de los síntomas', '2023-06-15'),
-(4, 5, 'Alergia a ciertos medicamentos', 'Revisión de las medicinas y recomendaciones médicas', '2023-07-05'),
-(5, 6, 'Dolor lumbar', 'Recomendación de fisioterapia y ejercicios', '2023-08-10'),
-(6, 8, 'Insomnio', 'Recomendación de relajantes y terapia cognitivo-conductual', '2023-08-20'),
-(7, 9, 'Esguince de tobillo', 'Uso de vendaje y descanso', '2023-09-01'),
-(8, 10, 'Migrañas', 'Tratamiento con analgésicos y cambios en hábitos', '2023-09-03'),
-(9, 11, 'Alergia estacional', 'Antihistamínicos y evitar alergenos', '2023-09-05'),
-(10, 12, 'Gastritis', 'Dieta blanda y medicamentos antiácidos', '2023-09-06');*/
 
 -- Insertar recetas
 INSERT INTO recetas (id_paciente, id_historial_medico,id_cita ,nombre_medicamento, dosis, frecuencia, fecha_inicio, fecha_fin, instrucciones)
@@ -299,15 +354,6 @@ VALUES
 (8, 6, 19, 'Amoxicilina', '500mg', 'Cada 8 horas', '2025-03-20', '2025-03-23', 'Tomar después de las comidas'),
 (3, 7, 20, 'Paracetamol', '500mg', 'Cada 6 horas', '2025-03-10', '2025-03-13', 'Tomar con líquidos'),
 (3, 8, 21, 'Metformina', '500mg', 'Dos veces al día', '2025-03-11', '2025-03-18', 'Tomar con las comidas');
-/*(3, 1, 'Losartán', '50 mg', 'Una vez al día', '2023-05-01', '2023-11-01', 'Tomar por la mañana'),
-(3, 2, 'Paracetamol', '500 mg', 'Cada 8 horas', '2023-06-10', '2023-06-17', 'Tomar con agua'),
-(4, 3, 'Salbutamol', '100 mcg', 'Dos veces al día', '2023-06-16', '2023-12-16', 'Inhalar según sea necesario'),
-(5, 4, 'Dipirona', '500 mg', 'Cada 6 horas', '2023-07-06', '2023-07-10', 'Tomar con agua después de las comidas'),
-(6, 5, 'Ibuprofeno', '400 mg', 'Cada 8 horas', '2023-08-11', '2023-08-15', 'Tomar con alimento'),
-(8, 6, 'Lorazepam', '1 mg', 'Antes de dormir', '2023-08-21', '2023-12-21', 'Tomar una dosis por la noche'),
-(9, 8, 'Sumatriptán', '50 mg', 'Al primer síntoma de migraña', '2023-09-04', '2023-12-04', 'Tomar a la primera señal de dolor'),
-(10, 9, 'Loratadina', '10 mg', 'Una vez al día', '2023-09-06', '2023-11-06', 'Tomar con alimentos'),
-(11, 10, 'Omeprazol', '20 mg', 'Una vez al día', '2023-09-07', '2023-12-07', 'Tomar por la mañana con agua');*/
 
 -- Insertar facturas
 INSERT INTO facturas (id, id_usuario, monto, fecha, estado_pago)
