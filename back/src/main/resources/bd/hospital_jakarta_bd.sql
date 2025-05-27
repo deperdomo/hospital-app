@@ -327,7 +327,9 @@ VALUES
 (23,3, 'Consulta general', 'Reposo, monitoreo', '2025-03-12'),
 (24,1, 'Seguimiento', 'Monitoreo de salud', '2025-03-12'),
 (25,5, 'Seguimiento', 'Revisión, recomendaciones médicas', '2025-03-14'),
-(26,3, 'Consulta general', 'Reposo, tratamiento general', '2025-03-14');
+(26,3, 'Consulta general', 'Reposo, tratamiento general', '2025-03-14'),
+(27,4, 'Consulta general', 'Reposo, tratamiento general', '2025-05-27');
+
 
 -- Insertar recetas
 INSERT INTO recetas (id_paciente, id_historial_medico,id_cita ,nombre_medicamento, dosis, frecuencia, fecha_inicio, fecha_fin, instrucciones)
@@ -352,7 +354,9 @@ VALUES
 (3, 18, 18, 'Paracetamol', '500mg', 'Cada 8 horas', '2025-03-01', '2025-03-07', 'Tomar después de las comidas'),
 (8, 6, 19, 'Amoxicilina', '500mg', 'Cada 8 horas', '2025-03-20', '2025-03-23', 'Tomar después de las comidas'),
 (3, 7, 20, 'Paracetamol', '500mg', 'Cada 6 horas', '2025-03-10', '2025-03-13', 'Tomar con líquidos'),
-(3, 8, 21, 'Metformina', '500mg', 'Dos veces al día', '2025-03-11', '2025-03-18', 'Tomar con las comidas');
+(3, 8, 21, 'Metformina', '500mg', 'Dos veces al día', '2025-03-11', '2025-03-18', 'Tomar con las comidas'),
+(4, 27, 25, 'Metformina', '500mg', 'Dos veces al día', '2025-05-27', '2025-05-31', 'Tomar con las comidas');
+
 
 -- Insertar facturas
 INSERT INTO facturas (id, id_usuario, monto, fecha, estado_pago)
