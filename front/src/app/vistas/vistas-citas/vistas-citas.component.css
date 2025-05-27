@@ -7,7 +7,7 @@
     "zn zh"
     "zn zs";
   height: 100vh;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 app-left-nav {
