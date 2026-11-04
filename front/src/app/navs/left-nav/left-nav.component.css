@@ -10,7 +10,8 @@
   transition: fill 0.3s;
 }
 
-a:hover .svg {
+a:hover .svg,
+button:hover .svg {
   fill: #ffffff;
 }
 
@@ -42,7 +43,8 @@ body.overflow-hidden {
   }
   
   /* para hacer que los enlaces sean mas fáciles de pulsar en tamaño móvil */
-  nav a {
+  nav a,
+  nav button {
     padding: 0.75rem 1rem;
   }
 }

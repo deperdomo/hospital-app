@@ -209,9 +209,18 @@ export class CalendarComponent {
     this.generateCalendarDays();
   }
 
-  selectDate(date: Date) {
+  isDisabledDate(date: Date): boolean {
     const day = date.getDay();
-    if (date < new Date(new Date().setHours(0, 0, 0, 0)) || day === 0 || day === 6) return;
+    return date < new Date(new Date().setHours(0, 0, 0, 0)) || day === 0 || day === 6;
+  }
+
+  getDateLabel(date: Date): string {
+    const label = date.toLocaleString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    return this.isDisabledDate(date) ? label + ' (no disponible)' : label;
+  }
+
+  selectDate(date: Date) {
+    if (this.isDisabledDate(date)) return;
     this.selectedDate = date;
     this.generateTimeSlots();
     this.emitSelectedDateTime();

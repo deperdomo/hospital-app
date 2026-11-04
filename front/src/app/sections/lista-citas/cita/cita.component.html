@@ -1,8 +1,8 @@
 <div class="p-2 mb-2 rounded-md w-full flex justify-between items-center group hover:bg-[#F6F6F6] border border-[#E9E9E9] transition-all duration-100">
-  <div (click)="abrirModal(cita)" title="Ver detalle de la cita" class="fecha flex-none bg-[#EEF5DF] px-4 sm:px-6 md:px-8 py-2 mr-2 sm:mr-4 md:mr-6 rounded-md border-r border-[#E9E9E9] hover:bg-[#3b9bb889] items-center transition-all duration-100 cursor-pointer">
-    <p class="font-semibold grid justify-items-center w-6">{{ getFirstLetterOfDay(cita.fecha) }}</p>
-    <p class="text-[18px] sm:text-[20px] md:text-2xl mt-1 grid justify-items-center">{{ cita.fecha | date: 'dd' }}</p>
-  </div>
+  <button type="button" (click)="abrirModal(cita)" title="Ver detalle de la cita" [attr.aria-label]="'Ver detalle de la cita del ' + (cita.fecha | date: 'd/MM/yyyy HH:mm':'UTC')" class="fecha text-left flex-none bg-[#EEF5DF] px-4 sm:px-6 md:px-8 py-2 mr-2 sm:mr-4 md:mr-6 rounded-md border-r border-[#E9E9E9] hover:bg-[#3b9bb889] items-center transition-all duration-100 cursor-pointer">
+    <span class="font-semibold grid justify-items-center w-6">{{ getFirstLetterOfDay(cita.fecha) }}</span>
+    <span class="text-[18px] sm:text-[20px] md:text-2xl mt-1 grid justify-items-center">{{ cita.fecha | date: 'dd' }}</span>
+  </button>
 
   <div *ngIf="!isCitasPage" class="flex flex-col sm:flex-row sm:items-center sm:justify-between md:flex-row md:items-center md:justify-start md:flex-wrap md:gap-x-6 md:gap-y-2 min-w-0 w-full">
     <div class="w-full sm:w-auto md:flex-1 mb-2 sm:mb-0 min-w-0">
@@ -22,9 +22,9 @@
         }
       }
     </div>
-    <button (click)="abrirModal(cita)" class="mt-2 sm:mt-0 md:mt-0 md:ml-auto">
+    <button type="button" (click)="abrirModal(cita)" [attr.aria-label]="'Ver detalle de la cita del ' + (cita.fecha | date: 'd/MM/yyyy HH:mm':'UTC')" class="mt-2 sm:mt-0 md:mt-0 md:ml-auto">
       <svg class="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
-           viewBox="0 0 24 24" stroke-width="2">
+           viewBox="0 0 24 24" stroke-width="2" aria-hidden="true" focusable="false">
         <path stroke-linecap="round" stroke-linejoin="round" [attr.d]="svg.abrirModal" />
       </svg>
     </button>
@@ -33,7 +33,7 @@
   <div *ngIf="isCitasPage" class="flex flex-auto items-center justify-between flex-wrap">
     <div class="w-full sm:w-auto">
       <div class="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
              stroke-width="1">
             <circle cx="12" cy="12" r="9" />
@@ -46,7 +46,7 @@
 
       <div class="flex items-center gap-2 w-[200px]">
         <div class="flex items-center w-6 h-6">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
             <path fill="currentColor" [attr.d]="svg.usuario1" />
             <path fill="currentColor" fill-rule="evenodd"
                   [attr.d]="svg.usuario2"
@@ -74,39 +74,39 @@
         <p class="font-semibold text-gray-800">Motivo: <span class="font-normal text-[#4b5563]">{{ cita.motivo }}</span></p>
       }
       @if (cita.estado === "terminada") {
-        <a href="/informes/{{cita.id}}" class="text-sm text-[#3b9ab8] focus:text-blue-500 underline">Ver Receta</a>
+        <a href="/informes/{{cita.id}}" class="text-sm text-brand focus:text-blue-500 underline">Ver Receta</a>
       }
     </div>
 
     @if (cita.estado !== 'cancelada' && cita.estado !== 'terminada') {
       @if (isNotDoctor === false) {
-        <a href="/nuevaReceta/{{cita.usuario.id}}/{{cita.id}}" class="flex items-center bg-[#3B9AB8] transition-colors hover:bg-[#096c8a] text-white px-7 py-3 rounded-md">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <a href="/nuevaReceta/{{cita.usuario.id}}/{{cita.id}}" class="flex items-center bg-brand transition-colors hover:bg-brand-dark text-white px-7 py-3 rounded-md">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path fill="currentColor" [attr.d]="svg.addReceta1"/>
             <path fill="currentColor" fill-rule="evenodd" [attr.d]="svg.addReceta2" clip-rule="evenodd" />
           </svg>
           Añadir receta
         </a>
       }
-      <button (click)="cancelarCita(cita.id)" class="flex text-red-400 hover:text-red-600 p-2 items-center z-50">Cancelar</button>
+      <button type="button" (click)="cancelarCita(cita.id)" class="flex text-red-400 hover:text-red-600 p-2 items-center z-50">Cancelar</button>
     } @else if (cita.estado === 'terminada' && cita.votado === false && isNotDoctor) {
     <div class="inline-flex border border-gray-200 rounded-full p-0.5 mr-4">
-      <button (click)="voto(cita.doctor.id, true)" type="button"
-              class="inline-flex shrink-0 justify-center items-center size-8 rounded-full text-gray-500 hover:bg-blue-100 hover:text-blue-800 focus:outline-hidden focus:bg-blue-100 focus:text-blue-800 ">
+      <button (click)="voto(cita.doctor.id, true)" type="button" aria-label="Votar positivamente al doctor"
+              class="inline-flex shrink-0 justify-center items-center size-8 rounded-full text-gray-500 hover:bg-blue-100 hover:text-blue-800 focus:bg-blue-100 focus:text-blue-800 ">
         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-             stroke-linejoin="round">
+             stroke-linejoin="round" aria-hidden="true" focusable="false">
           <path [attr.d]="svg.voto"></path>
           <path
             [attr.d]="svg.votoTrue">
           </path>
         </svg>
       </button>
-      <button (click)="voto(cita.doctor.id, false)" type="button"
-              class="inline-flex shrink-0 justify-center items-center size-8 rounded-full text-gray-500 hover:bg-blue-100 hover:text-blue-800 focus:outline-hidden focus:bg-blue-100 focus:text-blue-800">
+      <button (click)="voto(cita.doctor.id, false)" type="button" aria-label="Votar negativamente al doctor"
+              class="inline-flex shrink-0 justify-center items-center size-8 rounded-full text-gray-500 hover:bg-blue-100 hover:text-blue-800 focus:bg-blue-100 focus:text-blue-800">
         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-             stroke-linejoin="round">
+             stroke-linejoin="round" aria-hidden="true" focusable="false">
           <path [attr.d]="svg.voto"></path>
           <path
             [attr.d]="svg.votoFalse">

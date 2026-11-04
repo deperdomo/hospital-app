@@ -8,7 +8,7 @@
       >
         ✕
       </button>
-      <h2 class="text-3xl font-bold text-center mb-8" style="color: #3b9ab8;">
+      <h2 class="text-3xl font-bold text-center mb-8" style="color: #2A7891;">
         Registro de Médico
       </h2>
   
@@ -19,8 +19,8 @@
           <input type="text" name="nombre" id="nombre" placeholder="Nombre del médico" 
                  [(ngModel)]="doctor.nombre" required
                  class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
-                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
-                        focus:outline-none focus:ring focus:ring-opacity-40">
+                        border border-gray-200 rounded-lg focus:border-brand focus:ring-brand 
+                        focus:ring focus:ring-opacity-40">
         </div>
   
         <div>
@@ -28,8 +28,8 @@
           <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos del médico" 
                  [(ngModel)]="doctor.apellidos" required
                  class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
-                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
-                        focus:outline-none focus:ring focus:ring-opacity-40">
+                        border border-gray-200 rounded-lg focus:border-brand focus:ring-brand 
+                        focus:ring focus:ring-opacity-40">
         </div>
   
         <div>
@@ -37,8 +37,8 @@
           <input type="text" name="username" id="username" placeholder="Nombre de usuario" 
                  [(ngModel)]="doctor.username" required
                  class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
-                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
-                        focus:outline-none focus:ring focus:ring-opacity-40">
+                        border border-gray-200 rounded-lg focus:border-brand focus:ring-brand 
+                        focus:ring focus:ring-opacity-40">
         </div>
   
         <div>
@@ -46,15 +46,15 @@
           <input type="email" name="email" id="email" placeholder="ejemplo@clinica.com" 
                  [(ngModel)]="doctor.email" required
                  class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
-                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
-                        focus:outline-none focus:ring focus:ring-opacity-40">
+                        border border-gray-200 rounded-lg focus:border-brand focus:ring-brand 
+                        focus:ring focus:ring-opacity-40">
         </div>
   
         <div>
           <label for="especialidad" class="block mb-2 text-sm text-gray-600">Especialidad</label>
           <select name="especialidad" id="especialidad" [(ngModel)]="doctor.especialidad.id" required
                   class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 
-                         rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] focus:outline-none 
+                         rounded-lg focus:border-brand focus:ring-brand 
                          focus:ring focus:ring-opacity-40">
             <option value="" disabled selected>Seleccione especialidad</option>
             <option *ngFor="let esp of especialidades" [value]="esp.id">{{esp.nombre}}</option>
@@ -66,8 +66,8 @@
           <input type="number" name="precioConsulta" id="precioConsulta" placeholder="Ej: 50" 
                  [(ngModel)]="doctor.precioConsulta" required
                  class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
-                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
-                        focus:outline-none focus:ring focus:ring-opacity-40">
+                        border border-gray-200 rounded-lg focus:border-brand focus:ring-brand 
+                        focus:ring focus:ring-opacity-40">
         </div>
   
         <!-- Columna Derecha -->
@@ -76,8 +76,8 @@
           <input type="number" name="experiencia" id="experiencia" placeholder="Ej: 5" 
                  [(ngModel)]="doctor.experiencia" required
                  class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
-                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
-                        focus:outline-none focus:ring focus:ring-opacity-40">
+                        border border-gray-200 rounded-lg focus:border-brand focus:ring-brand 
+                        focus:ring focus:ring-opacity-40">
         </div>
   
         <div>
@@ -85,8 +85,8 @@
           <input type="text" name="provincia" id="provincia" placeholder="Ej: Madrid" 
                  [(ngModel)]="doctor.provincia" required
                  class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
-                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
-                        focus:outline-none focus:ring focus:ring-opacity-40">
+                        border border-gray-200 rounded-lg focus:border-brand focus:ring-brand 
+                        focus:ring focus:ring-opacity-40">
         </div>
   
         <div>
@@ -94,8 +94,8 @@
           <input type="text" name="localidad" id="localidad" placeholder="Ej: Centro" 
                  [(ngModel)]="doctor.localidad" required
                  class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
-                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
-                        focus:outline-none focus:ring focus:ring-opacity-40">
+                        border border-gray-200 rounded-lg focus:border-brand focus:ring-brand 
+                        focus:ring focus:ring-opacity-40">
         </div>
   
         <div>
@@ -103,8 +103,8 @@
           <input type="text" name="direccion" id="direccion" placeholder="Dirección consulta" 
                  [(ngModel)]="doctor.direccion" required
                  class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
-                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
-                        focus:outline-none focus:ring focus:ring-opacity-40">
+                        border border-gray-200 rounded-lg focus:border-brand focus:ring-brand 
+                        focus:ring focus:ring-opacity-40">
         </div>
   
         <div>
@@ -112,15 +112,15 @@
           <input type="password" name="password" id="password" placeholder="••••••••" 
                  [(ngModel)]="doctor.password" required
                  class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white 
-                        border border-gray-200 rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] 
-                        focus:outline-none focus:ring focus:ring-opacity-40">
+                        border border-gray-200 rounded-lg focus:border-brand focus:ring-brand 
+                        focus:ring focus:ring-opacity-40">
         </div>
   
         <div>
           <label for="sexo" class="block mb-2 text-sm text-gray-600">Sexo</label>
           <select name="sexo" id="sexo" [(ngModel)]="doctor.sexo" required
                   class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 
-                         rounded-lg focus:border-[#3b9ab8] focus:ring-[#3b9ab8] focus:outline-none 
+                         rounded-lg focus:border-brand focus:ring-brand 
                          focus:ring focus:ring-opacity-40">
             <option value="" disabled selected>Seleccione sexo</option>
             <option value="masculino">Masculino</option>
@@ -140,8 +140,8 @@
         <div class="col-span-2 mt-6">
           <button type="submit" 
                   class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 
-                         transform bg-[#3b9ab8] rounded-lg cursor-pointer hover:bg-[#26738b] 
-                         focus:outline-none focus:ring focus:ring-[#3b9ab8] focus:ring-opacity-50">
+                         transform bg-brand rounded-lg cursor-pointer hover:bg-brand-dark 
+                         focus:ring focus:ring-brand focus:ring-opacity-50">
             Registrar Médico
           </button>
         </div>

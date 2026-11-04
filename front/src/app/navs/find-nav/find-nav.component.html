@@ -1,24 +1,27 @@
 <div class="find-nav">
   <div class="find-doctors">
-    <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path class="svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.doctor"/>
     </svg>
-    <input placeholder="Doctor" type="text" [(ngModel)]="nombreApellido">
+    <label for="buscar-doctor" class="sr-only">Nombre del doctor</label>
+    <input id="buscar-doctor" placeholder="Doctor" type="text" [(ngModel)]="nombreApellido">
   </div>
   <div class="separator"></div>
   <div class="specialty">
-    <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="-2 -2 24 24">
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="-2 -2 24 24" aria-hidden="true" focusable="false">
       <path class="svg" fill="#000" [attr.d]="svg.especialidad" />
     </svg>
-    <input placeholder="Especialidad" type="text" [(ngModel)]="especialidad">
+    <label for="buscar-especialidad" class="sr-only">Especialidad</label>
+    <input id="buscar-especialidad" placeholder="Especialidad" type="text" [(ngModel)]="especialidad">
   </div>
   <div class="separator"></div>
   <div class="location">
-    <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path class="svg" fill="currentColor" [attr.d]="svg.localidad" />
     </svg>
-    <input placeholder="Localidad" type="text" [(ngModel)]="localidad">
+    <label for="buscar-localidad" class="sr-only">Localidad</label>
+    <input id="buscar-localidad" placeholder="Localidad" type="text" [(ngModel)]="localidad">
   </div>
-  <button class="search-button" (click)="buscarDoctores()">Buscar</button>
+  <button type="button" class="search-button" (click)="buscarDoctores()">Buscar</button>
 </div>
 

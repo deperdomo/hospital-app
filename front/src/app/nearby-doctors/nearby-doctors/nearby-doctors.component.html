@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="w-full flex justify-end">
-      <button (click)="navigateToNewAppointment()" class="bg-[#3b9ab8] text-white px-4 py-2 rounded-lg hover:bg-[#26738b] transition duration-300">
+      <button (click)="navigateToNewAppointment()" class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-brand-dark transition duration-300">
           Pedir Cita
       </button>
     </div>
@@ -69,7 +69,7 @@
         <!-- Hora -->
         <div class="flex items-center p-3 bg-gray-50 rounded-lg">
           <div class="bg-[#e0f2f8] p-2 rounded-lg mr-3">
-            <svg class="w-5 h-5 text-[#3b9ab8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.hora"/>
             </svg>
           </div>
@@ -84,7 +84,7 @@
         <!-- Ubicación -->
         <div class="flex items-center p-3 bg-gray-50 rounded-lg">
           <div class="bg-[#e0f2f8] p-2 rounded-lg mr-3">
-            <svg class="w-5 h-5 text-[#3b9ab8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.ubicacion1"/>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.ubicacion2"/>
             </svg>
@@ -102,7 +102,7 @@
       <!-- Botón de acción -->
       <div class="w-full flex justify-end mt-6">
         <button (click)="navigateToNewReceta()" 
-                class="bg-[#3b9ab8] text-white px-5 py-2.5 rounded-lg hover:bg-[#2d7a8f] transition-all 
+                class="bg-brand text-white px-5 py-2.5 rounded-lg hover:bg-brand-dark transition-all 
                        flex items-center font-medium shadow-sm hover:shadow-md">
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.guardar"/>

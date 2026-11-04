@@ -9,6 +9,7 @@ import { DisponibilidadService } from '../../services/disponibilidad.service';
 import { FormDisponibilidadComponent } from "../user-nav/form-disponibilidad/form-disponibilidad.component";
 import { NewDoctorComponent } from "../user-nav/new-doctor/new-doctor.component";
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -54,7 +55,7 @@ export class LeftNavComponent {
     modalAlerta: 'M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 110 20 10 10 0 010-20z',
   };
 
-  constructor(private disponibilidadService: DisponibilidadService) {
+  constructor(private disponibilidadService: DisponibilidadService, private router: Router) {
     this.usuario = {} as Usuario;
     this.doctor = {} as Doctor;
   }
@@ -91,6 +92,8 @@ export class LeftNavComponent {
 
   logout() {
     ['usuario', 'doctor', 'token'].forEach(item => localStorage.removeItem(item));
+    document.body.classList.remove('overflow-hidden');
+    this.router.navigateByUrl('/');
   }
 
   open() {

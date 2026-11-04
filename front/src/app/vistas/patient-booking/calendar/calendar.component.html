@@ -2,31 +2,35 @@
   <div class="text-[27px] font-semibold mb-8">Selecciona fecha y hora</div>
   <div class="mb-6">
     <div class="flex justify-between items-center mb-4">
-      <button (click)="previousMonth()" class="text-gray-600 hover:text-blue-600 transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <button type="button" (click)="previousMonth()" aria-label="Mes anterior" class="text-gray-600 hover:text-blue-600 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
-      <h2 class="text-xl font-semibold text-gray-800">{{ getCurrentMonthYear() }}</h2>
-      <button (click)="nextMonth()" class="text-gray-600 hover:text-blue-600 transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <h2 class="text-xl font-semibold text-gray-800" aria-live="polite">{{ getCurrentMonthYear() }}</h2>
+      <button type="button" (click)="nextMonth()" aria-label="Mes siguiente" class="text-gray-600 hover:text-blue-600 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
       </button>
     </div>
-    <div class="grid grid-cols-7 gap-1 mb-2">
+    <div class="grid grid-cols-7 gap-1 mb-2" aria-hidden="true">
       <div *ngFor="let day of weekDays" class="text-center text-sm text-gray-600 font-medium py-2">{{ day }}</div>
     </div>
-    <div class="grid grid-cols-7 gap-1">
-      <div *ngFor="let date of calendarDays"
-           [class]="'p-2 text-center cursor-pointer transition-all duration-200 rounded-full ' +
-                    (isCurrentDate(date) ? 'bg-blue-100 text-blue-800 hover:bg-blue-200' :
-                     isSelectedDate(date) ? 'bg-blue-500 text-white hover:bg-blue-600' :
-                     (date.getDay() === 0 || date.getDay() === 6) ? 'text-gray-400 cursor-not-allowed' :
-                     'hover:bg-gray-100')"
+    <div class="grid grid-cols-7 gap-1" role="group" aria-label="Días del mes">
+      <button type="button" *ngFor="let date of calendarDays"
+           [disabled]="isDisabledDate(date)"
+           [attr.aria-pressed]="isSelectedDate(date)"
+           [attr.aria-current]="isCurrentDate(date) ? 'date' : null"
+           [attr.aria-label]="getDateLabel(date)"
+           [class]="'p-2 text-center transition-all duration-200 rounded-full ' +
+                    (isSelectedDate(date) ? 'bg-blue-500 text-white hover:bg-blue-600 ring-2 ring-offset-2 ring-blue-800 font-bold' :
+                     isCurrentDate(date) ? 'bg-blue-100 text-blue-800 hover:bg-blue-200' :
+                     isDisabledDate(date) ? 'text-gray-400 cursor-not-allowed' :
+                     'cursor-pointer hover:bg-gray-100')"
            (click)="selectDate(date)">
         {{ date.getDate() }}
-      </div>
+      </button>
     </div>
   </div>
 
@@ -36,19 +40,22 @@
   </div>
 
   <div class="relative">
-    <div class="flex flex-wrap gap-1 overflow-x-auto pb-5 scrollbar-hide">
-      <div *ngFor="let time of timeSlots"
+    <div class="flex flex-wrap gap-1 overflow-x-auto pb-5 scrollbar-hide" role="group" aria-label="Horas disponibles">
+      <button type="button" *ngFor="let time of timeSlots"
+           [attr.aria-pressed]="isSelectedTime(time)"
            [class]="'flex-shrink-0 mx-[1px] px-9 py-2 mt-1 w-[115px] border-2 border-blue-500 rounded-lg cursor-pointer transition-all duration-200 ' +
-                    (isSelectedTime(time) ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-200')"
+                    (isSelectedTime(time) ? 'bg-blue-500 text-white ring-2 ring-offset-2 ring-blue-800 font-bold' : 'bg-white hover:bg-gray-200')"
            (click)="selectTime(time)">
         {{ time | date:'HH:mm' }}
-      </div>
+      </button>
     </div>
   </div>
 
+  <div aria-live="polite">
   <div *ngIf="selectedTime" class="mt-6 p-4 bg-blue-50 rounded-lg">
     <p class="text-blue-800 font-medium">Fecha y Hora seleccionada:</p>
     <p class="text-gray-700">{{ getSelectedDateTimeFormatted() }}</p>
+  </div>
   </div>
 
 </div>

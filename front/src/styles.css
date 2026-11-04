@@ -7,3 +7,8 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+:focus-visible {
+    outline: 3px solid #1F5F73;
+    outline-offset: 2px;
+}

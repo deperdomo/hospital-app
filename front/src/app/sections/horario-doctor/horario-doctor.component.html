@@ -1,13 +1,13 @@
 <div class="p-4 bg-white rounded-lg shadow-lg">
   <div class="flex items-center justify-between mb-6">
     <button (click)="previousMonth()" class="p-2 text-gray-600 hover:bg-gray-100 rounded-full" aria-label="Mes anterior">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
       </svg>
     </button>
     <h2 class="text-xl font-semibold text-gray-800">{{ getCurrentMonthYear() }}</h2>
     <button (click)="nextMonth()" class="p-2 text-gray-600 hover:bg-gray-100 rounded-full" aria-label="Siguiente mes">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
       </svg>
     </button>
@@ -29,21 +29,23 @@
         <span [class]="'text-sm font-medium ' + 
             (isToday(day) ? 'text-blue-600' : 'text-gray-700')">{{ day | date:'d':'':'es' }}</span>
         <div class="flex-1 overflow-y-auto mt-1 space-y-1 max-h-[110px] custom-scrollbar">
-          <div *ngFor="let cita of getAppointmentsForDay(day)"
+          <button type="button" *ngFor="let cita of getAppointmentsForDay(day)"
             (click)="!isWeekend(day) && showAppointmentDetails(cita)"
-            class="mt-1 p-2 text-xs rounded-md transition-colors bg-[#3B9AB8]/[60%]"
+            [disabled]="isWeekend(day)"
+            [attr.aria-label]="'Ver detalle de la cita de ' + cita.usuario.nombre + ' ' + cita.usuario.apellidos + ', ' + (cita.fecha | date: 'EEEE d MMMM':'UTC':'es') + ' a las ' + (cita.fecha | date: 'HH:mm':'UTC')"
+            class="block w-full text-left mt-1 p-2 text-xs rounded-md transition-colors bg-brand-light/[60%]"
             [class.cursor-pointer]="!isWeekend(day)" [class.cursor-not-allowed]="isWeekend(day)"
             [ngClass]="{
                 'bg-red-400/[40%]': cita.estado === 'cancelada',
                 'bg-gray-400/[50%]': cita.estado === 'terminada',
-                'bg-[#3B9AB8]/[60%]': cita.estado === 'pendiente'
+                'bg-brand-light/[60%]': cita.estado === 'pendiente'
               }">
-            <div class="font-bold text-[13px]">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</div>
-            <div class="pl-1 font-medium text-gray-800">
+            <span class="block font-bold text-[13px]">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</span>
+            <span class="block pl-1 font-medium text-gray-800">
               {{ cita.fecha | date: 'HH:mm':'UTC'}} - {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}
-            </div>
-            <div class="pl-1 truncate text-gray-600">{{ cita.motivo }}</div>
-          </div>
+            </span>
+            <span class="block pl-1 truncate text-gray-600">{{ cita.motivo }}</span>
+          </button>
         </div>
       </div>
     </div>
@@ -60,20 +62,21 @@
               <span [class]="'text-sm font-medium ' + 
                   (isToday(day) ? 'text-blue-600' : 'text-gray-700')">{{ day | date:'d':'':'es' }}</span>
               <div class="flex-1 overflow-y-auto mt-1 space-y-1 max-h-[110px] custom-scrollbar">
-                <div *ngFor="let cita of getAppointmentsForDay(day)"
+                <button type="button" *ngFor="let cita of getAppointmentsForDay(day)"
                   (click)="showAppointmentDetails(cita)"
-                  class="mt-1 p-2 text-xs rounded-md transition-colors bg-[#3B9AB8]/[60%] cursor-pointer"
+                  [attr.aria-label]="'Ver detalle de la cita de ' + cita.usuario.nombre + ' ' + cita.usuario.apellidos + ', ' + (cita.fecha | date: 'EEEE d MMMM':'UTC':'es') + ' a las ' + (cita.fecha | date: 'HH:mm':'UTC')"
+                  class="block w-full text-left mt-1 p-2 text-xs rounded-md transition-colors bg-brand-light/[60%] cursor-pointer"
                   [ngClass]="{
                       'bg-red-400/[40%]': cita.estado === 'cancelada',
                       'bg-gray-400/[50%]': cita.estado === 'terminada',
-                      'bg-[#3B9AB8]/[60%]': cita.estado === 'pendiente'
+                      'bg-brand-light/[60%]': cita.estado === 'pendiente'
                     }">
-                  <div class="font-bold text-[13px]">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</div>
-                  <div class="pl-1 font-medium text-gray-800">
+                  <span class="block font-bold text-[13px]">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</span>
+                  <span class="block pl-1 font-medium text-gray-800">
                     {{ cita.fecha | date: 'HH:mm':'UTC'}} - {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}
-                  </div>
-                  <div class="pl-1 truncate text-gray-600">{{ cita.motivo }}</div>
-                </div>
+                  </span>
+                  <span class="block pl-1 truncate text-gray-600">{{ cita.motivo }}</span>
+                </button>
               </div>
             </div>
           </div>
@@ -89,8 +92,8 @@
     <div class="bg-white w-[500px] rounded-2xl shadow-2xl transform transition-all duration-300 animate-slide-up">
       <div class="p-5 flex justify-between items-center bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
         <h2 class="text-xl font-semibold text-gray-800 tracking-tight">Detalles de la Cita</h2>
-        <button (click)="closeAppointmentDetails()" class="text-gray-500 hover:text-gray-700">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button type="button" (click)="closeAppointmentDetails()" aria-label="Cerrar" class="text-gray-500 hover:text-gray-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
