@@ -74,7 +74,7 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public List<Doctor> buscarPorLocalidad(String localidad) {
-		return drepo.findByLocalidadContains(localidad);
+		return drepo.findByLocalidadContainingIgnoreCase(localidad);
 	}
 
 	@Override

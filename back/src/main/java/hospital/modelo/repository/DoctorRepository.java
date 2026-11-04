@@ -11,7 +11,7 @@ import hospital.entidades.Especialidad;
 
 public interface DoctorRepository extends JpaRepository<Doctor, Integer>{
 	
-	List<Doctor> findByLocalidadContains(String localidad);
+	List<Doctor> findByLocalidadContainingIgnoreCase(String localidad);
 	@Query("SELECT d FROM Doctor d WHERE " +
 	           "LOWER(d.nombre) LIKE LOWER(CONCAT('%', :nombre, '%')) OR " +
 	           "LOWER(d.apellidos) LIKE LOWER(CONCAT('%', :apellidos, '%')) OR " +
