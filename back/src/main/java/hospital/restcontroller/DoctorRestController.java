@@ -55,15 +55,15 @@ public class DoctorRestController {
 
 	@GetMapping("recomendado/{cantidad}")
 	public ResponseEntity<?> getMedicos(@PathVariable int cantidad) {
-		List<Doctor> medicos = dserv.buscarTodos();
-		if (medicos != null && !medicos.isEmpty()) {
-			List<Doctor> nMedicos = medicos.stream()
-					.sorted((d1, d2) -> Integer.compare(d2.getVotos(), d1.getVotos()))
-					.limit(cantidad)
-					.toList();
-			return new ResponseEntity<>(nMedicos, HttpStatus.OK);
+		if (cantidad < 1) {
+			return new ResponseEntity<>(List.of(), HttpStatus.OK);
 		}
-		return new ResponseEntity<>("No hay medicos", HttpStatus.NOT_FOUND);
+		// endpoint público: tope para que nadie pida la tabla entera
+		List<Doctor> medicos = dserv.buscarRecomendados(Math.min(cantidad, 50));
+		if (medicos.isEmpty()) {
+			return new ResponseEntity<>("No hay medicos", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(medicos, HttpStatus.OK);
 	}
 
 	@GetMapping("one/{id}")

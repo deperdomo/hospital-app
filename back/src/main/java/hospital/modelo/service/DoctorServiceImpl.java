@@ -2,6 +2,9 @@ package hospital.modelo.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,6 +78,13 @@ public class DoctorServiceImpl implements DoctorService {
 	@Override
 	public List<Doctor> buscarPorLocalidad(String localidad) {
 		return drepo.findByLocalidadContainingIgnoreCase(localidad);
+	}
+
+	@Override
+	public List<Doctor> buscarRecomendados(int cantidad) {
+		// más votados primero; a igualdad de votos, por id (mismo orden que antes)
+		Sort orden = Sort.by(Sort.Order.desc("votos"), Sort.Order.asc("id"));
+		return drepo.findAll(PageRequest.of(0, cantidad, orden)).getContent();
 	}
 
 	@Override

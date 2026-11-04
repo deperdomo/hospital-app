@@ -2,7 +2,6 @@ package hospital.modelo.service;
 
 
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -76,14 +75,7 @@ public class CitaServiceImpl implements CitaService{
 
 	@Override
 	public List<Cita> buscarCitasNoVistas(int idUsuario) {
-		List<Cita> citasNoVistas = crepo.findByVisto(0);
-		List<Cita> citasNoVistasDelUsuaario = new ArrayList<>();
-		for (Cita cita : citasNoVistas) {
-			if (cita.getUsuario().getId() == idUsuario) {
-				citasNoVistasDelUsuaario.add(cita);
-			}
-		}
-		return citasNoVistasDelUsuaario;
+		return crepo.findByUsuario_IdAndVisto(idUsuario, 0);
 	}
 
 
