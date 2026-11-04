@@ -71,7 +71,8 @@ public class SecurityConfig {
 								"/doctor/allDoctors",
 								"/doctor/localidad/*",
 								"/doctor/porNombreApellidoLocalidadYEspecialidad/**",
-								"/disponibilidad/doctor/*").permitAll()
+								"/disponibilidad/doctor/*",
+								"/disponibilidad/all").permitAll()
 						.requestMatchers(HttpMethod.POST, "/doctor/alta").hasRole("admin")
 						.anyRequest().authenticated())
 				.oauth2ResourceServer(o -> o.jwt(j -> j.jwtAuthenticationConverter(converter)))

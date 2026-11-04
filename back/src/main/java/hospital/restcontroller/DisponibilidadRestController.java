@@ -39,6 +39,12 @@ public class DisponibilidadRestController {
 		}
 	}
 
+	/** Público: horarios de todos los doctores en una sola llamada (lista de doctores). */
+	@GetMapping("/all")
+	public ResponseEntity<?> todas() {
+		return new ResponseEntity<>(diserv.buscarTodos(), HttpStatus.OK);
+	}
+
 	@PostMapping("/alta")
 	public ResponseEntity<?> alta(@RequestBody Disponibilidad disponibilidad, @AuthenticationPrincipal Jwt jwt) {
 		acceso.propioDoctor(jwt, idDoctor(disponibilidad));

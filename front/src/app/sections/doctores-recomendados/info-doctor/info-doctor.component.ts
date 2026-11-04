@@ -30,6 +30,8 @@ export class InfoDoctorComponent {
   }
 
   @Input() doctor!: Doctor;
+  /** Si el padre ya la trae (lista de doctores), no se pide una por tarjeta. */
+  @Input() disponibilidadPrecargada?: Disponibilidad;
 
   constructor(private dispoService: DisponibilidadService, private citaService: CitaService, private router: Router) {
     this.usuario = {} as Usuario;
@@ -62,7 +64,9 @@ export class InfoDoctorComponent {
   }
 
   ngOnInit() {
-    if (this.doctor) {
+    if (this.disponibilidadPrecargada) {
+      this.disponibilidad = this.disponibilidadPrecargada;
+    } else if (this.doctor) {
       this.dispoService.getDisponibilidadDoctor(this.doctor.id).subscribe(
         (disponibilidad: Disponibilidad) => {
           this.disponibilidad = disponibilidad;
