@@ -23,6 +23,8 @@ public interface CitaRepository extends JpaRepository<Cita, Integer>{
 	
 	List<Cita> findByVisto(int visto);
 
+	boolean existsByUsuario_IdAndDoctor_Id(int idUsuario, int idDoctor);
+
 	List<Cita> findByUsuarioAndDoctorAndEstado(Usuario usuario, Doctor doctor, String estado);
 
 	

@@ -3,6 +3,7 @@ package hospital.entidades;
 import java.io.Serializable;
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,6 +42,7 @@ public class Doctor implements Serializable {
 	private Date fechaAlta;
 	@Column(name="foto_perfil")
 	private String fotoPerfil;
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	private int experiencia;
 	@Column(name="precio_consulta")
