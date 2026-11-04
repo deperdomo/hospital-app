@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HttpClientModule } from '@angular/common/http';
 import { InfoDoctorComponent } from "../../sections/doctores-recomendados/info-doctor/info-doctor.component";
 import { DoctorService } from '../../services/doctor.service';
 import { Doctor } from '../../models/doctor';
@@ -11,7 +10,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-lista-doctores',
-  imports: [HttpClientModule, CommonModule],
+  imports: [CommonModule],
   templateUrl: './lista-especializaciones.component.html',
   styleUrl: './lista-especializaciones.component.css',
   providers: [DoctorService, EspecialidadService]

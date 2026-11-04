@@ -6,11 +6,11 @@ import { Usuario } from '../../models/usuario';
 import { CommonModule } from '@angular/common';
 import { Doctor } from '../../models/doctor';
 import { InformesConmponent } from "./cita-historial/informes/informes.component";
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-historial',
-  imports: [CitaHistorialComponent, CommonModule,HttpClientModule],
+  imports: [CitaHistorialComponent, CommonModule],
   templateUrl: './historial.component.html',
   styleUrl: './historial.component.css',
   providers: [CitaService]
@@ -52,7 +52,6 @@ export class HistorialComponent {
       this.usuarios = false
       const doctor = JSON.parse(doctorGuardado);
       this.doctor = doctor;
-      console.log("COMPROBANDO",this.doctor)
 
       if (this.doctor.id !== undefined) {
         this.obtenerCitas(this.doctor.id);//paso id para saber que usuario es 
@@ -69,14 +68,11 @@ export class HistorialComponent {
     ayer.setDate(ayer.getDate() - 1);
     //const dia = new Date().toISOString().split('T')[0];
     //console.log("Dia de hoy nuevo console log", dia)
-    console.log("comprobacion de fecha de hoy", fechaActual)
     const optenerCitasAyer = ayer.toISOString().split('T')[0];
-    console.log("comprobacion de fecha actual", fechaActual);
    if (this.usuarios) {
     this.citaService.getCitasUsuario(id.toString()).subscribe({
       next: (citas) => {
 
-        console.log("Citas obtenidas:", citas);
       
         // Clasificamos las citas en actuales, pasadas y próximas
         this.citasActuales = [];
@@ -84,27 +80,15 @@ export class HistorialComponent {
         this.citasProximas = [];
 
         citas.forEach(cita => {
-          console.log(citas);
 
           const fechaCita = new Date(cita.fecha).toISOString().split('T')[0];
-          console.log("COMPROBACION DE DE FECHA CITA Y DE FECHA ACTUAL")
-          console.log("fecha actual", fechaActual);
-          console.log("comprovar fecha de ayer ", optenerCitasAyer)
-          console.log("comprobacion de fechaCita", fechaCita)
-          console.log("antes del if de compracion de fechas ", this.citasActuales)
-          console.log(cita.fecha)
           if (fechaCita === optenerCitasAyer) {
 
             this.citasPasadas.push(cita); // Si la cita es pasada
 
           } else if (fechaCita === fechaActual) {
-            console.log("AQUIII")
-            console.log("fecha de la cita", cita.fecha);
-            console.log("fecha actual", fechaActual)
-            console.log("Comparacion ===", fechaCita === fechaActual)
 
             this.citasActuales.push(cita); // Si la cita es actual
-            console.log("Comprobando for Each de citas")
           } else {
 
             
@@ -117,9 +101,6 @@ export class HistorialComponent {
           }
         });
         
-        console.log("Citas Pasadas DESPUES DE COMPARACION DE FECHA:", this.citasPasadas);
-        console.log("Citas Actuales Despues de la comprobacion de fechas :", this.citasActuales);
-        console.log("Citas Próximas:", this.citasProximas);
         if (this.citasActuales.length) {
 
           this.citaService.getCitasActuales(id.toString(), fechaActual).subscribe({
@@ -128,7 +109,6 @@ export class HistorialComponent {
               this.citasActuales = citasActuales;
 
 
-              console.log("Citas actuales desde el backend:", citasActuales);
             },
             error: (error) => {
               console.error("Error al obtener citas actuales desde el backend:", error);
@@ -137,14 +117,11 @@ export class HistorialComponent {
         }
 
         if (this.citasPasadas.length) {
-          console.log("Mirando una cosa", this.citasPasadas)
           //cambiado aqui
-          console.log("ANTES DEL SERVICIO PARA PASADAS")
           this.citaService.getCitasPasadas(id.toString(), optenerCitasAyer).subscribe({
             next: (citasPasadas) => {
               this.citasPasadas = citasPasadas;
 
-              console.log("Citas pasadas desde el backend DESPUES DEL SERVICE:", citasPasadas);
 
             },
             error: (error) => {
@@ -157,7 +134,6 @@ export class HistorialComponent {
           this.citaService.getCitasProximas(id.toString(), fechaActual).subscribe({
             next: (citasProximas) => {
               this.citasProximas = citasProximas;
-              console.log("Citas próximas desde el backend:", citasProximas);
 
             },
             error: (error) => {
@@ -175,7 +151,6 @@ export class HistorialComponent {
     this.citaService.getCitasDoctor(id.toString()).subscribe({
       next: (citas) => {
 
-        console.log("Citas obtenidas:", citas);
       
         // Clasificamos las citas en actuales, pasadas y próximas
         this.citasActuales = [];
@@ -183,27 +158,15 @@ export class HistorialComponent {
         this.citasProximas = [];
 
         citas.forEach(cita => {
-          console.log(citas);
 
           const fechaCita = new Date(cita.fecha).toISOString().split('T')[0];
-          console.log("COMPROBACION DE DE FECHA CITA Y DE FECHA ACTUAL")
-          console.log("fecha actual", fechaActual);
-          console.log("comprovar fecha de ayer ", optenerCitasAyer)
-          console.log("comprobacion de fechaCita", fechaCita)
-          console.log("antes del if de compracion de fechas ", this.citasActuales)
-          console.log(cita.fecha)
           if (fechaCita === optenerCitasAyer) {
 
             this.citasPasadas.push(cita); // Si la cita es pasada
 
           } else if (fechaCita === fechaActual) {
-            console.log("AQUIII")
-            console.log("fecha de la cita", cita.fecha);
-            console.log("fecha actual", fechaActual)
-            console.log("Comparacion ===", fechaCita === fechaActual)
 
             this.citasActuales.push(cita); // Si la cita es actual
-            console.log("Comprobando for Each de citas")
           } else {
 
             
@@ -216,9 +179,6 @@ export class HistorialComponent {
           }
         });
         
-        console.log("Citas Pasadas DESPUES DE COMPARACION DE FECHA:", this.citasPasadas);
-        console.log("Citas Actuales Despues de la comprobacion de fechas :", this.citasActuales);
-        console.log("Citas Próximas:", this.citasProximas);
         if (this.citasActuales.length) {
 
           this.citaService.getCitasActualesDoctor(id.toString(), fechaActual).subscribe({
@@ -227,7 +187,6 @@ export class HistorialComponent {
               this.citasActuales = citasActuales;
 
 
-              console.log("Citas actuales desde el backend:", citasActuales);
             },
             error: (error) => {
               console.error("Error al obtener citas actuales desde el backend:", error);
@@ -236,14 +195,11 @@ export class HistorialComponent {
         }
 
         if (this.citasPasadas.length) {
-          console.log("Mirando una cosa", this.citasPasadas)
           //cambiado aqui
-          console.log("ANTES DEL SERVICIO PARA PASADAS")
           this.citaService.getCitasPasadasDoctor(id.toString(), optenerCitasAyer).subscribe({
             next: (citasPasadas) => {
               this.citasPasadas = citasPasadas;
 
-              console.log("Citas pasadas desde el backend DESPUES DEL SERVICE:", citasPasadas);
 
             },
             error: (error) => {
@@ -256,7 +212,6 @@ export class HistorialComponent {
           this.citaService.getCitasProximasDoctor(id.toString(), fechaActual).subscribe({
             next: (citasProximas) => {
               this.citasProximas = citasProximas;
-              console.log("Citas próximas desde el backend:", citasProximas);
 
             },
             error: (error) => {

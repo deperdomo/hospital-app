@@ -5,13 +5,12 @@ import { Router } from '@angular/router';
 import { CitaComponent } from './cita/cita.component';
 import { CitaService } from '../../services/cita.service';
 import { Usuario } from '../../models/usuario';
-import { HttpClientModule } from '@angular/common/http';
 import { Doctor } from '../../models/doctor';
 
 @Component({
   selector: 'app-lista-citas',
   standalone: true,
-  imports: [CommonModule, CitaComponent, HttpClientModule],
+  imports: [CommonModule, CitaComponent],
   templateUrl: './lista-citas.component.html',
   styleUrls: ['./lista-citas.component.css'],
   providers: [CitaService]
@@ -138,7 +137,6 @@ export class ListaCitasComponent implements OnInit {
               cita.estado = 'terminada';
               this.citaService.actualizarCita(cita).subscribe(
                 response => {
-                  console.log(`Cita ${cita.id} actualizada a terminada`);
                 },
                 error => {
                   console.error(`Error actualizando cita ${cita.id}:`, error);
@@ -171,7 +169,6 @@ export class ListaCitasComponent implements OnInit {
               cita.estado = 'terminada';
               this.citaService.actualizarCita(cita).subscribe(
                 response => {
-                  console.log(`Cita ${cita.id} actualizada a terminada`);
                 },
                 error => {
                   console.error(`Error actualizando cita ${cita.id}:`, error);

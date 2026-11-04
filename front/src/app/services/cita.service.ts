@@ -8,7 +8,7 @@ import { Cita } from "../models/cita";
 })
 export class CitaService {
 
-  private apiUrl = 'http://localhost:8090/cita';
+  private apiUrl = '/api/cita';
 
   constructor(private http: HttpClient) { }
 

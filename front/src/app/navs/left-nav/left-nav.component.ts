@@ -1,6 +1,5 @@
 import { Component, Input, HostListener } from '@angular/core';
 
-import { HttpClientModule } from '@angular/common/http';
 import { Usuario } from '../../models/usuario';
 import { UsuarioService } from '../../services/usuario.service';
 import { Doctor } from '../../models/doctor';
@@ -14,7 +13,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-left-nav',
-  imports: [CommonModule, HttpClientModule, AyudaComponent, FormDisponibilidadComponent, NewDoctorComponent],
+  imports: [CommonModule, AyudaComponent, FormDisponibilidadComponent, NewDoctorComponent],
   templateUrl: './left-nav.component.html',
   styleUrl: './left-nav.component.css',
   providers: [UsuarioService, DoctorService, DisponibilidadService]
@@ -91,7 +90,7 @@ export class LeftNavComponent {
   }
 
   logout() {
-    ['usuario', 'doctor'].forEach(item => localStorage.removeItem(item));
+    ['usuario', 'doctor', 'token'].forEach(item => localStorage.removeItem(item));
   }
 
   open() {

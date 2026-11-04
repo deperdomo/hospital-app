@@ -46,7 +46,6 @@ export class FormDisponibilidadComponent {
         }
       )
     } else {
-      console.log('Disponibilidad a crear', this.disponibilidadAntigua);
       this.disponibilidadService.altaDisponibilidad(this.disponibilidadAntigua).subscribe(
         () => {
           window.location.reload();

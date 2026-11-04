@@ -49,7 +49,6 @@ export class CitaComponent {
     const doctorGuardado = localStorage.getItem('doctor');
     if (usuarioGuardado) {
       this.usuario = JSON.parse(usuarioGuardado);
-          console.log('Usuario cargado:', this.usuario);
 
       this.isNotDoctor = true;
     }else if (doctorGuardado) {

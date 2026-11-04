@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class DisponibilidadService {
 
-  private apiUrl = 'http://localhost:8090/disponibilidad';
+  private apiUrl = '/api/disponibilidad';
 
   constructor(private http: HttpClient) { }
 

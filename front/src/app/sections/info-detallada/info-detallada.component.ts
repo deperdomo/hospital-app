@@ -26,13 +26,11 @@ export class InfoDetalladaComponent {
       this.usuarios=true;
        const usuario = JSON.parse(usuarioGuardado);
        this.usuario = usuario;
-       console.log("COMPROBANDO",this.usuario)
      }
      if (doctorGuardado) {
       this.usuarios=false;
       const doctor= JSON.parse(doctorGuardado);
       this.doctor=doctor;
-      console.log("COMPROBANDO",this.doctor)
      }
 
 

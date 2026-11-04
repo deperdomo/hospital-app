@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CitaService } from '../../services/cita.service';
-import { HttpClientModule } from '@angular/common/http';
 import { Usuario } from '../../models/usuario';
 import { Cita } from '../../models/cita';
 import { RouterModule } from '@angular/router';
@@ -11,7 +10,7 @@ import { NewDoctorComponent } from "./new-doctor/new-doctor.component";
 
 @Component({
   selector: 'app-user-nav',
-  imports: [HttpClientModule, RouterModule, PanelNotificacionesComponent],
+  imports: [RouterModule, PanelNotificacionesComponent],
   templateUrl: './user-nav.component.html',
   providers: [CitaService]
 })
@@ -69,7 +68,6 @@ export class UserNavComponent {
     if (this.usuario.id) {
       this.citaService.getCitasNoVistasPorUsuario(this.usuario.id).subscribe(
         (citas: Cita[]) => {
-          console.log('Citas no vistas: ', citas);
           if (citas.length > 0) {
             this.hayCitasNoVistas = true;
           }

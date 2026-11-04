@@ -21,7 +21,6 @@ export class NearbyDoctorsDisabledComponent {
       const usuario = JSON.parse(usuarioGuardado);
       this.doctorService.buscarPorLocalidad(usuario.localidad).subscribe(
         (doctores) => {
-          console.log('Doctores:', doctores);
           this.doctoresCercanos.emit(doctores);
       });
     }

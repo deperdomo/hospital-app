@@ -9,7 +9,7 @@ import { Receta } from '../models/receta';
 })
 export class RecetaService {
 
-  private apiUrl = 'http://localhost:8090/receta';
+  private apiUrl = '/api/receta';
 
   constructor(private http: HttpClient) { }
 

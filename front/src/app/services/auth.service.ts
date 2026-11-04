@@ -4,23 +4,21 @@ import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario';
 import { Doctor } from '../models/doctor';
 
+export interface LoginResponse {
+  token: string;
+  perfil: Usuario | Doctor;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  public apiUrl = 'http://localhost:8090';
+  private apiUrl = '/api/auth';
 
   constructor(private http: HttpClient) {}
 
-  // Método para recuperar todo el usuario
-  getUserByUsername(username: string): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/usuario/one/${username}`);
+  login(username: string, password: string, tipo: 'paciente' | 'doctor'): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { username, password, tipo });
   }
-
-  // Método para recuperar todo el doctor
-  getDoctorByUsername(username: string): Observable<Doctor> {
-    return this.http.get<Doctor>(`${this.apiUrl}/doctor/oneByUsername/${username}`);
-  }
-
 }

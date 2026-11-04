@@ -38,7 +38,6 @@ export class HorarioDoctorComponent implements OnInit {
 
   ngOnInit() {
     const doctoroGuardado = localStorage.getItem('doctor');
-    console.log(doctoroGuardado);
 
     if (doctoroGuardado) {
       this.doctor = JSON.parse(doctoroGuardado);
@@ -52,7 +51,6 @@ export class HorarioDoctorComponent implements OnInit {
     this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
       (citas: Cita[]) => {
         this.citas = citas;
-        console.log(this.citas);
       }
     );
   }

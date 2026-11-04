@@ -6,12 +6,11 @@ import { Usuario } from './../../../models/usuario';
 import { Cita } from '../../../models/cita';
 import { DoctorService } from '../../../services/doctor.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { CitaService } from '../../../services/cita.service';
 
 @Component({
   selector: 'ingresar-detalles-cita',
-  imports: [FormsModule, CommonModule, HttpClientModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './ingresar-detalles-cita.component.html',
   providers: [DoctorService, CitaService]
 })
@@ -86,7 +85,6 @@ export class IngresarDetallesCitaComponent {
 
     this.citaService.altaCita(this.cita).subscribe(
       (cita: Cita) => {
-        console.log('Cita registrada:', cita);
         this.router.navigate(['/index']);
       },
       error => {

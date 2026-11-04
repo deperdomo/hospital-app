@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
 import { NavBeforeLoginComponent } from "../../navs/nav-before-login/nav-before-login.component";
 import { BanerComponent } from "../../sections/baner/baner.component";
@@ -14,7 +13,7 @@ import { Doctor } from '../../models/doctor';
 
 @Component({
   selector: 'app-index-before-login',
-  imports: [NavBeforeLoginComponent, BanerComponent, FindNavComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, HttpClientModule, DoctoresRecomendadosComponent],
+  imports: [NavBeforeLoginComponent, BanerComponent, FindNavComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, DoctoresRecomendadosComponent],
   templateUrl: './index-before-login.component.html',
   styleUrl: './index-before-login.component.css',
 })
@@ -27,7 +26,7 @@ export class IndexBeforeLoginComponent {
   constructor( private router: Router) {}
 
   ngOnInit() {
-    ['usuario', 'doctor'].forEach(item => localStorage.removeItem(item));
+    ['usuario', 'doctor', 'token'].forEach(item => localStorage.removeItem(item));
   }
 
   cambiarEstado() {
@@ -45,7 +44,6 @@ export class IndexBeforeLoginComponent {
   }
   recibirDoctoresCercanos(doctores: Doctor[]) {
     this.doctoresCercanos = doctores;
-    console.log('Doctores recibidos de nearby:', doctores);
   }
 
 }

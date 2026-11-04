@@ -39,7 +39,6 @@ export class InfoPerfilComponent {
       this.usuarios = false
       const doctor = JSON.parse(doctorGuardado);
       this.doctor = doctor;
-      console.log("COMPROBANDO",this.doctor)
      }
 
   }

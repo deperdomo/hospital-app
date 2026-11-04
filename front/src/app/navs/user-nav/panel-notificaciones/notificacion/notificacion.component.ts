@@ -25,7 +25,6 @@ export class NotificacionComponent {
     if (this.cita.id) {
       this.citaService.marcarCitaComoVista(this.cita.id).subscribe(
         (cita: Cita) => {
-          console.log('Cita marcada como vista', cita);
         },
         error => {
           console.error('Error al marcar la cita como vista', error);

@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { Usuario } from '../../models/usuario';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { Receta } from '../../models/receta';
 import { Cita } from '../../models/cita';
 import { HistorialMedico } from '../../models/historialMedico';
@@ -15,7 +14,7 @@ import { RecetaService } from '../../services/receta.service';
 
 @Component({
   selector: 'app-formulario-receta',
-  imports: [CommonModule, HttpClientModule, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './formulario-receta.component.html',
   styleUrl: './formulario-receta.component.css',
   providers: [HistorialMedicoService, UsuarioService, CitaService, RecetaService]
@@ -67,7 +66,6 @@ export class FormularioRecetaComponent {
                     this.receta.historialMedico = this.historialMedico;
                     this.receta.cita = this.cita;
 
-                    console.log('Receta inicializada:', this.receta);
                   },
                   error => console.error('Error obteniendo usuario:', error)
                 );
@@ -90,7 +88,6 @@ export class FormularioRecetaComponent {
       return;
     }
 
-    console.log('Receta enviada al servicio:', this.receta);
 
     this.recetaService.altaReceta(
       idUsuario.toString(),
@@ -100,7 +97,6 @@ export class FormularioRecetaComponent {
     ).subscribe(
       (receta: Receta) => {
         this.router.navigate(['/indexDoctores']);
-        console.log('Respuesta del backend:', receta);
       },
       error => {
         console.error('Error al enviar receta:', error);

@@ -6,13 +6,12 @@ import { DoctorService } from '../../../services/doctor.service';
 import { Usuario } from '../../../models/usuario';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { InformesConmponent } from "./informes/informes.component";
 
 
 @Component({
   selector: 'app-cita-historial',
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule],
   templateUrl: './cita-historial.component.html',
   styleUrl: './cita-historial.component.css',
 

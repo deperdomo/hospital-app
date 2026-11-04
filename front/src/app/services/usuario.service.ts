@@ -8,20 +8,15 @@ import { Usuario } from '../models/usuario';
 })
 export class UsuarioService {
 
-  private apiUrl = 'http://localhost:8090/usuario'; // URL del endpoint
+  private apiUrl = '/api/usuario'; // URL del endpoint
 
   constructor(private http: HttpClient) { }
 
   altaUsuario(usuario: Usuario): Observable<Usuario> {
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    console.log('Usuario a dar de alta: ', usuario);
     return this.http.post<Usuario>(`${this.apiUrl}/alta`, usuario);
   }
 
-  getUsuarioById(id: string): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/one/${id}`);
-  }
-  
   buscarUsuario(id: string): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUrl}/buscarUno/${id}`);
   }
@@ -30,8 +25,7 @@ export class UsuarioService {
     return this.http.put<Usuario>(`${this.apiUrl}/editar`, usuario);
   }
 
-  editarPassword(id: string, password:string): Observable<Usuario> {
-    //const passwordCambiada={password:password};
-    return this.http.put<Usuario>(`${this.apiUrl}/password/${id}`,password);
+  editarPassword(id: string, actual: string, nueva: string): Observable<Usuario> {
+    return this.http.put<Usuario>(`${this.apiUrl}/password/${id}`, { actual, nueva });
   }
 }

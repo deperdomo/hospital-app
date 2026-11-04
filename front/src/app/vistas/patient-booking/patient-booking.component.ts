@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { DoctorService } from '../../services/doctor.service';
 
@@ -14,7 +13,7 @@ import { FechaCitaComponent } from "./fecha-cita/fecha-cita.component";
 
 @Component({
   selector: 'app-patient-booking',
-  imports: [CalendarComponent, UserNavComponent, TitleJakartaComponent, HttpClientModule, IngresarDetallesCitaComponent, FechaCitaComponent],
+  imports: [CalendarComponent, UserNavComponent, TitleJakartaComponent, IngresarDetallesCitaComponent, FechaCitaComponent],
   templateUrl: './patient-booking.component.html',
   providers: [DoctorService]
 })
@@ -38,7 +37,6 @@ export class PatientBookingComponent {
       const id = params.get('id');
       if (id) {
         this.doctorId = id;
-        console.log('Doctor ID:', this.doctorId);
       } else {
         // Manejar el caso en el que el id sea null, si es necesario
         console.error('No se encontró el id del doctor en la URL');
@@ -47,7 +45,6 @@ export class PatientBookingComponent {
 
     this.doctorService.getDoctorById(this.doctorId).subscribe(
       (doctor: Doctor) => {
-        console.log('Doctor encontrado:', doctor);
         this.doctor = doctor;
       },
       error => {

@@ -9,7 +9,7 @@ import { Doctor } from '../models/doctor';
 })
 export class DoctorService {
 
-  private apiUrl = 'http://localhost:8090/doctor'; // URL del endpoint
+  private apiUrl = '/api/doctor'; // URL del endpoint
 
   constructor(private http: HttpClient) { }
 
@@ -53,8 +53,7 @@ export class DoctorService {
       return this.http.put<Doctor>(`${this.apiUrl}/editar`, doctor);
     }
 //cambio de password
-    editarPassword(id: string, password:string): Observable<Doctor> {
-        
-        return this.http.put<Doctor>(`${this.apiUrl}/password/${id}`,password);
-      }
+    editarPassword(id: string, actual: string, nueva: string): Observable<Doctor> {
+    return this.http.put<Doctor>(`${this.apiUrl}/password/${id}`, { actual, nueva });
+  }
 }

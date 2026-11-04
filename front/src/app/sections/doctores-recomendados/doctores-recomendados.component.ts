@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { InfoDoctorComponent } from "./info-doctor/info-doctor.component";
 import { Doctor } from '../../models/doctor';
@@ -7,7 +6,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'cont-doctores-recomendados',
-  imports: [InfoDoctorComponent, HttpClientModule, CommonModule],
+  imports: [InfoDoctorComponent, CommonModule],
   templateUrl: './doctores-recomendados.component.html',
   styleUrls: ['./doctores-recomendados.component.css'],
   providers: [DoctorService]

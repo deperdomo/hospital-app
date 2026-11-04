@@ -40,7 +40,6 @@ export class FindNavComponent {
       .subscribe((doctores) => {
         this.doctores = doctores;
         this.doctoresEncontrados.emit(doctores);
-        console.log(doctores);
         this.limpiar();
       });
   }

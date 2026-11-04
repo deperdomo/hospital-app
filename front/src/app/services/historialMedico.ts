@@ -11,7 +11,7 @@ import { HistorialMedico } from '../models/historialMedico';
 })
 export class HistorialMedicoService {
 
-  private apiUrl = 'http://localhost:8090/historialMedico';
+  private apiUrl = '/api/historialMedico';
 
   constructor(private http: HttpClient) { }
 

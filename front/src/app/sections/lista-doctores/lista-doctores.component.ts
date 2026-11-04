@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HttpClientModule } from '@angular/common/http';
 import { InfoDoctorComponent } from "../doctores-recomendados/info-doctor/info-doctor.component";
 import { DoctorService } from '../../services/doctor.service';
 import { Doctor } from '../../models/doctor';
 
 @Component({
   selector: 'app-lista-doctores',
-  imports: [InfoDoctorComponent, HttpClientModule],
+  imports: [InfoDoctorComponent],
   templateUrl: './lista-doctores.component.html',
   styleUrl: './lista-doctores.component.css',
   providers: [DoctorService]

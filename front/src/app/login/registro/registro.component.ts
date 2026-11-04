@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -11,7 +10,7 @@ import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-registro',
-  imports: [ CommonModule, FormsModule, HttpClientModule],
+  imports: [ CommonModule, FormsModule],
   templateUrl: './registro.component.html',
   styleUrls: ['../login/login.component.css', './registro.component.css'],
   providers: [UsuarioService]
@@ -43,7 +42,6 @@ export class RegistroComponent {
   onSubmit() {
     this.usuarioService.altaUsuario(this.usuario).subscribe(
       (usuario: Usuario) => {
-        console.log('Usuario registrado:', usuario);
         // Guardar el usuario en el localStorage y redirigir a otra ruta:
         localStorage.setItem('usuario', JSON.stringify(usuario));
         this.router.navigate(['/index']);

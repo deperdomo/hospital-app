@@ -41,7 +41,6 @@ export class EditProfileComponent {
       this.usuarios = false
       const doctor = JSON.parse(doctorGuardado);
       this.doctor = doctor;
-      console.log("COMPROBANDO",this.doctor)
      }
 
   }
@@ -51,23 +50,19 @@ export class EditProfileComponent {
   }
 
   editar() {
-    console.log('Usuario que envio: ', this.usuario);
 if (this.usuarios) {
   this.usuarioService.editarUsuario(this.usuario).subscribe(
     (usuario: Usuario) => {
-      console.log(usuario);
       localStorage.setItem('usuario', JSON.stringify(this.usuario));
       this.navigateToProfile();
     },
     (error) => {
-      console.log(error);
       this.errorMessage = error.error;
     }
   );
 } else{
   this.doctorService.editarDoctor(this.doctor).subscribe(
     (doctor:Doctor)=> {
-      console.log(doctor);
       localStorage.setItem('doctor', JSON.stringify(this.doctor));
     }
   )

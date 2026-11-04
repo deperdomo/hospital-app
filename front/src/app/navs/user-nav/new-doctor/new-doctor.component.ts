@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -10,7 +9,7 @@ import { Especialidad } from '../../../models/especialidad';
 import { EspecialidadService } from '../../../services/especialidad.service';
 @Component({
   selector: 'app-new-doctor',
-  imports: [CommonModule, FormsModule,HttpClientModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './new-doctor.component.html',
   styleUrl: './new-doctor.component.css',
   providers: [DoctorService, EspecialidadService]
@@ -62,11 +61,9 @@ export class NewDoctorComponent {
   }
 
   onSubmit() {
-    console.log('Doctor a crear', this.doctor);
     
     this.doctorService.altaDoctor(this.doctor).subscribe(
       (doctor: Doctor) => {
-        console.log('Doctor creado correctamente', doctor);
         this.enviarEstado();
       },
       error => {
