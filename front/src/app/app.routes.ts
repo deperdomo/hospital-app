@@ -5,45 +5,30 @@ import { RedirectGuard } from './guards/redirect.guard';
 import { DoctorGuard } from './guards/doctor.guard';
 
 import { LoginComponent } from './login/login/login.component';
-import { RegistroComponent } from './login/registro/registro.component';
 import { IndexBeforeLoginComponent } from './vistas/index-before-login/index-before-login.component';
-import { PatientBookingComponent } from './vistas/patient-booking/patient-booking.component';
-import { IndexVistasCitasComponent } from './vistas/vistas-citas/vistas-citas.component';
-import { IndexAfterLoginComponent } from './vistas/index-after-login/index-after-login.component';
-import { ProfileComponent } from './vistas/profile/profile.component';
-import { PerfilHistorialComponent } from './vistas/perfil-historial/perfil-historial.component';
-import { EditProfileComponent } from './vistas/edit-profile/edit-profile.component';
-import { DoctoresComponent } from './vistas/doctores/doctores.component';
-import { InfoGeneralCambioPasswordComponent } from './vistas/info-general-cambio-password/info-general-cambio-password.component';
-import { IndexDoctoresComponent } from './vistas/index-doctores/index-doctores.component';
-import { HorarioComponent } from './vistas/horario/horario.component';
-import { ListaEspecializacionesComponent } from './vistas/lista-especializaciones/lista-especializaciones.component';
-import { InformesConmponent } from './sections/historial/cita-historial/informes/informes.component';
-import { FormularioRecetaComponent } from './vistas/formulario-receta/formulario-receta.component';
-import { FormularioHistorialMedicoComponent } from './vistas/formulario-historial-medico/formulario-historial-medico.component';
 
-
+const T = ' · Hospital Jakarta';
 
 export const routes: Routes = [
-    { path: '', component: IndexBeforeLoginComponent, canActivate: [RedirectGuard] },
-    { path: 'login', component: LoginComponent },
-    { path: 'registro', component: RegistroComponent },
-    { path: 'index', component: IndexAfterLoginComponent, canActivate: [AuthGuard] },
-    { path: 'nuevaCita/:id', component: PatientBookingComponent, canActivate: [AuthGuard] },
-    { path: 'misCitasUsuario', component: IndexVistasCitasComponent, canActivate: [AuthGuard] },
-    { path: 'perfil', component: ProfileComponent, canActivate: [AuthGuard] },
-    { path: 'perfilHistorial', component: PerfilHistorialComponent, canActivate: [AuthGuard]  },
+    // Landing and login stay eager: they are the entry points and avoid an extra chunk round-trip before LCP.
+    { path: '', component: IndexBeforeLoginComponent, canActivate: [RedirectGuard], title: 'Inicio' + T },
+    { path: 'login', component: LoginComponent, title: 'Iniciar sesión' + T },
+    { path: 'registro', loadComponent: () => import('./login/registro/registro.component').then(m => m.RegistroComponent), title: 'Registro' + T },
+    { path: 'index', loadComponent: () => import('./vistas/index-after-login/index-after-login.component').then(m => m.IndexAfterLoginComponent), canActivate: [AuthGuard], title: 'Inicio' + T },
+    { path: 'nuevaCita/:id', loadComponent: () => import('./vistas/patient-booking/patient-booking.component').then(m => m.PatientBookingComponent), canActivate: [AuthGuard], title: 'Nueva cita' + T },
+    { path: 'misCitasUsuario', loadComponent: () => import('./vistas/vistas-citas/vistas-citas.component').then(m => m.IndexVistasCitasComponent), canActivate: [AuthGuard], title: 'Mis citas' + T },
+    { path: 'perfil', loadComponent: () => import('./vistas/profile/profile.component').then(m => m.ProfileComponent), canActivate: [AuthGuard], title: 'Mi perfil' + T },
+    { path: 'perfilHistorial', loadComponent: () => import('./vistas/perfil-historial/perfil-historial.component').then(m => m.PerfilHistorialComponent), canActivate: [AuthGuard], title: 'Historial médico' + T },
     // { path: 'verReceta', component: RecetaComponent, canActivate: [AuthGuard]  },
-    { path: 'editarPerfil', component: EditProfileComponent, canActivate: [AuthGuard]  },
-    { path: 'editarPassword', component: InfoGeneralCambioPasswordComponent, canActivate: [AuthGuard]  },
-    { path: 'listaDoctores', component: DoctoresComponent },
-    { path: 'indexDoctores', component: IndexDoctoresComponent, canActivate: [DoctorGuard] },
-    { path: 'horario', component: HorarioComponent, canActivate: [AuthGuard]  },
-    { path: 'especialidades', component: ListaEspecializacionesComponent },
-    { path: 'informes/:id', component: InformesConmponent },
-    { path: 'nuevaReceta/:id/:idCita', component: FormularioHistorialMedicoComponent },
-    { path: 'formularioReceta/:idUsuario/:idCita/:idHistorialMedico', component: FormularioRecetaComponent },
-    
+    { path: 'editarPerfil', loadComponent: () => import('./vistas/edit-profile/edit-profile.component').then(m => m.EditProfileComponent), canActivate: [AuthGuard], title: 'Editar perfil' + T },
+    { path: 'editarPassword', loadComponent: () => import('./vistas/info-general-cambio-password/info-general-cambio-password.component').then(m => m.InfoGeneralCambioPasswordComponent), canActivate: [AuthGuard], title: 'Cambiar contraseña' + T },
+    { path: 'listaDoctores', loadComponent: () => import('./vistas/doctores/doctores.component').then(m => m.DoctoresComponent), title: 'Doctores' + T },
+    { path: 'indexDoctores', loadComponent: () => import('./vistas/index-doctores/index-doctores.component').then(m => m.IndexDoctoresComponent), canActivate: [DoctorGuard], title: 'Panel del doctor' + T },
+    { path: 'horario', loadComponent: () => import('./vistas/horario/horario.component').then(m => m.HorarioComponent), canActivate: [AuthGuard], title: 'Horario' + T },
+    { path: 'especialidades', loadComponent: () => import('./vistas/lista-especializaciones/lista-especializaciones.component').then(m => m.ListaEspecializacionesComponent), title: 'Especialidades' + T },
+    { path: 'informes/:id', loadComponent: () => import('./sections/historial/cita-historial/informes/informes.component').then(m => m.InformesConmponent), title: 'Informe médico' + T },
+    { path: 'nuevaReceta/:id/:idCita', loadComponent: () => import('./vistas/formulario-historial-medico/formulario-historial-medico.component').then(m => m.FormularioHistorialMedicoComponent), title: 'Nuevo historial médico' + T },
+    { path: 'formularioReceta/:idUsuario/:idCita/:idHistorialMedico', loadComponent: () => import('./vistas/formulario-receta/formulario-receta.component').then(m => m.FormularioRecetaComponent), title: 'Nueva receta' + T },
 ];
 
 @NgModule({
