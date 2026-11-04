@@ -1,0 +1,49 @@
+services:
+  hospital-db:
+    image: postgres:16-alpine
+    container_name: hospital-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hospital_jakarta
+      POSTGRES_USER: hospital
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?falta POSTGRES_PASSWORD en .env}
+    volumes:
+      - hospital-db-data:/var/lib/postgresql/data
+      # solo se ejecuta la primera vez (volumen vacío)
+      - ./back/src/main/resources/bd/hospital_jakarta_pg.sql:/docker-entrypoint-initdb.d/01-hospital.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hospital -d hospital_jakarta"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks: [hospital-net]
+
+  hospital-back:
+    build: ./back
+    container_name: hospital-back
+    restart: unless-stopped
+    depends_on:
+      hospital-db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://hospital-db:5432/hospital_jakarta
+      DB_USER: hospital
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET:?falta JWT_SECRET en .env}
+    mem_limit: 768m
+    networks: [hospital-net]
+
+  hospital-front:
+    build: ./front
+    container_name: hospital-front
+    restart: unless-stopped
+    depends_on: [hospital-back]
+    ports:
+      - "127.0.0.1:8095:80"
+    networks: [hospital-net]
+
+volumes:
+  hospital-db-data:
+
+networks:
+  hospital-net:
