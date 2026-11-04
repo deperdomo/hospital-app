@@ -387,3 +387,9 @@ SELECT setval(pg_get_serial_sequence('citas','id'), (SELECT COALESCE(MAX(id),1) 
 SELECT setval(pg_get_serial_sequence('historial_medico','id'), (SELECT COALESCE(MAX(id),1) FROM historial_medico));
 SELECT setval(pg_get_serial_sequence('recetas','id'), (SELECT COALESCE(MAX(id),1) FROM recetas));
 SELECT setval(pg_get_serial_sequence('facturas','id'), (SELECT COALESCE(MAX(id),1) FROM facturas));
+
+-- Índices para las consultas de los repositorios (Postgres no indexa las FK automáticamente)
+CREATE INDEX IF NOT EXISTS idx_citas_usuario_doctor ON citas (id_usuario, id_doctor);  -- citas por usuario, usuario+doctor
+CREATE INDEX IF NOT EXISTS idx_citas_doctor_estado ON citas (id_doctor, estado);       -- citas por doctor, doctor+estado
+CREATE INDEX IF NOT EXISTS idx_recetas_cita ON recetas (id_cita);
+CREATE INDEX IF NOT EXISTS idx_disponibilidad_doctor ON disponibilidad (id_doctor);
