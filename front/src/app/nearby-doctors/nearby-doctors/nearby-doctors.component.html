@@ -3,7 +3,7 @@
   <div class="card-content flex flex-wrap p-4">
     <div class="top flex w-full border-b border-[#e1e1e1] pb-3 mb-3">
       <div class="cont-img w-[85px] h-[85px]">
-        <img src="img/doctores/{{ doctor.fotoPerfil }}" alt="Doctor image" class="w-full h-full object-cover rounded-xl">
+        <img src="img/doctores/{{ doctor.fotoPerfil }}" width="85" height="85" loading="lazy" decoding="async" alt="Doctor image" class="w-full h-full object-cover rounded-xl">
       </div>
       <div class="text flex flex-col justify-center ml-4">
         <h4 class="text-black text-lg font-medium">{{ doctor.nombre }} {{ doctor.apellidos }}</h4>
@@ -36,7 +36,7 @@
       <!-- Header con imagen y datos principales -->
       <div class="top flex w-full pb-4 mb-4 border-b border-gray-100">
         <div class="cont-img w-[75px] h-[75px] overflow-hidden">
-          <img src="img/usuarios/{{ cita.usuario.fotoPerfil }}" 
+          <img src="img/usuarios/{{ cita.usuario.fotoPerfil }}" width="75" height="75" loading="lazy" decoding="async" 
                alt="Usuario image" 
                class="w-full h-full object-cover rounded-2xl shadow-sm">
         </div>
