@@ -6,6 +6,7 @@ import { CitaComponent } from './cita/cita.component';
 import { CitaService } from '../../services/cita.service';
 import { Usuario } from '../../models/usuario';
 import { Doctor } from '../../models/doctor';
+import { Observable, shareReplay } from 'rxjs';
 
 @Component({
   selector: 'app-lista-citas',
@@ -43,12 +44,15 @@ export class ListaCitasComponent implements OnInit {
 
     if (usuarioGuardado) {
       this.usuario = JSON.parse(usuarioGuardado);
-      this.cargarCitasActivasUsuario();
-      this.actualizarEstadoCitasUsuario();
+      // One request shared by both consumers instead of two identical GETs.
+      const citas$ = this.citaService.getCitasActivasUsuario(String(this.usuario.id)).pipe(shareReplay(1));
+      this.cargarCitasActivasUsuario(citas$);
+      this.actualizarEstadoCitasUsuario(citas$);
     } else if (doctorGuardado) {
       this.doctor = JSON.parse(doctorGuardado);
-      this.cargarCitasActivasDoctor();
-      this.actualizarEstadoCitasDoctor();
+      const citas$ = this.citaService.getCitasDoctor(String(this.doctor.id)).pipe(shareReplay(1));
+      this.cargarCitasActivasDoctor(citas$);
+      this.actualizarEstadoCitasDoctor(citas$);
     } else {
       console.error('No hay usuario ni doctor logueado');
     }
@@ -74,12 +78,12 @@ export class ListaCitasComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  cargarCitasActivasUsuario() {
+  cargarCitasActivasUsuario(citas$: Observable<Cita[]> = this.citaService.getCitasActivasUsuario(String(this.usuario.id))) {
     const hoy = new Date();
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
 
-      this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
+      citas$.subscribe(
         (citas: Cita[]) => {
           this.citas = citas.filter(cita => {
             const fechaCita = new Date(cita.fecha);
@@ -98,12 +102,12 @@ export class ListaCitasComponent implements OnInit {
     
   }
 
-  cargarCitasActivasDoctor() {
+  cargarCitasActivasDoctor(citas$: Observable<Cita[]> = this.citaService.getCitasDoctor(String(this.doctor.id))) {
     const hoy = new Date();
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
 
-      this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
+      citas$.subscribe(
         (citas: Cita[]) => {
           this.citas = citas.filter(cita => {
             const fechaCita = new Date(cita.fecha);
@@ -122,12 +126,12 @@ export class ListaCitasComponent implements OnInit {
 
   }
 
-  actualizarEstadoCitasUsuario() {
+  actualizarEstadoCitasUsuario(citas$: Observable<Cita[]> = this.citaService.getCitasActivasUsuario(String(this.usuario.id))) {
     const hoy = new Date();
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
 
-      this.citaService.getCitasActivasUsuario(String(this.usuario.id)).subscribe(
+      citas$.subscribe(
         (citas: Cita[]) => {
           citas.forEach(cita => {
             const fechaCita = new Date(cita.fecha);
@@ -154,12 +158,12 @@ export class ListaCitasComponent implements OnInit {
     
   }
 
-  actualizarEstadoCitasDoctor() {
+  actualizarEstadoCitasDoctor(citas$: Observable<Cita[]> = this.citaService.getCitasDoctor(String(this.doctor.id))) {
     const hoy = new Date();
     hoy.setHours(hoy.getHours() + 1);
     const fechaActual = hoy.toISOString();
     
-      this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
+      citas$.subscribe(
         (citas: Cita[]) => {
           citas.forEach(cita => {
             const fechaCita = new Date(cita.fecha);
