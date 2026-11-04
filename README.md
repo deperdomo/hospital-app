@@ -8,7 +8,7 @@
 
 <br/>
 
-![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![Spring](https://img.shields.io/badge/Spring_Boot-3.4.2-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) ![Angular](https://img.shields.io/badge/Angular-19-DD0031?style=for-the-badge&logo=angular&logoColor=white) ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white) ![Spring](https://img.shields.io/badge/Spring_Boot-3.4.2-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) ![Angular](https://img.shields.io/badge/Angular-19-DD0031?style=for-the-badge&logo=angular&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=for-the-badge&logo=postgresql&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
 </div>
 
@@ -27,7 +27,7 @@ Una aplicación web completa para la gestión hospitalaria que permite administr
 | 📅 **Sistema de Citas** | Programación inteligente y seguimiento de citas médicas |
 | 🔌 **API REST** | Backend robusto con documentación automática Swagger/OpenAPI |
 | 🎨 **Interfaz Moderna** | Frontend responsive y accesible con Tailwind CSS |
-| 💾 **Base de Datos** | Persistencia confiable y escalable con MySQL 8.0 |
+| 💾 **Base de Datos** | Persistencia confiable y escalable con PostgreSQL 16 |
 | 🔒 **Seguridad** | Validación de datos y arquitectura segura |
 | 📱 **Responsive** | Diseño adaptable a todos los dispositivos |
 
@@ -43,7 +43,8 @@ Una aplicación web completa para la gestión hospitalaria que permite administr
 Lenguaje: Java 21
 Framework: Spring Boot 3.4.2
 Persistencia: Spring Data JPA
-Base de Datos: MySQL 8.0
+Base de Datos: PostgreSQL 16
+Seguridad: Spring Security + JWT (HS256), BCrypt
 Build Tool: Maven
 Utilidades:
   - Lombok
@@ -95,118 +96,100 @@ hospital-app/
 
 ## 🚀 Instalación y Configuración
 
-### 📋 Prerrequisitos
+### 🐳 Producción con Docker Compose (recomendado)
 
-Asegúrate de tener instaladas las siguientes herramientas:
+Solo hace falta Docker con el plugin Compose. Las imágenes son multi-arch (funcionan en x86_64 y ARM64).
 
-| Herramienta | Versión Mínima | Descarga |
-|------------|----------------|----------|
-| ☕ Java | 21+ | [OpenJDK](https://openjdk.org/) |
-| 📦 Node.js | 18+ | [nodejs.org](https://nodejs.org/) |
-| 🗄️ MySQL | 8.0+ | [MySQL](https://www.mysql.com/) |
-| 🔨 Maven | 3.6+ | [Maven](https://maven.apache.org/) |
-| 📦 npm/yarn | Latest | Incluido con Node.js |
-
----
-
-### 🔧 Backend (Spring Boot)
-
-<details>
-<summary><b>👉 Click para ver instrucciones detalladas</b></summary>
-
-#### 1️⃣ Clonar el repositorio
 ```bash
 git clone https://github.com/deperdomo/hospital-app.git
-cd hospital-app/back
+cd hospital-app
+
+# Secretos (no se suben al repo)
+cp .env.example .env
+sed -i "s|^POSTGRES_PASSWORD=.*|POSTGRES_PASSWORD=$(openssl rand -base64 32 | tr -d '/+=')|" .env
+sed -i "s|^JWT_SECRET=.*|JWT_SECRET=$(openssl rand -base64 32)|" .env
+chmod 600 .env
+
+docker compose up -d --build
 ```
 
-#### 2️⃣ Configurar la base de datos
-```sql
-CREATE DATABASE hospital_db;
-CREATE USER 'hospital_user'@'localhost' IDENTIFIED BY 'hospital_pass';
-GRANT ALL PRIVILEGES ON hospital_db.* TO 'hospital_user'@'localhost';
-FLUSH PRIVILEGES;
-```
+Se levantan tres contenedores en la red `hospital-net`:
 
-#### 3️⃣ Configurar `application.properties`
-```properties
-# Configuración de la base de datos
-spring.datasource.url=jdbc:mysql://localhost:3306/hospital_db
-spring.datasource.username=hospital_user
-spring.datasource.password=hospital_pass
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+| Servicio | Imagen | Puerto |
+|----------|--------|--------|
+| `hospital-db` | `postgres:16-alpine` (volumen `hospital-db-data`) | ninguno publicado |
+| `hospital-back` | Spring Boot (Java 21), límite de 768 MB | ninguno publicado |
+| `hospital-front` | nginx: sirve el SPA y hace proxy de `/api/` al backend | `127.0.0.1:8095` |
 
-# Configuración de JPA
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+La primera vez (volumen vacío), Postgres ejecuta `back/src/main/resources/bd/hospital_jakarta_pg.sql`: crea el esquema, carga los datos de demo y hashea sus contraseñas con BCrypt.
 
-# Puerto del servidor
-server.port=8080
-```
-
-#### 4️⃣ Ejecutar la aplicación
+**Redesplegar tras cambios:**
 ```bash
-# Usando Maven Wrapper (recomendado)
-./mvnw spring-boot:run
-
-# O usando Maven instalado
-mvn spring-boot:run
+git pull && docker compose up -d --build
 ```
 
-</details>
+**Reiniciar la BD desde cero** (⚠️ borra todos los datos): `docker compose down -v && docker compose up -d --build`
+
+**Backup manual:** `docker exec hospital-db pg_dump -U hospital hospital_jakarta > backup.sql`
+
+> En el servidor, el acceso público va por Cloudflare Tunnel (`hospital-jakarta.deiviperdomo.dev` → `http://localhost:8095`).
 
 ---
 
-### 🎨 Frontend (Angular)
+### 💻 Desarrollo local
 
-<details>
-<summary><b>👉 Click para ver instrucciones detalladas</b></summary>
+Requisitos: Java 21, Node.js 22 y Docker (para Postgres).
 
-#### 1️⃣ Navegar al directorio frontend
 ```bash
+# 1. Postgres con el esquema y los datos de demo
+docker run -d --name hospital-db-dev -p 127.0.0.1:5432:5432 \
+  -e POSTGRES_DB=hospital_jakarta -e POSTGRES_USER=hospital -e POSTGRES_PASSWORD=hospital \
+  -v "$PWD/back/src/main/resources/bd/hospital_jakarta_pg.sql:/docker-entrypoint-initdb.d/01.sql:ro" \
+  postgres:16-alpine
+
+# 2. Backend en http://localhost:8090 (Swagger en /swagger-ui.html)
+cd back
+DB_PASSWORD=hospital JWT_SECRET=un-secreto-de-al-menos-32-caracteres SWAGGER_ENABLED=true ./mvnw spring-boot:run
+
+# 3. Frontend en http://localhost:4200 (proxy.conf.json redirige /api → localhost:8090)
 cd ../front
-```
-
-#### 2️⃣ Instalar dependencias
-```bash
 npm install
-```
-
-#### 3️⃣ Ejecutar la aplicación en modo desarrollo
-```bash
-# Usando npm
 npm start
-
-# O usando Angular CLI directamente
-ng serve
 ```
 
-</details>
+Variables de entorno del backend:
+
+| Variable | Por defecto | Descripción |
+|----------|-------------|-------------|
+| `DB_URL` | `jdbc:postgresql://localhost:5432/hospital_jakarta` | URL JDBC |
+| `DB_USER` | `hospital` | Usuario de la BD |
+| `DB_PASSWORD` | (vacío) | Contraseña de la BD |
+| `JWT_SECRET` | **obligatoria** | Clave HMAC para firmar los JWT (mínimo 32 caracteres) |
+| `SWAGGER_ENABLED` | `false` | Activa `/v3/api-docs` y Swagger UI |
 
 ---
 
-## 🌐 URLs de Acceso
+## 🔐 Autenticación y API
 
-### 🖥️ Desarrollo
-
-| Servicio | URL | Descripción |
-|----------|-----|-------------|
-| 🎨 **Frontend** | [http://localhost:4200](http://localhost:4200) | Interfaz de usuario |
-| 🔌 **Backend API** | [http://localhost:8080](http://localhost:8080) | API REST |
-| 📚 **Swagger UI** | [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) | Documentación interactiva |
-
-### 🔗 Endpoints Principales
+El frontend llama siempre a `/api/...`; nginx (o el proxy de `ng serve`) quita el prefijo `/api` antes de pasar la petición al backend.
 
 ```http
-GET    /api/patients       # Listar todos los pacientes
-POST   /api/patients       # Crear nuevo paciente
-GET    /api/doctors        # Listar todos los médicos
-POST   /api/appointments   # Crear cita médica
-GET    /api/appointments   # Listar citas
+POST /api/auth/login        {"username", "password", "tipo": "paciente" | "doctor"}
+                            → {"token": "<JWT 8h>", "perfil": {...sin contraseña...}}
 ```
 
+El resto de peticiones llevan `Authorization: Bearer <token>`. Sin token solo se puede acceder a:
+`POST /auth/login`, `POST /usuario/alta` y los GET del catálogo (`/especialidad/all`, `/doctor/recomendado/*`, `/doctor/allDoctors`, `/doctor/localidad/*`, `/doctor/porNombreApellidoLocalidadYEspecialidad/**` y `/disponibilidad/doctor/*`).
+
+- Un **paciente** solo ve y modifica sus propios datos, citas, recetas e historial.
+- Un **doctor** ve sus citas y los datos de los pacientes con los que tiene citas.
+- Un **admin** (usuario con `rol = admin`) puede dar de alta doctores (`POST /doctor/alta`).
+- El alta pública siempre crea usuarios con `rol = paciente`.
+
+Usuarios de demo: paciente `carlos` / `password789`, doctora `ana` / `ana` y admin `deivi` / `deivi` (el resto está en el script SQL). Cámbialos si la instancia es pública.
+
 ---
+
 
 ## 🧪 Testing
 
@@ -240,71 +223,6 @@ npm run test:coverage
 </table>
 
 ---
-
-## 📦 Construcción para Producción
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-### 🔧 Backend
-
-```bash
-cd back
-./mvnw clean package
-```
-
-**Output:** `target/hospital-api-0.0.1-SNAPSHOT.jar`
-
-```bash
-# Ejecutar JAR
-java -jar target/hospital-api-0.0.1-SNAPSHOT.jar
-```
-
-</td>
-<td width="50%" valign="top">
-
-### 🎨 Frontend
-
-```bash
-cd front
-npm run build
-```
-
-**Output:** `dist/` directory
-
-```bash
-# Servir producción localmente
-npx http-server dist/front-hospital
-```
-
-</td>
-</tr>
-</table>
-
-## 🐳 Docker (Opcional)
-
-### Backend
-```dockerfile
-FROM openjdk:21-jre-slim
-COPY target/hospital-api-0.0.1-SNAPSHOT.jar app.jar
-EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app.jar"]
-```
-
-### Frontend
-```dockerfile
-FROM node:18-alpine AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
-FROM nginx:alpine
-COPY --from=build /app/dist/front-hospital /usr/share/nginx/html
-EXPOSE 80
-```
 
 ## 🤝 Contribución
 
