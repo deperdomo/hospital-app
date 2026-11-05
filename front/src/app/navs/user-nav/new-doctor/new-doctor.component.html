@@ -14,7 +14,7 @@
       </h2>
   
       <p class="mt-2 mb-5 text-meta text-ink-600">Todos los campos son obligatorios (<span aria-hidden="true">*</span><span class="sr-only">marcados con asterisco</span>).</p>
-      <form (ngSubmit)="onSubmit()" #doctorForm="ngForm" class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-x-4">
+      <form ngNativeValidate (ngSubmit)="onSubmit()" #doctorForm="ngForm" class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-x-4">
         <!-- Columna Izquierda -->
         <div>
           <label for="nombre" class="field-label">Nombre <span class="text-danger-700" aria-hidden="true">*</span></label>

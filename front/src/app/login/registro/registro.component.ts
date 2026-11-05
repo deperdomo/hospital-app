@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 
 import { Usuario } from '../../models/usuario';
 import { UsuarioService } from '../../services/usuario.service';
+import { AuthService } from '../../services/auth.service';
+import { switchMap } from 'rxjs';
 
 
 
@@ -20,31 +22,35 @@ export class RegistroComponent {
   errorMessage: string = '';
   errorDuplicado = false;
 
-  constructor(private usuarioService: UsuarioService, private router: Router) {
+  constructor(private usuarioService: UsuarioService, private authService: AuthService, private router: Router) {
     this.usuario = {
       id: 0,
-      nombre: 'Juan',
-      username: 'juan123',
-      apellidos: 'Pérez',
-      email: 'juan@example.com',
-      telefono: '123456789',
-      provincia: 'Madrid',
-      localidad: 'Centro',
-      direccion: 'Calle Falsa 123',
-      fechaAlta: '1990-01-01',
-      fechaNacimiento: '1990-01-01',
+      nombre: '',
+      username: '',
+      apellidos: '',
+      email: '',
+      telefono: '',
+      provincia: '',
+      localidad: '',
+      direccion: '',
+      fechaAlta: new Date().toISOString().slice(0, 10),
+      fechaNacimiento: '',
       fotoPerfil: 'usu_anonimo.png',
-      password: 'password123',
+      password: '',
       rol: 'paciente',
       sexo: 'prefiero_no_decirlo'
     };
   }
 
   onSubmit() {
-    this.usuarioService.altaUsuario(this.usuario).subscribe(
-      (usuario: Usuario) => {
-        // Guardar el usuario en el localStorage y redirigir a otra ruta:
-        localStorage.setItem('usuario', JSON.stringify(usuario));
+    // Alta y, a continuación, login para obtener el token (sin token la API devuelve 401).
+    this.usuarioService.altaUsuario(this.usuario).pipe(
+      switchMap(() => this.authService.login(this.usuario.username, this.usuario.password, 'paciente'))
+    ).subscribe(
+      ({ token, perfil }) => {
+        localStorage.clear();
+        localStorage.setItem('token', token);
+        localStorage.setItem('usuario', JSON.stringify(perfil));
         this.router.navigate(['/index']);
       },
       error => {
