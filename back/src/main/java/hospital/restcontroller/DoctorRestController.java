@@ -36,6 +36,11 @@ public class DoctorRestController {
 	@Autowired
 	private Acceso acceso;
 
+	/** Cuenta pública de demostración (ver bd/demo_reset.sql): no se le cambian credenciales ni perfil. */
+	private static final String DOCTOR_DEMO = "ana";
+	private static final ResponseEntity<?> DEMO_BLOQUEADA =
+			new ResponseEntity<>("La cuenta de demostración no se puede modificar", HttpStatus.FORBIDDEN);
+
 	/** Solo rol=admin (ver SecurityConfig). */
 	@PostMapping("/alta")
 	public ResponseEntity<?> alta(@RequestBody Doctor doctor) {
@@ -129,6 +134,9 @@ public class DoctorRestController {
 		if (actual == null) {
 			return new ResponseEntity<>("Doctor a editar no encontrado", HttpStatus.NOT_FOUND);
 		}
+		if (DOCTOR_DEMO.equals(actual.getUsername())) {
+			return DEMO_BLOQUEADA;
+		}
 		// contraseña y votos no se cambian desde aquí
 		doctor.setPassword(actual.getPassword());
 		doctor.setVotos(actual.getVotos());
@@ -145,6 +153,9 @@ public class DoctorRestController {
 		Doctor doctor = dserv.buscarPorId(id);
 		if (doctor == null) {
 			return new ResponseEntity<>("Doctor no encontrado", HttpStatus.NOT_FOUND);
+		}
+		if (DOCTOR_DEMO.equals(doctor.getUsername())) {
+			return DEMO_BLOQUEADA;
 		}
 		if (body.nueva() == null || body.nueva().isBlank()) {
 			return new ResponseEntity<>("La nueva contraseña es obligatoria", HttpStatus.BAD_REQUEST);

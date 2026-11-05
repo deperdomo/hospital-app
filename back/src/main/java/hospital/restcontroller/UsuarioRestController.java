@@ -26,6 +26,11 @@ public class UsuarioRestController {
 	/** Body de PUT /password/{id} (también lo usa /doctor/password/{id}). */
 	public record CambioPassword(String actual, String nueva) {}
 
+	/** Cuenta pública de demostración (ver bd/demo_reset.sql): no se le cambian credenciales ni perfil. */
+	private static final String USUARIO_DEMO = "demo";
+	private static final ResponseEntity<?> DEMO_BLOQUEADA =
+			new ResponseEntity<>("La cuenta de demostración no se puede modificar", HttpStatus.FORBIDDEN);
+
 	@Autowired
 	private UsuarioService userv;
 	@Autowired
@@ -67,6 +72,9 @@ public class UsuarioRestController {
 		if (actual == null) {
 			return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
 		}
+		if (USUARIO_DEMO.equals(actual.getUsername())) {
+			return DEMO_BLOQUEADA;
+		}
 		// rol y contraseña no se cambian desde aquí
 		usuario.setRol(actual.getRol());
 		usuario.setPassword(actual.getPassword());
@@ -84,6 +92,9 @@ public class UsuarioRestController {
 		Usuario usuario = userv.buscarPorId(id);
 		if (usuario == null) {
 			return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
+		}
+		if (USUARIO_DEMO.equals(usuario.getUsername())) {
+			return DEMO_BLOQUEADA;
 		}
 		if (body.nueva() == null || body.nueva().isBlank()) {
 			return new ResponseEntity<>("La nueva contraseña es obligatoria", HttpStatus.BAD_REQUEST);

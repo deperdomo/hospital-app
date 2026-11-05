@@ -186,7 +186,22 @@ El resto de peticiones llevan `Authorization: Bearer <token>`. Sin token solo se
 - Un **admin** (usuario con `rol = admin`) puede dar de alta doctores (`POST /doctor/alta`).
 - El alta pública siempre crea usuarios con `rol = paciente`.
 
-Usuarios de demo: paciente `carlos` / `password789`, doctora `ana` / `ana` y admin `deivi` / `deivi` (el resto está en el script SQL). Cámbialos si la instancia es pública.
+### Cuentas de demostración
+
+La página de login muestra dos cuentas pensadas para probar la web, con datos que siempre están al día:
+
+| Rol | Usuario | Contraseña |
+|-----|---------|------------|
+| Paciente | `demo` | `demo1234` |
+| Doctora (marcar «Soy Doctor») | `ana` | `ana` |
+
+`back/src/main/resources/bd/demo_reset.sql` recrea el paciente `demo` con citas **relativas a hoy** (una hoy, tres próximas, dos terminadas con historial y receta, y una cancelada) y restablece la contraseña y el horario de `ana`. El backend no permite cambiar la contraseña ni el perfil de estas dos cuentas. En el servidor, un cron lo ejecuta cada día:
+
+```cron
+30 3 * * * docker exec -i hospital-db psql -q -U hospital -d hospital_jakarta -v ON_ERROR_STOP=1 < /ruta/a/hospital-app/back/src/main/resources/bd/demo_reset.sql
+```
+
+Otros usuarios de demo: paciente `carlos` / `password789`, doctora `ana` / `ana` y admin `deivi` / `deivi` (el resto está en el script SQL). Cámbialos si la instancia es pública.
 
 ---
 

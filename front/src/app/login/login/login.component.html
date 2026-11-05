@@ -21,6 +21,21 @@
           </div>
 
           <p class="mt-6 mb-5 text-meta text-ink-600">Los campos marcados con <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> son obligatorios.</p>
+          <aside class="mb-6 rounded-control border border-info-200 bg-info-50 p-4" aria-labelledby="demo-titulo">
+            <h2 id="demo-titulo" class="text-body font-semibold text-info-700">¿Quieres probar la web?</h2>
+            <p class="mt-1 text-meta text-ink-700">
+              Usa una cuenta de demostración con citas, historial y recetas. Sus datos se restablecen cada noche.
+            </p>
+            <dl class="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-meta text-ink-700">
+              <dt class="font-semibold">Paciente</dt><dd><code>demo</code> / <code>demo1234</code></dd>
+              <dt class="font-semibold">Doctora</dt><dd><code>ana</code> / <code>ana</code><span class="ml-1 text-ink-600">(marca «Soy Doctor»)</span></dd>
+            </dl>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <button type="button" class="btn-secondary btn-sm" (click)="entrarDemo('paciente')">Entrar como paciente</button>
+              <button type="button" class="btn-secondary btn-sm" (click)="entrarDemo('doctor')">Entrar como doctora</button>
+            </div>
+          </aside>
+
           <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
             <div>
               <label for="username" class="field-label">Nombre de usuario <span class="text-danger-700" aria-hidden="true">*</span></label>

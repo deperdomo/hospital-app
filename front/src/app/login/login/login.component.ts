@@ -20,6 +20,14 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  /** Rellena el formulario con una cuenta de demostración (ver bd/demo_reset.sql) y entra. */
+  entrarDemo(tipo: 'paciente' | 'doctor') {
+    this.isDoctor = tipo === 'doctor';
+    this.username = this.isDoctor ? 'ana' : 'demo';
+    this.password = this.isDoctor ? 'ana' : 'demo1234';
+    this.onSubmit();
+  }
+
   onSubmit() {
     const tipo = this.isDoctor ? 'doctor' : 'paciente';
     this.authService.login(this.username, this.password, tipo).subscribe({
