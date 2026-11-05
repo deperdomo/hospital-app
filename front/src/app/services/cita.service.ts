@@ -44,6 +44,15 @@ export class CitaService {
     return this.http.put<Cita>(`${this.apiUrl}/marcarComoVista/${id}`, {});
   }
 
+  // Notificaciones del doctor (citas que le han reservado y aún no ha visto)
+  getCitasNoVistasPorDoctor(id: number): Observable<Cita[]> {
+    return this.http.get<Cita[]>(`${this.apiUrl}/citasNoVistasDoctor/${id}`);
+  }
+
+  marcarCitaComoVistaDoctor(id: number): Observable<Cita> {
+    return this.http.put<Cita>(`${this.apiUrl}/marcarComoVistaDoctor/${id}`, {});
+  }
+
   getCitasTerminadoUsuario(id: string): Observable<Cita[]> {
     return this.http.get<Cita[]>(`${this.apiUrl}/misCitasUsuarioTerminado/${id}`);
   }

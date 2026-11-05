@@ -16,6 +16,7 @@ public interface CitaService extends GenericCRUD<Cita, Integer>{
 	List<Cita> buscarCitaPorDoctor (Doctor doctor);
 	List<Cita> buscarCitasPorDoctorYEstado (Doctor doctor, String estado);
 	List<Cita> buscarCitasNoVistas (int idUsuario);
+	List<Cita> buscarCitasNoVistasDoctor (int idDoctor);
 	List<Cita> buscarCitasPorUsuarioDoctorYEstado(Usuario usuario, Doctor doctor, String estado);
 	
 	List<Cita> buscarActuales(Usuario usuario, Date fecha);

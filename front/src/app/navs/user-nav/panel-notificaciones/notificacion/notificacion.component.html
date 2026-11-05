@@ -1,6 +1,6 @@
 <div class="flex items-center p-3 border-b border-gray-200 hover:bg-gray-100">
     <div class="relative">
-      <img src="img/doctores/{{ cita.doctor.fotoPerfil }}" width="48" height="48" loading="lazy" decoding="async" alt="" class="w-12 h-12 rounded-full object-cover">
+      <img [src]="paraDoctor ? 'img/usuarios/' + cita.usuario.fotoPerfil : 'img/doctores/' + cita.doctor.fotoPerfil" width="48" height="48" loading="lazy" decoding="async" alt="" class="w-12 h-12 rounded-full object-cover">
       <!-- <div *ngIf="cantidad > 0"
         class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
         15
@@ -8,8 +8,8 @@
     </div>
   
     <div class="ml-3 flex-1">
-      <h3 class="text-sm font-semibold text-gray-900">Dr. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }}</h3>
-      <p class="text-xs text-gray-600">Nueva Cita</p>
+      <h3 class="text-sm font-semibold text-gray-900">@if (paraDoctor) { {{ cita.usuario.nombre }} {{ cita.usuario.apellidos }} } @else { Dr. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }} }</h3>
+      <p class="text-xs text-gray-600">@if (paraDoctor) { Nueva cita reservada · {{ cita.motivo }} } @else { Nueva Cita }</p>
     </div>
   
     <span class="text-xs text-gray-500">{{ cita.fecha | date:'dd/MM/yyyy HH:mm' }}</span>

@@ -17,6 +17,8 @@ export class PanelNotificacionesComponent {
   mostrarModal: boolean = true;
   quitarNotificaciones: boolean = false;
   usuario: Usuario;
+  /** Id del doctor si la sesión es de doctor (sus notificaciones son las reservas nuevas). */
+  idDoctor: number | null = null;
   citasNoVistas: Cita[] = [];
 
   @Output() modalCerrado = new EventEmitter<boolean>();
@@ -32,16 +34,21 @@ export class PanelNotificacionesComponent {
       const usuario = JSON.parse(usuarioGuardado);
       this.usuario = usuario;
     }
-    if (this.usuario.id) {
-      this.getNotificaciones(this.usuario.id);
+    const doctorGuardado = localStorage.getItem('doctor');
+    if (!usuarioGuardado && doctorGuardado) {
+      this.idDoctor = JSON.parse(doctorGuardado).id ?? null;
     }
+    this.getNotificaciones();
 
 
   }
 
-  getNotificaciones(id: number) {
-    if (this.usuario.id) {
-      this.citaService.getCitasNoVistasPorUsuario(this.usuario.id).subscribe(
+  getNotificaciones() {
+    const citas$ = this.usuario.id
+      ? this.citaService.getCitasNoVistasPorUsuario(this.usuario.id)
+      : this.idDoctor ? this.citaService.getCitasNoVistasPorDoctor(this.idDoctor) : null;
+    if (citas$) {
+      citas$.subscribe(
         (citas: Cita[]) => {
           this.citasNoVistas = citas;
         },
@@ -53,9 +60,7 @@ export class PanelNotificacionesComponent {
   }
 
   cerrarModal() {
-    if (this.usuario.id) {
-      this.getNotificaciones(this.usuario.id);
-    }
+    this.getNotificaciones();
     this.mostrarModal = false;
     this.quitarNotificaciones = true;
     document.body.classList.remove('overflow-hidden');

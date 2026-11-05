@@ -1,14 +1,16 @@
 -- Cuentas de demostración con datos siempre vigentes:
 --   paciente "demo" / "demo1234"  y  doctora "ana" / "ana".
 --
--- Idempotente: recrea el usuario y regenera sus citas, historial y recetas con
--- fechas relativas a HOY. Lo ejecuta un cron diario (ver README) para que la demo
--- tenga siempre citas próximas y para deshacer lo que cambien los visitantes.
+-- Idempotente: recrea los pacientes de demo y regenera sus citas, historial y recetas
+-- con fechas RELATIVAS A HOY. Lo ejecuta un cron diario (ver README), así que la demo
+-- siempre tiene citas de hoy y de los próximos días, y cada noche se deshace lo que
+-- hayan cambiado los visitantes (cancelar, reservar, marcar como vistas...).
 --
 --   docker exec -i hospital-db psql -U hospital -d hospital_jakarta -v ON_ERROR_STOP=1 < back/src/main/resources/bd/demo_reset.sql
 --
--- Las citas se reparten entre doctores existentes; la doctora Ana Martínez (ana / ana)
--- tiene además una cita hoy con este paciente, útil para probar la vista de doctor.
+-- Pacientes de demo: "demo" (con contraseña pública) y dos más que solo existen para
+-- llenar la agenda de la doctora Ana ("marta.demo" y "pablo.demo", sin contraseña conocida).
+-- Notificaciones: visto = 0 avisa al paciente; visto_doctor = 0 avisa a la doctora.
 
 BEGIN;
 
@@ -18,7 +20,13 @@ INSERT INTO usuarios (nombre, apellidos, username, email, telefono, provincia, l
                       fecha_nacimiento, fecha_alta, foto_perfil, password, sexo, rol)
 VALUES ('Lucas', 'Demo', 'demo', 'demo@hospitaljakarta.example', '600123456', 'Madrid', 'Centro',
         'Calle Mayor 1', '1988-04-12', CURRENT_DATE - 90, 'usu_anonimo.png',
-        crypt('demo1234', gen_salt('bf', 10)), 'masculino', 'paciente')
+        crypt('demo1234', gen_salt('bf', 10)), 'masculino', 'paciente'),
+       ('Marta', 'Demo', 'marta.demo', 'marta.demo@hospitaljakarta.example', '600123457', 'Madrid', 'Retiro',
+        'Calle Alcalá 200', '1992-09-30', CURRENT_DATE - 60, 'usu_anonimo.png',
+        crypt(gen_random_uuid()::text, gen_salt('bf', 10)), 'femenino', 'paciente'),
+       ('Pablo', 'Demo', 'pablo.demo', 'pablo.demo@hospitaljakarta.example', '600123458', 'Madrid', 'Arganzuela',
+        'Paseo de las Delicias 30', '1979-02-03', CURRENT_DATE - 45, 'usu_anonimo.png',
+        crypt(gen_random_uuid()::text, gen_salt('bf', 10)), 'masculino', 'paciente')
 ON CONFLICT (username) DO UPDATE SET
     nombre = EXCLUDED.nombre, apellidos = EXCLUDED.apellidos, email = EXCLUDED.email,
     telefono = EXCLUDED.telefono, provincia = EXCLUDED.provincia, localidad = EXCLUDED.localidad,
@@ -34,54 +42,71 @@ UPDATE disponibilidad SET hora_inicio = '09:00', hora_fin = '19:00', estado = 'd
 
 DO $$
 DECLARE
-    uid int;
-    c   record;
-    hid int;
+    uids int[];
+    ana  int;
+    c    record;
+    hid  int;
 BEGIN
-    SELECT id INTO uid FROM usuarios WHERE username = 'demo';
+    SELECT array_agg(id) INTO uids FROM usuarios WHERE username IN ('demo', 'marta.demo', 'pablo.demo');
+    SELECT id INTO ana FROM doctores WHERE username = 'ana';
 
-    -- Borrar lo anterior (orden por las claves foráneas)
-    DELETE FROM recetas WHERE id_paciente = uid OR id_cita IN (SELECT id FROM citas WHERE id_usuario = uid);
-    DELETE FROM historial_medico WHERE id_usuario = uid;
-    DELETE FROM facturas WHERE id_usuario = uid;
-    DELETE FROM citas WHERE id_usuario = uid;
+    -- Borrar lo anterior de los pacientes de demo (orden por las claves foráneas)
+    DELETE FROM recetas WHERE id_paciente = ANY (uids) OR id_cita IN (SELECT id FROM citas WHERE id_usuario = ANY (uids));
+    DELETE FROM historial_medico WHERE id_usuario = ANY (uids);
+    DELETE FROM facturas WHERE id_usuario = ANY (uids);
+    DELETE FROM citas WHERE id_usuario = ANY (uids);
 
-    -- Citas con fechas relativas a hoy (días, hora)
-    INSERT INTO citas (id_usuario, id_doctor, fecha, email, telefono, motivo, tarifa, forma_pago, estado, visto, votado)
-    SELECT uid, v.doc, CURRENT_DATE + v.dias + v.hora, 'demo@hospitaljakarta.example', '600123456',
-           v.motivo, d.precio_consulta, v.pago, v.estado, v.visto, v.votado
+    -- Citas relativas a hoy. doc = NULL significa la doctora Ana.
+    INSERT INTO citas (id_usuario, id_doctor, fecha, email, telefono, motivo, tarifa, forma_pago,
+                       estado, visto, visto_doctor, votado)
+    SELECT u.id, d.id, CURRENT_DATE + v.dias + v.hora, u.email, u.telefono,
+           v.motivo, d.precio_consulta, v.pago, v.estado, v.visto, v.visto_doctor, v.votado
     FROM (VALUES
-        (3,   0, time '18:00', 'Revisión postoperatoria',      'Tarjeta de crédito', 'pendiente', 1, false),
-        (8,   2, time '10:30', 'Revisión anual y limpieza',    'Tarjeta de crédito', 'pendiente', 0, false), -- sin ver: notificación
-        (5,   6, time '09:00', 'Revisión de un lunar',         'Efectivo',           'pendiente', 1, false),
-        (6,  13, time '16:30', 'Consulta general',             'Transferencia',      'pendiente', 1, false),
-        (3, -12, time '11:00', 'Dolor abdominal',              'Tarjeta de crédito', 'terminada', 1, true),
-        (2, -30, time '12:00', 'Dolor de muelas',              'Efectivo',           'terminada', 1, false),
-        (5, -20, time '17:00', 'Consulta dermatológica',       'Tarjeta de crédito', 'cancelada', 1, false)
-    ) AS v(doc, dias, hora, motivo, pago, estado, visto, votado)
-    JOIN doctores d ON d.id = v.doc;
+        -- paciente     doctor  días  hora           motivo                         pago                  estado       visto v.doctor votado
+        ('demo',        NULL,    0, time '18:00', 'Revisión postoperatoria',     'Tarjeta de crédito', 'pendiente', 1, 1, false),
+        ('demo',        8,       2, time '10:30', 'Revisión anual y limpieza',   'Tarjeta de crédito', 'pendiente', 0, 1, false), -- aviso al paciente
+        ('demo',        NULL,    3, time '10:00', 'Resultados de la analítica',  'Tarjeta de crédito', 'pendiente', 0, 0, false), -- aviso a los dos
+        ('demo',        5,       6, time '09:00', 'Revisión de un lunar',        'Efectivo',           'pendiente', 1, 1, false),
+        ('demo',        6,      13, time '16:30', 'Consulta general',            'Transferencia',      'pendiente', 1, 1, false),
+        ('demo',        NULL,  -12, time '11:00', 'Dolor abdominal',             'Tarjeta de crédito', 'terminada', 1, 1, true),
+        ('demo',        2,     -30, time '12:00', 'Dolor de muelas',             'Efectivo',           'terminada', 1, 1, false),
+        ('demo',        5,     -20, time '17:00', 'Consulta dermatológica',      'Tarjeta de crédito', 'cancelada', 1, 1, false),
+        -- agenda de la doctora Ana con otros pacientes de demo
+        ('marta.demo',  NULL,    0, time '09:30', 'Primera consulta',            'Tarjeta de crédito', 'pendiente', 1, 1, false),
+        ('pablo.demo',  NULL,    0, time '12:30', 'Dolor lumbar',                'Efectivo',           'pendiente', 1, 1, false),
+        ('pablo.demo',  NULL,    1, time '09:00', 'Revisión de la cicatriz',     'Efectivo',           'pendiente', 1, 0, false), -- aviso a la doctora
+        ('marta.demo',  NULL,    1, time '16:00', 'Consulta preoperatoria',      'Tarjeta de crédito', 'pendiente', 1, 0, false), -- aviso a la doctora
+        ('marta.demo',  NULL,    7, time '11:30', 'Seguimiento',                 'Tarjeta de crédito', 'pendiente', 1, 1, false),
+        ('pablo.demo',  NULL,   -5, time '10:00', 'Esguince de tobillo',         'Efectivo',           'terminada', 1, 1, false)
+    ) AS v(paciente, doc, dias, hora, motivo, pago, estado, visto, visto_doctor, votado)
+    JOIN usuarios u ON u.username = v.paciente
+    JOIN doctores d ON d.id = COALESCE(v.doc, ana);
 
     -- Historial médico y receta de cada cita terminada
-    FOR c IN SELECT id, fecha, motivo FROM citas WHERE id_usuario = uid AND estado = 'terminada' ORDER BY fecha LOOP
+    FOR c IN
+        SELECT ci.id, ci.id_usuario, ci.fecha, t.diagnostico, t.tratamiento, t.medicamento, t.dosis,
+               t.frecuencia, t.dias, t.instrucciones
+        FROM citas ci
+        JOIN (VALUES
+            ('Dolor de muelas', 'Caries en molar inferior derecho', 'Empaste y analgésico durante 3 días',
+             'Ibuprofeno', '600mg', 'Cada 8 horas', 3, 'Tomar con alimentos'),
+            ('Dolor abdominal', 'Gastritis leve', 'Dieta blanda y protector gástrico durante 2 semanas',
+             'Omeprazol', '20mg', 'Una vez al día, en ayunas', 14, 'Tomar 30 minutos antes del desayuno'),
+            ('Esguince de tobillo', 'Esguince de tobillo grado I', 'Reposo relativo, hielo y vendaje compresivo',
+             'Paracetamol', '1g', 'Cada 8 horas si hay dolor', 5, 'No superar 3 g al día')
+        ) AS t(motivo, diagnostico, tratamiento, medicamento, dosis, frecuencia, dias, instrucciones)
+          ON t.motivo = ci.motivo
+        WHERE ci.id_usuario = ANY (uids) AND ci.estado = 'terminada'
+        ORDER BY ci.fecha
+    LOOP
         INSERT INTO historial_medico (id_usuario, diagnostico, tratamiento, fecha)
-        VALUES (uid,
-                CASE WHEN c.motivo = 'Dolor de muelas' THEN 'Caries en molar inferior derecho'
-                     ELSE 'Gastritis leve' END,
-                CASE WHEN c.motivo = 'Dolor de muelas' THEN 'Empaste y analgésico durante 3 días'
-                     ELSE 'Dieta blanda y protector gástrico durante 2 semanas' END,
-                c.fecha::date)
+        VALUES (c.id_usuario, c.diagnostico, c.tratamiento, c.fecha::date)
         RETURNING id INTO hid;
 
         INSERT INTO recetas (id_paciente, id_historial_medico, id_cita, nombre_medicamento, dosis, frecuencia,
                              fecha_inicio, fecha_fin, instrucciones)
-        VALUES (uid, hid, c.id,
-                CASE WHEN c.motivo = 'Dolor de muelas' THEN 'Ibuprofeno' ELSE 'Omeprazol' END,
-                CASE WHEN c.motivo = 'Dolor de muelas' THEN '600mg' ELSE '20mg' END,
-                CASE WHEN c.motivo = 'Dolor de muelas' THEN 'Cada 8 horas' ELSE 'Una vez al día, en ayunas' END,
-                c.fecha::date,
-                c.fecha::date + CASE WHEN c.motivo = 'Dolor de muelas' THEN 3 ELSE 14 END,
-                CASE WHEN c.motivo = 'Dolor de muelas' THEN 'Tomar con alimentos'
-                     ELSE 'Tomar 30 minutos antes del desayuno' END);
+        VALUES (c.id_usuario, hid, c.id, c.medicamento, c.dosis, c.frecuencia,
+                c.fecha::date, c.fecha::date + c.dias, c.instrucciones);
     END LOOP;
 END $$;
 

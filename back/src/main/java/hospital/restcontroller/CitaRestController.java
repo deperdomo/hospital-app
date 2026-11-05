@@ -111,6 +111,13 @@ public class CitaRestController {
 		return usuario != null ? ResponseEntity.ok(cserv.buscarCitasCanceladasPorUsuario(usuario, "cancelada")) : ERROR;
 	}
 
+	/** Notificaciones del doctor: citas que le han reservado y aún no ha visto. */
+	@GetMapping("/citasNoVistasDoctor/{id}")
+	public ResponseEntity<?> buscarCitasNoVistasDoctor(@PathVariable int id, @AuthenticationPrincipal Jwt jwt) {
+		acceso.propioDoctor(jwt, id);
+		return ResponseEntity.ok(cserv.buscarCitasNoVistasDoctor(id));
+	}
+
 	@GetMapping("/citasNoVistas/{id}")
 	public ResponseEntity<?> buscarCitasNoVistas(@PathVariable int id, @AuthenticationPrincipal Jwt jwt) {
 		acceso.verUsuario(jwt, id);
@@ -166,6 +173,7 @@ public class CitaRestController {
 	public ResponseEntity<?> alta(@RequestBody Cita cita, @AuthenticationPrincipal Jwt jwt) {
 		acceso.propioUsuario(jwt, cita.getUsuario() == null ? -1 : cita.getUsuario().getId());
 		cita.setId(0);
+		cita.setVistoDoctor(0); // el doctor recibe la notificación de la nueva reserva
 		try {
 			return ResponseEntity.ok(cserv.alta(cita));
 		} catch (Exception e) {
@@ -188,6 +196,12 @@ public class CitaRestController {
 	@PutMapping("/marcarComoVista/{id}")
 	public ResponseEntity<?> marcarCitaComoVista(@PathVariable int id, @AuthenticationPrincipal Jwt jwt) {
 		return cambiar(id, jwt, c -> c.setVisto(1));
+	}
+
+	@PutMapping("/marcarComoVistaDoctor/{id}")
+	public ResponseEntity<?> marcarCitaComoVistaDoctor(@PathVariable int id, @AuthenticationPrincipal Jwt jwt) {
+		acceso.soloDoctor(jwt);
+		return cambiar(id, jwt, c -> c.setVistoDoctor(1));
 	}
 
 	@PutMapping("/actualizarTerminada/{id}")

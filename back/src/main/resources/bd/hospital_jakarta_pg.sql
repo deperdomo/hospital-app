@@ -68,6 +68,7 @@ CREATE TABLE citas (
 	forma_pago VARCHAR(50) NOT NULL,
     estado VARCHAR(50) NOT NULL,
     visto INT,
+    visto_doctor INT NOT NULL DEFAULT 1, -- el doctor ya vio la cita (0 = notificación pendiente)
     votado boolean,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
     FOREIGN KEY (id_doctor) REFERENCES doctores(id),

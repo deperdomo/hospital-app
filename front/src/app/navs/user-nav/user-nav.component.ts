@@ -65,8 +65,11 @@ export class UserNavComponent {
   
 
   comprobarNotificaciones() {
-    if (this.usuario.id) {
-      this.citaService.getCitasNoVistasPorUsuario(this.usuario.id).subscribe(
+    const citas$ = this.usuario.id
+      ? this.citaService.getCitasNoVistasPorUsuario(this.usuario.id)
+      : this.doctor.id ? this.citaService.getCitasNoVistasPorDoctor(this.doctor.id) : null;
+    if (citas$) {
+      citas$.subscribe(
         (citas: Cita[]) => {
           if (citas.length > 0) {
             this.hayCitasNoVistas = true;

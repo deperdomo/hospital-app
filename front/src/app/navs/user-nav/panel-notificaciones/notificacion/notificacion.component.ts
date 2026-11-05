@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 export class NotificacionComponent {
 
   @Input() cita!: Cita;
+  /** true: notificación de un doctor (muestra al paciente y marca visto_doctor). */
+  @Input() paraDoctor = false;
 
   constructor(private citaService: CitaService) { }
 
@@ -23,7 +25,10 @@ export class NotificacionComponent {
       this.cita.fecha = citaFechaHora.toISOString();
     }
     if (this.cita.id) {
-      this.citaService.marcarCitaComoVista(this.cita.id).subscribe(
+      const marcar$ = this.paraDoctor
+        ? this.citaService.marcarCitaComoVistaDoctor(this.cita.id)
+        : this.citaService.marcarCitaComoVista(this.cita.id);
+      marcar$.subscribe(
         (cita: Cita) => {
         },
         error => {

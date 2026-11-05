@@ -39,6 +39,9 @@ public class Cita implements Serializable{
 	private String formaPago;
 	private String estado;
 	private int visto;
+	/** 0 = el doctor aún no ha visto la cita (notificación pendiente). */
+	@Column(name="visto_doctor")
+	private int vistoDoctor;
 	private boolean votado;
 	
 	@ManyToOne

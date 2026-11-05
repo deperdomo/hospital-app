@@ -78,6 +78,11 @@ public class CitaServiceImpl implements CitaService{
 		return crepo.findByUsuario_IdAndVisto(idUsuario, 0);
 	}
 
+	@Override
+	public List<Cita> buscarCitasNoVistasDoctor(int idDoctor) {
+		return crepo.findByDoctor_IdAndVistoDoctorOrderByFechaAsc(idDoctor, 0);
+	}
+
 
 	@Override
 	public List<Cita> buscarCitasActivasPorUsuario(Usuario usuario, String estado) {
