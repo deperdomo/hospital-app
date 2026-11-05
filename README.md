@@ -195,11 +195,18 @@ La página de login muestra dos cuentas pensadas para probar la web, con datos q
 | Paciente | `demo` | `demo1234` |
 | Doctora (marcar «Soy Doctor») | `ana` | `ana` |
 
-`back/src/main/resources/bd/demo_reset.sql` recrea el paciente `demo` con citas **relativas a hoy** (una hoy, tres próximas, dos terminadas con historial y receta, y una cancelada) y restablece la contraseña y el horario de `ana`. El backend no permite cambiar la contraseña ni el perfil de estas dos cuentas. En el servidor, un cron lo ejecuta cada día:
+`back/src/main/resources/bd/demo_reset.sql` recrea los pacientes de demo con citas **relativas a hoy** y restablece la contraseña y el horario de `ana`:
+
+- `demo`: una cita hoy, cuatro próximas, dos terminadas con historial y receta, una cancelada y 2 notificaciones sin leer.
+- La doctora `ana`: su agenda se llena además con dos pacientes de relleno (`marta.demo` y `pablo.demo`, sin contraseña conocida), con citas hoy, mañana y la semana que viene, y 3 notificaciones de reservas nuevas sin leer.
+
+Como las fechas se calculan desde la fecha del día, la demo nunca se queda sin citas futuras. El backend no permite cambiar la contraseña ni el perfil de estas dos cuentas. En el servidor, un cron lo ejecuta cada día:
 
 ```cron
 30 3 * * * docker exec -i hospital-db psql -q -U hospital -d hospital_jakarta -v ON_ERROR_STOP=1 < /ruta/a/hospital-app/back/src/main/resources/bd/demo_reset.sql
 ```
+
+**Migraciones:** si la base de datos se creó antes del 5/11/2026, aplica `back/src/main/resources/bd/migraciones/2026-11-05_visto_doctor.sql` (notificaciones de doctores). Las instalaciones nuevas ya la incluyen.
 
 Otros usuarios de demo: paciente `carlos` / `password789`, doctora `ana` / `ana` y admin `deivi` / `deivi` (el resto está en el script SQL). Cámbialos si la instancia es pública.
 
