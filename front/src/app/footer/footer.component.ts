@@ -10,6 +10,7 @@ import { Doctor } from '../models/doctor';
   styleUrl: './footer.component.css'
 })
 export class FooterConmponent {
+  readonly anio = new Date().getFullYear();
 usuario: Usuario;
 doctor: Doctor;
  
