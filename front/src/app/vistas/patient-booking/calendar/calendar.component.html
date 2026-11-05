@@ -1,5 +1,5 @@
 <div class="container mx-auto p-4 bg-white rounded-lg max-w-[900px]">
-  <div class="text-[27px] font-semibold mb-8">Selecciona fecha y hora</div>
+  <h1 class="text-[27px] font-semibold mb-8">Selecciona fecha y hora</h1>
   <div class="mb-6">
     <div class="flex justify-between items-center mb-4">
       <button type="button" (click)="previousMonth()" aria-label="Mes anterior" class="text-gray-600 hover:text-blue-600 transition-colors">
@@ -26,7 +26,7 @@
            [class]="'p-2 text-center transition-all duration-200 rounded-full ' +
                     (isSelectedDate(date) ? 'bg-blue-500 text-white hover:bg-blue-600 ring-2 ring-offset-2 ring-blue-800 font-bold' :
                      isCurrentDate(date) ? 'bg-blue-100 text-blue-800 hover:bg-blue-200' :
-                     isDisabledDate(date) ? 'text-gray-400 cursor-not-allowed' :
+                     isDisabledDate(date) ? 'text-gray-500 line-through cursor-not-allowed' :
                      'cursor-pointer hover:bg-gray-100')"
            (click)="selectDate(date)">
         {{ date.getDate() }}

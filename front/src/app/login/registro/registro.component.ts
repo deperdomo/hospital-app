@@ -18,6 +18,7 @@ import { UsuarioService } from '../../services/usuario.service';
 export class RegistroComponent {
   usuario: Usuario;
   errorMessage: string = '';
+  errorDuplicado = false;
 
   constructor(private usuarioService: UsuarioService, private router: Router) {
     this.usuario = {
@@ -48,6 +49,7 @@ export class RegistroComponent {
       },
       error => {
         console.error('Error en el registro', error);
+        this.errorDuplicado = error.status === 409;
         if (error.status === 409) {
           this.errorMessage = 'El correo electrónico o el nombre de usuario ya están en uso.';
         } else if (error.status === 500) {

@@ -26,6 +26,9 @@ export class InfoGeneralCambioPasswordComponent {
 
   doctor: Doctor;
   usuarios: boolean=false;
+  enviado = false;
+  repetidaTocada = false;
+  errorMessage = '';
   
   constructor(private router: Router, private usuarioService: UsuarioService, private doctorService: DoctorService){
     this.usuario = {} as Usuario;
@@ -50,13 +53,30 @@ export class InfoGeneralCambioPasswordComponent {
     this.router.navigate(['/perfil']);
   }
   // la contraseña actual se verifica en el servidor
+  /** Solo se avisa cuando el usuario ya ha escrito la repetición (o ha enviado). */
+  mostrarNoCoinciden(): boolean {
+    return (this.enviado || this.repetidaTocada) && this.antiguaPassword !== this.repetirAntiguaPassword;
+  }
+
+  /** Solo se avisa cuando hay una nueva contraseña escrita, nunca al cargar la página. */
+  mostrarIgual(): boolean {
+    return !!this.nuevaPassword && this.nuevaPassword === this.antiguaPassword;
+  }
+
   compararPassword(){
-    if (this.antiguaPassword !== this.repetirAntiguaPassword) {
-      alert('Las contraseñas actuales no coinciden');
+    this.enviado = true;
+    this.errorMessage = '';
+    if (!this.antiguaPassword || !this.repetirAntiguaPassword || !this.nuevaPassword) {
+      this.errorMessage = 'Rellena todos los campos.';
       return;
     }
-    if (!this.nuevaPassword || this.nuevaPassword === this.antiguaPassword) {
-      alert('La nueva contraseña debe ser distinta de la actual');
+    // Los avisos de estos dos casos ya se muestran (y anuncian) junto a su campo.
+    if (this.mostrarNoCoinciden()) {
+      document.getElementById('repeatPassword')?.focus();
+      return;
+    }
+    if (this.mostrarIgual()) {
+      document.getElementById('nuevaPassword')?.focus();
       return;
     }
     const peticion: Observable<unknown> = this.usuarios
@@ -64,7 +84,9 @@ export class InfoGeneralCambioPasswordComponent {
       : this.doctorService.editarPassword(String(this.doctor.id), this.antiguaPassword, this.nuevaPassword);
     peticion.subscribe({
       next: () => this.redirigirPaginaPerfil(),
-      error: (err: HttpErrorResponse) => alert(typeof err.error === 'string' ? err.error : 'No se pudo cambiar la contraseña'),
+      error: (err: HttpErrorResponse) => {
+        this.errorMessage = typeof err.error === 'string' ? err.error : 'No se pudo cambiar la contraseña.';
+      },
     });
   }
 }

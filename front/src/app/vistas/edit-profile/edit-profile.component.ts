@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 export class EditProfileComponent {
   usuario: Usuario;
   errorMessage: string = '';
+  successMessage: string = '';
 
   doctor: Doctor;
   usuarios: boolean=false;
@@ -64,6 +65,12 @@ if (this.usuarios) {
   this.doctorService.editarDoctor(this.doctor).subscribe(
     (doctor:Doctor)=> {
       localStorage.setItem('doctor', JSON.stringify(this.doctor));
+      this.errorMessage = '';
+      this.successMessage = 'Perfil actualizado correctamente.';
+    },
+    (error) => {
+      this.successMessage = '';
+      this.errorMessage = typeof error.error === 'string' ? error.error : 'No se pudo actualizar el perfil.';
     }
   )
 }
