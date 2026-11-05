@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CitaService } from '../../../../services/cita.service';
 import { Cita } from '../../../../models/cita';
 import { CommonModule } from '@angular/common';
+import { partesFecha } from '../../../../sections/lista-citas/fecha-cita';
 
 @Component({
   selector: 'app-notificacion',
@@ -18,12 +19,12 @@ export class NotificacionComponent {
 
   constructor(private citaService: CitaService) { }
 
+  /** «jueves, 5 de noviembre de 2026», en UTC como el resto de fechas de citas. */
+  get fechaLarga(): string {
+    return partesFecha(this.cita.fecha).larga;
+  }
+
   ngOnInit() {
-    if (this.cita && this.cita.fecha) {
-      const citaFechaHora = new Date(this.cita.fecha);
-      citaFechaHora.setHours(citaFechaHora.getHours() - 1);
-      this.cita.fecha = citaFechaHora.toISOString();
-    }
     if (this.cita.id) {
       const marcar$ = this.paraDoctor
         ? this.citaService.marcarCitaComoVistaDoctor(this.cita.id)

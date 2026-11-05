@@ -1,99 +1,58 @@
-<!-- ayuda.component.html -->
 <dialog appDialog (dialogCancel)="enviarEstado()" aria-labelledby="ayuda-titulo">
-<div class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
-    <div class="fixed inset-0 flex items-center justify-center p-4">
-      <div class="relative w-full max-w-2xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden transform transition-all">
-        <!-- Botón de cierre superior -->
-        <button type="button"
-          (click)="enviarEstado()"
-          class="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700 transition-colors"
-          aria-label="Cerrar"
-        >
-          <span aria-hidden="true">✕</span>
-        </button>
-  
-        <div class="overflow-y-auto max-h-[90vh]">
-          <div class="p-8">
-            <h2 id="ayuda-titulo" class="text-4xl font-bold text-gray-800 mb-6 border-b-2 border-blue-100 pb-4 flex items-center gap-3">
-              <span class="bg-brand text-white p-3 rounded-lg "><img class="h-9" src="img/logo.png" alt=""></span>
-              <span class="ml-8">Ayuda - Jakarta Hospital</span>
-            </h2>
-  
-            <div class="space-y-3">
-              <!-- Secciones de ayuda -->
-              <div *ngFor="let section of sections" class="border rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                <h3 class="text-xl font-semibold">
-                  <button type="button"
-                    class="w-full p-5 bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors duration-200 flex items-center justify-between text-left"
-                    [attr.aria-expanded]="activeSection === section.id"
-                    [attr.aria-controls]="'ayuda-panel-' + section.id"
-                    [id]="'ayuda-boton-' + section.id"
-                    (click)="toggleSection(section.id)">
-                    <span class="flex items-center gap-3">
-                      <span class="text-blue-700" aria-hidden="true">{{section.icon}}</span>
-                      {{section.title}}
-                    </span>
-                    <span class="transform transition-transform duration-200 text-gray-600"
-                      [class.rotate-180]="activeSection === section.id">
-                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="#1e1a1a" d="M12.707 15.707a1 1 0 0 1-1.414 0L5.636 10.05A1 1 0 1 1 7.05 8.636l4.95 4.95l4.95-4.95a1 1 0 0 1 1.414 1.414z"/></g></svg>
-                    </span>
-                  </button>
-                </h3>
-                
-                <div [id]="'ayuda-panel-' + section.id" role="region" [attr.aria-labelledby]="'ayuda-boton-' + section.id"
-                  class="overflow-hidden transition-all duration-200"
-                  [class.invisible]="activeSection !== section.id"
-                  [class.max-h-0]="activeSection !== section.id"
-                  [class.max-h-[500px]]="activeSection === section.id"
-                >
-                  <div class="p-5 bg-white border-t border-gray-100">
-                    <ng-container [ngSwitch]="section.id">
-                      <!-- Contenido de cada sección -->
-                      <p *ngSwitchCase="'citas'" class="text-gray-600 leading-relaxed">
-                        Programa, modifica o cancela citas médicas con doctores disponibles.
-                        Visualiza tu calendario de citas pendientes y recibe recordatorios automáticos.
-                      </p>
-  
-                      <p *ngSwitchCase="'historial'" class="text-gray-600 leading-relaxed">
-                        Accede a tu historial médico completo con diagnósticos, tratamientos 
-                        y resultados de exámenes. Descarga informes en PDF con un solo clic.
-                      </p>
-  
-                      <div *ngSwitchCase="'doctores'" class="text-gray-600 space-y-2">
-                        <p class="font-medium">Filtra doctores por:</p>
-                        <ul class="list-disc list-inside space-y-1.5 marker:text-blue-700">
-                          <li>Nombre completo o especialidad</li>
-                          <li>Ubicación del consultorio</li>
-                          <li>Disponibilidad horaria</li>
-                          <li>Seguros médicos aceptados</li>
-                          <li>Calificación y reseñas</li>
-                        </ul>
-                      </div>
-  
-                      <p *ngSwitchCase="'cercanos'" class="text-gray-600 leading-relaxed">
-                        Encuentra doctores cerca de tu ubicación usando geolocalización.
-                        Visualiza distancias, tiempos de llegada y opciones de transporte.
-                      </p>
-                    </ng-container>
-                  </div>
-                </div>
-              </div>
-            </div>
-  
-            <!-- Botón de cierre inferior -->
-            <div class="mt-8 border-t pt-6">
-              <button type="button"
-                (click)="enviarEstado()"
-                class="w-full px-6 py-3 bg-brand text-white rounded-lg
-                       hover:from-blue-700 hover:to-blue-600 transition-all shadow-md
-                       active:scale-95"
-              >
-                Cerrar Ayuda
-              </button>
-            </div>
+<div class="modal-backdrop z-50 flex items-center justify-center overflow-y-auto p-4 backdrop-blur-sm">
+  <div class="modal-panel max-w-2xl max-h-[calc(100vh-2rem)] overflow-y-auto">
+    <button type="button" (click)="enviarEstado()" aria-label="Cerrar" class="btn-icon absolute right-3 top-3">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+
+    <div class="flex items-center gap-3 pr-12">
+      <span class="flex-none grid place-items-center w-11 h-11 rounded-full bg-brand-50 text-brand-600">
+        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/></svg>
+      </span>
+      <h2 id="ayuda-titulo" class="modal-title">Ayuda de Hospital Jakarta</h2>
+    </div>
+    <p class="mt-3 text-ink-600">Elige un tema para ver cómo funciona.</p>
+
+    <div class="mt-5 divide-y divide-line-subtle border-y border-line-subtle">
+      @for (section of sections; track section.id) {
+        <div>
+          <h3 class="text-body font-semibold">
+            <button type="button"
+              class="w-full min-h-touch flex items-center justify-between gap-3 py-3 px-2 -mx-2 rounded-control text-left text-ink-900 hover:bg-surface-muted"
+              [attr.aria-expanded]="activeSection === section.id"
+              [attr.aria-controls]="'ayuda-panel-' + section.id"
+              [id]="'ayuda-boton-' + section.id"
+              (click)="toggleSection(section.id)">
+              <span class="flex items-center gap-3">
+                <svg class="w-5 h-5 shrink-0 text-brand-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" [attr.d]="section.icono"/></svg>
+                {{ section.title }}
+              </span>
+              <svg class="w-5 h-5 shrink-0 text-ink-600 transition-transform duration-200" [class.rotate-180]="activeSection === section.id"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+            </button>
+          </h3>
+          <div [id]="'ayuda-panel-' + section.id" role="region" [attr.aria-labelledby]="'ayuda-boton-' + section.id"
+            [hidden]="activeSection !== section.id" class="pb-4 pl-8 pr-2 text-ink-700">
+            @if (section.puntos) {
+              <p>{{ section.texto }}</p>
+              <ul class="mt-2 list-disc pl-5 space-y-1 marker:text-brand-600">
+                @for (punto of section.puntos; track punto) {
+                  <li>{{ punto }}</li>
+                }
+              </ul>
+            } @else {
+              <p>{{ section.texto }}</p>
+            }
           </div>
         </div>
-      </div>
+      }
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" (click)="enviarEstado()" class="btn-primary w-full sm:w-auto">Cerrar ayuda</button>
     </div>
   </div>
+</div>
 </dialog>

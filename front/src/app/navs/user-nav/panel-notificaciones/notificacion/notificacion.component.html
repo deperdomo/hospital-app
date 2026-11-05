@@ -1,17 +1,14 @@
-<div class="flex items-center p-3 border-b border-gray-200 hover:bg-gray-100">
-    <div class="relative">
-      <img [src]="paraDoctor ? 'img/usuarios/' + cita.usuario.fotoPerfil : 'img/doctores/' + cita.doctor.fotoPerfil" width="48" height="48" loading="lazy" decoding="async" alt="" class="w-12 h-12 rounded-full object-cover">
-      <!-- <div *ngIf="cantidad > 0"
-        class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-        15
-      </div> -->
-    </div>
-  
-    <div class="ml-3 flex-1">
-      <h3 class="text-sm font-semibold text-gray-900">@if (paraDoctor) { {{ cita.usuario.nombre }} {{ cita.usuario.apellidos }} } @else { Dr. {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }} }</h3>
-      <p class="text-xs text-gray-600">@if (paraDoctor) { Nueva cita reservada · {{ cita.motivo }} } @else { Nueva Cita }</p>
-    </div>
-  
-    <span class="text-xs text-gray-500">{{ cita.fecha | date:'dd/MM/yyyy HH:mm' }}</span>
+<div class="flex items-start gap-3 sm:gap-4 px-6 py-4">
+  <img [src]="paraDoctor ? 'img/usuarios/' + cita.usuario.fotoPerfil : 'img/doctores/' + cita.doctor.fotoPerfil" width="48" height="48" loading="lazy" decoding="async" alt=""
+    class="w-12 h-12 flex-none rounded-full object-cover bg-brand-50">
+  <div class="min-w-0 flex-1">
+    <h3 class="text-body font-semibold text-ink-900 break-words">
+      @if (paraDoctor) { {{ cita.usuario.nombre }} {{ cita.usuario.apellidos }} } @else { {{ cita.doctor.sexo === 'masculino' ? 'Dr.' : 'Dra.' }} {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }} }
+    </h3>
+    <p class="text-ink-700 break-words">Nueva cita reservada@if (paraDoctor && cita.motivo) {<span> · {{ cita.motivo }}</span>}</p>
+    <p class="mt-1 flex items-start gap-1.5 text-meta text-ink-600">
+      <svg class="w-4 h-4 mt-0.5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+      <span class="first-letter:uppercase">{{ fechaLarga }}, {{ cita.fecha | date: 'HH:mm':'UTC' }}</span>
+    </p>
   </div>
-  
+</div>

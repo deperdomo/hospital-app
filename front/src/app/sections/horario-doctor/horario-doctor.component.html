@@ -1,115 +1,144 @@
-<div class="p-4 bg-white rounded-lg shadow-lg">
-  <div class="flex items-center justify-between mb-6">
-    <button (click)="previousMonth()" class="p-2 text-gray-600 hover:bg-gray-100 rounded-full" aria-label="Mes anterior">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-      </svg>
-    </button>
-    <h2 class="text-xl font-semibold text-gray-800">{{ getCurrentMonthYear() }}</h2>
-    <button (click)="nextMonth()" class="p-2 text-gray-600 hover:bg-gray-100 rounded-full" aria-label="Siguiente mes">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-      </svg>
-    </button>
-  </div>
-
-  <!-- Encabezado de días de la semana (solo visible en pantallas medianas y grandes) -->
-  <div class="grid grid-cols-7 gap-1 mb-2 hidden sm:grid" aria-hidden="true">
-    <div *ngFor="let day of weekDays" class="p-2 text-center text-sm font-medium text-gray-700">
-      {{ day }}
+<section class="card p-4 sm:p-5" aria-labelledby="horario-mes">
+  <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+    <h2 id="horario-mes" class="text-h2 text-ink-900" aria-live="polite">{{ getCurrentMonthYear() }}</h2>
+    <div class="flex items-center gap-1">
+      <button type="button" (click)="previousMonth()" class="btn-icon" aria-label="Mes anterior">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      <button type="button" (click)="irAHoy()" class="btn-ghost btn-sm">Hoy</button>
+      <button type="button" (click)="nextMonth()" class="btn-icon" aria-label="Siguiente mes">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
     </div>
   </div>
 
-  <!-- Pantalla grande (con fines de semana y otras semanas del mes) -->
-  <div class="grid grid-cols-7 gap-1 hidden sm:grid">
-    <div *ngFor="let day of calendarDays" [class]="'min-h-[120px] p-2 border rounded-lg ' + 
-          (isWeekend(day) || !isCurrentMonth(day) ? 'bg-gray-200 cursor-not-allowed' :
-         isToday(day) ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200')">
-      <div class="flex flex-col h-full">
-        <span [class]="'text-sm font-medium ' + 
-            (isToday(day) ? 'text-blue-800' : 'text-gray-700')">{{ day | date:'d':'':'es' }}</span>
-        <div class="flex-1 overflow-y-auto mt-1 space-y-1 max-h-[110px] custom-scrollbar">
-          <button type="button" *ngFor="let cita of getAppointmentsForDay(day)"
-            (click)="!isWeekend(day) && showAppointmentDetails(cita)"
-            [disabled]="isWeekend(day)"
-            class="block w-full text-left mt-1 p-2 text-xs rounded-md transition-colors bg-brand-light/[60%]"
-            [class.cursor-pointer]="!isWeekend(day)" [class.cursor-not-allowed]="isWeekend(day)"
-            [ngClass]="{
-                'bg-red-400/[40%]': cita.estado === 'cancelada',
-                'bg-gray-400/[50%]': cita.estado === 'terminada',
-                'bg-brand-light/[60%]': cita.estado === 'pendiente'
-              }">
-            <span class="block font-bold text-[13px]">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</span>
-            <span class="block pl-1 font-medium text-gray-800">
-              {{ cita.fecha | date: 'HH:mm':'UTC'}} - {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}
+  <!-- Pantalla mediana y grande: mes completo (con fines de semana y días de los meses vecinos) -->
+  <div class="hidden sm:block">
+    <div class="grid grid-cols-7 gap-1.5 mb-1.5" aria-hidden="true">
+      @for (day of weekDays; track day) {
+        <div class="py-1.5 text-center text-meta font-semibold text-ink-600">{{ day }}</div>
+      }
+    </div>
+    <div class="grid grid-cols-7 gap-1.5">
+      @for (day of calendarDays; track day.getTime()) {
+        <div class="min-h-[8.5rem] min-w-0 p-1.5 rounded-control border flex flex-col" [ngClass]="claseDia(day)">
+          @if (isToday(day)) {
+            <span class="self-start inline-grid place-items-center min-w-[1.75rem] h-7 px-1.5 rounded-pill bg-brand-500 text-white text-meta font-semibold">
+              {{ day | date:'d':'':'es' }}<span class="sr-only">, hoy</span>
             </span>
-            <span class="block pl-1 font-semibold text-gray-900 capitalize">{{ cita.estado }}</span>
-            <span class="block pl-1 truncate text-gray-600">{{ cita.motivo }}</span><span class="sr-only">, {{ cita.fecha | date: 'EEEE d MMMM':'UTC':'es' }}. Ver detalle</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Pantalla pequeña (sin fines de semana ni mezcla de semanas) -->
-  <div class="space-y-4 sm:hidden">
-    <div *ngFor="let semana of weeks">
-      <div class="grid grid-cols-5 gap-1">
-        <div *ngFor="let day of semana">
-          <div *ngIf="!isWeekend(day)" [class]="'min-h-[120px] p-2 border rounded-lg ' +
-                (isToday(day) ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200')">
-            <div class="flex flex-col h-full">
-              <span [class]="'text-sm font-medium ' + 
-                  (isToday(day) ? 'text-blue-800' : 'text-gray-700')">{{ day | date:'d':'':'es' }}</span>
-              <div class="flex-1 overflow-y-auto mt-1 space-y-1 max-h-[110px] custom-scrollbar">
-                <button type="button" *ngFor="let cita of getAppointmentsForDay(day)"
-                  (click)="showAppointmentDetails(cita)"
-                  class="block w-full text-left mt-1 p-2 text-xs rounded-md transition-colors bg-brand-light/[60%] cursor-pointer"
-                  [ngClass]="{
-                      'bg-red-400/[40%]': cita.estado === 'cancelada',
-                      'bg-gray-400/[50%]': cita.estado === 'terminada',
-                      'bg-brand-light/[60%]': cita.estado === 'pendiente'
-                    }">
-                  <span class="block font-bold text-[13px]">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</span>
-                  <span class="block pl-1 font-medium text-gray-800">
-                    {{ cita.fecha | date: 'HH:mm':'UTC'}} - {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}
-                  </span>
-                  <span class="block pl-1 font-semibold text-gray-900 capitalize">{{ cita.estado }}</span>
-                  <span class="block pl-1 truncate text-gray-600">{{ cita.motivo }}</span><span class="sr-only">, {{ cita.fecha | date: 'EEEE d MMMM':'UTC':'es' }}. Ver detalle</span>
-                </button>
-              </div>
-            </div>
+          } @else {
+            <span class="px-1 text-meta font-semibold" [class.text-ink-700]="isCurrentMonth(day)" [class.text-ink-500]="!isCurrentMonth(day)">{{ day | date:'d':'':'es' }}</span>
+          }
+          <div class="flex-1 mt-1 space-y-1">
+            @for (cita of getAppointmentsForDay(day); track cita.id) {
+              <ng-container *ngTemplateOutlet="chip; context: { $implicit: cita, deshabilitada: isWeekend(day) }" />
+            }
           </div>
         </div>
-      </div>
+      }
     </div>
   </div>
-</div>
+
+  <!-- Pantalla pequeña: agenda del mes por días (sin fines de semana) -->
+  <div class="sm:hidden">
+    @if (diasConCitas.length === 0) {
+      <div class="py-6 flex items-center gap-4">
+        <span class="flex-none grid place-items-center w-12 h-12 rounded-full bg-brand-50 text-brand-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </span>
+        <p class="text-ink-600">No tienes citas este mes.</p>
+      </div>
+    } @else {
+      <ol role="list" class="space-y-5">
+        @for (day of diasConCitas; track day.getTime()) {
+          <li>
+            <h3 class="flex flex-wrap items-center gap-2 text-body font-semibold text-ink-900">
+              <span class="first-letter:uppercase">{{ day | date:'EEEE d':'':'es' }}</span>
+              @if (isToday(day)) { <span class="tag">Hoy</span> }
+            </h3>
+            <ul role="list" class="mt-2 space-y-2">
+              @for (cita of getAppointmentsForDay(day); track cita.id) {
+                <li><ng-container *ngTemplateOutlet="chip; context: { $implicit: cita, deshabilitada: false }" /></li>
+              }
+            </ul>
+          </li>
+        }
+      </ol>
+    }
+  </div>
+</section>
+
+<!-- Cita del calendario: el nombre accesible es el texto visible (paciente, hora, estado)
+     más la fecha completa y «Ver detalle» en sr-only. Sin aria-label a propósito. -->
+<ng-template #chip let-cita let-deshabilitada="deshabilitada">
+  <button type="button" (click)="!deshabilitada && showAppointmentDetails(cita)" [disabled]="deshabilitada"
+    class="chip" [ngClass]="claseChip(cita.estado)">
+    <span class="block font-semibold text-ink-900 break-words">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</span>
+    <span class="flex flex-wrap items-center gap-x-1.5">
+      <span class="tabular-nums text-ink-700">{{ cita.fecha | date: 'HH:mm':'UTC' }}<span class="sr-only"> a {{ sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC' }}</span></span>
+      @switch (cita.estado) {
+        @case ('terminada') {
+          <span class="inline-flex items-center gap-0.5 font-semibold text-success-700">
+            <svg class="w-4 h-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+            Terminada
+          </span>
+        }
+        @case ('cancelada') {
+          <span class="inline-flex items-center gap-0.5 font-semibold text-danger-700">
+            <svg class="w-4 h-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            Cancelada
+          </span>
+        }
+        @default {
+          <span class="inline-flex items-center gap-0.5 font-semibold text-info-700">
+            <svg class="w-4 h-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Pendiente
+          </span>
+        }
+      }
+    </span>
+    <span class="sr-only">, {{ cita.fecha | date: 'EEEE d MMMM':'UTC':'es' }}. Ver detalle</span>
+  </button>
+</ng-template>
 
 <!-- Detalles de la cita -->
 @if (selectedAppointment) {
   <dialog appDialog (dialogCancel)="closeAppointmentDetails()" aria-labelledby="horario-detalle-titulo">
-  <div class="fixed inset-0 bg-gray-900/30 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
-    <div class="bg-white w-[500px] rounded-2xl shadow-2xl transform transition-all duration-300 animate-slide-up">
-      <div class="p-5 flex justify-between items-center bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
-        <h2 id="horario-detalle-titulo" class="text-xl font-semibold text-gray-800 tracking-tight">Detalles de la Cita</h2>
-        <button type="button" (click)="closeAppointmentDetails()" aria-label="Cerrar" class="text-gray-500 hover:text-gray-700">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
+  <div class="modal-backdrop z-50 flex items-center justify-center overflow-y-auto p-4 backdrop-blur-sm">
+    <div class="modal-panel max-h-[calc(100vh-2rem)] overflow-y-auto">
+      <button type="button" (click)="closeAppointmentDetails()" aria-label="Cerrar" class="btn-icon absolute right-3 top-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <h2 id="horario-detalle-titulo" class="modal-title pr-12">Detalles de la cita</h2>
+      <div class="mt-2">
+        <app-estado-badge [estado]="cita.estado" />
       </div>
 
-      <div class="p-6 max-h-[70vh]">
-        <p class="py-2"><span class="font-medium">Paciente:</span> {{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</p>
-        <p class="py-2"><span class="font-medium">Hora:</span> {{ cita.fecha | date: 'HH:mm':'UTC'}} -
-          {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}</p>
-        <p class="py-2"><span class="font-medium">Motivo:</span> {{ cita.motivo }}</p>
-        <p class="py-2"><span class="font-medium">Edad:</span> {{ calcularEdad(cita.usuario.fechaNacimiento) }}</p>
-        <p class="py-2"><span class="font-medium">Sexo:</span> {{ cita.usuario.sexo }}</p>
-        <p class="py-2"><span class="font-medium">Email:</span> {{ cita.email }}</p>
-        <p class="py-2"><span class="font-medium">Teléfono:</span> {{ cita.telefono }}</p>
-        <p class="py-2"><span class="font-medium">Estado:</span> {{ cita.estado }}</p>
+      <dl class="mt-5 divide-y divide-line-subtle border-y border-line-subtle">
+        <div class="dato"><dt>Paciente</dt><dd>{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</dd></div>
+        <div class="dato"><dt>Fecha</dt><dd class="first-letter:uppercase">{{ cita.fecha | date: "EEEE, d 'de' MMMM 'de' y":'UTC':'es' }}</dd></div>
+        <div class="dato"><dt>Hora</dt><dd>{{ cita.fecha | date: 'HH:mm':'UTC' }} – {{ sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC' }}</dd></div>
+        @if (cita.motivo) {
+          <div class="dato"><dt>Motivo</dt><dd>{{ cita.motivo }}</dd></div>
+        }
+        <div class="dato"><dt>Edad</dt><dd>{{ calcularEdad(cita.usuario.fechaNacimiento) }} años</dd></div>
+        <div class="dato"><dt>Sexo</dt><dd class="first-letter:uppercase">{{ cita.usuario.sexo }}</dd></div>
+        <div class="dato"><dt>Email</dt><dd>{{ cita.email }}</dd></div>
+        <div class="dato"><dt>Teléfono</dt><dd>{{ cita.telefono }}</dd></div>
+      </dl>
+
+      <div class="modal-actions">
+        <button type="button" (click)="closeAppointmentDetails()" class="btn-secondary">Cerrar</button>
       </div>
     </div>
   </div>

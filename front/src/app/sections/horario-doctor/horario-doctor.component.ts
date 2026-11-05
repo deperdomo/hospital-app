@@ -8,13 +8,15 @@ import { Usuario } from "../../models/usuario";
 import { Doctor } from "../../models/doctor";
 import { Cita } from "../../models/cita";
 import { DialogDirective } from "../../shared/dialog.directive";
+import { EstadoBadgeComponent } from "../lista-citas/estado-badge/estado-badge.component";
+import { sumarMediaHora } from "../lista-citas/fecha-cita";
 
 registerLocaleData(localeEs);
 
 @Component({
   selector: 'app-horario-doctor',
   standalone: true,
-  imports: [CommonModule, DialogDirective],
+  imports: [CommonModule, DialogDirective, EstadoBadgeComponent],
   templateUrl: './horario-doctor.component.html',
   styleUrl: './horario-doctor.component.css',
   providers: [CitaService]
@@ -22,7 +24,8 @@ registerLocaleData(localeEs);
 export class HorarioDoctorComponent implements OnInit {
   currentDate: Date = new Date();
   calendarDays: Date[] = [];
-  weeks: Date[][] = [];
+  /** Días laborables del mes visible que tienen citas (vista de móvil). */
+  diasConCitas: Date[] = [];
   weekDays: string[] = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
   selectedAppointment: boolean = false;
 
@@ -30,6 +33,9 @@ export class HorarioDoctorComponent implements OnInit {
   usuario: Usuario;
   doctor: Doctor;
   cita: Cita;
+
+  /** Citas agrupadas por día ("yyyy-MM-dd" en UTC, como se guardan) y ordenadas por hora. */
+  private citasPorDia = new Map<string, Cita[]>();
 
   constructor(private citaService: CitaService) {
     this.usuario = {} as Usuario;
@@ -52,8 +58,29 @@ export class HorarioDoctorComponent implements OnInit {
     this.citaService.getCitasDoctor(String(this.doctor.id)).subscribe(
       (citas: Cita[]) => {
         this.citas = citas;
+        this.agruparCitas();
       }
     );
+  }
+
+  private agruparCitas() {
+    this.citasPorDia.clear();
+    const ordenadas = [...this.citas].sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
+    for (const cita of ordenadas) {
+      const clave = new Date(cita.fecha).toISOString().slice(0, 10);
+      const lista = this.citasPorDia.get(clave);
+      if (lista) {
+        lista.push(cita);
+      } else {
+        this.citasPorDia.set(clave, [cita]);
+      }
+    }
+    this.calcularDiasConCitas();
+  }
+
+  private calcularDiasConCitas() {
+    this.diasConCitas = this.calendarDays.filter(day =>
+      this.isCurrentMonth(day) && !this.isWeekend(day) && this.getAppointmentsForDay(day).length > 0);
   }
 
   generateCalendarDays() {
@@ -83,15 +110,7 @@ export class HorarioDoctorComponent implements OnInit {
       this.calendarDays.push(new Date(year, month + 1, i));
     }
 
-    this.generateWeeks(); // nuevo
-  }
-
-  generateWeeks() {
-    this.weeks = [];
-    for (let i = 0; i < this.calendarDays.length; i += 7) {
-      const week = this.calendarDays.slice(i, i + 7);
-      this.weeks.push(week);
-    }
+    this.calcularDiasConCitas();
   }
 
   getCurrentMonthYear(): string {
@@ -121,14 +140,36 @@ export class HorarioDoctorComponent implements OnInit {
     this.generateCalendarDays();
   }
 
+  irAHoy() {
+    this.currentDate = new Date();
+    this.generateCalendarDays();
+  }
+
   isToday(date: Date): boolean {
     return isDateToday(date);
   }
 
   getAppointmentsForDay(date: Date): Cita[] {
-    return this.citas.filter((cita) =>
-      format(cita.fecha, "yyyy-MM-dd") === format(date, "yyyy-MM-dd")
-    );
+    return this.citasPorDia.get(format(date, "yyyy-MM-dd")) ?? [];
+  }
+
+  /** Clases completas (sin concatenar) para que Tailwind no las purgue. */
+  claseDia(day: Date): string {
+    if (this.isToday(day)) {
+      return 'bg-brand-50 border-brand-500';
+    }
+    if (this.isWeekend(day) || !this.isCurrentMonth(day)) {
+      return 'bg-surface-muted border-line-subtle';
+    }
+    return 'bg-white border-line';
+  }
+
+  claseChip(estado: string): string {
+    switch (estado) {
+      case 'terminada': return 'chip-terminada';
+      case 'cancelada': return 'chip-cancelada';
+      default: return 'chip-pendiente';
+    }
   }
 
   showAppointmentDetails(cita: Cita) {
@@ -147,10 +188,7 @@ export class HorarioDoctorComponent implements OnInit {
   }
 
   sumarMediaHora(fecha: string): Date {
-    const fechaObjeto = new Date(fecha);
-    const nuevaFecha = new Date(fechaObjeto);
-    nuevaFecha.setMinutes(nuevaFecha.getMinutes() + 30);
-    return nuevaFecha;
+    return sumarMediaHora(fecha);
   }
 
   calcularEdad(fechaNacimiento: string): number {

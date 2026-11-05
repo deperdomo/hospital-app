@@ -20,6 +20,8 @@ export class PanelNotificacionesComponent {
   /** Id del doctor si la sesión es de doctor (sus notificaciones son las reservas nuevas). */
   idDoctor: number | null = null;
   citasNoVistas: Cita[] = [];
+  /** Solo la primera carga muestra «Cargando…»; al cerrar se vuelve a pedir sin parpadeo. */
+  cargando = true;
 
   @Output() modalCerrado = new EventEmitter<boolean>();
   @Output() notificaciones = new EventEmitter<boolean>();
@@ -51,11 +53,15 @@ export class PanelNotificacionesComponent {
       citas$.subscribe(
         (citas: Cita[]) => {
           this.citasNoVistas = citas;
+          this.cargando = false;
         },
         error => {
           console.error('Error al obtener las citas no vistas', error);
+          this.cargando = false;
         }
       );
+    } else {
+      this.cargando = false;
     }
   }
 

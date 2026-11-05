@@ -1,13 +1,12 @@
+/* Navegación lateral fija, cabecera y contenido. minmax(0, 1fr) evita el desbordamiento a 320 px. */
 .body-horario {
-    height: 100vh;
+    min-height: 100vh;
     display: grid;
-    grid-template-columns: 242px 1fr;
-    grid-template-rows: 15% 1fr;
+    grid-template-columns: 242px minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
     grid-template-areas:
         "zn zh"
         "zn zs";
-    height: 100vh;
-    overflow: hidden;
 }
 
 app-left-nav {
@@ -18,13 +17,13 @@ app-secundary-nav {
     grid-area: zh;
 }
 
-.conenido {
+.contenido {
     grid-area: zs;
 }
 
 @media (max-width: 640px) {
     .body-horario {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         grid-template-areas:
             "zh"
             "zs";
