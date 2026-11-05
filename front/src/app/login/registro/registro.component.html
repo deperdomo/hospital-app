@@ -1,12 +1,12 @@
-<main id="contenido" tabindex="-1" class="bg-white">
-  <div class="flex justify-center h-screen">
-    <div class="hidden bg-cover lg:block lg:w-2/3"
+<main id="contenido" tabindex="-1" class="bg-surface-canvas">
+  <div class="flex justify-center min-h-screen">
+    <div class="hidden bg-cover lg:block lg:w-1/2 xl:w-3/5"
       style="background-image: url(img/login-hero.webp)">
-      <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+      <div class="flex items-center h-full px-20 bg-ink-900/50">
         <div>
-          <p class="text-2xl font-bold text-white sm:text-3xl">Hospital Jakarta</p>
+          <p class="text-h1 text-white">Hospital Jakarta</p>
 
-          <p class="max-w-xl mt-3 text-gray-300">
+          <p class="max-w-xl mt-3 text-body-lg text-white">
             Regístrate y accede a consultas médicas online con doctores cercanos. Comienza a cuidar de tu salud de forma
             fácil y rápida, en cualquier momento y desde cualquier lugar.
           </p>
@@ -14,84 +14,84 @@
       </div>
     </div>
 
-    <div class="flex items-center w-full w-full max-w-md px-6 mx-auto lg:w-2/6">
+    <div class="flex items-center w-full max-w-xl px-4 py-12 mx-auto sm:px-6 lg:w-1/2 xl:w-2/5">
       <div class="flex-1">
-        <div class="text-center">
-          <div class="flex justify-center mx-auto">
-            <img src="img/logo-login.png" alt="Hospital Jakarta">
+        <div class="card p-6 sm:p-8">
+          <div class="text-center">
+            <div class="flex justify-center mx-auto">
+              <img src="img/logo-login.png" alt="Hospital Jakarta">
+            </div>
+
+            <h1 class="mt-4 text-h3 text-ink-900">Crea tu cuenta</h1>
           </div>
 
-          <h1 class="my-5 text-xl text-gray-500">Crea tu cuenta</h1>
-        </div>
+          <p class="mt-6 mb-5 text-meta text-ink-600">Todos los campos son obligatorios (<span aria-hidden="true">*</span><span class="sr-only">marcados con asterisco</span>).</p>
 
-        <div class="mt-8">
-          <p class="mb-4 text-sm text-gray-600">Todos los campos son obligatorios (<span aria-hidden="true">*</span><span class="sr-only">marcados con asterisco</span>).</p>
-
-          <form (ngSubmit)="onSubmit()" #registroForm="ngForm" class="grid grid-cols-2 gap-4">
+          <form (ngSubmit)="onSubmit()" #registroForm="ngForm" class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-x-4">
             <div>
-              <label for="nombre" class="block mb-2 text-sm text-gray-600">Nombre <span class="text-red-700" aria-hidden="true">*</span></label>
+              <label for="nombre" class="field-label">Nombre <span class="text-danger-700" aria-hidden="true">*</span></label>
               <input type="text" name="nombre" id="nombre" autocomplete="given-name" placeholder="Tu nombre" [(ngModel)]="usuario.nombre" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-500 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40" />
+                class="input" />
             </div>
 
             <div>
-              <label for="username" class="block mb-2 text-sm text-gray-600">Nombre de usuario <span class="text-red-700" aria-hidden="true">*</span></label>
+              <label for="username" class="field-label">Nombre de usuario <span class="text-danger-700" aria-hidden="true">*</span></label>
               <input type="text" name="username" id="username" autocomplete="username" [attr.aria-invalid]="errorDuplicado ? 'true' : null" [attr.aria-describedby]="errorDuplicado ? 'registro-error' : null" placeholder="Tu nombre de usuario" [(ngModel)]="usuario.username" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-500 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40" />
+                class="input" />
             </div>
 
             <div>
-              <label for="apellidos" class="block mb-2 text-sm text-gray-600">Apellidos <span class="text-red-700" aria-hidden="true">*</span></label>
+              <label for="apellidos" class="field-label">Apellidos <span class="text-danger-700" aria-hidden="true">*</span></label>
               <input type="text" name="apellidos" id="apellidos" autocomplete="family-name" placeholder="Tus apellidos" [(ngModel)]="usuario.apellidos" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-500 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40" />
+                class="input" />
             </div>
 
             <div>
-              <label for="email" class="block mb-2 text-sm text-gray-600">Email <span class="text-red-700" aria-hidden="true">*</span></label>
+              <label for="email" class="field-label">Email <span class="text-danger-700" aria-hidden="true">*</span></label>
               <input type="email" name="email" id="email" autocomplete="email" [attr.aria-invalid]="errorDuplicado ? 'true' : null" [attr.aria-describedby]="errorDuplicado ? 'registro-error' : null" placeholder="ejemplo@ejemplo.com" [(ngModel)]="usuario.email" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-500 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40" />
+                class="input" />
             </div>
 
             <div>
-              <label for="telefono" class="block mb-2 text-sm text-gray-600">Teléfono <span class="text-red-700" aria-hidden="true">*</span></label>
+              <label for="telefono" class="field-label">Teléfono <span class="text-danger-700" aria-hidden="true">*</span></label>
               <input type="tel" name="telefono" id="telefono" autocomplete="tel" placeholder="Teléfono de contacto" [(ngModel)]="usuario.telefono" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-500 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40" />
+                class="input" />
             </div>
 
             <div>
-              <label for="provincia" class="block mb-2 text-sm text-gray-600">Provincia <span class="text-red-700" aria-hidden="true">*</span></label>
+              <label for="provincia" class="field-label">Provincia <span class="text-danger-700" aria-hidden="true">*</span></label>
               <input type="text" name="provincia" id="provincia" autocomplete="address-level1" placeholder="Tu provincia" [(ngModel)]="usuario.provincia" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-500 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40" />
+                class="input" />
             </div>
 
             <div>
-              <label for="localidad" class="block mb-2 text-sm text-gray-600">Localidad <span class="text-red-700" aria-hidden="true">*</span></label>
+              <label for="localidad" class="field-label">Localidad <span class="text-danger-700" aria-hidden="true">*</span></label>
               <input type="text" name="localidad" id="localidad" autocomplete="address-level2" placeholder="Tu localidad" [(ngModel)]="usuario.localidad" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-500 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40" />
+                class="input" />
             </div>
 
             <div>
-              <label for="direccion" class="block mb-2 text-sm text-gray-600">Dirección <span class="text-red-700" aria-hidden="true">*</span></label>
+              <label for="direccion" class="field-label">Dirección <span class="text-danger-700" aria-hidden="true">*</span></label>
               <input type="text" name="direccion" id="direccion" autocomplete="street-address" placeholder="Tu dirección" [(ngModel)]="usuario.direccion" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-500 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40" />
+                class="input" />
             </div>
 
             <div>
-              <label for="fechaNacimiento" class="block mb-2 text-sm text-gray-600">Fecha de nacimiento <span class="text-red-700" aria-hidden="true">*</span></label>
+              <label for="fechaNacimiento" class="field-label">Fecha de nacimiento <span class="text-danger-700" aria-hidden="true">*</span></label>
               <input type="date" name="fechaNacimiento" id="fechaNacimiento" autocomplete="bday" [(ngModel)]="usuario.fechaNacimiento" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-500 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40" />
+                class="input" />
             </div>
 
             <div>
-              <label for="password" class="block mb-2 text-sm text-gray-600">Contraseña <span class="text-red-700" aria-hidden="true">*</span></label>
+              <label for="password" class="field-label">Contraseña <span class="text-danger-700" aria-hidden="true">*</span></label>
               <input type="password" name="password" id="password" autocomplete="new-password" placeholder="Tu contraseña" [(ngModel)]="usuario.password" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-500 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40" />
+                class="input" />
             </div>
 
             <div>
-              <label for="sexo" class="block mb-2 text-sm text-gray-600">Sexo <span class="text-red-700" aria-hidden="true">*</span></label>
+              <label for="sexo" class="field-label">Sexo <span class="text-danger-700" aria-hidden="true">*</span></label>
               <select name="sexo" id="sexo" autocomplete="sex" [(ngModel)]="usuario.sexo" required
-                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-500 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40">
+                class="input">
                 <option value="" disabled selected>Selecciona tu sexo</option>
                 <option value="masculino">Masculino</option>
                 <option value="femenino">Femenino</option>
@@ -99,31 +99,26 @@
               </select>
             </div>
 
-            <div class="col-span-2" id="registro-error" role="alert">
+            <div class="sm:col-span-2 -mt-5" id="registro-error" role="alert">
               @if (errorMessage) {
-              <p class="mt-4 text-red-700">{{ errorMessage }}</p>
+              <p class="alert-error mt-5">{{ errorMessage }}</p>
               }
             </div>
 
-            <div class="col-span-2 mt-6">
-              <button
-                type="submit"
-                class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-brand rounded-lg cursor-pointer hover:bg-brand-dark focus:bg-brand-dark focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+            <div class="sm:col-span-2 mt-1">
+              <button type="submit" class="btn-primary w-full">
                 Registrarme
               </button>
             </div>
           </form>
-
-
-
-
-          <p class="mt-6 text-sm text-center text-gray-600">¿Ya tienes cuenta? <a href="/login"
-              class="text-brand underline hover:no-underline">Inicia sesión</a>.</p>
         </div>
+
+        <p class="mt-6 text-meta text-center text-ink-600">¿Ya tienes cuenta? <a href="/login"
+            class="font-semibold text-brand-700 underline hover:no-underline">Inicia sesión</a>.</p>
       </div>
     </div>
 
     <a href="/" aria-label="Volver a la página de inicio"
-      class="absolute top-3 right-6 text-3xl text-gray-700 hover:text-gray-900"><span aria-hidden="true">&times;</span></a>
+      class="btn-icon absolute top-3 right-3 text-h2"><span aria-hidden="true">&times;</span></a>
   </div>
 </main>

@@ -101,4 +101,15 @@ main:focus {
   .modal-panel { @apply relative w-full max-w-lg rounded-card bg-white p-6 shadow-overlay; }
   .modal-title { @apply text-h3 text-ink-900; }
   .modal-actions { @apply mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end; }
+
+  /* Fase 1: recetas que faltaban para los formularios */
+  /* Checkbox y radio nativos (sin plugin de forms): color de marca con accent-color, 20 px. */
+  .choice { @apply h-5 w-5 shrink-0 cursor-pointer accent-brand-500; }
+  .choice-row { @apply flex items-center gap-3 min-h-touch; }
+  .choice-label { @apply cursor-pointer text-body text-ink-900; }
+  /* Mensajes de formulario completos (dentro de las regiones role="alert"/"status" existentes). */
+  .alert-error { @apply flex items-start gap-2 rounded-control border border-danger-200 bg-danger-50 px-4 py-3 text-meta font-medium text-danger-700; }
+  .alert-success { @apply flex items-start gap-2 rounded-control border border-success-200 bg-success-50 px-4 py-3 text-meta font-medium text-success-700; }
+  /* Textarea: el .input fija la altura mínima; aquí solo el relleno vertical. */
+  .input-textarea { @apply input py-2.5 leading-normal; }
 }

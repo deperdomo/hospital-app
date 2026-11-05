@@ -1,129 +1,105 @@
 <dialog appDialog (dialogCancel)="enviarEstado()" aria-labelledby="new-doctor-titulo">
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50 backdrop-blur-sm">
+<div class="modal-backdrop z-50 flex items-center justify-center overflow-y-auto p-4 backdrop-blur-sm">
   
-    <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full relative">
-      <button 
-        class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors bg-white rounded-full h-6 w-6 flex items-center justify-center shadow-sm"
+    <div class="modal-panel max-w-2xl max-h-[calc(100vh-2rem)] overflow-y-auto">
+      <button type="button"
+        class="btn-icon absolute right-3 top-3"
         (click)="enviarEstado()"
         aria-label="Cerrar"
       >
         <span aria-hidden="true">✕</span>
       </button>
-      <h2 id="new-doctor-titulo" class="text-3xl font-bold text-center mb-8" style="color: #2A7891;">
+      <h2 id="new-doctor-titulo" class="modal-title pr-12">
         Registro de Médico
       </h2>
   
-      <p class="mb-4 text-sm text-gray-600">Todos los campos son obligatorios (<span aria-hidden="true">*</span><span class="sr-only">marcados con asterisco</span>).</p>
-      <form (ngSubmit)="onSubmit()" #doctorForm="ngForm" class="grid grid-cols-2 gap-4">
+      <p class="mt-2 mb-5 text-meta text-ink-600">Todos los campos son obligatorios (<span aria-hidden="true">*</span><span class="sr-only">marcados con asterisco</span>).</p>
+      <form (ngSubmit)="onSubmit()" #doctorForm="ngForm" class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-x-4">
         <!-- Columna Izquierda -->
         <div>
-          <label for="nombre" class="block mb-2 text-sm text-gray-600">Nombre <span class="text-red-700" aria-hidden="true">*</span></label>
+          <label for="nombre" class="field-label">Nombre <span class="text-danger-700" aria-hidden="true">*</span></label>
           <input type="text" name="nombre" id="nombre" placeholder="Nombre del médico" 
                  [(ngModel)]="doctor.nombre" required
-                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white 
-                        border border-gray-500 rounded-lg focus:border-brand focus:ring-brand 
-                        focus:ring focus:ring-opacity-40">
+                 class="input">
         </div>
   
         <div>
-          <label for="apellidos" class="block mb-2 text-sm text-gray-600">Apellidos <span class="text-red-700" aria-hidden="true">*</span></label>
+          <label for="apellidos" class="field-label">Apellidos <span class="text-danger-700" aria-hidden="true">*</span></label>
           <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos del médico" 
                  [(ngModel)]="doctor.apellidos" required
-                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white 
-                        border border-gray-500 rounded-lg focus:border-brand focus:ring-brand 
-                        focus:ring focus:ring-opacity-40">
+                 class="input">
         </div>
   
         <div>
-          <label for="username" class="block mb-2 text-sm text-gray-600">Nombre de usuario <span class="text-red-700" aria-hidden="true">*</span></label>
+          <label for="username" class="field-label">Nombre de usuario <span class="text-danger-700" aria-hidden="true">*</span></label>
           <input type="text" name="username" id="username" autocomplete="off" placeholder="Nombre de usuario" 
                  [(ngModel)]="doctor.username" required
-                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white 
-                        border border-gray-500 rounded-lg focus:border-brand focus:ring-brand 
-                        focus:ring focus:ring-opacity-40">
+                 class="input">
         </div>
   
         <div>
-          <label for="email" class="block mb-2 text-sm text-gray-600">Email <span class="text-red-700" aria-hidden="true">*</span></label>
+          <label for="email" class="field-label">Email <span class="text-danger-700" aria-hidden="true">*</span></label>
           <input type="email" name="email" id="email" placeholder="ejemplo@clinica.com" 
                  [(ngModel)]="doctor.email" required
-                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white 
-                        border border-gray-500 rounded-lg focus:border-brand focus:ring-brand 
-                        focus:ring focus:ring-opacity-40">
+                 class="input">
         </div>
   
         <div>
-          <label for="especialidad" class="block mb-2 text-sm text-gray-600">Especialidad <span class="text-red-700" aria-hidden="true">*</span></label>
+          <label for="especialidad" class="field-label">Especialidad <span class="text-danger-700" aria-hidden="true">*</span></label>
           <select name="especialidad" id="especialidad" [(ngModel)]="doctor.especialidad.id" required
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-500 
-                         rounded-lg focus:border-brand focus:ring-brand 
-                         focus:ring focus:ring-opacity-40">
+                  class="input">
             <option value="" disabled selected>Seleccione especialidad</option>
             <option *ngFor="let esp of especialidades" [value]="esp.id">{{esp.nombre}}</option>
           </select>
         </div>
   
         <div>
-          <label for="precioConsulta" class="block mb-2 text-sm text-gray-600">Precio Consulta (€) <span class="text-red-700" aria-hidden="true">*</span></label>
+          <label for="precioConsulta" class="field-label">Precio Consulta (€) <span class="text-danger-700" aria-hidden="true">*</span></label>
           <input type="number" name="precioConsulta" id="precioConsulta" placeholder="Ej: 50" 
                  [(ngModel)]="doctor.precioConsulta" required
-                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white 
-                        border border-gray-500 rounded-lg focus:border-brand focus:ring-brand 
-                        focus:ring focus:ring-opacity-40">
+                 class="input">
         </div>
   
         <!-- Columna Derecha -->
         <div>
-          <label for="experiencia" class="block mb-2 text-sm text-gray-600">Años de Experiencia <span class="text-red-700" aria-hidden="true">*</span></label>
+          <label for="experiencia" class="field-label">Años de Experiencia <span class="text-danger-700" aria-hidden="true">*</span></label>
           <input type="number" name="experiencia" id="experiencia" placeholder="Ej: 5" 
                  [(ngModel)]="doctor.experiencia" required
-                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white 
-                        border border-gray-500 rounded-lg focus:border-brand focus:ring-brand 
-                        focus:ring focus:ring-opacity-40">
+                 class="input">
         </div>
   
         <div>
-          <label for="provincia" class="block mb-2 text-sm text-gray-600">Provincia <span class="text-red-700" aria-hidden="true">*</span></label>
+          <label for="provincia" class="field-label">Provincia <span class="text-danger-700" aria-hidden="true">*</span></label>
           <input type="text" name="provincia" id="provincia" placeholder="Ej: Madrid" 
                  [(ngModel)]="doctor.provincia" required
-                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white 
-                        border border-gray-500 rounded-lg focus:border-brand focus:ring-brand 
-                        focus:ring focus:ring-opacity-40">
+                 class="input">
         </div>
   
         <div>
-          <label for="localidad" class="block mb-2 text-sm text-gray-600">Localidad <span class="text-red-700" aria-hidden="true">*</span></label>
+          <label for="localidad" class="field-label">Localidad <span class="text-danger-700" aria-hidden="true">*</span></label>
           <input type="text" name="localidad" id="localidad" placeholder="Ej: Centro" 
                  [(ngModel)]="doctor.localidad" required
-                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white 
-                        border border-gray-500 rounded-lg focus:border-brand focus:ring-brand 
-                        focus:ring focus:ring-opacity-40">
+                 class="input">
         </div>
   
         <div>
-          <label for="direccion" class="block mb-2 text-sm text-gray-600">Dirección <span class="text-red-700" aria-hidden="true">*</span></label>
+          <label for="direccion" class="field-label">Dirección <span class="text-danger-700" aria-hidden="true">*</span></label>
           <input type="text" name="direccion" id="direccion" placeholder="Dirección consulta" 
                  [(ngModel)]="doctor.direccion" required
-                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white 
-                        border border-gray-500 rounded-lg focus:border-brand focus:ring-brand 
-                        focus:ring focus:ring-opacity-40">
+                 class="input">
         </div>
   
         <div>
-          <label for="password" class="block mb-2 text-sm text-gray-600">Contraseña <span class="text-red-700" aria-hidden="true">*</span></label>
+          <label for="password" class="field-label">Contraseña <span class="text-danger-700" aria-hidden="true">*</span></label>
           <input type="password" name="password" id="password" autocomplete="new-password" placeholder="••••••••" 
                  [(ngModel)]="doctor.password" required
-                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white 
-                        border border-gray-500 rounded-lg focus:border-brand focus:ring-brand 
-                        focus:ring focus:ring-opacity-40">
+                 class="input">
         </div>
   
         <div>
-          <label for="sexo" class="block mb-2 text-sm text-gray-600">Sexo <span class="text-red-700" aria-hidden="true">*</span></label>
+          <label for="sexo" class="field-label">Sexo <span class="text-danger-700" aria-hidden="true">*</span></label>
           <select name="sexo" id="sexo" [(ngModel)]="doctor.sexo" required
-                  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-500 
-                         rounded-lg focus:border-brand focus:ring-brand 
-                         focus:ring focus:ring-opacity-40">
+                  class="input">
             <option value="" disabled selected>Seleccione sexo</option>
             <option value="masculino">Masculino</option>
             <option value="femenino">Femenino</option>
@@ -132,18 +108,15 @@
         </div>
   
         <!-- Mensaje de error -->
-        <div class="col-span-2" id="new-doctor-error" role="alert">
+        <div class="sm:col-span-2 -mt-5" id="new-doctor-error" role="alert">
           @if (errorMessage) {
-          <p class="mt-4 text-red-700">{{ errorMessage }}</p>
+          <p class="alert-error mt-5">{{ errorMessage }}</p>
           }
         </div>
   
         <!-- Botón de Registro -->
-        <div class="col-span-2 mt-6">
-          <button type="submit" 
-                  class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 
-                         transform bg-brand rounded-lg cursor-pointer hover:bg-brand-dark 
-                         focus:ring focus:ring-brand focus:ring-opacity-50">
+        <div class="modal-actions sm:col-span-2 mt-1">
+          <button type="submit" class="btn-primary w-full sm:w-auto">
             Registrar Médico
           </button>
         </div>

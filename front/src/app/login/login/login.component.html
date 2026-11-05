@@ -1,57 +1,57 @@
-<main id="contenido" tabindex="-1" class="bg-white">
-  <div class="flex justify-center h-screen">
+<main id="contenido" tabindex="-1" class="bg-surface-canvas">
+  <div class="flex justify-center min-h-screen">
     <div class="hidden bg-cover lg:block lg:w-2/3" style="background-image: url(img/login-hero.webp)">
-      <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+      <div class="flex items-center h-full px-20 bg-ink-900/50">
         <div>
-          <p class="text-2xl font-bold text-white sm:text-3xl">Hospital Jakarta</p>
-          <p class="max-w-xl mt-3 text-gray-300">
+          <p class="text-h1 text-white">Hospital Jakarta</p>
+          <p class="max-w-xl mt-3 text-body-lg text-white">
             Inicia sesión para acceder a consultas online con médicos cercanos. Disfruta de atención médica de calidad desde la comodidad de tu hogar. Gestiona tus citas y recibe atención de manera rápida y segura.
           </p>
         </div>
       </div>
     </div>
-    <div class="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+    <div class="flex items-center w-full max-w-md px-4 py-12 mx-auto sm:px-6 lg:w-2/6">
       <div class="flex-1">
-        <div class="text-center">
-          <div class="flex justify-center mx-auto">
-            <img src="img/logo-login.png" alt="Hospital Jakarta">
+        <div class="card p-6 sm:p-8">
+          <div class="text-center">
+            <div class="flex justify-center mx-auto">
+              <img src="img/logo-login.png" alt="Hospital Jakarta">
+            </div>
+            <h1 class="mt-4 text-h3 text-ink-900">Inicia sesión para acceder a tu cuenta</h1>
           </div>
-          <h1 class="my-5 text-xl text-gray-500">Inicia sesión para acceder a tu cuenta</h1>
-        </div>
 
-        <div class="mt-8">
-          <p class="mb-4 text-sm text-gray-600">Los campos marcados con <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> son obligatorios.</p>
+          <p class="mt-6 mb-5 text-meta text-ink-600">Los campos marcados con <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> son obligatorios.</p>
           <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
             <div>
-              <label for="username" class="block mb-2 text-sm text-gray-600"> Nombre de usuario <span class="text-red-700" aria-hidden="true">*</span></label>
+              <label for="username" class="field-label">Nombre de usuario <span class="text-danger-700" aria-hidden="true">*</span></label>
               <input type="text" name="username" id="username" autocomplete="username" placeholder="Tu nombre" [(ngModel)]="username" required
                 [attr.aria-invalid]="errorMessage ? 'true' : null" [attr.aria-describedby]="errorMessage ? 'login-error' : null"
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-500 rounded-lg focus:ring-blue-400 focus:ring focus:ring-opacity-40" />
+                class="input" />
             </div>
-            <div class="mt-6">
-              <label for="password" class="block mb-2 text-sm text-gray-600"> Contraseña <span class="text-red-700" aria-hidden="true">*</span></label>
+            <div class="mt-5">
+              <label for="password" class="field-label">Contraseña <span class="text-danger-700" aria-hidden="true">*</span></label>
               <input type="password" name="password" id="password" autocomplete="current-password" placeholder="Tu contraseña" [(ngModel)]="password" required
                 [attr.aria-invalid]="errorMessage ? 'true' : null" [attr.aria-describedby]="errorMessage ? 'login-error' : null"
-                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border border-gray-500 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40" />
+                class="input" />
             </div>
-            <div class="mt-6 flex items-center">
-              <input type="checkbox" name="isDoctor" id="isDoctor" [(ngModel)]="isDoctor" class="mr-2">
-              <label for="isDoctor" class="text-sm text-gray-600">Soy Doctor</label>
+            <div class="choice-row mt-3">
+              <input type="checkbox" name="isDoctor" id="isDoctor" [(ngModel)]="isDoctor" class="choice">
+              <label for="isDoctor" class="choice-label">Soy Doctor</label>
             </div>
-            <div id="login-error" role="alert" class="text-red-700">
+            <div id="login-error" role="alert">
               @if (errorMessage) {
-              <p class="mt-4">{{ errorMessage }}</p>
+              <p class="alert-error mt-4">{{ errorMessage }}</p>
               }
             </div>
             <div class="mt-6">
-              <button type="submit" class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-brand rounded-lg cursor-pointer hover:bg-brand-dark focus:bg-brand-dark focus:ring focus:ring-blue-300 focus:ring-opacity-50"> Iniciar sesión </button>
+              <button type="submit" class="btn-primary w-full">Iniciar sesión</button>
             </div>
           </form>
-          <p class="mt-6 text-sm text-center text-gray-600">¿No tienes cuenta todavía? <a href="/registro" class="text-brand underline hover:no-underline">Regístrate</a>.</p>
         </div>
+        <p class="mt-6 text-meta text-center text-ink-600">¿No tienes cuenta todavía? <a href="/registro" class="font-semibold text-brand-700 underline hover:no-underline">Regístrate</a>.</p>
       </div>
     </div>
-    <a href="/" aria-label="Volver a la página de inicio" class="absolute top-3 right-6 text-3xl text-gray-700 hover:text-gray-900"><span aria-hidden="true">&times;</span></a>
+    <a href="/" aria-label="Volver a la página de inicio" class="btn-icon absolute top-3 right-3 text-h2"><span aria-hidden="true">&times;</span></a>
   </div>
 
 </main>
