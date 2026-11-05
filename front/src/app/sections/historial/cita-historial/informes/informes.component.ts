@@ -52,16 +52,7 @@ export class InformesConmponent implements OnInit {
       this.usuarios = false;
       this.doctor = JSON.parse(doctorGuardado);
     }
-    
-    this.citaService.getCita(this.cita.id.toString()).subscribe({
-      next: (cita) => {
-        this.cita = cita;
-        this.getRecetas(this.cita);
-      },
-      error: (error) => {
-        // Muestra un mensaje de error al usuario
-      },
-    });
+    // la cita se carga en obtenerCita() con el id de la URL
     }
     obtenerCita(idCita: string) {
       this.citaService.getCita(idCita).subscribe({
