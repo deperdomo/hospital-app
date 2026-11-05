@@ -4,10 +4,11 @@ import { CitaService } from '../../../../services/cita.service';
 import { Usuario } from '../../../../models/usuario';
 import { Cita } from '../../../../models/cita';
 import { Doctor } from '../../../../models/doctor';
+import { DialogDirective } from '../../../../shared/dialog.directive';
 
 @Component({
   selector: 'app-detalle-cita',
-  imports: [CommonModule],
+  imports: [CommonModule, DialogDirective],
   templateUrl: './detalle-cita.component.html',
   styleUrl: './detalle-cita.component.css',
   providers: [CitaService]

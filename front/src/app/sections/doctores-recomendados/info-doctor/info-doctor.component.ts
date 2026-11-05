@@ -8,10 +8,11 @@ import { Disponibilidad } from '../../../models/disponibilidad';
 import { Usuario } from '../../../models/usuario';
 import { CitaService } from '../../../services/cita.service';
 import { Cita } from '../../../models/cita';
+import { DialogDirective } from '../../../shared/dialog.directive';
 
 @Component({
   selector: 'app-info-doctor',
-  imports: [CommonModule],
+  imports: [CommonModule, DialogDirective],
   templateUrl: './info-doctor.component.html',
   styleUrl: './info-doctor.component.css',
   providers: [DisponibilidadService, CitaService, DatePipe]

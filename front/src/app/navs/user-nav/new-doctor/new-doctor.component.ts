@@ -7,9 +7,10 @@ import { Doctor } from '../../../models/doctor';
 import { DoctorService } from '../../../services/doctor.service';
 import { Especialidad } from '../../../models/especialidad';
 import { EspecialidadService } from '../../../services/especialidad.service';
+import { DialogDirective } from '../../../shared/dialog.directive';
 @Component({
   selector: 'app-new-doctor',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DialogDirective],
   templateUrl: './new-doctor.component.html',
   styleUrl: './new-doctor.component.css',
   providers: [DoctorService, EspecialidadService]

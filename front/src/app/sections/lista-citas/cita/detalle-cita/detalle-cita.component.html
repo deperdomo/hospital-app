@@ -1,8 +1,9 @@
+<dialog appDialog (dialogCancel)="cerrarModal()" aria-labelledby="detalle-cita-titulo">
 <div class="fixed inset-0 bg-gray-900/30 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
     <div class="bg-white w-[500px]  rounded-2xl shadow-2xl transform transition-all duration-300 animate-slide-up">
         <div
             class="p-5 flex justify-between items-center bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
-            <h2 class="text-xl font-semibold text-gray-800 tracking-tight">Detalles de la Cita</h2>
+            <h2 id="detalle-cita-titulo" class="text-xl font-semibold text-gray-800 tracking-tight">Detalles de la Cita</h2>
             <button type="button" (click)="cerrarModal()" aria-label="Cerrar" class="text-gray-500 hover:text-gray-700">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
@@ -51,3 +52,4 @@
         </div>
     </div>
 </div>
+</dialog>

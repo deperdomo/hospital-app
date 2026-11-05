@@ -1,13 +1,13 @@
 
 .card {
-  min-width: 310px;
+  min-width: min(310px, 100%);
 }
 
 .specialization {
   display: inline-block;
   width: fit-content;
   background-color: #ebfffa;
-  color: #209abf;
+  color: #1F5F73;
   padding: 2px 8px;
   border-radius: 5px;
   font-size: 13px;

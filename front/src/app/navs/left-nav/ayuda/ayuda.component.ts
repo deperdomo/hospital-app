@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { DialogDirective } from '../../../shared/dialog.directive';
 
 @Component({
   selector: 'app-ayuda',
-  imports: [CommonModule],
+  imports: [CommonModule, DialogDirective],
   templateUrl: './ayuda.component.html',
   styleUrls: ['./ayuda.component.css']
 })

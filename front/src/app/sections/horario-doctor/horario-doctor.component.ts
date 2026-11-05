@@ -7,13 +7,14 @@ import { CitaService } from "../../services/cita.service";
 import { Usuario } from "../../models/usuario";
 import { Doctor } from "../../models/doctor";
 import { Cita } from "../../models/cita";
+import { DialogDirective } from "../../shared/dialog.directive";
 
 registerLocaleData(localeEs);
 
 @Component({
   selector: 'app-horario-doctor',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DialogDirective],
   templateUrl: './horario-doctor.component.html',
   styleUrl: './horario-doctor.component.css',
   providers: [CitaService]

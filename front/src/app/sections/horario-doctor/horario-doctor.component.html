@@ -14,7 +14,7 @@
   </div>
 
   <!-- Encabezado de días de la semana (solo visible en pantallas medianas y grandes) -->
-  <div class="grid grid-cols-7 gap-1 mb-2 hidden sm:grid">
+  <div class="grid grid-cols-7 gap-1 mb-2 hidden sm:grid" aria-hidden="true">
     <div *ngFor="let day of weekDays" class="p-2 text-center text-sm font-medium text-gray-700">
       {{ day }}
     </div>
@@ -23,16 +23,16 @@
   <!-- Pantalla grande (con fines de semana y otras semanas del mes) -->
   <div class="grid grid-cols-7 gap-1 hidden sm:grid">
     <div *ngFor="let day of calendarDays" [class]="'min-h-[120px] p-2 border rounded-lg ' + 
-          (isWeekend(day) || !isCurrentMonth(day) ? 'bg-gray-200 cursor-not-allowed opacity-50' :
+          (isWeekend(day) || !isCurrentMonth(day) ? 'bg-gray-200 cursor-not-allowed' :
          isToday(day) ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200')">
       <div class="flex flex-col h-full">
         <span [class]="'text-sm font-medium ' + 
-            (isToday(day) ? 'text-blue-600' : 'text-gray-700')">{{ day | date:'d':'':'es' }}</span>
+            (isToday(day) ? 'text-blue-800' : 'text-gray-700')">{{ day | date:'d':'':'es' }}</span>
         <div class="flex-1 overflow-y-auto mt-1 space-y-1 max-h-[110px] custom-scrollbar">
           <button type="button" *ngFor="let cita of getAppointmentsForDay(day)"
             (click)="!isWeekend(day) && showAppointmentDetails(cita)"
             [disabled]="isWeekend(day)"
-            [attr.aria-label]="'Ver detalle de la cita de ' + cita.usuario.nombre + ' ' + cita.usuario.apellidos + ', ' + (cita.fecha | date: 'EEEE d MMMM':'UTC':'es') + ' a las ' + (cita.fecha | date: 'HH:mm':'UTC')"
+            [attr.aria-label]="'Ver detalle de la cita de ' + cita.usuario.nombre + ' ' + cita.usuario.apellidos + ', ' + (cita.fecha | date: 'EEEE d MMMM':'UTC':'es') + ' a las ' + (cita.fecha | date: 'HH:mm':'UTC') + ', ' + cita.estado"
             class="block w-full text-left mt-1 p-2 text-xs rounded-md transition-colors bg-brand-light/[60%]"
             [class.cursor-pointer]="!isWeekend(day)" [class.cursor-not-allowed]="isWeekend(day)"
             [ngClass]="{
@@ -44,6 +44,7 @@
             <span class="block pl-1 font-medium text-gray-800">
               {{ cita.fecha | date: 'HH:mm':'UTC'}} - {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}
             </span>
+            <span class="block pl-1 font-semibold text-gray-900 capitalize">{{ cita.estado }}</span>
             <span class="block pl-1 truncate text-gray-600">{{ cita.motivo }}</span>
           </button>
         </div>
@@ -60,11 +61,11 @@
                 (isToday(day) ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200')">
             <div class="flex flex-col h-full">
               <span [class]="'text-sm font-medium ' + 
-                  (isToday(day) ? 'text-blue-600' : 'text-gray-700')">{{ day | date:'d':'':'es' }}</span>
+                  (isToday(day) ? 'text-blue-800' : 'text-gray-700')">{{ day | date:'d':'':'es' }}</span>
               <div class="flex-1 overflow-y-auto mt-1 space-y-1 max-h-[110px] custom-scrollbar">
                 <button type="button" *ngFor="let cita of getAppointmentsForDay(day)"
                   (click)="showAppointmentDetails(cita)"
-                  [attr.aria-label]="'Ver detalle de la cita de ' + cita.usuario.nombre + ' ' + cita.usuario.apellidos + ', ' + (cita.fecha | date: 'EEEE d MMMM':'UTC':'es') + ' a las ' + (cita.fecha | date: 'HH:mm':'UTC')"
+                  [attr.aria-label]="'Ver detalle de la cita de ' + cita.usuario.nombre + ' ' + cita.usuario.apellidos + ', ' + (cita.fecha | date: 'EEEE d MMMM':'UTC':'es') + ' a las ' + (cita.fecha | date: 'HH:mm':'UTC') + ', ' + cita.estado"
                   class="block w-full text-left mt-1 p-2 text-xs rounded-md transition-colors bg-brand-light/[60%] cursor-pointer"
                   [ngClass]="{
                       'bg-red-400/[40%]': cita.estado === 'cancelada',
@@ -75,6 +76,7 @@
                   <span class="block pl-1 font-medium text-gray-800">
                     {{ cita.fecha | date: 'HH:mm':'UTC'}} - {{sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC'}}
                   </span>
+                  <span class="block pl-1 font-semibold text-gray-900 capitalize">{{ cita.estado }}</span>
                   <span class="block pl-1 truncate text-gray-600">{{ cita.motivo }}</span>
                 </button>
               </div>
@@ -88,10 +90,11 @@
 
 <!-- Detalles de la cita -->
 @if (selectedAppointment) {
+  <dialog appDialog (dialogCancel)="closeAppointmentDetails()" aria-labelledby="horario-detalle-titulo">
   <div class="fixed inset-0 bg-gray-900/30 backdrop-blur-sm flex items-center justify-center z-50 animate-fade-in">
     <div class="bg-white w-[500px] rounded-2xl shadow-2xl transform transition-all duration-300 animate-slide-up">
       <div class="p-5 flex justify-between items-center bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
-        <h2 class="text-xl font-semibold text-gray-800 tracking-tight">Detalles de la Cita</h2>
+        <h2 id="horario-detalle-titulo" class="text-xl font-semibold text-gray-800 tracking-tight">Detalles de la Cita</h2>
         <button type="button" (click)="closeAppointmentDetails()" aria-label="Cerrar" class="text-gray-500 hover:text-gray-700">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -112,4 +115,5 @@
       </div>
     </div>
   </div>
+  </dialog>
 }

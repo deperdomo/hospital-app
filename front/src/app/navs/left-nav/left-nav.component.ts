@@ -1,4 +1,4 @@
-import { Component, Input, HostListener } from '@angular/core';
+import { Component, Input, HostListener, ElementRef, ViewChild } from '@angular/core';
 
 import { Usuario } from '../../models/usuario';
 import { UsuarioService } from '../../services/usuario.service';
@@ -10,11 +10,12 @@ import { FormDisponibilidadComponent } from "../user-nav/form-disponibilidad/for
 import { NewDoctorComponent } from "../user-nav/new-doctor/new-doctor.component";
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { DialogDirective } from '../../shared/dialog.directive';
 
 
 @Component({
   selector: 'app-left-nav',
-  imports: [CommonModule, AyudaComponent, FormDisponibilidadComponent, NewDoctorComponent],
+  imports: [CommonModule, AyudaComponent, FormDisponibilidadComponent, NewDoctorComponent, DialogDirective],
   templateUrl: './left-nav.component.html',
   styleUrl: './left-nav.component.css',
   providers: [UsuarioService, DoctorService, DisponibilidadService]
@@ -22,6 +23,10 @@ import { Router } from '@angular/router';
 export class LeftNavComponent {
 
   mobileMenuOpen = false;
+  isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+  mensajeAlerta: string | null = null;
+
+  @ViewChild('botonMenu') botonMenu?: ElementRef<HTMLButtonElement>;
 
   usuario: Usuario;
   doctor: Doctor;
@@ -118,15 +123,13 @@ export class LeftNavComponent {
 
   // Método para mostrar la alerta
   mostrarModalAlerta(mensaje: string) {
-    const modal = document.getElementById('alert-modal');
-    if (modal) {
-      modal.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
-      const mensajeElemento = document.getElementById('alert-message');
-      if (mensajeElemento) {
-        mensajeElemento.textContent = mensaje;
-      }
-    }
+    this.mensajeAlerta = mensaje;
+    document.body.classList.add('overflow-hidden');
+  }
+
+  cerrarAlerta() {
+    this.mensajeAlerta = null;
+    document.body.classList.remove('overflow-hidden');
   }
 
   cerrarFormularios(valor: boolean) {
@@ -154,9 +157,19 @@ export class LeftNavComponent {
     }
   }
 
+  // Esc cierra el menú móvil y devuelve el foco al botón que lo abrió
+  @HostListener('document:keydown.escape')
+  cerrarMenuConEsc(): void {
+    if (this.mobileMenuOpen) {
+      this.closeMenu();
+      this.botonMenu?.nativeElement.focus();
+    }
+  }
+
   // Close mobile menu when screen size changes to desktop
   @HostListener('window:resize')
   checkScreen(): void {
+    this.isMobile = window.innerWidth < 640;
     if (window.innerWidth >= 640) { // sm breakpoint in Tailwind
       this.mobileMenuOpen = false;
       document.body.classList.remove('overflow-hidden');

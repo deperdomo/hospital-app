@@ -12,3 +12,40 @@
     outline: 3px solid #1F5F73;
     outline-offset: 2px;
 }
+
+/* <dialog> nativo usado como contenedor transparente a pantalla completa:
+   el aspecto (velo oscuro, tarjeta centrada) lo sigue dando el marcado interior. */
+dialog.app-dialog {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    overflow: visible;
+}
+
+dialog.app-dialog::backdrop {
+    background: transparent;
+}
+
+/* Destino del enlace "Saltar al contenido": no mostrar el contorno al recibir el foco por programa. */
+main:focus {
+    outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

@@ -1,7 +1,8 @@
+<dialog appDialog (dialogCancel)="enviarEstado()" aria-labelledby="disponibilidad-titulo">
 <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50">
     <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[700px] p-4">
         <div class="relative bg-white rounded-lg shadow-xl">
-            <button (click)="enviarEstado()" type="button" aria-label="Cerrar" class="absolute right-4 top-4 text-gray-400 hover:text-gray-600 transition-colors">
+            <button (click)="enviarEstado()" type="button" aria-label="Cerrar" class="absolute right-4 top-4 text-gray-600 hover:text-gray-600 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" aria-hidden="true" focusable="false">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -9,7 +10,7 @@
             </button>
 
             <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
-                <h2 class="text-2xl font-semibold mb-6 text-brand">Disponibilidad del Doctor</h2>
+                <h2 id="disponibilidad-titulo" class="text-2xl font-semibold mb-6 text-brand">Disponibilidad del Doctor</h2>
 
                 <form (ngSubmit)="onSubmit()" class="space-y-6">
                     <input type="hidden" name="doctor" [value]="doctor">
@@ -23,7 +24,7 @@
       name="hora_inicio" 
       required
       [(ngModel)]="disponibilidadAntigua.horaInicio"
-      class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-brand focus:border-brand border-gray-300"
+      class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-brand focus:border-brand border-gray-500"
       (input)="validateMinutes($event)">
                         </div>
 
@@ -35,7 +36,7 @@
       name="hora_fin" 
       required
       [(ngModel)]="disponibilidadAntigua.horaFin"
-      class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-brand focus:border-brand border-gray-300"
+      class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-brand focus:border-brand border-gray-500"
       (input)="validateMinutes($event)">
                         </div>
                     </div>
@@ -47,7 +48,7 @@
                             name="estado" 
                             required
                             [(ngModel)]="disponibilidadAntigua.estado"
-                            class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-brand focus:border-brand border-gray-300">
+                            class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-brand focus:border-brand border-gray-500">
                             <option value="" disabled [selected]="!isDisponibilidadAntigua">Seleccione un estado</option>
                             <option 
                                 *ngFor="let estado of ['disponible', 'no disponible', 'vacaciones']" 
@@ -65,7 +66,7 @@
                             name="comentarios" 
                             rows="3"
                             [(ngModel)]="disponibilidadAntigua.comentarios"
-                            class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-brand focus:border-brand border-gray-300"
+                            class="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-brand focus:border-brand border-gray-500"
                             placeholder="Agregue comentarios adicionales..."></textarea>
                     </div>
 
@@ -79,3 +80,4 @@
         </div>
     </div>
 </div>
+</dialog>

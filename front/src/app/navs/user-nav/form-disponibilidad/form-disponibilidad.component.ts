@@ -4,10 +4,11 @@ import { DisponibilidadService } from '../../../services/disponibilidad.service'
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Doctor } from '../../../models/doctor';
+import { DialogDirective } from '../../../shared/dialog.directive';
 
 @Component({
   selector: 'app-form-disponibilidad',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, DialogDirective],
   templateUrl: './form-disponibilidad.component.html',
   styleUrl: './form-disponibilidad.component.css',
   providers: [DisponibilidadService]

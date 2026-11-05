@@ -5,10 +5,11 @@ import { Router, RouterModule } from '@angular/router';
 import { Usuario } from '../../../models/usuario';
 import { CitaService } from '../../../services/cita.service';
 import { Cita } from '../../../models/cita';
+import { DialogDirective } from '../../../shared/dialog.directive';
 
 @Component({
   selector: 'app-panel-notificaciones',
-  imports: [NotificacionComponent, CommonModule, RouterModule],
+  imports: [NotificacionComponent, CommonModule, RouterModule, DialogDirective],
   templateUrl: './panel-notificaciones.component.html',
   styleUrl: './panel-notificaciones.component.css'
 })
