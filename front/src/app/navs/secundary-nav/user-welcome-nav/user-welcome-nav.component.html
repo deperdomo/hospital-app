@@ -1,17 +1,17 @@
-<div class="ml-4 text-sm sm:text-sm md:text-xl lg:text-xl">
+<div class="min-w-0">
   @if (isDoctor) {
     @if (sexo == 'masculino') {
-      <p class="text-gray-600 font-medium">Hola, Dr. {{ nombreApellido }}</p>
+      <p class="text-meta sm:text-body font-medium text-ink-600 break-words">Hola, Dr. {{ nombreApellido }}</p>
     } @else {
-      <p class="text-gray-600 font-medium">Hola, Dra. {{ nombreApellido }}</p>
-    } 
+      <p class="text-meta sm:text-body font-medium text-ink-600 break-words">Hola, Dra. {{ nombreApellido }}</p>
+    }
   }
   @if (isUsuario) {
     @if (sexo == 'masculino') {
-      <p class="text-gray-600 font-medium">Hola, Sr. {{ nombreApellido }}</p>
+      <p class="text-meta sm:text-body font-medium text-ink-600 break-words">Hola, Sr. {{ nombreApellido }}</p>
     } @else {
-      <p class="text-gray-600 font-medium">Hola, Sra. {{ nombreApellido }}</p>
+      <p class="text-meta sm:text-body font-medium text-ink-600 break-words">Hola, Sra. {{ nombreApellido }}</p>
     }
   }
-  <h1 class="font-extrabold text-sm sm:text-xl md:text-2xl lg:text-3xl">{{ titulo }}</h1>
+  <h1 class="text-h3 sm:text-h2 lg:text-h1 text-ink-900 break-words">{{ titulo }}</h1>
 </div>

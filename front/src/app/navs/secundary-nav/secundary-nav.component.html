@@ -1,11 +1,15 @@
-<header class="flex items-center justify-between pt-6 pb-6">
-  <app-user-welcome-nav [titulo]="titulo" />
-  
+<!-- Barra superior: saludo y título a la izquierda, notificaciones y cuenta a la derecha.
+     El buscador (si lo hay) va en su propia fila, después de la cuenta (orden visual = orden de tabulación).
+     En móvil la fila superior deja 4.5rem a la izquierda para el botón de menú fijo de app-left-nav. -->
+<header class="bg-white border-b border-line-subtle">
+  <div class="flex items-center justify-between gap-3 min-h-[4.5rem] py-3 pl-[4.5rem] pr-3 sm:pl-6 sm:pr-4 lg:pl-8 lg:pr-6">
+    <app-user-welcome-nav class="block min-w-0 flex-1" [titulo]="titulo" />
+    <app-user-nav class="block shrink-0" />
+  </div>
+
   @if (findNav) {
-    <div class="cont-find-nav mx-5">
-      <app-find-nav (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" class="w-2/3"/>
+    <div class="flex justify-center px-4 pb-4 sm:px-6 lg:px-8">
+      <app-find-nav (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" class="block w-full max-w-[820px]"/>
     </div>
   }
-
-  <app-user-nav />
 </header>

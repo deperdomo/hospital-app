@@ -1,104 +1,75 @@
-<footer class="bg-brand flex flex-col items-center justify-center text-white shadow-md py-5 overflow-hidden">
-  <!-- Contenedor principal -->
-  <div class="flex flex-wrap justify-center items-start gap-y-4 gap-x-2 w-full px-2 sm:px-4 py-5 mb-5 max-w-full text-white text-xs sm:text-sm">
+<footer class="bg-brand-900 text-brand-100">
+  <div class="mx-auto max-w-content px-4 sm:px-6 py-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
 
-    <!-- Bloques principales con más espacio horizontal en lg -->
-    <div class="flex flex-wrap justify-center items-start gap-x-4 lg:gap-x-16 w-full lg:w-auto">
-      <!-- Jakarta -->
-      <div class="flex-shrink-0 basis-[100px] max-w-[150px] px-2">
-        <h2 class="pb-2 font-bold text-sm sm:text-base">Jakarta</h2>
-        <div><a href="/especialidades" class="inline-flex items-center min-h-[24px] underline">Especialidad</a></div>
-        <div>
-          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else login" href="/misCitasUsuario" class="inline-flex items-center min-h-[24px] underline">Citas</a>
-        </div>
-        <ng-template #login>
-          <a href="/login" class="inline-flex items-center min-h-[24px] underline">Citas</a>
-        </ng-template>
-        <div>Resultados</div>
-      </div>
+    <!-- Jakarta -->
+    <div>
+      <h2 class="font-semibold text-white">Jakarta</h2>
+      <ul class="mt-3 space-y-1">
+        <li><a href="/especialidades" class="footer-link">Especialidad</a></li>
+        <li>
+          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else login" href="/misCitasUsuario" class="footer-link">Citas</a>
+          <ng-template #login>
+            <a href="/login" class="footer-link">Citas</a>
+          </ng-template>
+        </li>
+        <li class="py-0.5">Resultados</li>
+      </ul>
+    </div>
 
-      <!-- Información -->
-      <div class="flex-shrink-0 basis-[100px] max-w-[150px] px-2">
-        <h2 class="pb-2 font-bold text-sm sm:text-base">Información</h2>
-        <div>
-          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else inicio" href="/perfilHistorial" class="inline-flex items-center min-h-[24px] underline">Historial</a>
-        </div>
-        <ng-template #inicio>
-          <a href="/login" class="inline-flex items-center min-h-[24px] underline">Historial</a>
-        </ng-template>
-        <div>
-          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else sesion" href="/perfil" class="inline-flex items-center min-h-[24px] underline">Perfil</a>
-        </div>
-        <ng-template #sesion>
-          <a href="/login" class="inline-flex items-center min-h-[24px] underline">Perfil</a>
-        </ng-template>
-        <div>
-          <a *ngIf="usuario.id != undefined; else verificarDoctor" href="/listaDoctores" class="inline-flex items-center min-h-[24px] underline">Doctores</a>
-        </div>
-        <ng-template #verificarDoctor>
-          <a *ngIf="doctor?.id != undefined; else loguearse" href="/horario" class="inline-flex items-center min-h-[24px] underline">Horario</a>
-        </ng-template>
-        <ng-template #loguearse>
-          <a href="/login" class="inline-flex items-center min-h-[24px] underline">Doctores</a>
-        </ng-template>
-      </div>
+    <!-- Información -->
+    <div>
+      <h2 class="font-semibold text-white">Información</h2>
+      <ul class="mt-3 space-y-1">
+        <li>
+          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else inicio" href="/perfilHistorial" class="footer-link">Historial</a>
+          <ng-template #inicio>
+            <a href="/login" class="footer-link">Historial</a>
+          </ng-template>
+        </li>
+        <li>
+          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else sesion" href="/perfil" class="footer-link">Perfil</a>
+          <ng-template #sesion>
+            <a href="/login" class="footer-link">Perfil</a>
+          </ng-template>
+        </li>
+        <li>
+          <a *ngIf="usuario.id != undefined; else verificarDoctor" href="/listaDoctores" class="footer-link">Doctores</a>
+          <ng-template #verificarDoctor>
+            <a *ngIf="doctor?.id != undefined; else loguearse" href="/horario" class="footer-link">Horario</a>
+          </ng-template>
+          <ng-template #loguearse>
+            <a href="/login" class="footer-link">Doctores</a>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
 
-      <!-- Contáctanos -->
-      <div class="flex-shrink-0 basis-[100px] max-w-[150px] px-2">
-        <h2 class="pb-2 font-bold text-sm sm:text-base">¡Contáctanos!</h2>
-        <div>Teléfono: (+34) 912 345 678</div>
-        <div>Email: soporte&#64;hospitaljakarta.com</div>
-        <div>España</div>
-      </div>
+    <!-- Contáctanos -->
+    <div>
+      <h2 class="font-semibold text-white">¡Contáctanos!</h2>
+      <ul class="mt-3 space-y-2">
+        <li>Teléfono: (+34) 912 345 678</li>
+        <li class="[overflow-wrap:anywhere]">Email: soporte&#64;hospitaljakarta.com</li>
+        <li>España</li>
+      </ul>
+    </div>
 
-      <!-- Para más información -->
-      <div
-        class="w-full flex justify-center mt-4 px-2 lg:mt-0 lg:w-auto lg:flex-shrink-0 lg:max-w-[150px]"
-      >
-        <div class="max-w-md w-full flex flex-col sm:flex-row md:flex-col md:items-center md:space-y-2 lg:flex-col lg:space-y-2 mx-auto">
-          <h2
-            class="pb-2 font-bold text-sm sm:text-base text-center lg:text-left whitespace-nowrap"
-          >
-            Para más información
-          </h2>
-          <div
-            class="bg-blue-100 rounded-md text-blue-900 px-4 py-2 inline-flex items-center justify-center space-x-2"
-          >
-            <a
-              href="mailto:soporte@hospitaljakarta.com"
-              class="text-xs sm:text-sm whitespace-nowrap text-center underline"
-              >Escríbenos un email</a
-            >
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="currentColor"
-                d="M1.946 9.315c-.522-.174-.527-.455.01-.634L21.044 2.32c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8l-8 6z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
+    <!-- Para más información -->
+    <div>
+      <h2 class="font-semibold text-white">Para más información</h2>
+      <a href="mailto:soporte@hospitaljakarta.com"
+        class="btn mt-3 max-w-full py-2.5 whitespace-normal leading-tight bg-white text-brand-800 hover:bg-brand-50 focus-visible:outline-white">
+        Escríbenos un email
+        <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+          <path fill="currentColor"
+            d="M1.946 9.315c-.522-.174-.527-.455.01-.634L21.044 2.32c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8l-8 6z" />
+        </svg>
+      </a>
     </div>
   </div>
 
-  <!-- Footer inferior -->
-  <div
-    class="flex flex-col md:flex-row justify-around items-center mt-5 w-4/5 space-y-3 md:space-y-0 px-4 md:px-0 text-xs sm:text-base"
-  >
-    <p class="text-center md:text-left">
-      © 2025 Hospital Jakarta - Todos los Derechos Reservados
-    </p>
-    <div
-      class="flex justify-center items-center text-center space-x-4"
-    >
-      <!-- Iconos -->
-    </div>
-  </div>
+  <!-- Pie inferior -->
+  <p class="border-t border-brand-800 px-4 py-5 text-center text-meta">
+    © 2025 Hospital Jakarta - Todos los Derechos Reservados
+  </p>
 </footer>

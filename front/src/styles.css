@@ -1,11 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-* {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+/* Estilos base (fase 2 del rediseño). La fuente sale del token fontFamily.sans (Inter)
+   y el reset de márgenes, rellenos y box-sizing lo hace el preflight de Tailwind. */
+@layer base {
+  html { @apply bg-surface-canvas text-ink-900 antialiased; }
+  body { @apply text-body; }
 }
 
 :focus-visible {
@@ -53,7 +54,7 @@ main:focus {
 /* ===== Sistema de diseño: componentes (fase 0 del rediseño) =====
    Tailwind solo emite estas clases cuando alguna plantilla las usa, así que
    añadirlas no cambia nada visible hasta que las fases 1–5 las adopten.
-   Los estilos base de html/body (fondo canvas, texto 16 px) entran en la fase 2. */
+   Los estilos base de html/body (fondo canvas, texto 16 px) están en @layer base, arriba. */
 @layer components {
   /* Botones */
   .btn { @apply inline-flex items-center justify-center gap-2 min-h-touch px-5 rounded-control border border-transparent
@@ -112,4 +113,9 @@ main:focus {
   .alert-success { @apply flex items-start gap-2 rounded-control border border-success-200 bg-success-50 px-4 py-3 text-meta font-medium text-success-700; }
   /* Textarea: el .input fija la altura mínima; aquí solo el relleno vertical. */
   .input-textarea { @apply input py-2.5 leading-normal; }
+
+  /* Fase 2: estructura (navegación, pie) */
+  /* Enlace del pie sobre brand-900: blanco subrayado (15,7:1); el foco pasa a blanco para verse sobre el fondo oscuro. */
+  .footer-link { @apply inline-flex items-center min-h-[1.5rem] py-0.5 text-white underline underline-offset-4 decoration-brand-300
+                        hover:decoration-white focus-visible:outline-white; }
 }

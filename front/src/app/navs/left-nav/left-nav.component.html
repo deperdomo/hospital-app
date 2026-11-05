@@ -1,137 +1,130 @@
-<!-- Botón de hamburguesa móvil -->
-<button #botonMenu type="button" (click)="toggleMobileMenu()" class="sm:hidden fixed top-6 left-4 z-20 p-2 rounded-md bg-white shadow-md"
+<!-- Botón de menú (móvil) -->
+<button #botonMenu type="button" (click)="toggleMobileMenu()"
+  class="btn-icon sm:hidden fixed top-4 left-4 z-20 bg-white border-line text-brand-700 shadow-card hover:bg-brand-50 hover:text-brand-700"
   aria-label="Abrir menú" aria-controls="menu-lateral" [attr.aria-expanded]="mobileMenuOpen">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-brand" fill="none" viewBox="0 0 24 24"
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24"
     stroke="currentColor" aria-hidden="true" focusable="false">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
   </svg>
 </button>
 
-<!-- Superposición del menú del móvil cuando está abierto -->
+<!-- Velo detrás del menú móvil abierto -->
 <div *ngIf="mobileMenuOpen" (click)="toggleMobileMenu()"
-  class="fixed inset-0 bg-black bg-opacity-50 z-30 sm:hidden transition-opacity duration-300"></div>
+  class="fixed inset-0 z-30 bg-ink-900/50 sm:hidden transition-opacity duration-300"></div>
 
-<!-- Mobile navigation menu -->
+<!-- Navegación lateral: fija desde sm, panel deslizante en móvil -->
 <aside id="menu-lateral" [attr.inert]="isMobile && !mobileMenuOpen ? '' : null"
-  class="fixed top-0 left-0 z-40 flex flex-col h-full px-4 py-8 overflow-y-auto bg-white border-r border-gray-300 shadow-lg min-w-[240px] transform transition-transform duration-300"
-  [ngClass]="mobileMenuOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'">
-  <!-- Close button for mobile -->
-  <button type="button" (click)="toggleMobileMenu()" class="absolute top-4 right-4 sm:hidden p-2 text-gray-600 hover:text-gray-800"
+  class="fixed top-0 left-0 z-40 flex flex-col h-full w-[min(18rem,85vw)] sm:w-[240px] px-4 py-6 overflow-y-auto bg-white border-r border-line-subtle transform transition-transform duration-300"
+  [ngClass]="mobileMenuOpen ? 'translate-x-0 shadow-overlay' : '-translate-x-full sm:translate-x-0'">
+  <!-- Cerrar (móvil) -->
+  <button type="button" (click)="toggleMobileMenu()" class="btn-icon absolute top-4 right-3 sm:hidden"
     aria-label="Cerrar menú">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M6 18L18 6M6 6l12 12" />
     </svg>
   </button>
 
   <!-- Logo -->
-  <div class="flex justify-center">
-    <svg class="logo" width="21" height="37" viewBox="0 0 23 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-      <path fill-rule="evenodd" clip-rule="evenodd" [attr.d]="svg.logo" fill="#2A7891" />
-    </svg>
-    <p class="text-brand ml-3 mt-1 font-semibold text-2xl">
-      <a [href]="isDoctor ? '/indexDoctores' : '/index'" class="cursor-pointer" aria-label="Jakarta, ir al inicio">Jakarta</a></p>
+  <div class="px-2">
+    <a [href]="isDoctor ? '/indexDoctores' : '/index'" class="inline-flex items-center gap-2 min-h-touch rounded-control text-brand-600"
+      aria-label="Jakarta, ir al inicio">
+      <svg width="23" height="30" viewBox="0 0 23 30" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0" aria-hidden="true" focusable="false">
+        <path fill-rule="evenodd" clip-rule="evenodd" [attr.d]="svg.logo" fill="currentColor" />
+      </svg>
+      <span class="text-h3 font-bold">Jakarta</span>
+    </a>
   </div>
 
-  <div class="flex flex-col justify-between flex-1 mt-6 py-5">
-    <nav aria-label="Menú principal">
-      <!-- Panel de control link -->
-      <a class="flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-md"
-        [ngClass]="panel ? 'bg-brand text-[#FFFFFF]' : 'text-gray-600 hover:bg-brand hover:text-[#FFFFFF]'"
-        [attr.aria-current]="panel ? 'page' : null"
-        [href]="isDoctor ? '/indexDoctores' : '/index'">
-        <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
-          [ngClass]="panel ? 'svg-selct' : 'svg'">
-          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-            [attr.d]="svg.panelDeControl" />
-        </svg>
-        <span class="mx-4 font-medium">Panel de control</span>
-      </a>
+  <nav aria-label="Menú principal" class="flex flex-col flex-1 mt-8">
+    <ul class="space-y-1">
+      <!-- Panel de control -->
+      <li>
+        <a class="nav-item" [attr.aria-current]="panel ? 'page' : null" [href]="isDoctor ? '/indexDoctores' : '/index'">
+          <svg class="w-6 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" [attr.d]="svg.panelDeControl" />
+          </svg>
+          <span>Panel de control</span>
+        </a>
+      </li>
 
-      <!-- Añadir doctor (only for admin users) -->
-      <button type="button" *ngIf="isUsuario && usuario.rol === 'admin'" (click)="abrirFormularioNewDoctor()" id="newDoctor"
-        aria-haspopup="dialog" class="w-full text-left flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-md cursor-pointer"
-        [ngClass]="{'text-gray-600 hover:bg-brand hover:text-[#FFFFFF]': true}">
-        <svg class="logo svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path fill="currentColor" [attr.d]="svg.newDoctor1" />
-          <path fill="currentColor" fill-rule="evenodd" [attr.d]="svg.newDoctor2" clip-rule="evenodd" />
-        </svg>
-        <span class="mx-4 font-medium">Añadir doctor</span>
-      </button>
+      <!-- Añadir doctor (solo administradores) -->
+      <li *ngIf="isUsuario && usuario.rol === 'admin'">
+        <button type="button" (click)="abrirFormularioNewDoctor()" id="newDoctor" aria-haspopup="dialog" class="nav-item w-full">
+          <svg class="w-6 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" [attr.d]="svg.newDoctor1" />
+            <path fill="currentColor" fill-rule="evenodd" [attr.d]="svg.newDoctor2" clip-rule="evenodd" />
+          </svg>
+          <span>Añadir doctor</span>
+        </button>
+      </li>
 
-      <!-- Disponibilidad (only for doctors) -->
-      <button type="button" *ngIf="isDoctor" (click)="abrirFormularioDisponibilidad()" id="disponibilidad"
-        aria-haspopup="dialog" class="w-full text-left flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-md cursor-pointer"
-        [ngClass]="{'text-gray-600 hover:bg-brand hover:text-[#FFFFFF]': true}">
-        <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
-          [ngClass]="'svg'">
-          <path fill="currentColor" [attr.d]="svg.disponibilidad1" />
-          <path fill="currentColor" [attr.d]="svg.disponibilidad2" />
-        </svg>
-        <span class="mx-4 font-medium">Disponibilidad</span>
-      </button>
+      <!-- Disponibilidad (solo doctores) -->
+      <li *ngIf="isDoctor">
+        <button type="button" (click)="abrirFormularioDisponibilidad()" id="disponibilidad" aria-haspopup="dialog" class="nav-item w-full">
+          <svg class="w-6 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" [attr.d]="svg.disponibilidad1" />
+            <path fill="currentColor" [attr.d]="svg.disponibilidad2" />
+          </svg>
+          <span>Disponibilidad</span>
+        </button>
+      </li>
 
-      <!-- Horario (only for doctors) -->
-      <a *ngIf="isDoctor" class="flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-md"
-        [ngClass]="horario ? 'bg-brand text-[#FFFFFF]' : 'text-gray-600 hover:bg-brand hover:text-[#FFFFFF]'"
-        [attr.aria-current]="horario ? 'page' : null"
-        href="/horario">
-        <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
-          [ngClass]="horario ? 'svg-selct' : 'svg'">
-          <path fill="currentColor" [attr.d]="svg.horario" />
-        </svg>
-        <span class="mx-4 font-medium">Horario</span>
-      </a>
+      <!-- Horario (solo doctores) -->
+      <li *ngIf="isDoctor">
+        <a class="nav-item" [attr.aria-current]="horario ? 'page' : null" href="/horario">
+          <svg class="w-6 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" [attr.d]="svg.horario" />
+          </svg>
+          <span>Horario</span>
+        </a>
+      </li>
 
       <!-- Perfil -->
-      <a class="flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-md"
-        [ngClass]="perfil ? 'bg-brand text-[#FFFFFF]' : 'text-gray-600 hover:bg-brand hover:text-[#FFFFFF]'"
-        [attr.aria-current]="perfil ? 'page' : null"
-        href="/perfil">
-        <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
-          [ngClass]="perfil ? 'svg-selct' : 'svg'">
-          <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
-            <path [attr.d]="svg.perfil1" />
-            <path [attr.d]="svg.perfil2" />
-          </g>
-        </svg>
-        <span class="mx-4 font-medium">Perfil</span>
-      </a>
+      <li>
+        <a class="nav-item" [attr.aria-current]="perfil ? 'page' : null" href="/perfil">
+          <svg class="w-6 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+              <path [attr.d]="svg.perfil1" />
+              <path [attr.d]="svg.perfil2" />
+            </g>
+          </svg>
+          <span>Perfil</span>
+        </a>
+      </li>
 
       <!-- Citas -->
-      <a class="flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-md"
-        [ngClass]="citas ? 'bg-brand text-[#FFFFFF]' : 'text-gray-600 hover:bg-brand hover:text-[#FFFFFF]'"
-        [attr.aria-current]="citas ? 'page' : null"
-        href="/misCitasUsuario">
-        <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false"
-          [ngClass]="citas ? 'svg-selct' : 'svg'">
-          <path fill="currentColor" [attr.d]="svg.citas1" />
-          <path fill="currentColor" fill-rule="evenodd" [attr.d]="svg.citas2" clip-rule="evenodd" />
-          <path fill="currentColor" fill-rule="evenodd" [attr.d]="svg.citas3" clip-rule="evenodd" />
-        </svg>
-        <span class="mx-4 font-medium">Citas</span>
-      </a>
+      <li>
+        <a class="nav-item" [attr.aria-current]="citas ? 'page' : null" href="/misCitasUsuario">
+          <svg class="w-6 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" [attr.d]="svg.citas1" />
+            <path fill="currentColor" fill-rule="evenodd" [attr.d]="svg.citas2" clip-rule="evenodd" />
+            <path fill="currentColor" fill-rule="evenodd" [attr.d]="svg.citas3" clip-rule="evenodd" />
+          </svg>
+          <span>Citas</span>
+        </a>
+      </li>
 
       <!-- Ayuda -->
-      <button type="button" id="ayuda" aria-haspopup="dialog"
-        class="text-left flex items-center px-4 py-2 mt-5 w-[100%] transition-colors duration-300 transform rounded-md cursor-pointer"
-        [ngClass]="'text-gray-600 hover:bg-brand hover:text-[#FFFFFF]'" (click)="open()">
-        <svg class="logo svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path fill="currentColor" [attr.d]="svg.ayuda" />
-        </svg>
-        <span class="mx-4 font-medium">Ayuda</span>
-      </button>
+      <li>
+        <button type="button" id="ayuda" aria-haspopup="dialog" class="nav-item w-full" (click)="open()">
+          <svg class="w-6 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" [attr.d]="svg.ayuda" />
+          </svg>
+          <span>Ayuda</span>
+        </button>
+      </li>
+    </ul>
 
-      <!-- Logout -->
-      <button type="button" (click)="logout()"
-        class="w-full text-left flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform rounded-md cursor-pointer"
-        [ngClass]="'text-gray-600 hover:bg-brand hover:text-[#FFFFFF]'">
-        <svg class="logo svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <!-- Cerrar sesión, al pie del menú -->
+    <div class="mt-auto pt-6">
+      <button type="button" (click)="logout()" class="nav-item w-full">
+        <svg class="w-6 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path fill="currentColor" [attr.d]="svg.logout" />
         </svg>
-        <span class="mx-4 font-medium">Cerrar sesión</span>
+        <span>Cerrar sesión</span>
       </button>
-    </nav>
-  </div>
+    </div>
+  </nav>
 </aside>
 
 
@@ -143,20 +136,19 @@
 <!-- Modal de alerta -->
 @if (mensajeAlerta) {
 <dialog appDialog role="alertdialog" (dialogCancel)="cerrarAlerta()" aria-labelledby="alert-titulo" aria-describedby="alert-message">
-<div id="alert-modal" class="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
-  <div class="bg-white p-4 sm:p-6 rounded-lg shadow-lg max-w-md mx-auto border-l-4 border-brand">
-    <div class="flex items-start space-x-3">
-      <svg class="w-8 h-8 sm:w-12 sm:h-12 text-brand flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
+<div id="alert-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/50 p-4">
+  <div class="modal-panel max-w-md border-l-4 border-l-brand-500">
+    <div class="flex items-start gap-3">
+      <svg class="w-8 h-8 sm:w-10 sm:h-10 text-brand-600 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.modalAlerta" />
       </svg>
       <div>
         <h2 id="alert-titulo" class="sr-only">Aviso</h2>
-        <p id="alert-message" class="text-gray-800 font-medium text-sm sm:text-base">{{ mensajeAlerta }}</p>
+        <p id="alert-message" class="text-body font-medium text-ink-900">{{ mensajeAlerta }}</p>
       </div>
     </div>
-    <button type="button" class="mt-4 w-full bg-brand text-white px-4 py-2 rounded-md hover:bg-brand-dark transition"
-      (click)="cerrarAlerta()">
+    <button type="button" class="btn-primary mt-6 w-full" (click)="cerrarAlerta()">
       Cerrar
     </button>
   </div>

@@ -1,25 +1,22 @@
-<div class="flex items-center">
-  
+<div class="flex items-center gap-1 sm:gap-2">
+
   <!-- Notificaciones -->
-  <div class="relative mr-4 sm:mr-6">
-    <div class="relative cursor-pointer">
-      @if (hayCitasNoVistas) {
-        <span class="absolute top-1 right-2 sm:top-2 sm:right-3 w-2 h-2 bg-red-500 rounded-full z-10" aria-hidden="true"></span>
-      }
-      <button type="button" (click)="abrirModal()" aria-haspopup="dialog" [attr.aria-label]="hayCitasNoVistas ? 'Notificaciones (hay citas nuevas)' : 'Notificaciones'" class="relative p-2 bg-transparent rounded-full text-gray-700 hover:text-gray-900">
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" sm:w-25 sm:h-25 viewBox="0 0 256 256" aria-hidden="true" focusable="false">
-          <path fill="currentColor" d="M221.8 175.94c-5.55-9.56-13.8-36.61-13.8-71.94a80 80 0 1 0-160 0c0 35.34-8.26 62.38-13.81 71.94A16 16 0 0 0 48 200h40.81a40 40 0 0 0 78.38 0H208a16 16 0 0 0 13.8-24.06M128 216a24 24 0 0 1-22.62-16h45.24A24 24 0 0 1 128 216m-80-32c7.7-13.24 16-43.92 16-80a64 64 0 1 1 128 0c0 36.05 8.28 66.73 16 80Z"/>
-        </svg>
-      </button>
-    </div>
-  </div>
+  <button type="button" (click)="abrirModal()" aria-haspopup="dialog" [attr.aria-label]="hayCitasNoVistas ? 'Notificaciones (hay citas nuevas)' : 'Notificaciones'"
+    class="btn-icon relative">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 shrink-0" viewBox="0 0 256 256" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M221.8 175.94c-5.55-9.56-13.8-36.61-13.8-71.94a80 80 0 1 0-160 0c0 35.34-8.26 62.38-13.81 71.94A16 16 0 0 0 48 200h40.81a40 40 0 0 0 78.38 0H208a16 16 0 0 0 13.8-24.06M128 216a24 24 0 0 1-22.62-16h45.24A24 24 0 0 1 128 216m-80-32c7.7-13.24 16-43.92 16-80a64 64 0 1 1 128 0c0 36.05 8.28 66.73 16 80Z"/>
+    </svg>
+    @if (hayCitasNoVistas) {
+      <span class="absolute top-2 right-2.5 w-2.5 h-2.5 rounded-full bg-danger-600 ring-2 ring-white" aria-hidden="true"></span>
+    }
+  </button>
 
   <!-- Foto de perfil y nombre -->
-  <div class="flex items-center mr-4 sm:mr-6">
-    <div class="h-8 w-8 sm:h-10 sm:w-10 rounded-full overflow-hidden cursor-pointer">
+  <div class="flex items-center gap-2 sm:gap-3 pl-1 pr-1 sm:pr-2">
+    <div class="h-9 w-9 sm:h-10 sm:w-10 shrink-0 rounded-full overflow-hidden bg-surface-muted ring-1 ring-line cursor-pointer">
       <img [routerLink]="'/perfil'" src="{{ urlFotoPerfil }}" alt="Foto de perfil de {{ nombre }}" class="h-full w-full object-cover">
     </div>
-    <span class="font-bold ml-2 sm:ml-3 text-sm sm:text-lg">{{ nombre }}</span>
+    <span class="hidden sm:block font-semibold text-body text-ink-900 whitespace-nowrap">{{ nombre }}</span>
   </div>
 </div>
 
