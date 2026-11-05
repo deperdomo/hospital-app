@@ -1,4 +1,4 @@
-<div class="flex justify-center items-center min-h-screen bg-gray-100">
+<main id="contenido" tabindex="-1" class="flex justify-center items-center min-h-screen bg-gray-100">
     <div class="flex flex-col p-5 w-full max-w-lg bg-white rounded-lg shadow-md">
 
         <button type="button" aria-label="Volver" (click)="redirigirPaginaPerfil()"
@@ -14,7 +14,7 @@
         </button>
         @if (mostrarEspecialidades) {
         <div class="container m-6 max-w-[90%] justify-center">
-            <div class="text-2xl font-semibold mb-5 text-center">Seleccione una Especialidad</div>
+            <h1 class="text-2xl font-semibold mb-5 text-center">Seleccione una Especialidad</h1>
             <ul>
                 <li *ngFor="let especialidad of especialidad">
                     <button type="button" (click)="verDoctores(especialidad.id)"
@@ -36,8 +36,8 @@
         </div> *ngIf="!mostrarEspecialidades" -->
         }
         <div class="mt-6" *ngIf="!mostrarEspecialidades">
-            <h2 class="text-2xl font-semibold mb-5 text-center" *ngIf="doctoresFiltrados.length > 0">{{ tituloEspecialidad }}</h2>
-            <h2 *ngIf="doctoresFiltrados.length==0" class="text-2xl font-semibold mb-5 text-center">No disponemos de doctores</h2>
+            <h1 class="text-2xl font-semibold mb-5 text-center" *ngIf="doctoresFiltrados.length > 0">{{ tituloEspecialidad }}</h1>
+            <h1 *ngIf="doctoresFiltrados.length==0" class="text-2xl font-semibold mb-5 text-center">No disponemos de doctores</h1>
 
             <div *ngFor="let doctor of doctoresFiltrados" 
             class="flex items-center bg-white rounded-lg shadow-md m-2 p-4">
@@ -61,4 +61,4 @@
       
         </div>
     </div>
-</div>
+</main>

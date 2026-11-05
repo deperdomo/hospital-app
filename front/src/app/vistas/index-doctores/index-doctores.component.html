@@ -2,7 +2,7 @@
   <app-left-nav [panel]="true" />
   <app-secundary-nav [findNav]="false" [titulo]="'Bienvenido'" />
 
-  <div class="contenido px-[3%] mb-6">
+  <main id="contenido" tabindex="-1" class="contenido px-[3%] mb-6">
     <div class="container-top flex flex-col lg:flex-row">
       <div class="container-left-section mr-0 lg:mr-7 mb-[30px] w-full lg:w-[70%]">
         <div class="w-full">
@@ -11,7 +11,7 @@
         <br />
         @if (citasHoy.length > 0) {
           <div class="w-full">
-            <h3 class="titulos text-2xl font-semibold my-6">Citas para hoy</h3>
+            <h2 class="titulos text-2xl font-semibold my-6">Citas para hoy</h2>
             <div class="cont-info-doctors flex flex-wrap justify-between gap-y-4">
               @for (cita of citasHoy; track $index) {
               <app-nearby-doctors [cita]="cita" class="w-full lg:w-[48%]" />
@@ -22,13 +22,13 @@
       </div>
       <div class="container-right-section mb-[30px] w-full lg:w-[30%]">
         <div class="container-header flex items-center justify-between mb-4">
-          <h3 class="titulos text-2xl font-semibold">Citas Programadas</h3>
-          <a href="/misCitasUsuario" routerLink="/misCitasUsuario" class="enlace text-brand">Ver Todas ></a>
+          <h2 class="titulos text-2xl font-semibold">Citas Programadas</h2>
+          <a href="/misCitasUsuario" routerLink="/misCitasUsuario" class="enlace text-brand">Ver todas<span class="sr-only"> las citas</span> <span aria-hidden="true">&gt;</span></a>
         </div>
         <app-lista-citas />
       </div>
     </div>
-  </div>
+  </main>
 
   <app-footer />
 </div>

@@ -4,7 +4,8 @@
     <app-nav-before-login />
 
     <!-- Aquí está el cambio: max-w-5xl, mx-auto, px-4 -->
-    <div class="contenido max-w-5xl mx-auto px-4 mb-6">
+    <main id="contenido" tabindex="-1" class="contenido max-w-5xl mx-auto px-4 mb-6">
+      <h1 class="sr-only">Hospital Jakarta: encuentra a tu médico y pide cita online</h1>
       <div class="container-baner relative">
         <app-baner />
         <div class="cont-find-nav w-[60%] sm:min-w-[600px] md:min-w-[600px] absolute bottom-[-30px] left-[50%] translate-x-[-50%]">
@@ -17,28 +18,28 @@
       <br />
 
       @if (isNerbyDoctorsAvailable && doctoresCercanos.length > 0) {
-        <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+        <h2 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h2>
         <div class="cont-info-doctors flex flex-wrap justify-between">
           @for (doctor of doctoresCercanos; track $index) {
             <app-nearby-doctors [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]" />
           }
         </div>
       } @else if (doctoresDeBusqueda.length > 0) {
-        <h3 class="titulos text-2xl font-semibold my-6">Resultado de la busqueda</h3>
+        <h2 class="titulos text-2xl font-semibold my-6">Resultado de la búsqueda</h2>
         <div class="cont-info-doctors flex flex-wrap justify-between">
           @for (doctor of doctoresDeBusqueda; track $index) {
             <app-nearby-doctors [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]" />
           }
         </div>
       } @else {
-        <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+        <h2 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h2>
         <app-nearby-doctors-disabled
           (habilitarNerbyDoctors)="cambiarEstado()"
           (doctoresCercanos)="recibirDoctoresCercanos($event)"
-          [texto]="'Nesecita iniciar sesion para disrutar de esta funcionalidad.'"
+          [texto]="'Necesita iniciar sesión para disfrutar de esta funcionalidad.'"
         />
       }
-    </div>
+    </main>
 
     <app-footer class="footer" />
   </div>

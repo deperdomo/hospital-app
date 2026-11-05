@@ -6,7 +6,7 @@
         <img src="img/doctores/{{ doctor.fotoPerfil }}" width="85" height="85" loading="lazy" decoding="async" alt="Doctor image" class="w-full h-full object-cover rounded-xl">
       </div>
       <div class="text flex flex-col justify-center ml-4">
-        <h4 class="text-black text-lg font-medium">{{ doctor.nombre }} {{ doctor.apellidos }}</h4>
+        <h3 class="text-black text-lg font-medium">{{ doctor.nombre }} {{ doctor.apellidos }}</h3>
         <p class="specialization text-[#666] text-sm my-1">{{ doctor.especialidad.nombre }}</p>
       </div>
     </div>
@@ -43,7 +43,7 @@
         
         <div class="text flex flex-col justify-center ml-4 flex-1">
           <div class="flex items-baseline justify-between">
-            <h4 class="text-gray-900 text-xl font-semibold">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</h4>
+            <h3 class="text-gray-900 text-xl font-semibold">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</h3>
             
           </div>
           

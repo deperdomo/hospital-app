@@ -3,43 +3,43 @@
   <app-left-nav [panel]="true" />
   <app-secundary-nav [findNav]="true" (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)"
     [titulo]="'Bienvenido'" />
-  <div class="contenido px-[3%] mb-6">
+  <main id="contenido" tabindex="-1" class="contenido px-[3%] mb-6">
     <div class="container-top flex flex-col lg:flex-row">
       <div class="container-left-section mr-0 lg:mr-7 mb-[30px] w-full lg:w-2/3">
         <app-baner />
         <br>
         @if (isNerbyDoctorsAvailable && doctoresCercanos.length > 0) {
-        <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+        <h2 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h2>
         <div class="cont-info-doctors flex flex-wrap justify-between">
           @for (doctor of doctoresCercanos; track $index) {
           <app-nearby-doctors [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]" />
           }
         </div>
         } @else if (doctoresDeBusqueda.length > 0) {
-        <h3 class="titulos text-2xl font-semibold my-6">Resultado de la búsqueda</h3>
+        <h2 class="titulos text-2xl font-semibold my-6">Resultado de la búsqueda</h2>
         <div class="cont-info-doctors flex flex-wrap justify-between">
           @for (doctor of doctoresDeBusqueda; track $index) {
           <app-nearby-doctors [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]" />
           }
         </div>
         } @else {
-        <h3 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h3>
+        <h2 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h2>
         <app-nearby-doctors-disabled (habilitarNerbyDoctors)="cambiarEstado()"
           (doctoresCercanos)="recibirDoctoresCercanos($event)" [texto]="'Encuentra doctores cerca de ti.'" />
         }
       </div>
       <div class="container-right-section mb-[30px] w-full sm:px-4 md:px-6 lg:w-1/3">
         <div class="container-header flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-          <h3 class="titulos text-xl sm:text-2xl font-semibold">Citas Programadas</h3>
-          <a href="/misCitasUsuario" routerLink="/misCitasUsuario" class="enlace text-brand mt-2 sm:mt-0">Ver Todas
-            ></a>
+          <h2 class="titulos text-xl sm:text-2xl font-semibold">Citas Programadas</h2>
+          <a href="/misCitasUsuario" routerLink="/misCitasUsuario" class="enlace text-brand mt-2 sm:mt-0">Ver todas<span class="sr-only"> las citas</span>
+            <span aria-hidden="true">&gt;</span></a>
         </div>
         <app-lista-citas />
       </div>
 
     </div>
     <cont-doctores-recomendados />
-  </div>
+  </main>
 
   <app-footer />
 

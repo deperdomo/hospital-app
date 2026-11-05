@@ -1,7 +1,7 @@
 <div class="body-profile">
     <app-left-nav [perfil]="true"/>
     <app-secundary-nav [titulo]="'Mi perfil'"/>
-    <div class="contenido ">
+    <main id="contenido" tabindex="-1" class="contenido ">
         <app-perfil-nav [selectedGeneral]="true"/>
         <div class="mx-[5%]">
             <app-info-perfil />
@@ -9,5 +9,5 @@
             <app-info-general />
         </div>
 
-    </div>
+    </main>
 </div>

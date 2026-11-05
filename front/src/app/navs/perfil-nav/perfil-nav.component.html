@@ -1,11 +1,11 @@
 <div
   class="container relative p-4 sm:p-6 md:p-8 lg:p-10 my-4 bg-white"
 >
-  <nav class="flex flex-col sm:flex-row sm:space-x-6 space-y-2 sm:space-y-0 border-b border-gray-200 w-full">
+  <nav aria-label="Secciones del perfil" class="flex flex-col sm:flex-row sm:space-x-6 space-y-2 sm:space-y-0 border-b border-gray-200 w-full">
     <a 
   href="/perfil" 
   routerLink="/perfil"
-  routerLinkActive="text-brand border-b-2 border-brand"
+  routerLinkActive="text-brand border-b-2 border-brand" ariaCurrentWhenActive="page"
   [ngClass]="{
     'selected': selectedGeneral,
     'pb-2 text-gray-500 hover:text-brand transition duration-300': true
@@ -17,7 +17,7 @@
 <a 
   href="/perfilHistorial" 
   routerLink="/perfilHistorial"
-  routerLinkActive="text-brand border-b-2 border-blue-600"
+  routerLinkActive="text-brand border-b-2 border-blue-600" ariaCurrentWhenActive="page"
   [ngClass]="{
     'selected': !selectedGeneral,
     'pb-2 text-gray-500 hover:text-brand transition duration-300': true

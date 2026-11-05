@@ -1,4 +1,4 @@
-nav {
+header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -9,7 +9,7 @@ nav {
 
 
 @media (max-width: 1400px) {
-  nav {
+  header {
     flex-wrap: wrap;
     align-items: flex-start;
   }
@@ -28,7 +28,7 @@ nav {
   }
 
   app-find-nav {
-    min-width: 650px;
+    min-width: min(650px, 100%);
     overflow-x: auto; 
     box-sizing: border-box;
     margin-top: 20px;

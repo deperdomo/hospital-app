@@ -5,7 +5,7 @@
   @if (usuarioLogeado) {
   <app-secundary-nav [titulo]="'Doctores disponibles'" />
   } @else {
-  <div class="flex items-center">
+  <header class="flex items-center">
     <a href="/" aria-label="Volver"
       class="inline-block w-10 h-10 border border-gray-400 rounded-full flex items-center justify-center text-2xl cursor-pointer transition duration-300 transform hover:bg-brand hover:text-white hover:scale-110">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -17,12 +17,13 @@
         </g>
       </svg>
     </a>
-    <h2 class="text-4xl text-center m-8">Doctores disponibles</h2>
-  </div>
+    <h1 class="text-4xl text-center m-8">Doctores disponibles</h1>
+  </header>
 
   }
-  <div class="conenido">
+  <main id="contenido" tabindex="-1" class="conenido">
+    <h2 class="sr-only">Listado de doctores</h2>
     <app-lista-doctores />
-  </div>
+  </main>
 
 </div>

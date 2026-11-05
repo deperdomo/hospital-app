@@ -1,4 +1,4 @@
-<div class="bg-brand flex flex-col items-center justify-center text-white shadow-md py-5 overflow-hidden">
+<footer class="bg-brand flex flex-col items-center justify-center text-white shadow-md py-5 overflow-hidden">
   <!-- Contenedor principal -->
   <div class="flex flex-wrap justify-center items-start gap-y-4 gap-x-2 w-full px-2 sm:px-4 py-5 mb-5 max-w-full text-white text-xs sm:text-sm">
 
@@ -6,46 +6,46 @@
     <div class="flex flex-wrap justify-center items-start gap-x-4 lg:gap-x-16 w-full lg:w-auto">
       <!-- Jakarta -->
       <div class="flex-shrink-0 basis-[100px] max-w-[150px] px-2">
-        <div class="pb-2 font-bold text-sm sm:text-base">Jakarta</div>
-        <div><a href="/especialidades">Especialidad</a></div>
+        <h2 class="pb-2 font-bold text-sm sm:text-base">Jakarta</h2>
+        <div><a href="/especialidades" class="inline-flex items-center min-h-[24px] underline">Especialidad</a></div>
         <div>
-          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else login" href="/misCitasUsuario">Citas</a>
+          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else login" href="/misCitasUsuario" class="inline-flex items-center min-h-[24px] underline">Citas</a>
         </div>
         <ng-template #login>
-          <a href="/login">Citas</a>
+          <a href="/login" class="inline-flex items-center min-h-[24px] underline">Citas</a>
         </ng-template>
         <div>Resultados</div>
       </div>
 
       <!-- Información -->
       <div class="flex-shrink-0 basis-[100px] max-w-[150px] px-2">
-        <div class="pb-2 font-bold text-sm sm:text-base">Información</div>
+        <h2 class="pb-2 font-bold text-sm sm:text-base">Información</h2>
         <div>
-          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else inicio" href="/perfilHistorial">Historial</a>
+          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else inicio" href="/perfilHistorial" class="inline-flex items-center min-h-[24px] underline">Historial</a>
         </div>
         <ng-template #inicio>
-          <a href="/login">Historial</a>
+          <a href="/login" class="inline-flex items-center min-h-[24px] underline">Historial</a>
         </ng-template>
         <div>
-          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else sesion" href="/perfil">Perfil</a>
+          <a *ngIf="(usuario.id != undefined) || (doctor.id!=undefined); else sesion" href="/perfil" class="inline-flex items-center min-h-[24px] underline">Perfil</a>
         </div>
         <ng-template #sesion>
-          <a href="/login">Perfil</a>
+          <a href="/login" class="inline-flex items-center min-h-[24px] underline">Perfil</a>
         </ng-template>
         <div>
-          <a *ngIf="usuario.id != undefined; else verificarDoctor" href="/listaDoctores">Doctores</a>
+          <a *ngIf="usuario.id != undefined; else verificarDoctor" href="/listaDoctores" class="inline-flex items-center min-h-[24px] underline">Doctores</a>
         </div>
         <ng-template #verificarDoctor>
-          <a *ngIf="doctor?.id != undefined; else loguearse" href="/horario">Horario</a>
+          <a *ngIf="doctor?.id != undefined; else loguearse" href="/horario" class="inline-flex items-center min-h-[24px] underline">Horario</a>
         </ng-template>
         <ng-template #loguearse>
-          <a href="/login">Doctores</a>
+          <a href="/login" class="inline-flex items-center min-h-[24px] underline">Doctores</a>
         </ng-template>
       </div>
 
       <!-- Contáctanos -->
       <div class="flex-shrink-0 basis-[100px] max-w-[150px] px-2">
-        <div class="pb-2 font-bold text-sm sm:text-base">¡Contáctanos!</div>
+        <h2 class="pb-2 font-bold text-sm sm:text-base">¡Contáctanos!</h2>
         <div>Teléfono: (+34) 912 345 678</div>
         <div>Email: soporte&#64;hospitaljakarta.com</div>
         <div>España</div>
@@ -56,20 +56,22 @@
         class="w-full flex justify-center mt-4 px-2 lg:mt-0 lg:w-auto lg:flex-shrink-0 lg:max-w-[150px]"
       >
         <div class="max-w-md w-full flex flex-col sm:flex-row md:flex-col md:items-center md:space-y-2 lg:flex-col lg:space-y-2 mx-auto">
-          <div
+          <h2
             class="pb-2 font-bold text-sm sm:text-base text-center lg:text-left whitespace-nowrap"
           >
             Para más información
-          </div>
+          </h2>
           <div
-            class="bg-blue-300 rounded-md text-blue-700 px-4 py-2 inline-flex items-center justify-center space-x-2"
+            class="bg-blue-100 rounded-md text-blue-900 px-4 py-2 inline-flex items-center justify-center space-x-2"
           >
             <a
               href="mailto:soporte@hospitaljakarta.com"
-              class="text-xs sm:text-sm whitespace-nowrap text-center"
-              >Introduzca su email</a
+              class="text-xs sm:text-sm whitespace-nowrap text-center underline"
+              >Escríbenos un email</a
             >
             <svg
+              aria-hidden="true"
+              focusable="false"
               xmlns="http://www.w3.org/2000/svg"
               width="14"
               height="14"
@@ -99,4 +101,4 @@
       <!-- Iconos -->
     </div>
   </div>
-</div>
+</footer>

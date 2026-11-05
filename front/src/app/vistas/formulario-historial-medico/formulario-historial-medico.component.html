@@ -1,4 +1,4 @@
-<div class="flex justify-center items-center min-h-screen bg-gray-100">
+<main id="contenido" tabindex="-1" class="flex justify-center items-center min-h-screen bg-gray-100">
   <div class="flex flex-col p-5 w-full max-w-lg bg-white rounded-lg shadow-md">
     <button type="button" aria-label="Volver" (click)="navigateToProfile()"
       class="inline-block w-10 h-10 mb-7 border border-gray-400 rounded-full flex items-center justify-center text-2xl cursor-pointer transition duration-300 transform hover:bg-[#F6F6F6] hover:text-white hover:scale-110">
@@ -11,7 +11,8 @@
         </g>
       </svg>
     </button>
-    <h1 class="text-2xl font-semibold text-brand cursor-pointer mb-8 text-center">Jakarta</h1>
+    <p class="text-2xl font-semibold text-brand mb-8 text-center" aria-hidden="true">Jakarta</p>
+    <h1 class="sr-only">Nuevo historial médico</h1>
     @if (!recetaExistente) {
       @if (usuario.id) {
         <form class="space-y-6" (ngSubmit)="crearHistorial(usuario.id,cita.id)">
@@ -21,7 +22,7 @@
               Diagnóstico
             </label>
             <input [(ngModel)]="historialMedico.diagnostico" id="diagnostico" name="diagnostico" type="text"
-              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent"
+              class="w-full px-4 py-2 border border-gray-500 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent"
               required />
           </div>
 
@@ -30,7 +31,7 @@
               Tratamiento
             </label>
             <input [(ngModel)]="historialMedico.tratamiento" id="tratamiento" name="tratamiento" type="text"
-              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent"
+              class="w-full px-4 py-2 border border-gray-500 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent"
               required />
           </div>
 
@@ -39,7 +40,7 @@
               Fecha del Historial Médico
             </label>
             <input [(ngModel)]="historialMedico.fecha" type="date" id="fecha" name="fecha"
-              class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent"
+              class="w-full px-4 py-2 border border-gray-500 rounded-md focus:ring-2 focus:ring-brand focus:border-transparent"
               required />
           </div>
 
@@ -56,4 +57,4 @@
       <div>Esta cita ya posee una receta</div>
     }
   </div>
-</div>
+</main>

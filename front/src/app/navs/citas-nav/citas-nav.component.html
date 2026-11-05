@@ -1,22 +1,22 @@
 <div class="flex flex-col sm:flex-row justify-between gap-4 p-2">
-  <div class="flex flex-row gap-4 bg-[#f8f8f8] items-center rounded-md p-2">
-    <button (click)="onSelectButton('proxima'); listaCitasProximas()" [ngClass]="{
+  <div class="flex flex-row gap-4 bg-[#f8f8f8] items-center rounded-md p-2" role="group" aria-label="Filtrar citas">
+    <button type="button" [attr.aria-pressed]="selectedButton === 'proxima'" (click)="onSelectButton('proxima'); listaCitasProximas()" [ngClass]="{
         'bg-white text-black': selectedButton === 'proxima',
-        'text-[#7a7d84] hover:bg-white hover:text-black': selectedButton !== 'proxima'
+        'text-gray-600 hover:bg-white hover:text-black': selectedButton !== 'proxima'
       }" class="rounded-md p-1 px-3 transition-colors duration-200">
       Próximas
     </button>
 
-    <button (click)="onSelectButton('pasadas'); listaCitasPasadas()" [ngClass]="{
+    <button type="button" [attr.aria-pressed]="selectedButton === 'pasadas'" (click)="onSelectButton('pasadas'); listaCitasPasadas()" [ngClass]="{
         'bg-white text-black': selectedButton === 'pasadas',
-        'text-[#7a7d84] hover:bg-white hover:text-black': selectedButton !== 'pasadas'
+        'text-gray-600 hover:bg-white hover:text-black': selectedButton !== 'pasadas'
       }" class="rounded-md p-1 px-3 transition-colors duration-200">
       Pasadas
     </button>
 
-    <button (click)="onSelectButton('canceladas'); listaCitasCanceladas()" [ngClass]="{
+    <button type="button" [attr.aria-pressed]="selectedButton === 'canceladas'" (click)="onSelectButton('canceladas'); listaCitasCanceladas()" [ngClass]="{
         'bg-white text-black': selectedButton === 'canceladas',
-        'text-[#7a7d84] hover:bg-white hover:text-black': selectedButton !== 'canceladas'
+        'text-gray-600 hover:bg-white hover:text-black': selectedButton !== 'canceladas'
       }" class="rounded-md p-1 px-3 transition-colors duration-200">
       Canceladas
     </button>
@@ -27,14 +27,14 @@
     <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
       @if (selectedButton === 'proxima') {
         <select (change)="onMonthSelected($event)" aria-label="Filtrar citas por mes"
-          class="w-full sm:w-auto px-6 py-3 sm:py-2 text-base sm:text-sm border rounded-md bg-white">
+          class="border-gray-500 w-full sm:w-auto px-6 py-3 sm:py-2 text-base sm:text-sm border rounded-md bg-white">
           <option *ngFor="let month of months; let i = index" [value]="month.monthNumber">{{ month.monthName }}</option>
         </select>
       }
       @if (isUsuario) {
         <a href="/listaDoctores"
           class="flex items-center justify-center bg-brand hover:bg-brand-dark text-white px-5 py-2 sm:px-7 sm:py-3 rounded-md w-full sm:w-auto text-sm sm:text-base">
-          <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+          <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path fill="currentColor"
               d="M7.007 12a.75.75 0 0 1 .75-.75h3.493V7.757a.75.75 0 0 1 1.5 0v3.493h3.493a.75.75 0 1 1 0 1.5H12.75v3.493a.75.75 0 0 1-1.5 0V12.75H7.757a.75.75 0 0 1-.75-.75" />
             <path fill="currentColor" fill-rule="evenodd"

@@ -74,7 +74,7 @@
         <p class="font-semibold text-gray-800">Motivo: <span class="font-normal text-[#4b5563]">{{ cita.motivo }}</span></p>
       }
       @if (cita.estado === "terminada") {
-        <a href="/informes/{{cita.id}}" class="text-sm text-brand focus:text-blue-500 underline">Ver Receta</a>
+        <a href="/informes/{{cita.id}}" class="text-sm text-brand focus:text-blue-700 underline">Ver Receta</a>
       }
     </div>
 
@@ -88,7 +88,7 @@
           Añadir receta
         </a>
       }
-      <button type="button" (click)="cancelarCita(cita.id)" class="flex text-red-400 hover:text-red-600 p-2 items-center z-50">Cancelar</button>
+      <button type="button" (click)="cancelarCita(cita.id)" class="flex text-red-700 hover:text-red-600 p-2 items-center z-50">Cancelar</button>
     } @else if (cita.estado === 'terminada' && cita.votado === false && isNotDoctor) {
     <div class="inline-flex border border-gray-200 rounded-full p-0.5 mr-4">
       <button (click)="voto(cita.doctor.id, true)" type="button" aria-label="Votar positivamente al doctor"
@@ -120,9 +120,9 @@
       Ya has votado
     </div>
     }@else if (cita.estado === 'terminada') {
-    <div class="flex text-red-400 mr-5 p-2 items-center ">Terminada</div>
+    <div class="flex text-red-700 mr-5 p-2 items-center ">Terminada</div>
     }@else if (cita.estado === 'cancelada') {
-    <div class="flex text-red-400 mr-5 p-2 items-center ">Cancelada</div>
+    <div class="flex text-red-700 mr-5 p-2 items-center ">Cancelada</div>
     }
   </div>
 </div>
