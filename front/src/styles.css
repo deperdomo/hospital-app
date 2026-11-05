@@ -49,3 +49,56 @@ main:focus {
         scroll-behavior: auto !important;
     }
 }
+
+/* ===== Sistema de diseño: componentes (fase 0 del rediseño) =====
+   Tailwind solo emite estas clases cuando alguna plantilla las usa, así que
+   añadirlas no cambia nada visible hasta que las fases 1–5 las adopten.
+   Los estilos base de html/body (fondo canvas, texto 16 px) entran en la fase 2. */
+@layer components {
+  /* Botones */
+  .btn { @apply inline-flex items-center justify-center gap-2 min-h-touch px-5 rounded-control border border-transparent
+                font-semibold text-body leading-none whitespace-nowrap transition-colors duration-150
+                disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-ink-500 disabled:border-line; }
+  .btn-primary   { @apply btn bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700; }
+  .btn-secondary { @apply btn bg-white text-brand-700 border-brand-500 hover:bg-brand-50 active:bg-brand-100; }
+  .btn-ghost     { @apply btn bg-transparent text-brand-700 hover:bg-brand-50 active:bg-brand-100; }
+  .btn-danger    { @apply btn bg-danger-600 text-white hover:bg-danger-700; }
+  .btn-danger-outline { @apply btn bg-white text-danger-700 border-danger-600 hover:bg-danger-50; }
+  .btn-sm { @apply min-h-[2.5rem] px-4 text-meta; }
+  .btn-lg { @apply min-h-[3.25rem] px-6 text-body-lg; }
+  .btn-icon { @apply btn px-0 w-11 bg-transparent text-ink-600 hover:bg-surface-muted hover:text-ink-900; }
+
+  /* Formularios */
+  .field-label { @apply block mb-1.5 text-body font-medium text-ink-700; }
+  .field-hint  { @apply mt-1.5 text-meta text-ink-500; }
+  .field-error { @apply mt-1.5 flex items-start gap-1.5 text-meta font-medium text-danger-700; }
+  .input { @apply block w-full min-h-touch px-4 rounded-control border border-line-strong bg-white text-body text-ink-900
+                  placeholder:text-ink-500 transition-shadow
+                  focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600
+                  disabled:bg-surface-muted disabled:text-ink-500 disabled:border-line disabled:cursor-not-allowed
+                  aria-[invalid=true]:border-danger-600 aria-[invalid=true]:focus:ring-danger-600; }
+
+  /* Tarjetas */
+  .card { @apply bg-white rounded-card border border-line-subtle shadow-card; }
+  .card-interactive { @apply card transition-shadow hover:shadow-raised hover:border-line; }
+  .section-title { @apply text-h2 text-ink-900; }
+
+  /* Badges de estado de cita (siempre texto + icono, nunca solo color) */
+  .badge { @apply inline-flex items-center gap-1.5 rounded-pill border px-2.5 py-0.5 text-meta font-semibold whitespace-nowrap; }
+  .badge-pendiente { @apply badge bg-info-50 text-info-700 border-info-200; }
+  .badge-terminada { @apply badge bg-success-50 text-success-700 border-success-200; }
+  .badge-cancelada { @apply badge bg-danger-50 text-danger-700 border-danger-200; }
+  .tag { @apply badge bg-brand-50 text-brand-700 border-brand-100 font-medium; }
+
+  /* Navegacion */
+  .nav-item { @apply flex items-center gap-3 min-h-touch px-3 rounded-control text-body font-medium text-ink-600
+                     hover:bg-surface-muted hover:text-ink-900
+                     aria-[current=page]:bg-brand-50 aria-[current=page]:text-brand-700 aria-[current=page]:font-semibold
+                     aria-[current=page]:shadow-[inset_3px_0_0_theme(colors.brand.500)]; }
+
+  /* Modal */
+  .modal-backdrop { @apply fixed inset-0 z-40 bg-ink-900/50; }
+  .modal-panel { @apply relative w-full max-w-lg rounded-card bg-white p-6 shadow-overlay; }
+  .modal-title { @apply text-h3 text-ink-900; }
+  .modal-actions { @apply mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end; }
+}
