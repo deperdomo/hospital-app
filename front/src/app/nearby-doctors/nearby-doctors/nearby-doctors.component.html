@@ -1,115 +1,77 @@
 @if (doctor) {
-  <div class="doctor-card bg-white border border-[#e1e1e1] rounded-lg w-full max-w-[450px] min-w-[200px] h-auto mb-4">
-  <div class="card-content flex flex-wrap p-4">
-    <div class="top flex w-full border-b border-[#e1e1e1] pb-3 mb-3">
-      <div class="cont-img w-[85px] h-[85px]">
-        <img src="img/doctores/{{ doctor.fotoPerfil }}" width="85" height="85" loading="lazy" decoding="async" alt="Doctor image" class="w-full h-full object-cover rounded-xl">
-      </div>
-      <div class="text flex flex-col justify-center ml-4">
-        <h3 class="text-black text-lg font-medium">{{ doctor.nombre }} {{ doctor.apellidos }}</h3>
-        <p class="specialization text-[#666] text-sm my-1">{{ doctor.especialidad.nombre }}</p>
+  <div class="card-interactive h-full p-5 flex flex-col">
+    <div class="flex items-start gap-4">
+      <img src="img/doctores/{{ doctor.fotoPerfil }}" width="64" height="64" loading="lazy" decoding="async" alt=""
+        class="w-16 h-16 flex-none rounded-full object-cover bg-brand-50">
+      <div class="min-w-0">
+        <h3 class="text-h3 text-ink-900 break-words">{{ doctor.nombre }} {{ doctor.apellidos }}</h3>
+        <p class="mt-1"><span class="tag">{{ doctor.especialidad.nombre }}</span></p>
       </div>
     </div>
-    <div class="location flex items-center text-[#666] text-sm mb-3">
-      <div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="w-[18px] h-[18px] mr-2 fill-[#666]">
-          <path [attr.d]="svg.direccion" />
-        </svg>
-      </div>
-      <div class="text-location flex flex-col justify-center h-full">
-        <span class="kilometros mb-1">{{ doctor.provincia }}, {{ doctor.localidad }}</span>
-        <span>{{ doctor.direccion }}</span>
-      </div>
+    <div class="mt-4 flex items-start gap-2 text-ink-600">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 mt-0.5 flex-none text-brand-600" fill="currentColor" aria-hidden="true" focusable="false">
+        <path [attr.d]="svg.direccion" />
+      </svg>
+      <p class="min-w-0 break-words">
+        <span class="block text-ink-900">{{ doctor.localidad }}, {{ doctor.provincia }}</span>
+        <span class="block text-meta">{{ doctor.direccion }}</span>
+      </p>
     </div>
-    <div class="w-full flex justify-end">
-      <button (click)="navigateToNewAppointment()" class="bg-brand text-white px-4 py-2 rounded-lg hover:bg-brand-dark transition duration-300">
-          Pedir Cita
+    <div class="mt-auto pt-5">
+      <button type="button" (click)="navigateToNewAppointment()" class="btn-primary w-full"
+        [attr.aria-label]="'Pedir cita con ' + doctor.nombre + ' ' + doctor.apellidos">
+        Pedir cita
       </button>
     </div>
   </div>
-</div>
 }
 
 @if (cita) {
-  <div class="doctor-card bg-white rounded-2xl shadow-lg w-full max-w-[450px] h-auto mb-4 transition-all hover:shadow-xl">
-    <div class="card-content flex flex-wrap p-6">
-      <!-- Header con imagen y datos principales -->
-      <div class="top flex w-full pb-4 mb-4 border-b border-gray-100">
-        <div class="cont-img w-[75px] h-[75px] overflow-hidden">
-          <img src="img/usuarios/{{ cita.usuario.fotoPerfil }}" width="75" height="75" loading="lazy" decoding="async" 
-               alt="Usuario image" 
-               class="w-full h-full object-cover rounded-2xl shadow-sm">
-        </div>
-        
-        <div class="text flex flex-col justify-center ml-4 flex-1">
-          <div class="flex items-baseline justify-between">
-            <h3 class="text-gray-900 text-xl font-semibold">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</h3>
-            
-          </div>
-          
-          <div class="personal-info grid grid-cols-2 gap-2 mt-2">
-            <div class="flex items-center">
-              <svg class="w-4 h-4 mr-1 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.sexo"/>
-              </svg>
-              <span class="text-gray-600 text-sm">{{ cita.usuario.sexo }}</span>
-            </div>
-            <div class="flex items-center">
-              <svg class="w-4 h-4 mr-1 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.nacimiento"/>
-              </svg>
-              <span class="text-gray-600 text-sm">{{ calcularEdad(cita.usuario.fechaNacimiento) }} años</span>
-            </div>
-          </div>
+  <div class="card h-full p-5 sm:p-6 flex flex-col">
+    <!-- Paciente -->
+    <div class="flex items-start gap-4 pb-4 mb-4 border-b border-line-subtle">
+      <img src="img/usuarios/{{ cita.usuario.fotoPerfil }}" width="64" height="64" loading="lazy" decoding="async" alt=""
+        class="w-16 h-16 flex-none rounded-card object-cover bg-brand-50">
+      <div class="min-w-0 flex-1">
+        <h3 class="text-h3 text-ink-900 break-words">{{ cita.usuario.nombre }} {{ cita.usuario.apellidos }}</h3>
+        <p class="mt-1 text-meta text-ink-600 first-letter:uppercase">{{ cita.usuario.sexo }} · {{ calcularEdad(cita.usuario.fechaNacimiento) }} años</p>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <div class="flex items-start gap-3 rounded-control bg-surface-muted p-3">
+        <span class="flex-none grid place-items-center w-9 h-9 rounded-control bg-brand-50 text-brand-600">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.hora"/>
+          </svg>
+        </span>
+        <div>
+          <p class="text-meta text-ink-600">Hora de la cita</p>
+          <p class="font-semibold text-ink-900">{{ cita.fecha | date: 'HH:mm':'UTC' }}</p>
         </div>
       </div>
-
-      <!-- Detalles de la cita -->
-      <div class="w-full space-y-4">
-        <!-- Hora -->
-        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
-          <div class="bg-[#e0f2f8] p-2 rounded-lg mr-3">
-            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.hora"/>
-            </svg>
-          </div>
-          <div>
-            <p class="text-xs text-gray-500 mb-1">Hora de la cita</p>
-            <p class="text-sm font-medium text-gray-900">
-              {{ cita.fecha | date: 'HH:mm':'UTC' }}
-            </p>
-          </div>
-        </div>
-
-        <!-- Ubicación -->
-        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
-          <div class="bg-[#e0f2f8] p-2 rounded-lg mr-3">
-            <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.ubicacion1"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.ubicacion2"/>
-            </svg>
-          </div>
-          <div>
-            <p class="text-xs text-gray-500 mb-1">Ubicación</p>
-            <p class="text-sm font-medium text-gray-900">
-              {{ cita.usuario.provincia }}, {{ cita.usuario.localidad }}
-            </p>
-            <p class="text-sm text-gray-600">{{ cita.usuario.direccion }}</p>
-          </div>
+      <div class="flex items-start gap-3 rounded-control bg-surface-muted p-3">
+        <span class="flex-none grid place-items-center w-9 h-9 rounded-control bg-brand-50 text-brand-600">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.ubicacion1"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.ubicacion2"/>
+          </svg>
+        </span>
+        <div class="min-w-0">
+          <p class="text-meta text-ink-600">Ubicación</p>
+          <p class="font-semibold text-ink-900 break-words">{{ cita.usuario.provincia }}, {{ cita.usuario.localidad }}</p>
+          <p class="text-meta text-ink-600 break-words">{{ cita.usuario.direccion }}</p>
         </div>
       </div>
+    </div>
 
-      <!-- Botón de acción -->
-      <div class="w-full flex justify-end mt-6">
-        <button (click)="navigateToNewReceta()" 
-                class="bg-brand text-white px-5 py-2.5 rounded-lg hover:bg-brand-dark transition-all 
-                       flex items-center font-medium shadow-sm hover:shadow-md">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.guardar"/>
-            </svg>
-            Generar Receta
-        </button>
-      </div>
+    <div class="mt-auto pt-5 flex justify-end">
+      <button type="button" (click)="navigateToNewReceta()" class="btn-primary w-full sm:w-auto">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.guardar"/>
+        </svg>
+        Generar receta
+      </button>
     </div>
   </div>
 }

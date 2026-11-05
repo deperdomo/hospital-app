@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Cita } from '../../models/cita';
 import { Router } from '@angular/router';
@@ -30,6 +30,10 @@ export class ListaCitasComponent implements OnInit {
   fechaCanceladasCitas: boolean = false;
 
   @Input() selectedMonth: number = new Date().getMonth();
+  /** En el inicio del paciente la primera cita ya sale destacada en «Tu próxima cita». */
+  @Input() omitirPrimera: boolean = false;
+  /** Citas activas cargadas (pendientes y futuras, ordenadas): el padre las reutiliza sin otra petición. */
+  @Output() citasCargadas = new EventEmitter<Cita[]>();
 
   constructor(private router: Router, private citaService: CitaService, private cdr: ChangeDetectorRef) {
     this.mostrartodas = this.router.url.includes('/misCitasUsuario');
@@ -92,10 +96,11 @@ export class ListaCitasComponent implements OnInit {
             return this.mostrartodas ? fechaFinCita > fechaActual && new Date(cita.fecha).getMonth() === this.selectedMonth && cita.estado==='pendiente' : fechaFinCita > fechaActual && cita.estado==='pendiente';
           })
             .sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime());
-
+          this.citasCargadas.emit(this.citas);
         },
         error => {
           console.error('Error fetching active appointments:', error);
+          this.citasCargadas.emit([]);
         });
         this.cdr.detectChanges();
 
@@ -272,10 +277,18 @@ export class ListaCitasComponent implements OnInit {
         this.fechaPasadasCitas = false;
         this.fechaCanceladasCitas = false;
         return filtrarCitas;
+      } else if (this.omitirPrimera) {
+        return filtrarCitas.slice(1, 6);
       } else {
         return filtrarCitas.slice(0, 5);
       }
     }
+  }
+
+  /** «Noviembre de 2026»; los meses anteriores al actual son del año siguiente (el filtro ofrece los 6 próximos). */
+  tituloMes(): string {
+    const anio = this.currentDate.getFullYear() + (this.selectedMonth < this.currentDate.getMonth() ? 1 : 0);
+    return `${this.getMonthName(this.selectedMonth)} de ${anio}`;
   }
 
   getCurrentMonthYear(): string {

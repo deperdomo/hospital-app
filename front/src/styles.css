@@ -118,4 +118,8 @@ main:focus {
   /* Enlace del pie sobre brand-900: blanco subrayado (15,7:1); el foco pasa a blanco para verse sobre el fondo oscuro. */
   .footer-link { @apply inline-flex items-center min-h-[1.5rem] py-0.5 text-white underline underline-offset-4 decoration-brand-300
                         hover:decoration-white focus-visible:outline-white; }
+
+  /* Fase 3: paciente */
+  /* Aviso informativo neutro (p. ej. búsqueda sin resultados): info-700 sobre info-50, 5,6:1. */
+  .alert-info { @apply flex items-start gap-2 rounded-control border border-info-200 bg-info-50 px-4 py-3 text-body font-medium text-info-700; }
 }

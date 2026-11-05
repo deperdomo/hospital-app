@@ -1,0 +1,10 @@
+/* Filas del detalle: etiqueta y valor en columna en móvil, en dos columnas desde 480 px. */
+.dato {
+  @apply grid gap-0.5 py-2.5 min-[480px]:grid-cols-[9.5rem_1fr] min-[480px]:gap-3;
+}
+.dato dt {
+  @apply text-meta font-medium text-ink-600 min-[480px]:text-body;
+}
+.dato dd {
+  @apply text-ink-900 break-words;
+}

@@ -1,0 +1,65 @@
+<section class="card overflow-hidden" aria-labelledby="proxima-cita-titulo" [attr.aria-busy]="cargando">
+  <div class="flex flex-wrap items-center justify-between gap-3 px-5 pt-5">
+    <h2 id="proxima-cita-titulo" class="text-h3 text-ink-900">Tu próxima cita</h2>
+    @if (cita) {
+      <app-estado-badge [estado]="cita.estado" />
+    }
+  </div>
+
+  @if (cargando) {
+    <p class="px-5 pt-3 pb-6 text-ink-600">Cargando tu próxima cita…</p>
+  } @else if (cita && fecha) {
+    <div class="p-5 flex gap-4 sm:gap-5">
+      <div class="flex-none w-[4.5rem] sm:w-24 self-start rounded-control bg-brand-500 text-white text-center py-3" aria-hidden="true">
+        <p class="text-meta font-semibold uppercase">{{ fecha.diaSemana }}</p>
+        <p class="text-h1 leading-none">{{ fecha.dia }}</p>
+        <p class="text-meta font-semibold uppercase">{{ fecha.mes }}</p>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="text-h3 text-ink-900">
+          <span class="sr-only">{{ fecha.larga }}, de </span>{{ cita.fecha | date: 'HH:mm':'UTC' }}<span aria-hidden="true"> – </span><span class="sr-only"> a </span>{{ sumarMediaHora(cita.fecha) | date: 'HH:mm':'UTC' }}
+        </p>
+        <p class="text-meta text-ink-600 first-letter:uppercase" aria-hidden="true">{{ fecha.larga }}</p>
+        <div class="mt-3 flex items-center gap-3">
+          <img [src]="'img/doctores/' + cita.doctor.fotoPerfil" alt="" width="48" height="48" loading="lazy" decoding="async"
+            class="w-12 h-12 flex-none rounded-full object-cover bg-brand-50">
+          <div class="min-w-0">
+            <p class="font-semibold text-ink-900 break-words">{{ cita.doctor.sexo === 'masculino' ? 'Dr.' : 'Dra.' }} {{ cita.doctor.nombre }} {{ cita.doctor.apellidos }}</p>
+            <p class="text-meta text-ink-600 break-words">
+              @if (cita.doctor.especialidad) {<span>{{ cita.doctor.especialidad.nombre }} · </span>}{{ cita.doctor.direccion }}
+            </p>
+          </div>
+        </div>
+        @if (cita.motivo) {
+          <p class="mt-3 text-ink-700 break-words"><span class="font-semibold">Motivo:</span> {{ cita.motivo }}</p>
+        }
+      </div>
+    </div>
+    <div class="px-5 py-4 bg-surface-muted border-t border-line-subtle flex flex-col sm:flex-row gap-3 sm:justify-end">
+      <button type="button" class="btn-danger-outline" (click)="cancelarCita(cita.id)" [disabled]="cancelando"
+        [attr.aria-label]="'Cancelar cita del ' + (cita.fecha | date: 'd/MM/yyyy HH:mm':'UTC')">
+        {{ cancelando ? 'Cancelando…' : 'Cancelar cita' }}
+      </button>
+      <button type="button" class="btn-secondary" (click)="abrirModal()"
+        [attr.aria-label]="'Ver detalle de la cita del ' + (cita.fecha | date: 'd/MM/yyyy HH:mm':'UTC')">Ver detalle</button>
+    </div>
+  } @else {
+    <div class="px-5 pt-3 pb-6 flex flex-col sm:flex-row sm:items-center gap-4">
+      <span class="flex-none grid place-items-center w-12 h-12 rounded-full bg-brand-50 text-brand-600">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      </span>
+      <div class="flex-1 min-w-0">
+        <p class="font-semibold text-ink-900">No tienes citas pendientes</p>
+        <p class="mt-1 text-ink-600">Cuando pidas una cita, aquí verás la fecha, la hora y el doctor que te atenderá.</p>
+      </div>
+      <a routerLink="/listaDoctores" href="/listaDoctores" class="btn-secondary w-full sm:w-auto">Buscar doctor</a>
+    </div>
+  }
+</section>
+
+@if (isModalDetalleCitaActivo && cita) {
+  <app-detalle-cita [cita]="cita" (modalCerrado)="cerrarModal()" />
+}

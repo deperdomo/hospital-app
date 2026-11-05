@@ -22,6 +22,7 @@ export class IndexBeforeLoginComponent {
   isNerbyDoctorsAvailable = false;
   doctoresDeBusqueda: Doctor[] = [];
   doctoresCercanos: Doctor[] = [];
+  busquedaRealizada = false;
 
   constructor( private router: Router) {}
 
@@ -39,6 +40,7 @@ export class IndexBeforeLoginComponent {
 
   recibirDoctoresDeBusqueda(doctores: Doctor[]) {
     this.isNerbyDoctorsAvailable = false;
+    this.busquedaRealizada = true;
     this.doctoresDeBusqueda = doctores;
     //console.log('Doctores recibidos de find-nav:', doctores);
   }

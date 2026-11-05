@@ -1,88 +1,38 @@
+/* Navegación lateral fija (240 px desde sm), cabecera, contenido y pie.
+   minmax(0, 1fr) evita que el contenido ensanche la columna en móvil (reflow a 320 px). */
 .body-after-login {
-    height: 100vh;
+    min-height: 100vh;
     display: grid;
-    
-    grid-template-columns: 242px 1fr;
-    grid-template-rows: auto 1fr 30%;
-    grid-template-areas: 
+    grid-template-columns: 242px minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
         "zn zh"
         "zn zs"
         "zn zf";
 }
 
-.nav {
-    grid-area: zh;
-    background-color: #f8f9fa; 
-}
-
 app-left-nav {
     grid-area: zn;
-    background-color: #fff;
-    border-right: 1px solid #e1e1e1;
+}
+
+app-secundary-nav {
+    grid-area: zh;
 }
 
 .contenido {
     grid-area: zs;
-    padding: 20px;
 }
 
 app-footer {
     grid-area: zf;
-    background-color: #f8f9fa;
-    
-}
-
-.container-top {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.container-left-section {
-    flex: 2;
-    min-width: min(300px, 100%);
-}
-
-.container-right-section {
-    flex: 1;
-    min-width: min(250px, 100%);
-    padding: 15px;
-    border-radius: 10px;
-    border: 1.5px solid #e1e1e1;
-    box-sizing: border-box;
-    background-color: #fff;
-}
-
-.cont-info-doctors {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: flex-start;
-}
-
-app-nearby-doctors {
-    flex: 1 1 calc(33.33% - 20px);
-    max-width: calc(33.33% - 20px);
-    box-sizing: border-box;
-}
-
-@media (max-width: 1024px) {
-    app-nearby-doctors {
-        flex: 1 1 calc(50% - 20px);
-        max-width: calc(50% - 20px);
-    }
 }
 
 @media (max-width: 640px) {
     .body-after-login {
-        grid-template-columns: 1fr;
-        grid-template-areas: 
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
             "zh"
             "zs"
             "zf";
     }
-    .container-top {
-        flex-direction: column;
-    }
-
 }

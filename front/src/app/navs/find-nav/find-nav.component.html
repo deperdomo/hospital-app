@@ -1,27 +1,28 @@
-<div class="find-nav">
-  <div class="find-doctors">
-    <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path class="svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="svg.doctor"/>
-    </svg>
-    <label for="buscar-doctor" class="sr-only">Nombre del doctor</label>
-    <input id="buscar-doctor" placeholder="Doctor" type="text" [(ngModel)]="nombreApellido">
+<form role="search" aria-label="Buscar doctores" (ngSubmit)="buscarDoctores()"
+  class="grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-end">
+  <div class="min-w-0">
+    <label for="buscar-especialidad" class="field-label">Especialidad</label>
+    <div class="relative">
+      <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-500">
+        <svg class="w-5 h-5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" [attr.d]="svg.buscar" />
+        </svg>
+      </span>
+      <input id="buscar-especialidad" name="especialidad" type="text" class="input pl-10" placeholder="Ej. Pediatría"
+        autocomplete="off" [(ngModel)]="especialidad">
+    </div>
   </div>
-  <div class="separator"></div>
-  <div class="specialty">
-    <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="-2 -2 24 24" aria-hidden="true" focusable="false">
-      <path class="svg" fill="#000" [attr.d]="svg.especialidad" />
-    </svg>
-    <label for="buscar-especialidad" class="sr-only">Especialidad</label>
-    <input id="buscar-especialidad" placeholder="Especialidad" type="text" [(ngModel)]="especialidad">
+  <div class="min-w-0">
+    <label for="buscar-localidad" class="field-label">Localidad</label>
+    <div class="relative">
+      <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-500">
+        <svg class="w-5 h-5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" [attr.d]="svg.localidad" />
+        </svg>
+      </span>
+      <input id="buscar-localidad" name="localidad" type="text" class="input pl-10" placeholder="Ej. Madrid"
+        autocomplete="address-level2" [(ngModel)]="localidad">
+    </div>
   </div>
-  <div class="separator"></div>
-  <div class="location">
-    <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path class="svg" fill="currentColor" [attr.d]="svg.localidad" />
-    </svg>
-    <label for="buscar-localidad" class="sr-only">Localidad</label>
-    <input id="buscar-localidad" placeholder="Localidad" type="text" [(ngModel)]="localidad">
-  </div>
-  <button type="button" class="search-button" (click)="buscarDoctores()">Buscar</button>
-</div>
-
+  <button type="submit" class="btn-primary w-full sm:w-auto">Buscar doctores</button>
+</form>

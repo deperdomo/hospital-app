@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-nearby-doctors',
   imports: [CommonModule],
   templateUrl: './nearby-doctors.component.html',
-  styleUrls: ['./nearby-doctors.component.css'],
 })
 export class NearbyDoctorsComponent {
   edad: number = 0;

@@ -3,12 +3,12 @@ import { InfoDoctorComponent } from "./info-doctor/info-doctor.component";
 import { Doctor } from '../../models/doctor';
 import { DoctorService } from '../../services/doctor.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'cont-doctores-recomendados',
-  imports: [InfoDoctorComponent, CommonModule],
+  imports: [InfoDoctorComponent, CommonModule, RouterLink],
   templateUrl: './doctores-recomendados.component.html',
-  styleUrls: ['./doctores-recomendados.component.css'],
   providers: [DoctorService]
 })
 export class DoctoresRecomendadosComponent implements OnInit {

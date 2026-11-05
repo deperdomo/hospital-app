@@ -5,10 +5,12 @@ import { Usuario } from '../../../../models/usuario';
 import { Cita } from '../../../../models/cita';
 import { Doctor } from '../../../../models/doctor';
 import { DialogDirective } from '../../../../shared/dialog.directive';
+import { EstadoBadgeComponent } from '../../estado-badge/estado-badge.component';
+import { sumarMediaHora } from '../../fecha-cita';
 
 @Component({
   selector: 'app-detalle-cita',
-  imports: [CommonModule, DialogDirective],
+  imports: [CommonModule, DialogDirective, EstadoBadgeComponent],
   templateUrl: './detalle-cita.component.html',
   styleUrl: './detalle-cita.component.css',
   providers: [CitaService]
@@ -50,10 +52,7 @@ export class DetalleCitaComponent {
   }
 
   sumarMediaHora(fecha: string): Date {
-    const fechaObjeto = new Date(fecha);
-    const nuevaFecha = new Date(fechaObjeto);
-    nuevaFecha.setMinutes(nuevaFecha.getMinutes() + 30);
-    return nuevaFecha;
+    return sumarMediaHora(fecha);
   }
 
   calcularEdad(fechaNacimiento: string): number {

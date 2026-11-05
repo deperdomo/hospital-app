@@ -9,10 +9,11 @@ import { Usuario } from '../../../models/usuario';
 import { CitaService } from '../../../services/cita.service';
 import { Cita } from '../../../models/cita';
 import { DialogDirective } from '../../../shared/dialog.directive';
+import { EstadoBadgeComponent } from '../../lista-citas/estado-badge/estado-badge.component';
 
 @Component({
   selector: 'app-info-doctor',
-  imports: [CommonModule, DialogDirective],
+  imports: [CommonModule, DialogDirective, EstadoBadgeComponent],
   templateUrl: './info-doctor.component.html',
   styleUrl: './info-doctor.component.css',
   providers: [DisponibilidadService, CitaService, DatePipe]
@@ -109,6 +110,17 @@ export class InfoDoctorComponent {
 
   obtenerHoraMinutos(hora: string): string {
     return hora.substring(0, 5);
+  }
+
+  /** Horario corto para la tarjeta: «14–18 h», «9:30–13 h»; «—» si aún no se ha cargado. */
+  horario(): string {
+    const corta = (h: string) => {
+      const [hh, mm] = h.split(':');
+      return String(+hh) + (mm && mm !== '00' ? ':' + mm : '');
+    };
+    const { horaInicio, horaFin } = this.disponibilidad;
+    if (!horaInicio || !horaFin || horaInicio === horaFin) return '—';
+    return corta(horaInicio) + '–' + corta(horaFin) + ' h';
   }
 
   closeModal() {

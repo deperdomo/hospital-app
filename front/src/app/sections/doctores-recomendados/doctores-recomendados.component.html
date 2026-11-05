@@ -1,13 +1,18 @@
-<div class="container-bottom mt-4">
-  <div class="container-header flex flex-col sm:flex-row items-center justify-between mb-4 gap-2 sm:gap-0">
-      <h2 class="titulos text-xl sm:text-2xl font-semibold text-center sm:text-left mb-4">Doctores Recomendados</h2>
-      <a href="/listaDoctores" class="enlace text-brand text-sm sm:text-base">Ver todos<span class="sr-only"> los doctores</span> <span aria-hidden="true">&gt;</span></a>
+<section aria-labelledby="recomendados-titulo">
+  <div class="flex flex-wrap items-end justify-between gap-3">
+    <div>
+      <h2 id="recomendados-titulo" class="section-title">Doctores recomendados</h2>
+      <p class="mt-1 text-ink-600">Los más votados por otros pacientes.</p>
+    </div>
+    <a href="/listaDoctores" routerLink="/listaDoctores" class="btn-ghost btn-sm">
+      Ver todos<span class="sr-only"> los doctores</span>
+      <svg class="w-4 h-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+    </a>
   </div>
 
-  <div class="cont-info-doctors flex flex-wrap justify-center sm:justify-between gap-4">
-    @for (doctor of doctores; track $index) {
-      <app-info-doctor [doctor]="doctor" class="info-doctor"></app-info-doctor>
+  <ul role="list" class="mt-6 grid gap-5 grid-cols-[repeat(auto-fill,minmax(min(100%,17rem),1fr))]">
+    @for (doctor of doctores; track doctor.id) {
+      <li class="min-w-0"><app-info-doctor [doctor]="doctor" class="h-full" /></li>
     }
-  </div>
-</div>
-
+  </ul>
+</section>

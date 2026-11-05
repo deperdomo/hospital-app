@@ -1,42 +1,47 @@
-<div class="bg-white shadow-lg rounded-lg p-4 sm:p-6">
-    <div class="flex flex-col sm:flex-row items-center justify-between mb-2">
-      @if(fechaProximasCitas) {
-        <span class="text-base sm:text-lg font-semibold w-full p-3 mb-4 rounded-md bg-[#EEEEEE] text-center sm:text-left">
-          Próximas citas
-        </span>
+<section class="block" [ngClass]="mostrartodas ? '' : 'card p-4 sm:p-5'" aria-labelledby="lista-citas-titulo">
+  <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1" [class.mb-4]="mostrartodas">
+    <h2 id="lista-citas-titulo" class="text-h3 text-ink-900">
+      @if (fechaProximasCitas) {
+        Próximas citas
       } @else if (fechaPasadasCitas) {
-        <span class="text-base sm:text-lg font-semibold w-full p-3 mb-4 rounded-md bg-[#EEEEEE] text-center sm:text-left">
-          Citas pasadas
-        </span>
+        Citas pasadas
       } @else if (fechaCanceladasCitas) {
-        <span class="text-base sm:text-lg font-semibold w-full p-3 mb-4 rounded-md bg-[#EEEEEE] text-center sm:text-left">
-          Citas canceladas
-        </span>
+        Citas canceladas
       } @else {
-        @if (fechaProximasCitas) {
-          <span class="text-base sm:text-lg font-semibold w-full p-3 mb-4 rounded-md bg-[#EEEEEE] text-center sm:text-left">
-            {{ getMonthName(selectedMonth) }} {{ currentDate.getFullYear() }}
-          </span>
-        } @else {
-          <span class="text-base sm:text-lg font-semibold w-full p-3 mb-4 rounded-md bg-[#EEEEEE] text-center sm:text-left">
-            {{ getCurrentMonthYear() }}
-          </span>
-        }
+        {{ tituloMes() }}
       }
-    </div>
-  
-    @if (citas.length === 0) {
-      <div class="text-center py-8">
-        <svg class="w-16 h-16 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+    </h2>
+    <!-- Acción opcional del padre (p. ej. «Ver todas») -->
+    <ng-content select="[accion]" />
+  </div>
+
+  @if (citasMostradas.length === 0) {
+    <div class="text-center py-6 px-2">
+      <span class="mx-auto grid place-items-center w-12 h-12 rounded-full bg-brand-50 text-brand-600">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"
             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
-        <p class="mt-4 text-gray-600 text-sm sm:text-base">No hay citas programadas para este mes</p>
-      </div>
-    }
-  
-    <div *ngFor="let cita of citasMostradas">
-      <app-cita [cita]="cita"></app-cita>
+      </span>
+      <p class="mt-3 text-ink-600">
+        @if (mostrarCanceladas) {
+          No tienes citas canceladas.
+        } @else if (mostrarPasadas) {
+          No hay citas pasadas este mes.
+        } @else if (omitirPrimera && citas.length > 0) {
+          No tienes más citas programadas.
+        } @else if (mostrartodas) {
+          No hay citas programadas para este mes.
+        } @else {
+          No hay citas programadas.
+        }
+      </p>
     </div>
-  </div>
-  
+  } @else {
+    <ul role="list" [ngClass]="mostrartodas ? 'space-y-3' : 'mt-2 divide-y divide-line-subtle'">
+      @for (cita of citasMostradas; track cita.id) {
+        <li><app-cita [cita]="cita" /></li>
+      }
+    </ul>
+  }
+</section>

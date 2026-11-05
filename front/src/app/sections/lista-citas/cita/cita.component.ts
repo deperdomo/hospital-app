@@ -6,10 +6,12 @@ import { CitaService } from '../../../services/cita.service';
 import { DoctorService } from '../../../services/doctor.service';
 import { Usuario } from '../../../models/usuario';
 import { DetalleCitaComponent } from "./detalle-cita/detalle-cita.component";
+import { EstadoBadgeComponent } from '../estado-badge/estado-badge.component';
+import { PartesFecha, partesFecha, sumarMediaHora } from '../fecha-cita';
 
 @Component({
   selector: 'app-cita',
-  imports: [CommonModule, DetalleCitaComponent],
+  imports: [CommonModule, DetalleCitaComponent, EstadoBadgeComponent],
   templateUrl: './cita.component.html',
   styleUrl: './cita.component.css',
   providers: [CitaService, DoctorService]
@@ -40,6 +42,11 @@ export class CitaComponent {
     this.usuario = {} as Usuario;
   }
 
+  /** Día de la semana, día y mes para el bloque de fecha. */
+  get fecha(): PartesFecha {
+    return partesFecha(this.cita.fecha);
+  }
+
   get isCitasPage() {
     return this.router.url === '/misCitasUsuario';
   }
@@ -59,14 +66,12 @@ export class CitaComponent {
 
   }
 
-  getFirstLetterOfDay(date: string): string {
-    const dayName = new Date(date).toLocaleDateString('es-ES', { weekday: 'long' });
-    return dayName.charAt(0).toUpperCase();
-  }
-
   cancelarCita(id: number) {
-    this.citaService.cancelarCita(id).subscribe();
-    window.location.reload();
+    // Se recarga cuando el servidor ha respondido (antes la recarga podía cortar la petición).
+    this.citaService.cancelarCita(id).subscribe({
+      next: () => window.location.reload(),
+      error: () => window.location.reload(),
+    });
   }
 
   voto(idDoctor: number, valoracion: boolean) {
@@ -83,10 +88,7 @@ export class CitaComponent {
   }
 
   sumarMediaHora(fecha: string): Date {
-    const fechaObjeto = new Date(fecha);
-    const nuevaFecha = new Date(fechaObjeto);
-    nuevaFecha.setMinutes(nuevaFecha.getMinutes() + 30);
-    return nuevaFecha;
+    return sumarMediaHora(fecha);
   }
 
   abrirModal(cita: Cita) {

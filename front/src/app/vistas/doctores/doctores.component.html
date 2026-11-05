@@ -1,29 +1,26 @@
 <div class="body-doctores">
   <app-left-nav />
 
-
   @if (usuarioLogeado) {
   <app-secundary-nav [titulo]="'Doctores disponibles'" />
   } @else {
-  <header class="flex items-center">
-    <a href="/" aria-label="Volver"
-      class="inline-block w-10 h-10 border border-gray-400 rounded-full flex items-center justify-center text-2xl cursor-pointer transition duration-300 transform hover:bg-brand hover:text-white hover:scale-110">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <g fill="none">
-          <path
-            d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
-          <path fill="#000"
-            d="M3.636 11.293a1 1 0 0 0 0 1.414l5.657 5.657a1 1 0 0 0 1.414-1.414L6.757 13H20a1 1 0 1 0 0-2H6.757l3.95-3.95a1 1 0 0 0-1.414-1.414z" />
-        </g>
-      </svg>
-    </a>
-    <h1 class="text-4xl text-center m-8">Doctores disponibles</h1>
+  <!-- Sin sesión: volver al inicio y título. En móvil deja sitio al botón de menú fijo de app-left-nav. -->
+  <header class="bg-white border-b border-line-subtle">
+    <div class="flex items-center gap-3 min-h-[4.5rem] py-3 pl-[4.5rem] pr-4 sm:pl-6 lg:pl-8">
+      <a href="/" aria-label="Volver al inicio" class="btn-icon flex-none border-line text-ink-700">
+        <svg class="w-6 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+        </svg>
+      </a>
+      <h1 class="text-h3 sm:text-h2 lg:text-h1 text-ink-900 break-words min-w-0">Doctores disponibles</h1>
+    </div>
   </header>
-
   }
-  <main id="contenido" tabindex="-1" class="conenido">
-    <h2 class="sr-only">Listado de doctores</h2>
-    <app-lista-doctores />
+  <main id="contenido" tabindex="-1" class="conenido min-w-0 px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+    <div class="mx-auto max-w-content">
+      <h2 class="sr-only">Listado de doctores</h2>
+      <app-lista-doctores />
+    </div>
   </main>
 
 </div>

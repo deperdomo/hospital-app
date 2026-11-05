@@ -1,9 +1,11 @@
 <div class="body-citas">
   <app-left-nav [citas]="true" />
   <app-secundary-nav [titulo]="'Citas'" />
-  <main id="contenido" tabindex="-1" class="conenido mx-[5%]">
-    <app-nav-citas (monthSelected)="onMonthSelected($event)" (citasCanceladas)="onCitasCanceladas()"
-      (citasProximas)="onCitasProximas()" (citasPasadas)="onCitasPasadas()"/>
-    <app-lista-citas />
+  <main id="contenido" tabindex="-1" class="conenido min-w-0 px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+    <div class="mx-auto max-w-content space-y-6">
+      <app-nav-citas (monthSelected)="onMonthSelected($event)" (citasCanceladas)="onCitasCanceladas()"
+        (citasProximas)="onCitasProximas()" (citasPasadas)="onCitasPasadas()"/>
+      <app-lista-citas />
+    </div>
   </main>
 </div>

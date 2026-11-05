@@ -3,42 +3,75 @@
   <div class="body-before-login">
     <app-nav-before-login />
 
-    <!-- Aquí está el cambio: max-w-5xl, mx-auto, px-4 -->
-    <main id="contenido" tabindex="-1" class="contenido max-w-5xl mx-auto px-4 mb-6">
-      <h1 class="sr-only">Hospital Jakarta: encuentra a tu médico y pide cita online</h1>
-      <div class="container-baner relative">
-        <app-baner />
-        <div class="cont-find-nav w-[60%] sm:min-w-[600px] md:min-w-[600px] absolute bottom-[-30px] left-[50%] translate-x-[-50%]">
-          <app-find-nav class="w-full" (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" />
+    <main id="contenido" tabindex="-1" class="contenido min-w-0">
+      <!-- Portada: titular, buscador y banner -->
+      <section class="bg-brand-50 border-b border-brand-100" aria-labelledby="portada-titulo">
+        <div class="mx-auto max-w-content px-4 sm:px-6 py-10 lg:py-14 grid gap-8 lg:gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
+          <div class="min-w-0">
+            <p class="tag mb-4">
+              <svg class="w-4 h-4 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              Citas online en Hospital Jakarta
+            </p>
+            <h1 id="portada-titulo" class="text-h1 sm:text-display text-ink-900 max-w-xl">Pide tu cita médica en pocos minutos</h1>
+            <p class="mt-4 text-body-lg text-ink-600 max-w-lg">Busca por especialidad o localidad, elige doctor, día y hora. Sin llamadas ni esperas.</p>
+            <div class="card mt-8 p-4 sm:p-5">
+              <app-find-nav (doctoresEncontrados)="recibirDoctoresDeBusqueda($event)" />
+            </div>
+          </div>
+          <app-baner class="block min-w-0" />
         </div>
+      </section>
+
+      <div class="mx-auto max-w-content px-4 sm:px-6 pb-14">
+        <!-- Resultado del buscador: anunciado a lectores de pantalla -->
+        <div role="status" aria-live="polite">
+          @if (busquedaRealizada && doctoresDeBusqueda.length === 0) {
+            <p class="mt-10 alert-info">No hemos encontrado doctores con esos criterios. Prueba con otra especialidad o localidad.</p>
+          } @else if (busquedaRealizada) {
+            <p class="sr-only">{{ doctoresDeBusqueda.length }} doctores encontrados.</p>
+          }
+        </div>
+
+        @if (doctoresDeBusqueda.length > 0) {
+          <section class="pt-10" aria-labelledby="resultado-titulo">
+            <h2 id="resultado-titulo" class="section-title">Resultado de la búsqueda</h2>
+            <ul role="list" class="mt-6 grid gap-5 grid-cols-[repeat(auto-fill,minmax(min(100%,17rem),1fr))]">
+              @for (doctor of doctoresDeBusqueda; track doctor.id) {
+                <li class="min-w-0"><app-nearby-doctors [doctor]="doctor" class="block h-full" /></li>
+              }
+            </ul>
+          </section>
+        }
+
+        <cont-doctores-recomendados class="block pt-12" />
+
+        <section class="pt-12" aria-labelledby="como-funciona-titulo">
+          <h2 id="como-funciona-titulo" class="section-title">Cómo funciona</h2>
+          <ol class="mt-6 grid gap-5 md:grid-cols-3">
+            <li class="card p-5 flex gap-4">
+              <span class="flex-none grid place-items-center w-10 h-10 rounded-full bg-brand-500 text-white font-bold" aria-hidden="true">1</span>
+              <div><h3 class="text-h3 text-ink-900">Busca</h3><p class="mt-1 text-ink-600">Filtra por especialidad o localidad y compara horarios y precios.</p></div>
+            </li>
+            <li class="card p-5 flex gap-4">
+              <span class="flex-none grid place-items-center w-10 h-10 rounded-full bg-brand-500 text-white font-bold" aria-hidden="true">2</span>
+              <div><h3 class="text-h3 text-ink-900">Elige hora</h3><p class="mt-1 text-ink-600">Selecciona un hueco libre en el calendario del doctor.</p></div>
+            </li>
+            <li class="card p-5 flex gap-4">
+              <span class="flex-none grid place-items-center w-10 h-10 rounded-full bg-brand-500 text-white font-bold" aria-hidden="true">3</span>
+              <div><h3 class="text-h3 text-ink-900">Acude a tu cita</h3><p class="mt-1 text-ink-600">Después, consulta tu informe y tu receta desde tu historial.</p></div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="pt-12" aria-labelledby="cercanos-titulo">
+          <app-nearby-doctors-disabled
+            (habilitarNerbyDoctors)="cambiarEstado()"
+            (doctoresCercanos)="recibirDoctoresCercanos($event)"
+            [texto]="'Inicia sesión para ver los doctores de tu localidad.'">
+            <h2 id="cercanos-titulo" class="text-h3 text-ink-900">Doctores cerca de ti</h2>
+          </app-nearby-doctors-disabled>
+        </section>
       </div>
-
-      <br />
-      <cont-doctores-recomendados class="w-full" />
-      <br />
-
-      @if (isNerbyDoctorsAvailable && doctoresCercanos.length > 0) {
-        <h2 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h2>
-        <div class="cont-info-doctors flex flex-wrap justify-between">
-          @for (doctor of doctoresCercanos; track $index) {
-            <app-nearby-doctors [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]" />
-          }
-        </div>
-      } @else if (doctoresDeBusqueda.length > 0) {
-        <h2 class="titulos text-2xl font-semibold my-6">Resultado de la búsqueda</h2>
-        <div class="cont-info-doctors flex flex-wrap justify-between">
-          @for (doctor of doctoresDeBusqueda; track $index) {
-            <app-nearby-doctors [doctor]="doctor" class="w-full sm:w-[48%] lg:w-[32%]" />
-          }
-        </div>
-      } @else {
-        <h2 class="titulos text-2xl font-semibold my-6">Doctores Cercanos a ti</h2>
-        <app-nearby-doctors-disabled
-          (habilitarNerbyDoctors)="cambiarEstado()"
-          (doctoresCercanos)="recibirDoctoresCercanos($event)"
-          [texto]="'Necesita iniciar sesión para disfrutar de esta funcionalidad.'"
-        />
-      }
     </main>
 
     <app-footer class="footer" />

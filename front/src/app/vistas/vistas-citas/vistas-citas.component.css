@@ -1,13 +1,13 @@
+/* Navegación lateral fija (242 px) + barra superior y contenido; la página hace scroll normal.
+   minmax(0, 1fr) evita que el contenido ensanche la columna (antes medía 356 px a 320 px). */
 .body-citas {
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
-  grid-template-columns: 242px 1fr;
-  grid-template-rows: 15% 1fr;
+  grid-template-columns: 242px minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
   grid-template-areas:
     "zn zh"
     "zn zs";
-  height: 100vh;
-  overflow-y: auto;
 }
 
 app-left-nav {
@@ -24,7 +24,7 @@ app-secundary-nav {
 
 @media (max-width: 640px) {
   .body-citas {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       "zh"
       "zs";

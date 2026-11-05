@@ -1,9 +1,7 @@
-<div class="cont-info-doctors flex flex-wrap justify-center max-h-[85vh] overflow-y-auto p-4">
-    @for (doctor of doctores; track $index) {
-      <app-info-doctor 
-        [doctor]="doctor"
-        [disponibilidadPrecargada]="disponibilidades[doctor.id]"
-        class="p-4"
-      />
-    }
-</div>
+<ul role="list" class="grid gap-5 grid-cols-[repeat(auto-fill,minmax(min(100%,17rem),1fr))]">
+  @for (doctor of doctores; track doctor.id) {
+    <li class="min-w-0">
+      <app-info-doctor [doctor]="doctor" [disponibilidadPrecargada]="disponibilidades[doctor.id]" class="h-full" />
+    </li>
+  }
+</ul>

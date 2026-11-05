@@ -1,20 +1,21 @@
+/* Navegación lateral fija (240 px desde sm), cabecera y contenido; la página hace scroll normal
+   (antes la lista tenía su propio scroll de 85vh dentro de una página con overflow oculto). */
 .body-doctores {
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
-  grid-template-columns: 242px 1fr;
-  grid-template-rows: 15% 1fr;
+  grid-template-columns: 242px minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
   grid-template-areas:
     "zn zh"
     "zn zs";
-  height: 100vh;
-  overflow: hidden;
 }
 
 app-left-nav {
   grid-area: zn;
 }
 
-app-secundary-nav {
+app-secundary-nav,
+header {
   grid-area: zh;
 }
 
@@ -24,7 +25,7 @@ app-secundary-nav {
 
 @media (max-width: 640px) {
   .body-doctores {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       "zh"
       "zs";

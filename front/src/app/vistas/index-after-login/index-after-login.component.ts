@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common'; // Asegúrate de que esto esté importado
 import { LeftNavComponent } from "../../navs/left-nav/left-nav.component";
 import { SecundaryNavComponent } from "../../navs/secundary-nav/secundary-nav.component";
@@ -7,19 +7,18 @@ import { NearbyDoctorsComponent } from "../../nearby-doctors/nearby-doctors/near
 import { NearbyDoctorsDisabledComponent } from "../../nearby-doctors/nearby-doctors-disabled/nearby-doctors-disabled.component";
 import { FooterConmponent } from "../../footer/footer.component";
 import { ListaCitasComponent } from "../../sections/lista-citas/lista-citas.component";
-import { BanerComponent } from '../../sections/baner/baner.component';
 import { DoctoresRecomendadosComponent } from "../../sections/doctores-recomendados/doctores-recomendados.component";
 import { Usuario } from '../../models/usuario';
 import { Cita } from '../../models/cita';
 import { CitaService } from '../../services/cita.service';
 import { Doctor } from '../../models/doctor';
-import { FindNavComponent } from "../../navs/find-nav/find-nav.component";
+import { ProximaCitaComponent } from '../../sections/lista-citas/proxima-cita/proxima-cita.component';
 
 
 
 @Component({
   selector: 'app-index-after-login',
-  imports: [LeftNavComponent, SecundaryNavComponent, BanerComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent, DoctoresRecomendadosComponent, CommonModule],
+  imports: [LeftNavComponent, SecundaryNavComponent, NearbyDoctorsComponent, NearbyDoctorsDisabledComponent, FooterConmponent, ListaCitasComponent, DoctoresRecomendadosComponent, CommonModule, RouterLink, ProximaCitaComponent],
   templateUrl: './index-after-login.component.html',
   styleUrl: './index-after-login.component.css',
   providers: [CitaService]
@@ -31,6 +30,12 @@ export class IndexAfterLoginComponent implements OnInit {
   doctoresCercanos: Doctor[] = [];
   isLeftNavOpen: boolean = false;
   isMobile: boolean = false;
+  busquedaRealizada = false;
+  /** «Tu próxima cita»: la primera de las citas que ya carga app-lista-citas (sin otra petición). */
+  proximaCita: Cita | null = null;
+  cargandoCitas = true;
+  numCitas = 0;
+  readonly hoy = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
   constructor(private router: Router, private citaService: CitaService) {
     this.usuario = {} as Usuario;
@@ -53,8 +58,15 @@ export class IndexAfterLoginComponent implements OnInit {
     this.router.navigate(['/misCitasUsuario', usuarioId]);
   }
 
+  recibirCitas(citas: Cita[]) {
+    this.proximaCita = citas[0] ?? null;
+    this.numCitas = citas.length;
+    this.cargandoCitas = false;
+  }
+
   recibirDoctoresDeBusqueda(doctores: Doctor[]) {
     this.isNerbyDoctorsAvailable = false;
+    this.busquedaRealizada = true;
     this.doctoresDeBusqueda = doctores;
     //console.log('Doctores recibidos de find-nav:', doctores);
   }

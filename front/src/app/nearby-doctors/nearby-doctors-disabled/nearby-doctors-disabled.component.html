@@ -1,9 +1,19 @@
-<div class="contenedor flex flex-col justify-center items-center h-[160px] border border-[#e1e1e1] rounded-[15px] font-normal px-4 text-center">
-  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 12 12" class="mb-3" aria-hidden="true" focusable="false">
-    <path fill="#000" d="M6 .5A4.5 4.5 0 0 1 10.5 5c0 1.863-1.42 3.815-4.2 5.9a.5.5 0 0 1-.6 0C2.92 8.815 1.5 6.863 1.5 5A4.5 4.5 0 0 1 6 .5m0 3a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3"/>
-  </svg>
-  <span class="text-[#4E4E4E] text-sm sm:text-base">
-    {{ texto }}
-    <button type="button" (click)="cambiarEstado()" class="enlace text-brand cursor-pointer ml-1">Activar</button>
-  </span>
+<!-- Tarjeta «Doctores cerca de ti»: el título (h2) lo pone el padre con ng-content. -->
+<div class="card p-5 flex flex-col gap-4" [ngClass]="apilado ? '' : 'sm:flex-row sm:items-center sm:p-6'">
+  <div class="flex flex-1 items-start gap-3 sm:gap-4 min-w-0">
+    <span class="flex-none grid place-items-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-brand-50 text-brand-600">
+      <svg class="w-6 h-6 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" aria-hidden="true" focusable="false">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0zM19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+      </svg>
+    </span>
+    <div class="min-w-0">
+      <ng-content />
+      <p class="mt-1 text-ink-600">{{ texto }}</p>
+    </div>
+  </div>
+  @if (logueado) {
+    <button type="button" (click)="cambiarEstado()" class="btn-secondary w-full" [ngClass]="apilado ? '' : 'sm:w-auto'">Buscar en mi localidad</button>
+  } @else {
+    <a href="/login" routerLink="/login" class="btn-secondary w-full" [ngClass]="apilado ? '' : 'sm:w-auto'">Iniciar sesión</a>
+  }
 </div>
