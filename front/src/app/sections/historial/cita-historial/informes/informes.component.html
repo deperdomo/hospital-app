@@ -1,52 +1,46 @@
-<div class="flex justify-center items-center min-h-screen bg-gray-100 font-serif">
-  @for (receta of recetas; track $index) {
-    <div class="flex flex-col w-full max-w-2xl bg-white rounded-xl shadow-lg p-10">
-      <button type="button" aria-label="Volver" (click)="navigateToProfile()"
-            class="inline-block w-10 h-10 mb-7 border border-gray-400 rounded-full flex items-center justify-center text-2xl cursor-pointer transition duration-300 transform hover:bg-[#F6F6F6] hover:text-white hover:scale-110">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"> <g fill="none"> 
-                <path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" /> <path fill="#000" d="M3.636 11.293a1 1 0 0 0 0 1.414l5.657 5.657a1 1 0 0 0 1.414-1.414L6.757 13H20a1 1 0 1 0 0-2H6.757l3.95-3.95a1 1 0 0 0-1.414-1.414z" /> </g>
-            </svg>
-        </button>
-      <div class="text-center mb-8">
-        <p class="text-4xl font-semibold text-brand" aria-hidden="true">Jakarta</p>
-        <h1 class="sr-only">Informe médico</h1>
-        
-      </div>
-      
-      <div class="mb-8 border-b border-gray-200 pb-4">
-        <h2 class="text-2xl font-semibold text-brand mb-4">Información del Doctor</h2>
-        <div class="mb-2">
-          <strong class="text-gray-700">Nombre:</strong> {{receta.cita.doctor.nombre}}   {{receta.cita.doctor.apellidos}}
-        </div>
-        <div class="mb-2">
-          <strong class="text-gray-700">Especialidad:</strong> {{receta.cita.doctor.especialidad.nombre}}
-        </div>
-      </div>
-  
-      <div class="mb-8 border-b border-gray-200 pb-4">
-        <h2 class="text-2xl font-semibold text-brand mb-4">Medicamento Recetado</h2>
-        <div class="mb-2">
-          <strong class="text-gray-700">Nombre:</strong> {{receta.nombre_medicamento}}
-        </div>
-        <div class="mb-2">
-          <strong class="text-gray-700">Dosis:</strong> {{receta.dosis}}
-        </div>
-        <div class="mb-2">
-          <strong class="text-gray-700">Frecuencia:</strong> {{receta.frecuencia}}
-        </div>
-        <div class="mb-2">
-          <strong class="text-gray-700">Fecha de Inicio:</strong> {{receta.fechaInicio}}
-        </div>
-        <div>
-          <strong class="text-gray-700">Fecha de Fin:</strong> {{receta.fechaFin}}
-        </div>
-      </div>
-  
-      <div class="mb-8">
-        <h2 class="text-2xl font-semibold text-brand mb-4 border-b border-gray-200 pb-4">Instrucciones</h2>
-        <p class="text-lg">{{receta.instrucciones}}</p>
-      </div>
-  
+<main id="contenido" tabindex="-1" class="min-h-screen px-4 sm:px-6 py-6 sm:py-10">
+  <div class="mx-auto w-full max-w-2xl">
+    <div class="flex items-center justify-between gap-3">
+      <button type="button" (click)="navigateToProfile()" class="btn-secondary btn-sm">
+        <svg class="w-5 h-5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+        Volver
+      </button>
+      <p class="text-h3 font-bold text-brand-600" aria-hidden="true">Jakarta</p>
     </div>
-  }
+
+    <h1 class="mt-6 text-h2 sm:text-h1 text-ink-900">Informe médico</h1>
+
+    <div aria-live="polite">
+      @if (!cargando && recetas.length === 0) {
+        <p class="mt-6 alert-info">Esta cita no tiene ningún informe ni receta todavía.</p>
+      }
+    </div>
+
+    @for (receta of recetas; track $index) {
+    <article class="card mt-6 p-5 sm:p-8">
+      <div>
+        <h2 class="text-h3 text-ink-900">Doctor</h2>
+        <dl class="mt-3 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+          <div><dt class="dato-etiqueta">Nombre</dt><dd class="dato-valor">{{ receta.cita.doctor.nombre }} {{ receta.cita.doctor.apellidos }}</dd></div>
+          <div><dt class="dato-etiqueta">Especialidad</dt><dd class="dato-valor">{{ receta.cita.doctor.especialidad.nombre }}</dd></div>
+        </dl>
+      </div>
+
+      <div class="mt-6 pt-6 border-t border-line-subtle">
+        <h2 class="text-h3 text-ink-900">Medicamento recetado</h2>
+        <dl class="mt-3 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+          <div><dt class="dato-etiqueta">Nombre</dt><dd class="dato-valor font-semibold">{{ receta.nombre_medicamento }}</dd></div>
+          <div><dt class="dato-etiqueta">Dosis</dt><dd class="dato-valor">{{ receta.dosis }}</dd></div>
+          <div><dt class="dato-etiqueta">Frecuencia</dt><dd class="dato-valor">{{ receta.frecuencia }}</dd></div>
+          <div><dt class="dato-etiqueta">Duración</dt><dd class="dato-valor">Del {{ receta.fechaInicio | date: 'd/MM/yyyy':'UTC' }} al {{ receta.fechaFin | date: 'd/MM/yyyy':'UTC' }}</dd></div>
+        </dl>
+      </div>
+
+      <div class="mt-6 pt-6 border-t border-line-subtle">
+        <h2 class="text-h3 text-ink-900">Instrucciones</h2>
+        <p class="mt-3 text-body-lg text-ink-700 break-words">{{ receta.instrucciones }}</p>
+      </div>
+    </article>
+    }
   </div>
+</main>

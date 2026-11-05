@@ -8,10 +8,11 @@ import { Usuario } from '../../../models/usuario';
 import { DetalleCitaComponent } from "./detalle-cita/detalle-cita.component";
 import { EstadoBadgeComponent } from '../estado-badge/estado-badge.component';
 import { PartesFecha, partesFecha, sumarMediaHora } from '../fecha-cita';
+import { ConfirmarDialogComponent } from '../../../shared/confirmar-dialog/confirmar-dialog.component';
 
 @Component({
   selector: 'app-cita',
-  imports: [CommonModule, DetalleCitaComponent, EstadoBadgeComponent],
+  imports: [CommonModule, DetalleCitaComponent, EstadoBadgeComponent, ConfirmarDialogComponent],
   templateUrl: './cita.component.html',
   styleUrl: './cita.component.css',
   providers: [CitaService, DoctorService]
@@ -20,6 +21,8 @@ import { PartesFecha, partesFecha, sumarMediaHora } from '../fecha-cita';
 export class CitaComponent {
   citavotada: boolean = false;
   isModalDetalleCitaActivo: boolean = false;
+  confirmandoCancelacion = false;
+  cancelando = false;
   isNotDoctor: boolean = false;
   usuario: Usuario;
 
@@ -66,7 +69,17 @@ export class CitaComponent {
 
   }
 
+  /** Pregunta del diálogo de confirmación: con el doctor (paciente) o con el paciente (doctor). */
+  get preguntaCancelar(): string {
+    const f = this.fecha;
+    const con = this.isNotDoctor
+      ? (this.cita.doctor.sexo === 'masculino' ? 'el Dr. ' : 'la Dra. ') + this.cita.doctor.nombre + ' ' + this.cita.doctor.apellidos
+      : this.cita.usuario.nombre + ' ' + this.cita.usuario.apellidos;
+    return `¿Cancelar la cita del ${f.diaMes} a las ${f.hora} con ${con}?`;
+  }
+
   cancelarCita(id: number) {
+    this.cancelando = true;
     // Se recarga cuando el servidor ha respondido (antes la recarga podía cortar la petición).
     this.citaService.cancelarCita(id).subscribe({
       next: () => window.location.reload(),

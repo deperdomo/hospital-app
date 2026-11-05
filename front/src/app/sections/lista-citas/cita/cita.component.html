@@ -96,7 +96,7 @@
             Añadir receta
           </a>
         }
-        <button type="button" (click)="cancelarCita(cita.id)" class="btn-danger-outline btn-sm"
+        <button type="button" (click)="confirmandoCancelacion = true" class="btn-danger-outline btn-sm" aria-haspopup="dialog"
           [attr.aria-label]="'Cancelar cita del ' + (cita.fecha | date: 'd/MM/yyyy HH:mm':'UTC')">Cancelar cita</button>
       }
     </div>
@@ -105,4 +105,10 @@
 
 @if (isModalDetalleCitaActivo) {
   <app-detalle-cita [cita]="cita" (modalCerrado)="cerrarModal()"> </app-detalle-cita>
+}
+
+<!-- Confirmación antes de cancelar: Esc o «Volver» cierran y devuelven el foco a «Cancelar cita». -->
+@if (confirmandoCancelacion) {
+  <app-confirmar-dialog [titulo]="preguntaCancelar" texto="La cita quedará cancelada y esa hora volverá a estar libre. No se puede deshacer."
+    [ocupado]="cancelando" (confirmado)="cancelarCita(cita.id)" (cerrado)="confirmandoCancelacion = false" />
 }

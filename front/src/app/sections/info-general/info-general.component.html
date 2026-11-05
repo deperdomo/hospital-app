@@ -1,31 +1,30 @@
-<div class="container border rounded-lg relative p-4 my-6 bg-white">
-  <h2 class="text-sm font-semibold text-gray-800 mb-4">General</h2>
+<section class="card p-5 sm:p-6" aria-labelledby="ajustes-titulo">
+  <h2 id="ajustes-titulo" class="text-h3 text-ink-900">Ajustes de la cuenta</h2>
 
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-t pt-4 gap-4 sm:gap-0">
-
-    <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-      <span class="text-sm font-medium text-gray-700">Cambiar Contraseña</span>
-      <a href="/editarPassword" 
-        class="px-3 py-1 text-sm text-blue-700 border border-blue-400 rounded-md hover:bg-blue-50 transition duration-300" 
-        id="openModalBtn">
-        Cambiar
-      </a>
+  <div class="mt-4 divide-y divide-line-subtle border-t border-line-subtle">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 py-4">
+      <div>
+        <p class="font-medium text-ink-900">Contraseña</p>
+        <p class="text-meta text-ink-600">Cámbiala si crees que alguien más la conoce.</p>
+      </div>
+      <a href="/editarPassword" class="btn-secondary btn-sm self-start sm:self-auto" id="openModalBtn">Cambiar contraseña</a>
     </div>
 
-    <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-      <span class="text-sm font-medium text-gray-700">Notificaciones</span>
-      <label class="flex items-center cursor-pointer">
-        <span class="mr-2 text-sm text-gray-500">Activar Notificaciones</span>
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-4">
+      <div>
+        <p class="font-medium text-ink-900">Notificaciones</p>
+        <p class="text-meta text-ink-600">Avisos sobre tus citas.</p>
+      </div>
+      <!-- Interruptor: la casilla nativa (oculta) da el nombre y el estado; el carril es su hermano (peer). -->
+      <label class="inline-flex items-center gap-3 min-h-touch cursor-pointer self-start sm:self-auto">
+        <span class="text-body text-ink-700">Activar notificaciones</span>
         <input type="checkbox" class="sr-only peer" />
-        <div
-          class="w-10 h-5 bg-gray-300 rounded-full peer-checked:bg-blue-500 transition duration-300 relative"
-        >
-          <div
-            class="w-4 h-4 bg-white rounded-full absolute left-1 top-0.5 transition-transform duration-300 peer-checked:translate-x-5"
-          ></div>
-        </div>
+        <span aria-hidden="true"
+          class="relative inline-block w-11 h-6 flex-none rounded-pill bg-ink-400 transition-colors duration-200
+                 peer-checked:bg-brand-500 peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-2 peer-focus-visible:outline-brand-600
+                 after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow-card after:transition-transform after:duration-200
+                 peer-checked:after:translate-x-5"></span>
       </label>
     </div>
-    
   </div>
-</div>
+</section>

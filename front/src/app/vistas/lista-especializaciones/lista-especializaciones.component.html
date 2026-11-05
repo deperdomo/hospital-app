@@ -1,64 +1,43 @@
-<main id="contenido" tabindex="-1" class="flex justify-center items-center min-h-screen bg-gray-100">
-    <div class="flex flex-col p-5 w-full max-w-lg bg-white rounded-lg shadow-md">
-
-        <button type="button" aria-label="Volver" (click)="redirigirPaginaPerfil()"
-            class="w-10 h-10 border border-gray-400 rounded-full flex items-center justify-center text-2xl cursor-pointer transition duration-300 transform hover:bg-[#F6F6F6] hover:scale-110">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <g fill="none">
-                    <path
-                        d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" />
-                    <path fill="#000"
-                        d="M3.636 11.293a1 1 0 0 0 0 1.414l5.657 5.657a1 1 0 0 0 1.414-1.414L6.757 13H20a1 1 0 1 0 0-2H6.757l3.95-3.95a1 1 0 0 0-1.414-1.414z" />
-                </g>
-            </svg>
+<main id="contenido" tabindex="-1" class="min-h-screen px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+    <div class="mx-auto w-full max-w-content">
+        <button type="button" (click)="redirigirPaginaPerfil()" class="btn-secondary btn-sm">
+            <svg class="w-5 h-5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+            {{ mostrarEspecialidades ? 'Volver al inicio' : 'Volver a especialidades' }}
         </button>
-        @if (mostrarEspecialidades) {
-        <div class="container m-6 max-w-[90%] justify-center">
-            <h1 class="text-2xl font-semibold mb-5 text-center">Seleccione una Especialidad</h1>
-            <ul>
-                <li *ngFor="let especialidad of especialidad">
-                    <button type="button" (click)="verDoctores(especialidad.id)"
-                        class="block w-full p-5 max-w-lg bg-white rounded-lg shadow-md m-4 cursor-pointer text-center hover:bg-brand hover:text-[#ffffff]">
-                        {{especialidad.nombre}}
-                    </button>
-                </li>
-            </ul>
-        </div>
-        <!-- <div *ngIf="doctoresFiltrados.length>0" class="mt-6">
-            <div *ngFor="let doctor of  doctoresFiltrados">
-                <div>
-                    
-                    <p>{{doctor.nombre}}</p>
-                    <p>{{doctor.apellidos}}</p>
-                   
-                </div>
-            </div>
-        </div> *ngIf="!mostrarEspecialidades" -->
-        }
-        <div class="mt-6" *ngIf="!mostrarEspecialidades">
-            <h1 class="text-2xl font-semibold mb-5 text-center" *ngIf="doctoresFiltrados.length > 0">{{ tituloEspecialidad }}</h1>
-            <h1 *ngIf="doctoresFiltrados.length==0" class="text-2xl font-semibold mb-5 text-center">No disponemos de doctores</h1>
 
-            <div *ngFor="let doctor of doctoresFiltrados" 
-            class="flex items-center bg-white rounded-lg shadow-md m-2 p-4">
-       
-           <!-- Foto del Doctor -->
-           <div class="w-20 h-20 flex-shrink-0">
-               <img [src]="'img/doctores/' + doctor.fotoPerfil" width="80" height="80" loading="lazy" decoding="async" 
-                    alt="Foto de {{ doctor.nombre }}" 
-                    class="w-full h-full object-cover rounded-full">
-           </div>
-       
-           <!-- Información del Doctor -->
-           <div class="ml-4 flex-col justify-center">
-               <p class="font-semibold text-lg">{{ doctor.nombre }} {{ doctor.apellidos }}</p>
-               <p class="text-gray-600">{{ doctor.experiencia }} años de experiencia</p>
-               <p class="text-gray-600">Precio consulta: {{ doctor.precioConsulta}}€</p>
-           </div>
-       
-       </div>
-       
-      
-        </div>
+        @if (mostrarEspecialidades) {
+        <h1 class="mt-6 text-h2 sm:text-h1 text-ink-900">Selecciona una especialidad</h1>
+        <p class="mt-2 text-body-lg text-ink-600">Te mostramos los doctores que la atienden.</p>
+        <ul role="list" class="mt-6 grid gap-4 grid-cols-[repeat(auto-fill,minmax(min(100%,16rem),1fr))]">
+            @for (especialidad of especialidad; track especialidad.id) {
+            <li class="min-w-0">
+                <button type="button" (click)="verDoctores(especialidad.id)"
+                    class="card-interactive group w-full h-full min-h-[4.5rem] px-5 py-4 flex items-center justify-between gap-3 text-left hover:border-brand-500">
+                    <span class="flex items-center gap-3 min-w-0">
+                        <span class="flex-none grid place-items-center w-10 h-10 rounded-full bg-brand-50 text-brand-600" aria-hidden="true">
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+                        </span>
+                        <span class="text-body-lg font-semibold text-ink-900 break-words">{{ especialidad.nombre }}</span>
+                    </span>
+                    <svg class="w-5 h-5 flex-none text-brand-700 transition-transform group-hover:translate-x-0.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+                </button>
+            </li>
+            }
+        </ul>
+        } @else {
+            @if (doctoresFiltrados.length > 0) {
+            <h1 class="mt-6 text-h2 sm:text-h1 text-ink-900">{{ tituloEspecialidad }}</h1>
+            <h2 class="sr-only">Doctores disponibles</h2>
+            <ul role="list" class="mt-6 grid gap-5 grid-cols-[repeat(auto-fill,minmax(min(100%,17rem),1fr))]">
+                @for (doctor of doctoresFiltrados; track doctor.id) {
+                <li class="min-w-0"><app-info-doctor [doctor]="doctor" class="block h-full" /></li>
+                }
+            </ul>
+            } @else {
+            <h1 class="mt-6 text-h2 sm:text-h1 text-ink-900">No disponemos de doctores</h1>
+            <p class="mt-4 alert-info">Ahora mismo no hay doctores de esta especialidad. Prueba con otra o consulta el listado completo.</p>
+            <a href="/listaDoctores" class="btn-secondary mt-6">Ver todos los doctores</a>
+            }
+        }
     </div>
 </main>

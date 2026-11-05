@@ -1,34 +1,33 @@
+/* Navegación lateral (242 px desde sm, a toda la altura), cabecera y contenido; la página hace scroll normal.
+   Antes la rejilla medía exactamente 100vh con filas 15 % / 1fr: el contenido largo se salía por debajo
+   y la columna del menú se quedaba corta. minmax(0, 1fr) evita el desbordamiento a 320 px. */
 .body-profile {
-    height: 100vh;
+    min-height: 100vh;
     display: grid;
-    grid-template-columns: 242px 1fr;
-    grid-template-rows: 15% 1fr;
-    grid-template-areas: 
-    "zn     zh"
-    "zn     zs";
-}
-
-app-secundary-nav {
-    grid-area: zh;
+    grid-template-columns: 242px minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "zn zh"
+        "zn zs";
 }
 
 app-left-nav {
     grid-area: zn;
 }
 
+app-secundary-nav {
+    grid-area: zh;
+}
+
 .contenido {
     grid-area: zs;
-    /* background-color: #D0D0D0; */
 }
 
 @media (max-width: 640px) {
     .body-profile {
-        grid-template-columns: 1fr;
-        grid-template-areas: 
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
             "zh"
-            "zs"
-            "zf";
+            "zs";
     }
-    
-
 }

@@ -2,12 +2,11 @@
   <app-left-nav [perfil]="true" />
   <app-secundary-nav [titulo]="'Mi historial'" />
 
-  <main id="contenido" tabindex="-1" class="contenido">
-    <app-perfil-nav [selectedGeneral]="false"/>
-    <app-historial/>
+  <main id="contenido" tabindex="-1" class="contenido min-w-0 px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+    <div class="mx-auto max-w-content space-y-6">
+      <app-perfil-nav [selectedGeneral]="false"/>
+      <app-historial class="block"/>
+    </div>
   </main>
 
 </div>
-
-<!-- Overlay (Aparece cuando el menú está abierto) -->
-<div *ngIf="isLeftNavOpen" (click)="isLeftNavOpen = false" aria-hidden="true" class="fixed inset-0 bg-black bg-opacity-50 z-30"></div>

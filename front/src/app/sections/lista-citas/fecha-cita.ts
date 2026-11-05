@@ -8,6 +8,8 @@ export interface PartesFecha {
   dia: string;       // "07"
   mes: string;       // "nov"
   larga: string;     // "sábado, 7 de noviembre de 2026"
+  diaMes: string;    // "sábado 7 de noviembre"
+  hora: string;      // "10:30"
 }
 
 export function partesFecha(fecha: string): PartesFecha {
@@ -18,6 +20,8 @@ export function partesFecha(fecha: string): PartesFecha {
     dia: fmt({ day: '2-digit' }),
     mes: fmt({ month: 'short' }).replace('.', ''),
     larga: fmt({ weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }),
+    diaMes: fmt({ weekday: 'long', day: 'numeric', month: 'long' }).replace(',', ''),
+    hora: d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }),
   };
 }
 

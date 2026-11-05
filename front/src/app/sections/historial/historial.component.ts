@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { Doctor } from '../../models/doctor';
 import { InformesConmponent } from "./cita-historial/informes/informes.component";
 import { HttpClient } from '@angular/common/http';
+import { partesFecha } from '../lista-citas/fecha-cita';
 
 @Component({
   selector: 'app-historial',
@@ -229,6 +230,11 @@ export class HistorialComponent {
     // Llamamos al servicio para obtener todas las citas del usuario
    
   }
+  /** Encabezado de cada día de «Próximas»: "sábado, 7 de noviembre de 2026" (clave YYYY-MM-DD, en UTC como el resto). */
+  fechaLarga(fecha: string): string {
+    return partesFecha(fecha).larga;
+  }
+
   // recibo el objeto  para luego buscar la fecha  en el return
   filtrarOrdenarCitasProximas(citasProximas: { [fecha: string]: Cita[] }): string[] {
     return Object.keys(citasProximas)

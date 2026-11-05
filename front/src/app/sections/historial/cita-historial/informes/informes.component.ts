@@ -19,6 +19,7 @@ export class InformesConmponent implements OnInit {
   usuario: Usuario;
   doctor: Doctor;
   recetas: Receta[] = [];
+  cargando = true; // para no enseñar el aviso de «sin informe» antes de que responda la API
    cita!: Cita;  // Cita que llega del componente padre
 
   usuarios: boolean = false;
@@ -70,6 +71,7 @@ export class InformesConmponent implements OnInit {
         },
         error: (error) => {
           console.error('Error al obtener la cita:', error);
+          this.cargando = false;
         },
       });
     }
@@ -80,9 +82,11 @@ export class InformesConmponent implements OnInit {
       this.recetaService.getRecetaCita(this.usuario.id.toString(), cita.id.toString()).subscribe({
         next: (recetas) => {
           this.recetas = recetas;  // Asignar las recetas obtenidas
+          this.cargando = false;
         },
         error: (error) => {
           console.error('Error al obtener recetas del usuario:', error);
+          this.cargando = false;
         }
       });
     } else if (!this.usuarios && this.doctor?.id) {
@@ -90,13 +94,16 @@ export class InformesConmponent implements OnInit {
       this.recetaService.getRecetaCita(this.doctor.id.toString(), cita.id.toString()).subscribe({
         next: (recetas) => {
           this.recetas = recetas;  // Asignar las recetas obtenidas
+          this.cargando = false;
         },
         error: (error) => {
           console.error('Error al obtener recetas del doctor:', error);
+          this.cargando = false;
         }
       });
     } else {
       console.error('No se encontró ni un usuario ni un doctor para obtener recetas.');
+      this.cargando = false;
     }
   }
   navigateToProfile() {

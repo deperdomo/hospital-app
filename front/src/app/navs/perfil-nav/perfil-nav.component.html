@@ -1,30 +1,13 @@
-<div
-  class="container relative p-4 sm:p-6 md:p-8 lg:p-10 my-4 bg-white"
->
-  <nav aria-label="Secciones del perfil" class="flex flex-col sm:flex-row sm:space-x-6 space-y-2 sm:space-y-0 border-b border-gray-200 w-full">
-    <a 
-  href="/perfil" 
-  routerLink="/perfil"
-  routerLinkActive="text-brand border-b-2 border-brand" ariaCurrentWhenActive="page"
-  [ngClass]="{
-    'selected': selectedGeneral,
-    'pb-2 text-gray-500 hover:text-brand transition duration-300': true
-  }"
->
-  General
-</a>
-
-<a 
-  href="/perfilHistorial" 
-  routerLink="/perfilHistorial"
-  routerLinkActive="text-brand border-b-2 border-blue-600" ariaCurrentWhenActive="page"
-  [ngClass]="{
-    'selected': !selectedGeneral,
-    'pb-2 text-gray-500 hover:text-brand transition duration-300': true
-  }"
->
-  Historial de citas
-</a>
-
-  </nav>
-</div>
+<!-- Pestañas del perfil sobre el fondo de la página (antes iban en una banda blanca a todo el ancho).
+     La pestaña activa se marca con aria-current y el estilo cuelga de él: texto brand-700 en negrita
+     y filete inferior de 3 px (no depende solo del color). -->
+<nav aria-label="Secciones del perfil" class="border-b border-line">
+  <ul class="flex flex-wrap gap-x-2 -mb-px">
+    <li>
+      <a href="/perfil" [attr.aria-current]="selectedGeneral ? 'page' : null" class="pestana">General</a>
+    </li>
+    <li>
+      <a href="/perfilHistorial" [attr.aria-current]="selectedGeneral ? null : 'page'" class="pestana">Historial de citas</a>
+    </li>
+  </ul>
+</nav>

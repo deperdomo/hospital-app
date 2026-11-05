@@ -1,0 +1,7 @@
+.dato-etiqueta {
+    @apply text-meta font-medium text-ink-600;
+}
+
+.dato-valor {
+    @apply mt-0.5 text-body text-ink-900 break-words;
+}

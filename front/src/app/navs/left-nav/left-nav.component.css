@@ -1,1 +1,9 @@
-/* Estilos de la navegación lateral: todo con utilidades y la receta .nav-item (styles.css). */
+/* Estilos de la navegación lateral: todo con utilidades y la receta .nav-item (styles.css).
+   Desde sm el propio host es la columna de la rejilla de la página (grid-area: zn, en todas las filas):
+   se estira a toda la altura del contenido, así que el fondo blanco y el filete llegan hasta abajo
+   aunque la página sea más alta que la ventana (antes el menú fijo acababa a 100vh y asomaba el canvas). */
+@media (min-width: 640px) {
+  :host {
+    @apply block self-stretch bg-white border-r border-line-subtle;
+  }
+}

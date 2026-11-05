@@ -6,11 +6,10 @@ import { Doctor } from '../../models/doctor';
 import { EspecialidadService } from '../../services/especialidad.service';
 import { Especialidad } from '../../models/especialidad';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-lista-doctores',
-  imports: [CommonModule],
+  imports: [InfoDoctorComponent],
   templateUrl: './lista-especializaciones.component.html',
   styleUrl: './lista-especializaciones.component.css',
   providers: [DoctorService, EspecialidadService]

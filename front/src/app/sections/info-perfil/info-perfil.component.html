@@ -1,22 +1,24 @@
-<div class="flex items-center p-4 my-6 border rounded-lg text-gray-500 bg-white">
+<div class="card p-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5">
     @if (usuarios) {
-        <img [src]="'img/usuarios/' + usuario.fotoPerfil" class="w-16 h-16 rounded-full mr-3 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28" alt="Foto de perfil de Pepe dux">
-        <div class="text-sm">
-            <div class="font-medium leading-none text-gray-900 hover:text-indigo-600 transition duration-500 ease-in-out">
-                {{ usuario.nombre }} {{ usuario.apellidos }}
-            </div>
-            <p>{{ usuario.rol }}</p>
-            <p>{{ usuario.localidad }}, {{ usuario.provincia }}</p>
+        <img [src]="'img/usuarios/' + usuario.fotoPerfil" width="96" height="96" alt=""
+            class="w-20 h-20 sm:w-24 sm:h-24 flex-none rounded-full object-cover bg-brand-50">
+        <div class="min-w-0">
+            <p class="text-h3 text-ink-900 break-words">{{ usuario.nombre }} {{ usuario.apellidos }}</p>
+            <p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-2 text-ink-600">
+                <span class="tag capitalize">{{ usuario.rol }}</span>
+                <span class="break-words">{{ usuario.localidad }}, {{ usuario.provincia }}</span>
+            </p>
         </div>
     }
     @else  {
-        <img [src]="'img/doctores/' + doctor.fotoPerfil" class="w-16 h-16 rounded-full mr-3 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28" alt="Foto de perfil de Pepe dux">
-        <div class="text-sm">
-            <div class="font-medium leading-none text-gray-900 hover:text-indigo-600 transition duration-500 ease-in-out">
-                {{ doctor.nombre }} {{ doctor.apellidos }}
-            </div>
-            <p>{{ doctor.especialidad.nombre }}</p>
-            <p>{{ doctor.localidad }}, {{ doctor.provincia }}</p>
+        <img [src]="'img/doctores/' + doctor.fotoPerfil" width="96" height="96" alt=""
+            class="w-20 h-20 sm:w-24 sm:h-24 flex-none rounded-full object-cover bg-brand-50">
+        <div class="min-w-0">
+            <p class="text-h3 text-ink-900 break-words">{{ doctor.nombre }} {{ doctor.apellidos }}</p>
+            <p class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-2 text-ink-600">
+                <span class="tag">{{ doctor.especialidad.nombre }}</span>
+                <span class="break-words">{{ doctor.localidad }}, {{ doctor.provincia }}</span>
+            </p>
         </div>
     }
 </div>

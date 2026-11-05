@@ -6,7 +6,7 @@ import { DoctorService } from '../../../services/doctor.service';
 import { Usuario } from '../../../models/usuario';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { InformesConmponent } from "./informes/informes.component";
+
 
 
 @Component({

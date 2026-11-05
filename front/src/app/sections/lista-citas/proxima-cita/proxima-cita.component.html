@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="px-5 py-4 bg-surface-muted border-t border-line-subtle flex flex-col sm:flex-row gap-3 sm:justify-end">
-      <button type="button" class="btn-danger-outline" (click)="cancelarCita(cita.id)" [disabled]="cancelando"
+      <button type="button" class="btn-danger-outline" (click)="confirmandoCancelacion = true" [disabled]="cancelando" aria-haspopup="dialog"
         [attr.aria-label]="'Cancelar cita del ' + (cita.fecha | date: 'd/MM/yyyy HH:mm':'UTC')">
         {{ cancelando ? 'Cancelando…' : 'Cancelar cita' }}
       </button>
@@ -59,6 +59,12 @@
     </div>
   }
 </section>
+
+<!-- Confirmación antes de cancelar: Esc o «Volver» cierran y devuelven el foco a «Cancelar cita». -->
+@if (confirmandoCancelacion && cita) {
+  <app-confirmar-dialog [titulo]="preguntaCancelar" texto="La cita quedará cancelada y esa hora volverá a estar libre. No se puede deshacer."
+    [ocupado]="cancelando" (confirmado)="cancelarCita(cita.id)" (cerrado)="confirmandoCancelacion = false" />
+}
 
 @if (isModalDetalleCitaActivo && cita) {
   <app-detalle-cita [cita]="cita" (modalCerrado)="cerrarModal()" />

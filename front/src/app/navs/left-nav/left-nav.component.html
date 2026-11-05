@@ -12,9 +12,11 @@
 <div *ngIf="mobileMenuOpen" (click)="toggleMobileMenu()"
   class="fixed inset-0 z-30 bg-ink-900/50 sm:hidden transition-opacity duration-300"></div>
 
-<!-- Navegación lateral: fija desde sm, panel deslizante en móvil -->
+<!-- Navegación lateral: desde sm es una columna blanca a toda la altura de la página (el host, ver CSS)
+     con el menú pegado arriba (sticky, alto de la ventana); en móvil, panel deslizante fijo. -->
 <aside id="menu-lateral" [attr.inert]="isMobile && !mobileMenuOpen ? '' : null"
-  class="fixed top-0 left-0 z-40 flex flex-col h-full w-[min(18rem,85vw)] sm:w-[240px] px-4 py-6 overflow-y-auto bg-white border-r border-line-subtle transform transition-transform duration-300"
+  class="fixed top-0 left-0 z-40 flex flex-col h-full w-[min(18rem,85vw)] px-4 py-6 overflow-y-auto bg-white border-r border-line-subtle transform transition-transform duration-300
+         sm:sticky sm:h-screen sm:w-full sm:border-r-0"
   [ngClass]="mobileMenuOpen ? 'translate-x-0 shadow-overlay' : '-translate-x-full sm:translate-x-0'">
   <!-- Cerrar (móvil) -->
   <button type="button" (click)="toggleMobileMenu()" class="btn-icon absolute top-4 right-3 sm:hidden"

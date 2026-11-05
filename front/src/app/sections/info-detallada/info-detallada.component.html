@@ -1,98 +1,32 @@
-<div class="container border rounded-lg relative p-5 my-6 bg-white">
-  @if (usuarios) {
-  <div class="absolute top-4 right-4">
-    <a href="/editarPerfil"
-      class="flex items-center px-4 py-1 text-sm font-medium text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 hover:text-gray-800 transition duration-300"
-    >
-      Editar
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<section class="card p-5 sm:p-6" aria-labelledby="datos-personales-titulo">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <h2 id="datos-personales-titulo" class="text-h3 text-ink-900">Datos personales</h2>
+    <a href="/editarPerfil" class="btn-secondary btn-sm">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
           d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z" />
       </svg>
+      Editar perfil
     </a>
   </div>
 
-  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-6">
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Nombre</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.nombre}}</div>
-    </div>
-
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Fecha de Nacimiento</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.fechaNacimiento}}</div>
-    </div>
-
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Edad</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{calcularEdad(usuario.fechaNacimiento)}}</div>
-    </div>
-
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Número de Teléfono</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.telefono}}</div>
-    </div>
-
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Email</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.email}}</div>
-    </div>
-
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Sexo</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{usuario.sexo}}</div>
-    </div>
-  </div>
-} @else {
-
-  <div class="absolute top-4 right-4">
-    <a href="/editarPerfil"
-      class="flex items-center px-4 py-1 text-sm font-medium text-gray-600 border border-gray-300 rounded-md hover:bg-gray-100 hover:text-gray-800 transition duration-300"
-    >
-      Editar
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z" />
-      </svg>
-    </a>
-  </div>
-
-  <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 mt-6">
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Nombre</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.nombre}}</div>
-    </div>
-
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Email</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.email}}</div>
-    </div>
-
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Direccion</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.direccion}}</div>
-    </div>
-
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Experiencia</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.experiencia}}</div>
-    </div>
-
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Precio Consulta</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.precioConsulta}}</div>
-    </div>
-
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Votos</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.votos}}</div>
-    </div>
-
-    <div>
-      <div class="text-xs font-medium text-gray-600 uppercase">Sexo</div>
-      <div class="mt-2 text-sm font-medium text-gray-500">{{doctor.sexo}}</div>
-    </div>
-  </div>
-
-}
-</div>
+  <!-- Etiqueta en meta ink-600 (7,7:1) y valor en body ink-900: antes eran 12 px en mayúsculas y gris claro. -->
+  <dl class="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+    @if (usuarios) {
+      <div class="min-w-0"><dt class="dato-etiqueta">Nombre</dt><dd class="dato-valor">{{ usuario.nombre }}</dd></div>
+      <div class="min-w-0"><dt class="dato-etiqueta">Fecha de nacimiento</dt><dd class="dato-valor">{{ usuario.fechaNacimiento | date: 'd/MM/yyyy':'UTC' }}</dd></div>
+      <div class="min-w-0"><dt class="dato-etiqueta">Edad</dt><dd class="dato-valor">{{ calcularEdad(usuario.fechaNacimiento) }} años</dd></div>
+      <div class="min-w-0"><dt class="dato-etiqueta">Teléfono</dt><dd class="dato-valor">{{ usuario.telefono }}</dd></div>
+      <div class="min-w-0"><dt class="dato-etiqueta">Email</dt><dd class="dato-valor">{{ usuario.email }}</dd></div>
+      <div class="min-w-0"><dt class="dato-etiqueta">Sexo</dt><dd class="dato-valor first-letter:uppercase">{{ usuario.sexo }}</dd></div>
+    } @else {
+      <div class="min-w-0"><dt class="dato-etiqueta">Nombre</dt><dd class="dato-valor">{{ doctor.nombre }}</dd></div>
+      <div class="min-w-0"><dt class="dato-etiqueta">Email</dt><dd class="dato-valor">{{ doctor.email }}</dd></div>
+      <div class="min-w-0"><dt class="dato-etiqueta">Dirección</dt><dd class="dato-valor">{{ doctor.direccion }}</dd></div>
+      <div class="min-w-0"><dt class="dato-etiqueta">Experiencia</dt><dd class="dato-valor">{{ doctor.experiencia }} años</dd></div>
+      <div class="min-w-0"><dt class="dato-etiqueta">Precio de la consulta</dt><dd class="dato-valor">{{ doctor.precioConsulta }} €</dd></div>
+      <div class="min-w-0"><dt class="dato-etiqueta">Votos</dt><dd class="dato-valor">{{ doctor.votos }}</dd></div>
+      <div class="min-w-0"><dt class="dato-etiqueta">Sexo</dt><dd class="dato-valor first-letter:uppercase">{{ doctor.sexo }}</dd></div>
+    }
+  </dl>
+</section>

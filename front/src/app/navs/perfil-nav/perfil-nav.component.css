@@ -1,4 +1,6 @@
-.selected {
-    color: #2A7891;
-    font-weight: 500;
+/* Pestaña: 44 px de alto, ink-600 (7,7:1) en reposo; activa en brand-700 (9,6:1), negrita y filete de 3 px. */
+.pestana {
+    @apply inline-flex items-center min-h-touch px-3 border-b-[3px] border-transparent rounded-t-control
+           text-body font-medium text-ink-600 hover:text-ink-900 hover:border-line-strong
+           aria-[current=page]:border-brand-500 aria-[current=page]:text-brand-700 aria-[current=page]:font-semibold;
 }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Usuario } from '../../models/usuario';
 import { Doctor } from '../../models/doctor';
 
 
 @Component({
   selector: 'app-info-detallada',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './info-detallada.component.html',
   styleUrl: './info-detallada.component.css'
 })
