@@ -1,4 +1,5 @@
-<section aria-labelledby="recomendados-titulo">
+<!-- Contenedor de consulta: el nº de columnas depende del ancho de la sección, no de la ventana -->
+<section aria-labelledby="recomendados-titulo" class="[container-type:inline-size]">
   <div class="flex flex-wrap items-end justify-between gap-3">
     <div>
       <h2 id="recomendados-titulo" class="section-title">Doctores recomendados</h2>
@@ -10,7 +11,8 @@
     </a>
   </div>
 
-  <ul role="list" class="mt-6 grid gap-5 grid-cols-[repeat(auto-fill,minmax(min(100%,17rem),1fr))]">
+  <!-- Se piden 4: caben 4 desde 67.75rem; con 3 columnas (50.5–67.75rem) se oculta el 4º para no dejar uno suelto; en una columna (móvil, <33.25rem) solo 2 -->
+  <ul role="list" class="mt-6 grid gap-5 grid-cols-[repeat(auto-fill,minmax(min(100%,16rem),1fr))] [@container(min-width:50.5rem)_and_(max-width:67.74rem)]:[&>li:nth-child(4)]:hidden [@container(max-width:33.24rem)]:[&>li:nth-child(n+3)]:hidden">
     @for (doctor of doctores; track doctor.id) {
       <li class="min-w-0"><app-info-doctor [doctor]="doctor" class="h-full" /></li>
     }

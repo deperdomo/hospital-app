@@ -1,9 +1,10 @@
 <header class="bg-white border-b border-line-subtle">
-  <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 min-h-[4rem] py-2 pr-4 sm:pr-6">
-    <app-title-jakarta />
-    <nav aria-label="Acceso de usuarios" class="flex items-center gap-2">
-      <a href="/login" routerLink="/login" class="btn-secondary btn-sm px-3 sm:px-4">Iniciar sesión</a>
-      <a href="/registro" routerLink="/registro" class="btn-primary btn-sm px-3 sm:px-4">Registrarse</a>
+  <div class="flex items-center justify-between gap-2 min-h-[4rem] py-2 pr-3 sm:pr-6">
+    <!-- En móviles estrechos (<380px) solo el icono: la palabra no deja sitio a los dos botones -->
+    <app-title-jakarta class="max-[379px]:[&_span]:sr-only" />
+    <nav aria-label="Acceso de usuarios" class="flex shrink-0 items-center gap-1.5 sm:gap-2">
+      <a href="/login" routerLink="/login" class="btn-secondary btn-sm px-2.5 sm:px-4">Iniciar sesión</a>
+      <a href="/registro" routerLink="/registro" class="btn-primary btn-sm px-2.5 sm:px-4">Registrarse</a>
     </nav>
   </div>
 </header>

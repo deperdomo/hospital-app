@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CitaService } from '../../../../services/cita.service';
 import { Cita } from '../../../../models/cita';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,8 @@ export class NotificacionComponent {
   @Input() cita!: Cita;
   /** true: notificación de un doctor (muestra al paciente y marca visto_doctor). */
   @Input() paraDoctor = false;
+  @Output() leida = new EventEmitter<void>();
+  marcando = false;
 
   constructor(private citaService: CitaService) { }
 
@@ -24,18 +26,19 @@ export class NotificacionComponent {
     return partesFecha(this.cita.fecha).larga;
   }
 
-  ngOnInit() {
-    if (this.cita.id) {
-      const marcar$ = this.paraDoctor
-        ? this.citaService.marcarCitaComoVistaDoctor(this.cita.id)
-        : this.citaService.marcarCitaComoVista(this.cita.id);
-      marcar$.subscribe(
-        (cita: Cita) => {
-        },
-        error => {
-          console.error('Error al marcar la cita como vista', error);
-        }
-      );
-    }
+  /** Solo se marca como leída al pulsar el check; abrir o cerrar el panel no la marca. */
+  marcarLeida() {
+    if (!this.cita.id || this.marcando) return;
+    this.marcando = true;
+    const marcar$ = this.paraDoctor
+      ? this.citaService.marcarCitaComoVistaDoctor(this.cita.id)
+      : this.citaService.marcarCitaComoVista(this.cita.id);
+    marcar$.subscribe({
+      next: () => this.leida.emit(),
+      error: error => {
+        this.marcando = false;
+        console.error('Error al marcar la cita como vista', error);
+      }
+    });
   }
 }

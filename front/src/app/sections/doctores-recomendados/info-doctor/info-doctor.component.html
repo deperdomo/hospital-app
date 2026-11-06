@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <dl class="mt-5 grid grid-cols-3 gap-2 rounded-control bg-surface-muted p-3 text-center">
+  <dl class="mt-5 grid grid-cols-2 gap-2 rounded-control bg-surface-muted p-3 text-center">
     <div class="min-w-0">
       <dt class="text-meta text-ink-600">Horario</dt>
       <dd class="font-semibold text-ink-900">{{ horario() }}</dd>
@@ -19,15 +19,6 @@
     <div class="min-w-0">
       <dt class="text-meta text-ink-600">Desde</dt>
       <dd class="font-semibold text-ink-900">{{ doctor.precioConsulta }}&nbsp;€</dd>
-    </div>
-    <div class="min-w-0">
-      <dt class="text-meta text-ink-600">Votos</dt>
-      <dd class="font-semibold text-ink-900 inline-flex items-center gap-1">
-        <svg class="w-4 h-4 shrink-0 text-warning-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-          <path [attr.d]="svg.corazon"/>
-        </svg>
-        {{ doctor.votos }}
-      </dd>
     </div>
   </dl>
 

@@ -29,8 +29,8 @@
         </div>
       } @else {
         <ul role="list" class="divide-y divide-line-subtle">
-          @for (cita of citasNoVistas; track $index) {
-            <li><app-notificacion [cita]="cita" [paraDoctor]="idDoctor !== null" /></li>
+          @for (cita of citasNoVistas; track cita.id) {
+            <li><app-notificacion [cita]="cita" [paraDoctor]="idDoctor !== null" (leida)="quitarLeida(cita)" /></li>
           }
         </ul>
       }

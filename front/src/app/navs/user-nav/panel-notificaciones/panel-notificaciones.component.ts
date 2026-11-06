@@ -66,17 +66,18 @@ export class PanelNotificacionesComponent {
   }
 
   cerrarModal() {
-    this.getNotificaciones();
     this.mostrarModal = false;
-    this.quitarNotificaciones = true;
     document.body.classList.remove('overflow-hidden');
     this.modalCerrado.emit(this.mostrarModal);
-    this.notificaciones.emit(this.quitarNotificaciones);
   }
 
-  actualizarNotificaciones() {
-    this.quitarNotificaciones = true;
-    this.notificaciones.emit(this.quitarNotificaciones);
+  /** Quita la notificación marcada con el check; sin pendientes, se apaga el aviso de la campana. */
+  quitarLeida(cita: Cita) {
+    this.citasNoVistas = this.citasNoVistas.filter(c => c !== cita);
+    if (this.citasNoVistas.length === 0) {
+      this.quitarNotificaciones = true;
+      this.notificaciones.emit(this.quitarNotificaciones);
+    }
   }
 
 }
