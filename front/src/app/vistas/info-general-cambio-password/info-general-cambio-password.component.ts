@@ -1,3 +1,4 @@
+import { AVISO_CUENTA_DEMO, esCuentaDemo } from '../../shared/cuenta-demo';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario } from '../../models/usuario';
@@ -18,6 +19,8 @@ import { DoctorService } from '../../services/doctor.service';
   providers: [UsuarioService,DoctorService]
 })
 export class InfoGeneralCambioPasswordComponent {
+  readonly cuentaDemo = esCuentaDemo();
+  readonly avisoDemo = AVISO_CUENTA_DEMO;
   usuario: Usuario;
   repetirAntiguaPassword :string=''; //esta es la repeticion de la password
   antiguaPassword:string=''; //esta es la password antigua

@@ -34,20 +34,20 @@ public interface CitaRepository extends JpaRepository<Cita, Integer>{
 	@Query("SELECT c FROM Cita c WHERE c.usuario = ?1 and DATE(c.fecha) = ?2")
 	List<Cita> findByUsuarioAndFechaEquals(Usuario usuario, Date fecha);
 	
-	@Query("SELECT c FROM Cita c WHERE c.usuario = ?1 AND DATE(c.fecha) = ?2")
+	@Query("SELECT c FROM Cita c WHERE c.usuario = ?1 AND DATE(c.fecha) < ?2 ORDER BY c.fecha DESC")
 	List<Cita> findByFechaPasadas(Usuario usuario, Date fecha);
 
-	@Query("SELECT c FROM Cita c WHERE c.usuario = ?1 AND DATE(c.fecha) > ?2")
+	@Query("SELECT c FROM Cita c WHERE c.usuario = ?1 AND DATE(c.fecha) > ?2 ORDER BY c.fecha")
 	List<Cita> findByFechaGreaterThan(Usuario usuario, Date fecha);
 	
 	//para historial doctor
 	@Query("SELECT c FROM Cita c WHERE c.doctor = ?1 and DATE(c.fecha) = ?2")
 	List<Cita> findByDoctorAndFechaEquals(Doctor doctor, Date fecha);
 	
-	@Query("SELECT c FROM Cita c WHERE c.doctor = ?1 AND DATE(c.fecha) = ?2")
+	@Query("SELECT c FROM Cita c WHERE c.doctor = ?1 AND DATE(c.fecha) < ?2 ORDER BY c.fecha DESC")
 	List<Cita> findByFechaPasadasDoctor(Doctor doctor, Date fecha);
 
-	@Query("SELECT c FROM Cita c WHERE c.doctor = ?1 AND DATE(c.fecha) > ?2")
+	@Query("SELECT c FROM Cita c WHERE c.doctor = ?1 AND DATE(c.fecha) > ?2 ORDER BY c.fecha")
 	List<Cita> findByFechaDoctorGreaterThan(Doctor doctor, Date fecha);
 
 	

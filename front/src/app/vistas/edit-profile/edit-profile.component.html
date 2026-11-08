@@ -18,6 +18,9 @@
 
         <div>
             <h1 class="text-h2 text-ink-900 mb-6">Editar Perfil</h1>
+            @if (cuentaDemo) {
+              <p id="aviso-demo-editar" class="alert-info mb-5">{{ avisoDemo }}</p>
+            }
 
             <div id="editar-perfil-error" role="alert">
                 @if (errorMessage) {
@@ -112,7 +115,7 @@
         </div>
 
         <div class="flex justify-end mt-3">
-            <button type="button" class="btn-primary w-full sm:w-auto sm:px-10" (click)="editar()">Confirmar</button>
+            <button type="button" class="btn-primary w-full sm:w-auto sm:px-10" (click)="editar()" [disabled]="cuentaDemo" [attr.aria-describedby]="cuentaDemo ? 'aviso-demo-editar' : null">Confirmar</button>
         </div>
     </div>
 </main>

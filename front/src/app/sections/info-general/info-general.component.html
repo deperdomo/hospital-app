@@ -6,8 +6,15 @@
       <div>
         <p class="font-medium text-ink-900">Contraseña</p>
         <p class="text-meta text-ink-600">Cámbiala si crees que alguien más la conoce.</p>
+        @if (cuentaDemo) {
+          <p id="aviso-demo-password" class="mt-1 text-meta text-ink-700">No disponible en la cuenta de demostración.</p>
+        }
       </div>
-      <a href="/editarPassword" class="btn-secondary btn-sm self-start sm:self-auto" id="openModalBtn">Cambiar contraseña</a>
+      @if (cuentaDemo) {
+        <button type="button" class="btn-secondary btn-sm self-start sm:self-auto" disabled aria-describedby="aviso-demo-password">Cambiar contraseña</button>
+      } @else {
+        <a href="/editarPassword" class="btn-secondary btn-sm self-start sm:self-auto" id="openModalBtn">Cambiar contraseña</a>
+      }
     </div>
 
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-4">

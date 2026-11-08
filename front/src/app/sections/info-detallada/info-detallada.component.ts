@@ -1,3 +1,4 @@
+import { AVISO_CUENTA_DEMO, esCuentaDemo } from '../../shared/cuenta-demo';
 import { Component } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Usuario } from '../../models/usuario';
@@ -11,6 +12,8 @@ import { Doctor } from '../../models/doctor';
   styleUrl: './info-detallada.component.css'
 })
 export class InfoDetalladaComponent {
+  readonly cuentaDemo = esCuentaDemo();
+  readonly avisoDemo = AVISO_CUENTA_DEMO;
   usuario: Usuario;
   edad:number=0;
   doctor:Doctor;

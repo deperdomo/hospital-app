@@ -85,7 +85,7 @@ export class IndexDoctoresComponent implements OnInit {
     this.proximas = pendientes.filter(c => dia(t(c)) > hoyKey).slice(0, 5);
     this.pendientesSemana = pendientes.filter(c => dia(t(c)) >= hoyKey && dia(t(c)) <= domingoKey).length;
 
-    for (const cita of this.citasHoy.filter(c => c.estado === 'terminada')) {
+    for (const cita of this.citasHoy.filter(c => c.estado === 'terminada' || this.enCurso(c))) {
       this.recetaService.obtenerCitaReceta(String(cita.id)).subscribe({
         next: tiene => this.conReceta[cita.id] = tiene,
         error: () => delete this.conReceta[cita.id],

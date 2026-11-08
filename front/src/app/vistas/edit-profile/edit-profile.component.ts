@@ -1,3 +1,4 @@
+import { AVISO_CUENTA_DEMO, esCuentaDemo } from '../../shared/cuenta-demo';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router'
@@ -17,6 +18,8 @@ import { CommonModule } from '@angular/common';
   providers: [UsuarioService,DoctorService]
 })
 export class EditProfileComponent {
+  readonly cuentaDemo = esCuentaDemo();
+  readonly avisoDemo = AVISO_CUENTA_DEMO;
   usuario: Usuario;
   errorMessage: string = '';
   successMessage: string = '';

@@ -61,175 +61,38 @@ export class HistorialComponent {
      }
 
   }
-  obtenerCitas(id: number) { // Función modificada
-    //transforma en cadena de texto y la T es separador de fecha y hora 
-    // Obtenemos la fecha actual en formato "YYYY-MM-DD"
-    const fechaActual = new Date().toISOString().split('T')[0];
-    const ayer = new Date();
-    ayer.setDate(ayer.getDate() - 1);
-    //const dia = new Date().toISOString().split('T')[0];
-    //console.log("Dia de hoy nuevo console log", dia)
-    const optenerCitasAyer = ayer.toISOString().split('T')[0];
-   if (this.usuarios) {
-    this.citaService.getCitasUsuario(id.toString()).subscribe({
+  /**
+   * Una sola petición (citas del paciente o del doctor) y clasificación en el cliente:
+   * antes de hoy → pasadas (más reciente primero), hoy → actuales, después → próximas por día.
+   * Las fechas se comparan en UTC, como el resto de la app (se guardan sin zona horaria).
+   */
+  obtenerCitas(id: number) {
+    const hoy = new Date().toISOString().slice(0, 10);
+    const citas$ = this.usuarios
+      ? this.citaService.getCitasUsuario(id.toString())
+      : this.citaService.getCitasDoctor(id.toString());
+    citas$.subscribe({
       next: (citas) => {
-
-      
-        // Clasificamos las citas en actuales, pasadas y próximas
-        this.citasActuales = [];
         this.citasPasadas = [];
+        this.citasActuales = [];
         this.citasProximas = [];
-
-        citas.forEach(cita => {
-
-          const fechaCita = new Date(cita.fecha).toISOString().split('T')[0];
-          if (fechaCita === optenerCitasAyer) {
-
-            this.citasPasadas.push(cita); // Si la cita es pasada
-
-          } else if (fechaCita === fechaActual) {
-
-            this.citasActuales.push(cita); // Si la cita es actual
+        this.citasAgrupadas = {};
+        for (const cita of [...citas].sort((a, b) => new Date(a.fecha).getTime() - new Date(b.fecha).getTime())) {
+          const dia = new Date(cita.fecha).toISOString().slice(0, 10);
+          if (dia < hoy) {
+            this.citasPasadas.unshift(cita);
+          } else if (dia === hoy) {
+            this.citasActuales.push(cita);
           } else {
-
-            
-            if (fechaCita > fechaActual) {
-              if (!this.citasAgrupadas[fechaCita]) {
-                this.citasAgrupadas[fechaCita] = [];
-              }
-              this.citasAgrupadas[fechaCita].push(cita);
-            }
+            this.citasProximas.push(cita);
+            (this.citasAgrupadas[dia] ??= []).push(cita);
           }
-        });
-        
-        if (this.citasActuales.length) {
-
-          this.citaService.getCitasActuales(id.toString(), fechaActual).subscribe({
-            next: (citasActuales) => {
-
-              this.citasActuales = citasActuales;
-
-
-            },
-            error: (error) => {
-              console.error("Error al obtener citas actuales desde el backend:", error);
-            }
-          });
-        }
-
-        if (this.citasPasadas.length) {
-          //cambiado aqui
-          this.citaService.getCitasPasadas(id.toString(), optenerCitasAyer).subscribe({
-            next: (citasPasadas) => {
-              this.citasPasadas = citasPasadas;
-
-
-            },
-            error: (error) => {
-              console.error("Error al obtener citas pasadas desde el backend:", error);
-            }
-          });
-        }
-
-        if (this.citasProximas.length) { 
-          this.citaService.getCitasProximas(id.toString(), fechaActual).subscribe({
-            next: (citasProximas) => {
-              this.citasProximas = citasProximas;
-
-            },
-            error: (error) => {
-              console.error("Error al obtener citas próximas desde el backend:", error);
-            }
-          });
-
         }
       },
-      error: (error) => {
-        console.error("Error al obtener las citas del usuario:", error);
-      }
+      error: (error) => console.error('Error al obtener las citas:', error),
     });
-   } else {
-    this.citaService.getCitasDoctor(id.toString()).subscribe({
-      next: (citas) => {
-
-      
-        // Clasificamos las citas en actuales, pasadas y próximas
-        this.citasActuales = [];
-        this.citasPasadas = [];
-        this.citasProximas = [];
-
-        citas.forEach(cita => {
-
-          const fechaCita = new Date(cita.fecha).toISOString().split('T')[0];
-          if (fechaCita === optenerCitasAyer) {
-
-            this.citasPasadas.push(cita); // Si la cita es pasada
-
-          } else if (fechaCita === fechaActual) {
-
-            this.citasActuales.push(cita); // Si la cita es actual
-          } else {
-
-            
-            if (fechaCita > fechaActual) {
-              if (!this.citasAgrupadas[fechaCita]) {
-                this.citasAgrupadas[fechaCita] = [];
-              }
-              this.citasAgrupadas[fechaCita].push(cita);
-            }
-          }
-        });
-        
-        if (this.citasActuales.length) {
-
-          this.citaService.getCitasActualesDoctor(id.toString(), fechaActual).subscribe({
-            next: (citasActuales) => {
-
-              this.citasActuales = citasActuales;
-
-
-            },
-            error: (error) => {
-              console.error("Error al obtener citas actuales desde el backend:", error);
-            }
-          });
-        }
-
-        if (this.citasPasadas.length) {
-          //cambiado aqui
-          this.citaService.getCitasPasadasDoctor(id.toString(), optenerCitasAyer).subscribe({
-            next: (citasPasadas) => {
-              this.citasPasadas = citasPasadas;
-
-
-            },
-            error: (error) => {
-              console.error("Error al obtener citas pasadas desde el backend:", error);
-            }
-          });
-        }
-
-        if (this.citasProximas.length) { 
-          this.citaService.getCitasProximasDoctor(id.toString(), fechaActual).subscribe({
-            next: (citasProximas) => {
-              this.citasProximas = citasProximas;
-
-            },
-            error: (error) => {
-              console.error("Error al obtener citas próximas desde el backend:", error);
-            }
-          });
-
-        }
-      },
-      error: (error) => {
-        console.error("Error al obtener las citas del usuario:", error);
-      }
-    });
-   }
-    // Llamamos al servicio para obtener todas las citas del usuario
-   
   }
+
   /** Encabezado de cada día de «Próximas»: "sábado, 7 de noviembre de 2026" (clave YYYY-MM-DD, en UTC como el resto). */
   fechaLarga(fecha: string): string {
     return partesFecha(fecha).larga;

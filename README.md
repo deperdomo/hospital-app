@@ -197,10 +197,10 @@ La página de login muestra dos cuentas pensadas para probar la web, con datos q
 
 `back/src/main/resources/bd/demo_reset.sql` recrea los pacientes de demo con citas **relativas a hoy** y restablece la contraseña y el horario de `ana`:
 
-- `demo`: una cita hoy, cuatro próximas, dos terminadas con historial y receta, una cancelada y 2 notificaciones sin leer.
+- `demo`: una cita hoy, cuatro próximas, cuatro terminadas con informe y receta, una cancelada y 2 notificaciones sin leer. Las citas que caerían en fin de semana se mueven al día laborable más cercano.
 - La doctora `ana`: su agenda se llena además con dos pacientes de relleno (`marta.demo` y `pablo.demo`, sin contraseña conocida), con citas hoy, mañana y la semana que viene, y 3 notificaciones de reservas nuevas sin leer.
 
-Como las fechas se calculan desde la fecha del día, la demo nunca se queda sin citas futuras. El backend no permite cambiar la contraseña ni el perfil de estas dos cuentas. En el servidor, un cron lo ejecuta cada día:
+Como las fechas se calculan desde la fecha del día, la demo nunca se queda sin citas futuras. El backend no permite cambiar la contraseña ni el perfil de estas dos cuentas, y la interfaz lo avisa antes de intentarlo. En el servidor, un cron lo ejecuta cada día:
 
 ```cron
 30 3 * * * docker exec -i hospital-db psql -q -U hospital -d hospital_jakarta -v ON_ERROR_STOP=1 < /ruta/a/hospital-app/back/src/main/resources/bd/demo_reset.sql
@@ -272,7 +272,6 @@ Las contribuciones son bienvenidas. Por favor:
 
 ## 🐛 Problemas Conocidos
 
-- Pendiente implementar autenticación JWT
 - Falta sistema de notificaciones en tiempo real
 - Necesita implementar paginación en listados
 

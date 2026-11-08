@@ -1,3 +1,4 @@
+import { AVISO_CUENTA_DEMO, esCuentaDemo } from '../../shared/cuenta-demo';
 import { Component } from '@angular/core';
 import { Usuario } from '../../models/usuario';
 
@@ -8,5 +9,7 @@ import { Usuario } from '../../models/usuario';
   styleUrl: './info-general.component.css'
 })
 export class InfoGeneralComponent {
+  readonly cuentaDemo = esCuentaDemo();
+  readonly avisoDemo = AVISO_CUENTA_DEMO;
   
 }

@@ -5,13 +5,14 @@ import { Doctor } from '../../../models/doctor';
 import { DoctorService } from '../../../services/doctor.service';
 import { Usuario } from '../../../models/usuario';
 import { Router } from '@angular/router';
+import { EstadoBadgeComponent } from '../../lista-citas/estado-badge/estado-badge.component';
 import { CommonModule } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-cita-historial',
-  imports: [CommonModule],
+  imports: [CommonModule, EstadoBadgeComponent],
   templateUrl: './cita-historial.component.html',
   styleUrl: './cita-historial.component.css',
 

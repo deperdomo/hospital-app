@@ -1,6 +1,15 @@
 <section class="card p-5 sm:p-6" aria-labelledby="datos-personales-titulo">
   <div class="flex flex-wrap items-center justify-between gap-3">
     <h2 id="datos-personales-titulo" class="text-h3 text-ink-900">Datos personales</h2>
+    @if (cuentaDemo) {
+    <button type="button" class="btn-secondary btn-sm" disabled aria-describedby="aviso-demo-perfil">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z" />
+      </svg>
+      Editar perfil
+    </button>
+    } @else {
     <a href="/editarPerfil" class="btn-secondary btn-sm">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -8,7 +17,11 @@
       </svg>
       Editar perfil
     </a>
+    }
   </div>
+  @if (cuentaDemo) {
+    <p id="aviso-demo-perfil" class="alert-info mt-4">{{ avisoDemo }}</p>
+  }
 
   <!-- Etiqueta en meta ink-600 (7,7:1) y valor en body ink-900: antes eran 12 px en mayúsculas y gris claro. -->
   <dl class="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
