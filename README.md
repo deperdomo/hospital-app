@@ -2,9 +2,11 @@
 
 # 🏥 Hospital Management System
 
-### *Gestión Hospitalaria Moderna e Inteligente*
+### *Clínica Jakarta: citas médicas para pacientes y doctores*
 
-<img src="front/public/project_img/user_dashboard.png" alt="Hospital Management System Dashboard" width="750"/>
+**[🌐 Ver la demo en vivo](https://hospital-jakarta.deiviperdomo.dev)**
+
+<img src="front/public/project_img/user_dashboard.png" alt="Panel del paciente con su próxima cita y sus próximas citas" width="750"/>
 
 <br/>
 
@@ -16,20 +18,30 @@
 
 ## 📋 Descripción
 
-Una aplicación web completa para la gestión hospitalaria que permite administrar pacientes, médicos, citas médicas y otros recursos del hospital de manera eficiente y moderna. Desarrollada con las últimas tecnologías y mejores prácticas de la industria.
+Aplicación web para una clínica: los pacientes buscan doctores y reservan citas, y los doctores gestionan su agenda, sus informes y sus recetas.
+
+## 🌐 Demo en vivo
+
+Entra en **https://hospital-jakarta.deiviperdomo.dev** con una de estas cuentas. Las citas se regeneran cada noche, así que siempre hay datos al día.
+
+| Rol | Usuario | Contraseña |
+|-----|---------|------------|
+| Paciente | `demo` | `demo1234` |
+| Doctora (marcar «Soy Doctor») | `ana` | `ana` |
 
 ## ✨ Características Principales
 
 | Funcionalidad | Descripción |
 |--------------|-------------|
-| 👥 **Gestión de Pacientes** | Registro, consulta y actualización completa de información de pacientes |
-| 👨‍⚕️ **Gestión de Médicos** | Administración de personal médico, especialidades y horarios |
-| 📅 **Sistema de Citas** | Programación inteligente y seguimiento de citas médicas |
-| 🔌 **API REST** | Backend robusto con documentación automática Swagger/OpenAPI |
-| 🎨 **Interfaz Moderna** | Frontend responsive y accesible con Tailwind CSS |
-| 💾 **Base de Datos** | Persistencia confiable y escalable con PostgreSQL 16 |
-| 🔒 **Seguridad** | Validación de datos y arquitectura segura |
-| 📱 **Responsive** | Diseño adaptable a todos los dispositivos |
+| 🔎 **Búsqueda de doctores** | Por especialidad y localidad, con doctores recomendados |
+| 📅 **Reserva de citas** | Calendario con las horas libres de cada doctor, pago a elegir y cancelación con confirmación |
+| 🗓️ **Agenda del doctor** | Citas de hoy, cita en curso, próximas citas, horario mensual y disponibilidad |
+| 📄 **Informes y recetas** | El doctor registra diagnóstico, tratamiento y receta; el paciente los consulta en su historial |
+| 🔔 **Notificaciones** | Avisos de citas para pacientes y de reservas nuevas para doctores |
+| 🔒 **Seguridad** | JWT, contraseñas con BCrypt y permisos por rol y por recurso |
+| ♿ **Accesibilidad** | Sin violaciones de axe (WCAG 2.2 AA) en las 14 rutas principales |
+| 📱 **Responsive** | Diseño adaptado a móvil, tableta y escritorio |
+| 🔌 **API REST** | Documentación Swagger/OpenAPI opcional, desactivada por defecto |
 
 ## 🛠️ Stack Tecnológico
 
@@ -48,7 +60,6 @@ Seguridad: Spring Security + JWT (HS256), BCrypt
 Build Tool: Maven
 Utilidades:
   - Lombok
-  - Bean Validation
   - OpenAPI/Swagger
 ```
 
@@ -60,11 +71,12 @@ Utilidades:
 ```yaml
 Framework: Angular 19
 Lenguaje: TypeScript
-Estilos: Tailwind CSS
+Estilos: Tailwind CSS con tokens de diseño propios
 Reactividad: RxJS
 Build Tool: Angular CLI
 Características:
-  - Componentes modulares
+  - Componentes standalone
+  - Rutas con carga diferida
   - Diseño responsive
 ```
 
@@ -79,16 +91,20 @@ hospital-app/
 ├── back/                    # Backend (Spring Boot)
 │   ├── src/
 │   │   ├── main/java/
+│   │   ├── main/resources/bd/   # Esquema, datos de demo y migraciones
 │   │   └── test/java/
+│   ├── Dockerfile
 │   ├── pom.xml
 │   └── mvnw
 ├── front/                   # Frontend (Angular)
-│   ├── src/
-│   │   ├── app/
-│   │   ├── assets/
-│   │   └── index.html
+│   ├── src/app/
+│   ├── public/              # Imágenes y estáticos
+│   ├── Dockerfile
+│   ├── nginx.conf
 │   ├── package.json
 │   └── angular.json
+├── docker-compose.yml
+├── .env.example
 └── README.md
 ```
 
@@ -188,17 +204,10 @@ El resto de peticiones llevan `Authorization: Bearer <token>`. Sin token solo se
 
 ### Cuentas de demostración
 
-La página de login muestra dos cuentas pensadas para probar la web, con datos que siempre están al día:
-
-| Rol | Usuario | Contraseña |
-|-----|---------|------------|
-| Paciente | `demo` | `demo1234` |
-| Doctora (marcar «Soy Doctor») | `ana` | `ana` |
-
-`back/src/main/resources/bd/demo_reset.sql` recrea los pacientes de demo con citas **relativas a hoy** y restablece la contraseña y el horario de `ana`:
+La página de login muestra las dos cuentas de la [demo en vivo](#-demo-en-vivo). `back/src/main/resources/bd/demo_reset.sql` recrea los pacientes de demo con citas **relativas a hoy** y restablece la contraseña y el horario de `ana`:
 
 - `demo`: una cita hoy, cuatro próximas, cuatro terminadas con informe y receta, una cancelada y 2 notificaciones sin leer. Las citas que caerían en fin de semana se mueven al día laborable más cercano.
-- La doctora `ana`: su agenda se llena además con dos pacientes de relleno (`marta.demo` y `pablo.demo`, sin contraseña conocida), con citas hoy, mañana y la semana que viene, y 3 notificaciones de reservas nuevas sin leer.
+- La doctora `ana`: su agenda se llena además con dos pacientes de relleno (`marta.demo` y `pablo.demo`, sin contraseña conocida), con citas hoy, mañana y la semana que viene, informes de citas terminadas y 3 notificaciones de reservas nuevas sin leer.
 
 Como las fechas se calculan desde la fecha del día, la demo nunca se queda sin citas futuras. El backend no permite cambiar la contraseña ni el perfil de estas dos cuentas, y la interfaz lo avisa antes de intentarlo. En el servidor, un cron lo ejecuta cada día:
 
@@ -215,34 +224,12 @@ Otros usuarios de demo: paciente `carlos` / `password789`, doctora `ana` / `ana`
 
 ## 🧪 Testing
 
-<table>
-<tr>
-<td width="50%">
-
-### Backend Tests
 ```bash
 cd back
 ./mvnw test
-
-# Con cobertura
-./mvnw test jacoco:report
 ```
 
-</td>
-<td width="50%">
-
-### Frontend Tests
-```bash
-cd front
-npm test
-
-# Con cobertura
-npm run test:coverage
-```
-
-</td>
-</tr>
-</table>
+De momento el backend solo comprueba que el contexto de Spring arranca, y el frontend no tiene tests unitarios.
 
 ---
 
@@ -260,24 +247,24 @@ Las contribuciones son bienvenidas. Por favor:
 
 ### Backend
 - Uso de **Lombok** para reducir boilerplate
-- Validaciones con **Bean Validation**
-- Nomenclatura en inglés para entidades y servicios
-- Documentación con **JavaDoc**
+- Nomenclatura en español para entidades y servicios
+- Comprobaciones de acceso centralizadas en `Acceso`
 
 ### Frontend
 - Seguir **Angular Style Guide**
 - Uso de **TypeScript** estricto
-- Componentes modulares y reutilizables
-- Estilos con **Tailwind CSS**
+- Componentes standalone y reutilizables
+- Estilos con **Tailwind CSS** y las clases base de `styles.css`
 
 ## 🐛 Problemas Conocidos
 
-- Falta sistema de notificaciones en tiempo real
-- Necesita implementar paginación en listados
+- Las notificaciones se actualizan al cargar la página, no en tiempo real
+- Los listados no tienen paginación
+- La cobertura de tests es mínima
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
+Este proyecto está bajo la Licencia MIT.
 
 ---
 
@@ -324,21 +311,21 @@ Si tienes alguna pregunta o problema, por favor:
 <table>
   <tr>
     <td align="center">
-      <img src="front/public/project_img/user_dashboard.png" alt="Dashboard de Usuario" width="400"/>
+      <img src="front/public/project_img/user_dashboard.png" alt="Panel del paciente" width="400"/>
       <br />
-      <sub><b>Dashboard Principal</b></sub>
+      <sub><b>Panel del paciente</b></sub>
     </td>
     <td align="center">
-      <img src="front/public/project_img/user_cita1.png" alt="Gestión de Citas 1" width="400"/>
+      <img src="front/public/project_img/user_cita1.png" alt="Calendario para elegir fecha y hora de la cita" width="400"/>
       <br />
-      <sub><b>Agendar Cita</b></sub>
+      <sub><b>Reservar cita</b></sub>
     </td>
   </tr>
   <tr>
     <td align="center" colspan="2">
-      <img src="front/public/project_img/user_cita2.png" alt="Gestión de Citas 2" width="400"/>
+      <img src="front/public/project_img/user_cita2.png" alt="Lista de citas del paciente" width="400"/>
       <br />
-      <sub><b>Mis Citas Programadas</b></sub>
+      <sub><b>Mis citas</b></sub>
     </td>
   </tr>
 </table>
@@ -348,21 +335,21 @@ Si tienes alguna pregunta o problema, por favor:
 <table>
   <tr>
     <td align="center">
-      <img src="front/public/project_img/doctor_dashboard.png" alt="Dashboard de Doctor" width="400"/>
+      <img src="front/public/project_img/doctor_dashboard.png" alt="Agenda de hoy del doctor" width="400"/>
       <br />
-      <sub><b>Dashboard del Médico</b></sub>
+      <sub><b>Agenda de hoy</b></sub>
     </td>
     <td align="center">
-      <img src="front/public/project_img/doctor_calendar.png" alt="Calendario del Doctor" width="400"/>
+      <img src="front/public/project_img/doctor_calendar.png" alt="Horario mensual del doctor" width="400"/>
       <br />
-      <sub><b>Calendario de Citas</b></sub>
+      <sub><b>Horario del mes</b></sub>
     </td>
   </tr>
   <tr>
     <td align="center" colspan="2">
-      <img src="front/public/project_img/doctor_profile.png" alt="Perfil del Doctor" width="400"/>
+      <img src="front/public/project_img/doctor_profile.png" alt="Perfil del doctor" width="400"/>
       <br />
-      <sub><b>Perfil Profesional</b></sub>
+      <sub><b>Perfil del doctor</b></sub>
     </td>
   </tr>
 </table>
