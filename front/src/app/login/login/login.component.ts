@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -12,13 +12,19 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css',
   providers: [AuthService]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
   isDoctor: boolean = false;
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
+
+  /** /login?demo=paciente|doctor (botones de la portada) entra directamente con la cuenta demo. */
+  ngOnInit() {
+    const demo = this.route.snapshot.queryParamMap.get('demo');
+    if (demo === 'paciente' || demo === 'doctor') this.entrarDemo(demo);
+  }
 
   /** Rellena el formulario con una cuenta de demostración (ver bd/demo_reset.sql) y entra. */
   entrarDemo(tipo: 'paciente' | 'doctor') {
