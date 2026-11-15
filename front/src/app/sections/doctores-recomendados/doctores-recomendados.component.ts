@@ -19,7 +19,7 @@ export class DoctoresRecomendadosComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.doctorService.getXDoctors(4).subscribe(
+    this.doctorService.getXDoctors(3).subscribe(
       (doctores: Doctor[]) => {
         //console.log('Doctores recomendados:', doctores);
         if (doctores.length > 0) {
